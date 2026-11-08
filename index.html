@@ -1183,7 +1183,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
                                 <div>
-                                    <h5 class="font-bold text-blue-300 text-lg">v2.6.0</h5>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.6.1</h5>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
                                         <li>기존 버전의 버그 해결</li>
                                         <li>모던·심플 화면 디자인을 다크·라이트 테마에서도 지원</li>
@@ -1253,11 +1253,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">글꼴</h5>
                                 <label class="block space-y-1"><span class="text-sm">시스템 글꼴</span><select id="system-font-family-select" class="glass-input w-full appearance-none"><option value="font-system">기본 시스템 글꼴</option><option value="font-pretendard">Pretendard</option><option value="font-gowun">Gowun Dodum</option><option value="font-notosanskr">Noto Sans KR</option><option value="font-nanum">Nanum Gothic</option><option value="font-jua">Jua</option><option value="font-blackhan">Black Han Sans</option></select></label>
-                                <p class="text-xs text-gray-400">시스템 글꼴은 설정 메뉴와 화면 전체에 적용됩니다.</p>
                             </div>
                             <div class="glass-section p-4">
                                 <label class="glass-checkbox-label"><input id="fullscreen-on-start" type="checkbox" class="glass-checkbox-input"><span class="glass-checkbox-box"></span><span class="text-sm">시작할 때 자동으로 전체 화면 전환</span></label>
-                                <p class="text-xs text-gray-400 mt-2">브라우저가 자동 전체 화면을 허용하지 않는 경우에는 전체 화면 버튼을 눌러 전환하세요.</p>
+                                <p class="text-xs text-gray-400 mt-2">자동 전환을 허용하지 않는 경우에는 버튼을 눌러 전환하세요.</p>
                             </div>
                                                     <div class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">하단 학교 정보</h5>
@@ -1267,10 +1266,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                         </div>
                         <div id="broadcasts-view" class="settings-view hidden space-y-4">
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">긴급·예약 방송 설정</h4>
-                            <p class="text-sm text-gray-300">학교 pill을 가리키면 긴급 방송 버튼이 나타납니다. 알림마다 이름과 표시 기간, 색, 글꼴을 정할 수 있습니다. pill에는 입력한 메시지만 표시됩니다.</p>
-                            <section class="glass-section p-4 space-y-3"><div><h5 class="font-semibold">알림 타임라인</h5><p class="text-xs text-white/60 mt-1">드래그 앤 드롭 또는 위·아래 버튼으로 순서를 바꿉니다. 긴급 버튼과 같은 시각에 도착한 알림 순서에 적용됩니다.</p></div><div id="broadcast-timeline-list"></div></section>
+                            <p class="text-sm text-gray-300"></p>
+                            <section class="glass-section p-4 space-y-3"><div><h5 class="font-semibold">알림 타임라인</h5><p class="text-xs text-white/60 mt-1">드래그 앤 드롭 또는 위·아래 버튼으로 순서 변경</p></div><div id="broadcast-timeline-list"></div></section>
                             <section class="glass-section p-4 space-y-4">
-                                <div><h5 class="font-semibold">긴급·예약 메시지</h5><p class="text-xs text-white/60 mt-1">긴급 메시지는 하단 바에서 즉시 표시되고 예약 메시지는 지정한 시각에 표시됩니다.</p></div>
+                                <div><h5 class="font-semibold">긴급·예약 메시지</h5><p class="text-xs text-white/60 mt-1">예약 메시지는 지정한 시각에 표시됩니다.</p></div>
                                 <div class="broadcast-settings-grid">
                                     <label class="block space-y-1 text-sm">방송 방식<select id="broadcast-mode-select" class="glass-input w-full"><option value="urgent">긴급 방송 버튼</option><option value="scheduled">예약 방송</option></select></label>
                                     <label class="block space-y-1 text-sm">긴급 종류<select id="broadcast-category-select" class="glass-input w-full"><option value="공습">공습</option><option value="화재">화재</option><option value="지진">지진</option><option value="기타">기타 긴급 방송</option></select></label>
@@ -1286,13 +1285,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <div class="flex items-center justify-between gap-3 flex-wrap"><div id="broadcast-preview" class="broadcast-preview font-family-notosanskr" style="background:#dc2626;color:#fff">방송 메시지 미리보기</div><div class="flex gap-2"><button id="broadcast-cancel-edit-btn" type="button" class="glass-button" hidden>편집 취소</button><button id="broadcast-save-message-btn" type="button" class="glass-button">메시지 저장</button></div></div>
                                 <p id="broadcast-form-status" class="text-xs text-white/60 min-h-4" aria-live="polite"></p><div id="broadcast-message-list" class="space-y-2"></div>
                             </section>
-                            <section class="glass-section p-4 space-y-4"><div><h5 class="font-semibold">음성 안내 (TTS)</h5><p class="text-xs text-white/60 mt-1">현재 기기와 브라우저에 설치되어 제공되는 음성 엔진과 목소리를 사용합니다.</p></div>
+                            <section class="glass-section p-4 space-y-4"><div><h5 class="font-semibold">음성 안내 (TTS)</h5><p class="text-xs text-white/60 mt-1"></p></div>
                                 <label class="glass-checkbox-label"><input id="broadcast-tts-enabled" type="checkbox" class="glass-checkbox-input"><span class="glass-checkbox-box"></span><span class="text-sm">방송 메시지를 TTS로 읽기</span></label>
                                 <div class="broadcast-settings-grid"><label class="block space-y-1 text-sm">TTS 엔진<select id="broadcast-tts-engine" class="glass-input w-full"><option value="auto">사용 가능한 모든 엔진</option></select></label><label class="block space-y-1 text-sm">목소리<select id="broadcast-tts-voice" class="glass-input w-full"><option value="">기본 목소리</option></select></label></div>
                                 <div class="flex items-center gap-3 flex-wrap"><button id="broadcast-tts-preview-btn" type="button" class="glass-button">목소리 미리 듣기</button><span id="broadcast-tts-status" class="text-xs text-white/60" aria-live="polite"></span></div>
                             </section>
-                            <section class="glass-section p-4 space-y-4"><div><h5 class="font-semibold">효과음</h5><p class="text-xs text-white/60 mt-1">각 브라우저에 내장된 Web Audio 기능으로 효과음을 만들어 방송 메시지와 함께 재생합니다.</p></div>
-                                <label class="glass-checkbox-label"><input id="broadcast-sound-enabled" type="checkbox" class="glass-checkbox-input"><span class="glass-checkbox-box"></span><span class="text-sm">기본 효과음 사용 (알림별 설정 적용)</span></label>
+                            <section class="glass-section p-4 space-y-4"><div><h5 class="font-semibold">효과음</h5><p class="text-xs text-white/60 mt-1">방송 메시지와 함께 재생합니다.</p></div>
+                                <label class="glass-checkbox-label"><input id="broadcast-sound-enabled" type="checkbox" class="glass-checkbox-input"><span class="glass-checkbox-box"></span><span class="text-sm">기본 효과음 사용</span></label>
                                 <div class="broadcast-settings-grid"><label class="block space-y-1 text-sm">효과음<select id="broadcast-sound-type" class="glass-input w-full"><option value="siren">사이렌</option><option value="bell">종소리</option><option value="chime">차임</option><option value="beep">알림음</option></select></label><label class="block space-y-1 text-sm">음량 <span id="broadcast-sound-volume-label">50%</span><input id="broadcast-sound-volume" type="range" min="0" max="100" value="100" class="glass-input w-full"></label></div>
                                 <div class="flex items-center gap-3 flex-wrap"><button id="broadcast-sound-preview-btn" type="button" class="glass-button">효과음 미리 듣기</button><span id="broadcast-sound-status" class="text-xs text-white/60" aria-live="polite"></span></div>
                             </section>
@@ -1302,7 +1301,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                     <label class="broadcast-day-label"><input type="checkbox" data-bell-day="1" checked> 월</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="2" checked> 화</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="3" checked> 수</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="4" checked> 목</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="5" checked> 금</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="6"> 토</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="0"> 일</label>
                                     <label class="ml-auto flex items-center gap-2">교시 수<input id="broadcast-period-count" type="number" min="1" max="12" value="7" class="glass-input w-20"></label></div>
                                 <div id="broadcast-period-list" class="space-y-2"></div>
-                                <div class="glass-section p-3 space-y-3"><div><h6 class="font-semibold">급식 시간</h6><p class="text-xs text-white/60 mt-1">교시와 겹치지 않는 쉬는 시간으로 설정하세요.</p></div>
+                                <div class="glass-section p-3 space-y-3"><div><h6 class="font-semibold">급식 시간</h6><p class="text-xs text-white/60 mt-1">수업 시간과 겹치지 않는 시간으로 설정하세요.</p></div>
                                     <div class="broadcast-settings-grid"><label class="block space-y-1 text-sm">시작<input id="broadcast-lunch-start" type="time" class="glass-input w-full"></label><label class="block space-y-1 text-sm">종료<input id="broadcast-lunch-end" type="time" class="glass-input w-full"></label></div><div id="broadcast-grade-list" class="space-y-2"></div>
                                 </div><p id="broadcast-bell-status" class="text-xs text-white/60" aria-live="polite"></p>
                             </section>
@@ -1311,15 +1310,15 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div class="p-4 space-y-5">
                                 <section class="theme-settings glass-section p-4" aria-labelledby="theme-settings-title">
                                     <div class="flex items-center justify-between gap-4">
-                                        <div><h4 id="theme-settings-title" class="font-semibold">화면 테마</h4><p class="text-sm text-white/60 mt-1">화면 테마를 다크/라이트/날씨로 변경 할 수 있습니다.</p></div>
+                                        <div><h4 id="theme-settings-title" class="font-semibold">화면 테마</h4><p class="text-sm text-white/60 mt-1">화면 테마를 변경 할 수 있습니다.</p></div>
                                         <div class="theme-picker" role="group" aria-label="화면 테마 선택">
                                             <button type="button" class="theme-choice" data-theme-choice="dark" aria-pressed="true"><span aria-hidden="true">☾</span> 다크</button>
                                             <button type="button" class="theme-choice" data-theme-choice="light" aria-pressed="false"><span aria-hidden="true">☼</span> 라이트</button>
                                             <button type="button" class="theme-choice" data-theme-choice="weather" aria-pressed="false"><span aria-hidden="true">☁</span> 날씨</button>
                                         </div>
                                     </div>
-                                    <div class="weather-design-control flex items-center justify-between gap-4 mt-4"><div><h5 class="font-semibold">화면 디자인</h5><p class="text-xs text-white/60 mt-1">모든 테마에서 기본·모던·심플 레이아웃을 선택합니다.</p></div><div class="theme-picker" role="group" aria-label="화면 디자인 선택"><button type="button" class="weather-design-choice" data-weather-design-choice="default" aria-pressed="true">기본</button><button type="button" class="weather-design-choice" data-weather-design-choice="modern" aria-pressed="false">모던</button><button type="button" class="weather-design-choice" data-weather-design-choice="simple" aria-pressed="false">심플</button></div></div>
-                                    <div class="flex items-center justify-between gap-4 mt-3"><div><h5 class="font-semibold">상단 일정 알림</h5><p class="text-xs text-white/60 mt-1">켜면 일정 화면이 자동 전환에서 제외됩니다.</p></div><label class="glass-checkbox-label"><input type="checkbox" id="schedule-pills-toggle" class="glass-checkbox-input" aria-label="상단 일정 알림 표시"><span class="glass-checkbox-box"></span><span class="text-sm">표시</span></label></div>
+                                    <div class="weather-design-control flex items-center justify-between gap-4 mt-4"><div><h5 class="font-semibold">화면 디자인</h5><p class="text-xs text-white/60 mt-1">레이아웃 선택</p></div><div class="theme-picker" role="group" aria-label="화면 디자인 선택"><button type="button" class="weather-design-choice" data-weather-design-choice="default" aria-pressed="true">기본</button><button type="button" class="weather-design-choice" data-weather-design-choice="modern" aria-pressed="false">모던</button><button type="button" class="weather-design-choice" data-weather-design-choice="simple" aria-pressed="false">심플</button></div></div>
+                                    <div class="flex items-center justify-between gap-4 mt-3"><div><h5 class="font-semibold">상단 일정 알림</h5><p class="text-xs text-white/60 mt-1">일정 화면이 자동 전환에서 제외됨.</p></div><label class="glass-checkbox-label"><input type="checkbox" id="schedule-pills-toggle" class="glass-checkbox-input" aria-label="상단 일정 알림 표시"><span class="glass-checkbox-box"></span><span class="text-sm">표시</span></label></div>
                                 </section>
                                 <section class="weather-settings-panel glass-section p-4 space-y-4" aria-labelledby="weather-scene-title">
                                     <div><h4 id="weather-scene-title" class="font-semibold">실시간 날씨 배경</h4><p class="text-sm text-white/60 mt-1"></p></div>
@@ -1339,12 +1338,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                       <label class="block space-y-1 text-sm">수동 시간대<select id="weather-time" class="glass-input w-full"><option value="auto">현재 시간</option><option value="dawn">새벽</option><option value="sunrise">일출</option><option value="day">낮</option><option value="sunset">일몰</option><option value="night">밤</option><option value="timeline">타임라인</option></select></label>
                                       <label class="block space-y-1 text-sm">강수<select id="weather-kind" class="glass-input w-full"><option value="none">없음</option><option value="rain">비</option><option value="snow">눈</option></select></label>
                                     </div>
-                                    <div id="weather-timeline-controls" class="weather-control-grid" hidden><label class="block space-y-1 text-sm">타임라인 한 바퀴 (분)<input id="weather-timeline-duration" class="glass-input w-full" type="number" min="1" max="1440" step="1" value="120"></label><p class="text-xs text-white/60 self-center">타임라인 선택시 일출부터 다음 일출까지 하늘이 반복되고, 낮에는 맑음→비→맑음→눈→맑음 순서로 바뀝니다.</p></div>
+                                    <div id="weather-timeline-controls" class="weather-control-grid" hidden><label class="block space-y-1 text-sm">타임라인 한 바퀴 (분)<input id="weather-timeline-duration" class="glass-input w-full" type="number" min="1" max="1440" step="1" value="120"></label><p class="text-xs text-white/60 self-center">타임라인 선택시 지정된 순서대로 날씨와 시간 변경됨.</p></div>
                                     <label class="block space-y-1 text-sm">천구 회전 속도 <span id="weather-rotation-value">10%</span><input id="weather-rotation-speed" type="range" min="0" max="300" step="10" value="10" aria-label="천구 회전 속도 조절" class="glass-input w-full"></label>
-                                    <p id="weather-detail" class="text-xs text-white/60">별도 설정이 없을 경우 Open-Meteo 공개 날씨 API를 사용합니다. 위치 접근 없이 기본 대구 좌표로 시작합니다.</p>
+                                    <p id="weather-detail" class="text-xs text-white/60">Open-Meteo 공개 날씨 API를 사용합니다. 대구 좌표로 시작합니다.</p>
                                 </section>
                                 <h3 id="screen-transition-title" class="text-lg font-semibold border-b border-white/30 pb-2 flex items-center gap-2">
-                                    <span class="settings-section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></span> 화면 모드 (전환 타이밍)
+                                    <span class="settings-section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></span> 화면 모드
                                 </h3>
 
                                 <div id="transition-settings-container" class="space-y-4 transition-all duration-300">
@@ -1398,16 +1397,16 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                         <label class="glass-checkbox-label">
                                             <input type="checkbox" id="low-performance-mode" class="glass-checkbox-input" /> 
                                             <span class="glass-checkbox-box"></span>
-                                            <span class="text-sm text-yellow-200 font-semibold">저사양 기기 모드 (투명/배경 애니메이션 끄기)</span>
+                                            <span class="text-sm text-yellow-200 font-semibold">저사양 기기 모드</span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="p-4 space-y-3">
-                                <h3 class="text-lg font-semibold border-b border-white/30 pb-2">콘텐츠 편집 및 UI 스타일</h3>
+                                <h3 class="text-lg font-semibold border-b border-white/30 pb-2">콘텐츠 및 UI 스타일</h3>
                                 <button id="open-custom-text-btn" class="glass-button w-full flex justify-between items-center">
-                                    <span>커스텀 메시지 설정 및 스타일</span>
+                                    <span>메시지 설정 및 스타일</span>
                                     <span class="text-xl">&gt;</span>
                                 </button>
                                 <button id="open-schedule-edit-btn" class="glass-button w-full flex justify-between items-center">
@@ -1631,7 +1630,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
                             <div id="info-version" class="info-tab-content hidden">
                                 <h5 class="font-semibold">버전</h5>
-                                <p id="app-version-text" class="text-gray-300" data-version="2.6.0">2.6.0</p>
+                                <p id="app-version-text" class="text-gray-300" data-version="2.6.1">2.6.1</p>
                             </div>
                         </div>
                         
@@ -1862,7 +1861,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             }
             if (persist) {
                 try { localStorage.setItem('dashboardSchedulePillsEnabled', isEnabled ? '1' : '0'); }
-                catch (error) { console.warn('상단 일정 알림 설정을 저장하지 못했습니다.', error); }
+                catch (error) { console.warn('알림 설정을 저장하지 못했습니다.', error); }
             }
             try { updateSimpleSchedulePills(true); } catch (error) {}
         }
