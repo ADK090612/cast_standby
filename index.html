@@ -1174,7 +1174,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <button id="save-update-settings-btn" class="glass-button w-full mt-2">알림 설정 저장</button>
                             </div>
 
-                            <p class="text-xs text-gray-400 mt-2 text-center">* 깃허브(adk090612.github.io/cast_stanby/)의 원본 코드와 비교하여 업데이트를 확인합니다.</p>
+                            <p class="text-xs text-gray-400 mt-2 text-center">* 깃허브(adk090612.github.io/cast_standby/)의 원본 코드와 비교하여 업데이트를 확인합니다.</p>
                         </div>
 
                         <div id="release-notes-view" class="settings-view hidden space-y-4">
@@ -1915,8 +1915,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         const updateIllustrationMarkup = updateIllustration ? updateIllustration.innerHTML : '';
         const systemFontFamilySelect = document.getElementById('system-font-family-select');
 
-        const UPDATE_URL = 'https://adk090612.github.io/cast_stanby/';
-        const REPO_URL = 'https://github.com/adk090612/cast_stanby';
+        const UPDATE_URL = 'https://adk090612.github.io/cast_standby/';
+        const REPO_URL = 'https://github.com/adk090612/cast_standby';
 
         let showPastSchedules = false; // 이전 일정 보기 상태 변수
 
@@ -4561,7 +4561,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             toggle.setAttribute('aria-label', '알림 목록 열기');
         }
     });
-    function addCustomNotification(type, title, message, githubUrl = 'https://github.com/adk090612/cast_stanby') {
+    function addCustomNotification(type, title, message, githubUrl = 'https://github.com/adk090612/cast_standby') {
         if (appNotifications.some(n => n.message === message)) return;
 
         const id = 'notif-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
@@ -4662,7 +4662,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     window.alert = function(message) {
         const msg = String(message);
         if (msg.includes('업데이트') || msg.includes('버전') || msg.includes('update')) {
-            addCustomNotification('update', '업데이트 안내', msg, 'https://github.com/adk090612/cast_stanby'); 
+            addCustomNotification('update', '업데이트 안내', msg, 'https://github.com/adk090612/cast_standby'); 
         } else if (msg.includes('급식') || msg.includes('연동')) {
             addCustomNotification('meal', '정보 연동 알림', msg);
         } else if (msg.includes('연결') || msg.includes('인터넷') || msg.includes('오프라인') || msg.includes('네트워크')) {
