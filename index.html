@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" href="./icon-192.png">
     <title>ADK Dash</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Nanum+Gothic:wght@400;700;800&family=Gowun+Dodum&family=Jua&family=Black+Han+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Nanum+Gothic:wght@400;700;800&family=Gowun+Dodum&family=Jua&family=Black+Han+Sans&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700;800&family=Oxanium:wght@400;500;600;700;800&family=Share+Tech+Mono&family=DM+Mono:wght@400;500&family=Roboto+Mono:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=Baloo+2:wght@400;500;600;700;800&family=Comfortaa:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&family=Audiowide&family=Michroma&family=Oswald:wght@400;500;600;700&family=Bebas+Neue&family=Teko:wght@400;500;600;700&family=Anton&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
     <style>
         body {
@@ -704,6 +704,42 @@
           :root[data-weather-design="modern"] #meal-screen > div:first-of-type > .glass-card { left:16px; right:16px; width:auto; }
           :root[data-weather-design="modern"] #weather-modern-date { font-size:clamp(.55rem,1.4vw,.7rem); }
         }
+
+        #default-clock-widget.clock-layout-applied { display:flex!important; flex-direction:column; align-items:center; justify-content:center; gap:.08em; text-align:center; white-space:nowrap; }
+        .clock-layout-applied { box-sizing:border-box!important; max-width:none!important; margin:0!important; transform:none!important; }
+        #weather-modern-clock.clock-layout-applied #weather-modern-date { position:static!important; inset:auto!important; width:auto!important; margin-top:.08em!important; text-align:center!important; }
+        #simple-weather-clock.clock-layout-applied #simple-weather-time,
+        #simple-weather-clock.clock-layout-applied #simple-weather-date { position:static!important; inset:auto!important; width:100%!important; margin:.04em 0!important; text-align:center!important; }
+        #clock-layout-editor { position:fixed; inset:0; z-index:100000; pointer-events:none; touch-action:none; }
+        #clock-layout-editor[hidden] { display:none!important; }
+        #clock-layout-editor .clock-editor-box { position:fixed; border:2px solid #67e8f9; border-radius:5px; box-shadow:0 0 0 9999px rgba(0,0,0,.16),0 0 18px rgba(34,211,238,.48); pointer-events:auto; touch-action:none; cursor:move; }
+        #clock-layout-editor .clock-editor-settings { position:fixed; top:calc(var(--safe-top) + 18px); left:50%; transform:translateX(-50%); display:flex; flex-wrap:wrap; justify-content:center; gap:8px; width:min(760px,calc(100vw - 24px)); padding:12px; border:1px solid var(--standby-glass-border,rgba(255,255,255,.24)); border-radius:18px; color:#fff; background:rgba(8,16,28,.82); -webkit-backdrop-filter:blur(24px) saturate(150%); backdrop-filter:blur(24px) saturate(150%); box-shadow:inset 0 1px 1px rgba(255,255,255,.16),0 8px 26px rgba(0,0,0,.2); pointer-events:auto; }
+        #clock-layout-editor .clock-editor-setting { flex:1 1 165px; min-width:130px; display:flex; flex-direction:column; gap:4px; font:500 11px/1.2 'Noto Sans KR',sans-serif; }
+        #clock-layout-editor .clock-editor-setting select { min-width:0; width:100%; padding:8px 10px; border:1px solid rgba(255,255,255,.18); border-radius:10px; color:#fff; background:rgba(255,255,255,.1); font:500 12px 'Noto Sans KR',sans-serif; }
+        #clock-layout-editor .clock-editor-setting input[type="range"] { width:100%; accent-color:#67e8f9; }
+        #clock-layout-editor .clock-editor-setting option { color:#fff; background:#172033; }
+        :root[data-theme="light"] #clock-layout-editor .clock-editor-settings { color:#202b3d; background:rgba(247,249,252,.88); border-color:rgba(45,60,82,.15); }
+        :root[data-theme="light"] #clock-layout-editor .clock-editor-setting select { color:#202b3d; background:rgba(255,255,255,.8); border-color:rgba(45,60,82,.16); }
+        :root[data-theme="light"] #clock-layout-editor .clock-editor-setting option { color:#202b3d; background:#fff; }
+        @media(max-width:640px) { #clock-layout-editor .clock-editor-settings { top:calc(var(--safe-top) + 8px); gap:6px; padding:8px; border-radius:14px; } #clock-layout-editor .clock-editor-setting { flex-basis:calc(50% - 6px); min-width:120px; } #clock-layout-editor .clock-editor-setting:last-child { flex-basis:100%; } }
+        #clock-layout-editor .clock-editor-label { position:absolute; left:0; top:-34px; padding:5px 9px; border-radius:8px; color:#fff; background:rgba(8,16,28,.88); font:600 12px/1.2 'Noto Sans KR',sans-serif; white-space:nowrap; pointer-events:none; }
+        #clock-layout-editor .clock-editor-handle { position:absolute; width:14px; height:14px; border:2px solid #fff; border-radius:50%; background:#06b6d4; box-shadow:0 1px 6px rgba(0,0,0,.45); touch-action:none; }
+        #clock-layout-editor .clock-editor-handle[data-resize~="n"] { top:-8px; left:calc(50% - 7px); cursor:n-resize; }
+        #clock-layout-editor .clock-editor-handle[data-resize~="s"] { bottom:-8px; left:calc(50% - 7px); cursor:s-resize; }
+        #clock-layout-editor .clock-editor-handle[data-resize~="e"] { right:-8px; top:calc(50% - 7px); cursor:e-resize; }
+        #clock-layout-editor .clock-editor-handle[data-resize~="w"] { left:-8px; top:calc(50% - 7px); cursor:w-resize; }
+        #clock-layout-editor .clock-editor-handle[data-resize="nw"] { left:-8px; top:-8px; cursor:nw-resize; }
+        #clock-layout-editor .clock-editor-handle[data-resize="ne"] { right:-8px; top:-8px; cursor:ne-resize; }
+        #clock-layout-editor .clock-editor-handle[data-resize="sw"] { left:-8px; bottom:-8px; cursor:sw-resize; }
+        #clock-layout-editor .clock-editor-handle[data-resize="se"] { right:-8px; bottom:-8px; cursor:se-resize; }
+        #clock-layout-editor .clock-editor-actions { position:fixed; left:50%; bottom:calc(var(--safe-bottom) + 18px); transform:translateX(-50%); display:flex; align-items:center; gap:8px; padding:8px; border:0; border-radius:999px; background:transparent; pointer-events:auto; }
+        #clock-layout-editor .clock-editor-actions button { width:44px; height:44px; display:grid; place-items:center; padding:0; border:1px solid var(--standby-glass-border,rgba(255,255,255,.24)); border-radius:999px; color:#fff; background:var(--standby-glass-bg,rgba(255,255,255,.14)); -webkit-backdrop-filter:blur(24px) saturate(150%); backdrop-filter:blur(24px) saturate(150%); box-shadow:inset 0 1px 1px var(--standby-glass-highlight,rgba(255,255,255,.16)),0 6px 18px var(--standby-glass-shadow,rgba(0,0,0,.16)); font:600 11px/1 'Noto Sans KR',sans-serif; cursor:pointer; transition:transform .2s,background .2s,box-shadow .2s; }
+        #clock-layout-editor .clock-editor-actions button:hover { transform:translateY(-1px); background:rgba(255,255,255,.23); box-shadow:inset 0 1px 1px rgba(255,255,255,.2),0 8px 22px rgba(0,0,0,.16); }
+        #clock-layout-editor .clock-editor-actions button:active { transform:scale(.97); }
+        :root[data-theme="light"] #clock-layout-editor .clock-editor-actions button { color:#202b3d; background:rgba(255,255,255,.66); border-color:rgba(45,60,82,.16); }
+        #clock-layout-editor .clock-editor-actions button[data-action="save"] { color:#fff; background:rgba(14,116,144,.82); }
+        #clock-layout-editor .clock-editor-actions svg { width:19px; height:19px; display:block; }
+        @media(max-width:640px) { #clock-layout-editor .clock-editor-handle { width:18px; height:18px; } #clock-layout-editor .clock-editor-handle[data-resize="nw"],#clock-layout-editor .clock-editor-handle[data-resize="ne"],#clock-layout-editor .clock-editor-handle[data-resize="sw"],#clock-layout-editor .clock-editor-handle[data-resize="se"] { width:18px;height:18px; } }
         #meal-screen > div:first-of-type > .glass-card { height:fit-content; max-height:none!important; overflow:visible!important; }
         #meal-screen #meal-content,
         #meal-screen > div:first-of-type > .glass-card > div:last-child { overflow:visible!important; }
@@ -1193,6 +1229,18 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
                                 <div>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.6.4</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>각 디자인에서 시계를 사각형으로 이동·크기 조절하고 위치를 저장하는 기능 추가</li>
+                                        <li>시계 이동·크기 조절 중 화면 중앙축과 가장자리에 자석 정렬 지원</li>
+                                        <li>구름을 이루는 원의 크기를 다양화하고 배치를 촘촘하게 조정</li>
+                                        <li>날씨 전환 시 잔디 형상 재생성과 구름 스프라이트 일괄 갱신을 줄여 프레임 부하 완화</li>
+                                        <li>시계 전용 숫자 글꼴, 초 표시와 한국식·미국식 날짜 형식 선택 지원</li>
+                                        <li>시계 글꼴에 동글동글한 스타일, 캡슐형 스타일, 세로로 길쭉한 스타일 선택지 추가</li>
+                                        <li>시계 편집 화면과 설정에서 자동·화이트·파스텔 색상 및 투명도 조절 지원</li>
+                                    </ul>
+                                </div>
+                                <div class="pt-2 border-t border-white/10">
                                     <h5 class="font-bold text-blue-300 text-lg">v2.6.3</h5>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
                                         <li>자동 업데이트 설정 추가 및 활성화·비활성화 지원</li>
@@ -1278,6 +1326,21 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                     <label class="space-y-2"><span class="flex justify-between text-sm"><span>아래쪽 여백</span><span><b id="margin-bottom-value">0</b>%</span></span><input id="margin-bottom" type="range" min="0" max="20" step="1" value="0" class="glass-input w-full"></label>
                                     <label class="space-y-2"><span class="flex justify-between text-sm"><span>왼쪽 여백</span><span><b id="margin-left-value">0</b>%</span></span><input id="margin-left" type="range" min="0" max="20" step="1" value="0" class="glass-input w-full"></label>
                                     <label class="space-y-2"><span class="flex justify-between text-sm"><span>오른쪽 여백</span><span><b id="margin-right-value">0</b>%</span></span><input id="margin-right" type="range" min="0" max="20" step="1" value="0" class="glass-input w-full"></label>
+                                </div>
+                            </div>
+                            <div class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">시계 크기와 위치</h5>
+                                <p class="text-sm text-gray-300">시계를 사각형으로 조절하고 이동할 수 있습니다. 화면 가장자리와 가로·세로 중앙에 가까워지면 자석처럼 맞춰집니다.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <button id="clock-layout-open-btn" type="button" class="glass-button">시계 조절</button>
+                                    <button id="clock-layout-reset-btn" type="button" class="glass-button">현재 디자인 기본값으로 초기화</button>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-white/10">
+                                    <label class="block space-y-1 text-sm">시계 숫자 글꼴<select id="clock-font-select" class="glass-input w-full appearance-none"><option value="system">시스템 숫자</option><optgroup label="동글동글한 스타일"><option value="Baloo 2">Baloo 2 · 통통하고 둥근</option><option value="Fredoka">Fredoka · 부드럽고 귀여운</option><option value="Nunito">Nunito · 둥근 모던</option><option value="Comfortaa">Comfortaa · 원형 기하</option></optgroup><optgroup label="캡슐·알약형 스타일"><option value="Audiowide">Audiowide · 캡슐 디지털</option><option value="Oxanium">Oxanium · 라운드 테크</option><option value="Exo 2">Exo 2 · 둥근 기하</option><option value="Orbitron">Orbitron · SF 디지털</option></optgroup><optgroup label="세로로 길쭉한 스타일"><option value="Teko">Teko · 길쭉한 디지털</option><option value="Bebas Neue">Bebas Neue · 슬림 타이틀</option><option value="Oswald">Oswald · 응축형</option><option value="Barlow Condensed">Barlow Condensed · 세로 응축형</option><option value="Rajdhani">Rajdhani · 슬림 테크</option></optgroup><optgroup label="모노·계기판 스타일"><option value="Space Grotesk">Space Grotesk · 모던</option><option value="Michroma">Michroma · 기계적 기하</option><option value="Share Tech Mono">Share Tech Mono · 계기판</option><option value="DM Mono">DM Mono · 미니멀 모노</option><option value="Roboto Mono">Roboto Mono · 모노스페이스</option><option value="Anton">Anton · 굵은 디스플레이</option></optgroup></select></label>
+                                    <label class="block space-y-1 text-sm">시계 시간 형식<select id="clock-time-format-select" class="glass-input w-full appearance-none"><option value="hm">시:분 · 12:34</option><option value="hms">시:분:초 · 12:34:56</option></select></label>
+                                    <label class="block space-y-1 text-sm sm:col-span-2">날짜 표기<select id="clock-date-format-select" class="glass-input w-full appearance-none"><option value="ko">한국식 · 2026년 11월 16일</option><option value="us">미국식 · 11/16/2026</option></select></label>
+                                    <label class="block space-y-1 text-sm">시계 색상<select id="clock-color-select" class="glass-input w-full appearance-none"><option value="auto">자동 · 배경에 맞춤</option><option value="white">화이트</option><option value="pastel-yellow">파스텔 옐로</option><option value="pastel-pink">파스텔 핑크</option><option value="pastel-blue">파스텔 블루</option><option value="pastel-mint">파스텔 민트</option><option value="pastel-lavender">파스텔 라벤더</option></select></label>
+                                    <label class="block space-y-1 text-sm">시계 투명도 <span id="clock-opacity-value">100%</span><input id="clock-opacity-range" type="range" min="20" max="100" step="5" value="100" class="w-full accent-cyan-300"></label>
                                 </div>
                             </div>
                             <div class="glass-section p-4 space-y-3">
@@ -1660,7 +1723,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
                             <div id="info-version" class="info-tab-content hidden">
                                 <h5 class="font-semibold">버전</h5>
-                                <p id="app-version-text" class="text-gray-300" data-version="2.6.3">2.6.3</p>
+                                <p id="app-version-text" class="text-gray-300" data-version="2.6.4">2.6.4</p>
                             </div>
                         </div>
                         
@@ -1689,8 +1752,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     <div id="weather-screen" class="screen p-4 sm:p-8">
         
         <div class="max-w-4xl w-full text-center space-y-8">
-            <p id="current-date" class="text-2xl sm:text-3xl font-extrabold mb-4 text-white"></p>
-            <h1 id="current-time" class="text-6xl sm:text-8xl font-extrabold tracking-tight text-white">00:00:00</h1>
+            <div id="default-clock-widget" aria-label="현재 시각과 날짜">
+                <p id="current-date" class="text-2xl sm:text-3xl font-extrabold mb-4 text-white"></p>
+                <h1 id="current-time" class="text-6xl sm:text-8xl font-extrabold tracking-tight text-white">00:00:00</h1>
+            </div>
 
             <div class="glass-card no-initial-blur p-6 sm:p-8 rounded-[40px] shadow-2xl mt-12">
                 <p class="text-xl sm:text-2xl font-semibold text-gray-200 mb-4">현재 위치: <span data-weather-school-name>대륜고등학교(만촌3동)</span></p>
@@ -1944,6 +2009,167 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         const updateIllustration = document.querySelector('.update-illustration');
         const updateIllustrationMarkup = updateIllustration ? updateIllustration.innerHTML : '';
         const systemFontFamilySelect = document.getElementById('system-font-family-select');
+
+        const clockLayoutStorageKey = 'dashboardClockLayoutsV1';
+        let clockEditor = null, clockEditorBox = null, clockEditorTarget = null, clockEditorMode = null, clockEditorStart = null, clockEditorRect = null, lastAppliedClockDesign = '';
+        function currentClockDesign() {
+            const design=document.documentElement.dataset.weatherDesign;
+            return ['simple','modern'].includes(design)?design:'default';
+        }
+        function clockTargets(design=currentClockDesign()) {
+            if(design==='simple') return [document.getElementById('simple-weather-clock')].filter(Boolean);
+            if(design==='modern') return [document.getElementById('weather-modern-clock')].filter(Boolean);
+            return [document.getElementById('default-clock-widget'),...document.querySelectorAll('.aux-clock')].filter(Boolean);
+        }
+        function primaryClockTarget(design=currentClockDesign()) { const targets=clockTargets(design); return targets.find(el=>{const rect=el.getBoundingClientRect(),style=getComputedStyle(el);return rect.width>0&&rect.height>0&&style.display!=='none'&&style.visibility!=='hidden';})||targets[0]||null; }
+        function readClockLayouts() { try { const value=JSON.parse(localStorage.getItem(clockLayoutStorageKey)||'{}'); return value&&typeof value==='object'&&!Array.isArray(value)?value:{}; } catch { return {}; } }
+        function clearClockLayoutStyle(element) {
+            if(!element) return;
+            element.classList.remove('clock-layout-applied');
+            ['position','left','top','right','bottom','width','height','max-width','margin','transform','z-index','box-sizing','flex-direction','align-items','justify-content','gap'].forEach(name=>element.style.removeProperty(name));
+            if(!element.classList.contains('aux-clock')) element.style.removeProperty('display');
+            element.querySelectorAll('#weather-modern-time,#weather-modern-seconds,#weather-modern-date,#simple-weather-time,#simple-weather-date,#current-time,#current-date,.aux-time,.aux-date').forEach(child=>['position','inset','left','top','right','bottom','width','margin','font-size','text-align','transform'].forEach(name=>child.style.removeProperty(name)));
+        }
+        function applyClockRect(element,rect,design=currentClockDesign()) {
+            if(!element) return;
+            const width=Math.max(100,Math.min(window.innerWidth,rect.width)), height=Math.max(48,Math.min(window.innerHeight,rect.height));
+            const left=Math.max(0,Math.min(window.innerWidth-width,rect.left)), top=Math.max(0,Math.min(window.innerHeight-height,rect.top));
+            const clockFont=Math.max(14,Math.min(height*.76,width/(design==='simple'?3.15:5.6)));
+            element.classList.add('clock-layout-applied');
+            for(const [name,value] of Object.entries({position:'fixed',left:`${left}px`,top:`${top}px`,right:'auto',bottom:'auto',width:`${width}px`,height:`${height}px`,maxWidth:'none',margin:'0',transform:'none',zIndex:'49',boxSizing:'border-box',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'0'})) element.style.setProperty(name.replace(/[A-Z]/g,m=>'-'+m.toLowerCase()),value,'important');
+            if(!element.classList.contains('aux-clock')) element.style.setProperty('display','flex','important');
+            const times=element.matches('#weather-modern-clock')?[element.querySelector('#weather-modern-time'),element.querySelector('#weather-modern-seconds')]:element.matches('#simple-weather-clock')?[element.querySelector('#simple-weather-time')]:[...element.querySelectorAll('#current-time,.aux-time')];
+            times.filter(Boolean).forEach((child,index)=>{ child.style.setProperty('font-size',`${index===1?clockFont*.34:clockFont}px`,'important'); child.style.setProperty('position','static','important'); child.style.setProperty('width','auto','important'); child.style.setProperty('transform','none','important'); });
+            const dates=element.matches('#weather-modern-clock')?[element.querySelector('#weather-modern-date')]:element.matches('#simple-weather-clock')?[element.querySelector('#simple-weather-date')]:[...element.querySelectorAll('#current-date,.aux-date')];
+            dates.filter(Boolean).forEach(child=>{ child.style.setProperty('position','static','important'); child.style.setProperty('inset','auto','important'); child.style.setProperty('width','auto','important'); child.style.setProperty('margin',`${Math.max(1,clockFont*.08)}px 0 0`,'important'); child.style.setProperty('font-size',`${Math.max(10,clockFont*.23)}px`,'important'); child.style.setProperty('text-align','center','important'); });
+        }
+        function applySavedClockLayout() {
+            const design=currentClockDesign(), layout=readClockLayouts()[design];
+            if(lastAppliedClockDesign&&lastAppliedClockDesign!==design) for(const oldTarget of clockTargets(lastAppliedClockDesign)) clearClockLayoutStyle(oldTarget);
+            lastAppliedClockDesign=design;
+            for(const target of clockTargets(design)) {
+                if(!layout||![layout.x,layout.y,layout.w,layout.h].every(Number.isFinite)) { clearClockLayoutStyle(target); continue; }
+                applyClockRect(target,{left:layout.x*window.innerWidth,top:layout.y*window.innerHeight,width:layout.w*window.innerWidth,height:layout.h*window.innerHeight},design);
+            }
+        }
+        function makeClockEditor() {
+            if(clockEditor) return;
+            clockEditor=document.createElement('div'); clockEditor.id='clock-layout-editor'; clockEditor.hidden=true;
+            clockEditor.innerHTML='<div class="clock-editor-settings"><label class="clock-editor-setting"><span>시계 숫자 글꼴</span><select data-clock-editor-pref="font"></select></label><label class="clock-editor-setting"><span>시간 형식</span><select data-clock-editor-pref="timeFormat"></select></label><label class="clock-editor-setting"><span>날짜 표기</span><select data-clock-editor-pref="dateFormat"></select></label><label class="clock-editor-setting"><span>시계 색상</span><select data-clock-editor-pref="color"></select></label><label class="clock-editor-setting"><span>투명도 <output data-clock-opacity-value>100%</output></span><input data-clock-editor-pref="opacity" type="range" min="20" max="100" step="5" value="100"></label></div><div class="clock-editor-box"><span class="clock-editor-label">시계 · 드래그하여 이동</span><span class="clock-editor-handle" data-resize="n"></span><span class="clock-editor-handle" data-resize="s"></span><span class="clock-editor-handle" data-resize="e"></span><span class="clock-editor-handle" data-resize="w"></span><span class="clock-editor-handle" data-resize="nw"></span><span class="clock-editor-handle" data-resize="ne"></span><span class="clock-editor-handle" data-resize="sw"></span><span class="clock-editor-handle" data-resize="se"></span></div><div class="clock-editor-actions"><button type="button" data-action="cancel" title="취소" aria-label="취소"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button><button type="button" data-action="reset" title="기본값으로 초기화" aria-label="기본값으로 초기화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/></svg></button><button type="button" data-action="save" title="저장" aria-label="저장"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></button></div>';
+            const editorPreferences={font:clockFontSelect,timeFormat:clockTimeFormatSelect,dateFormat:clockDateFormatSelect,color:clockColorSelect};
+            for(const [key,source] of Object.entries(editorPreferences)) {
+                const select=clockEditor.querySelector(`[data-clock-editor-pref="${key}"]`);
+                if(!source||!select)continue;
+                select.innerHTML=source.innerHTML;select.value=source.value;
+                select.addEventListener('change',()=>saveClockPreferences({[key]:select.value}));
+            }
+            document.body.appendChild(clockEditor); clockEditorBox=clockEditor.querySelector('.clock-editor-box');
+            const paintBox=()=>{ if(clockEditorRect) { clockEditorBox.style.left=`${clockEditorRect.left}px`; clockEditorBox.style.top=`${clockEditorRect.top}px`; clockEditorBox.style.width=`${clockEditorRect.width}px`; clockEditorBox.style.height=`${clockEditorRect.height}px`; } };
+            const finish=save=>{
+                if(!clockEditor||clockEditor.hidden) return;
+                const design=currentClockDesign();
+                if(save&&clockEditorRect) {
+                    const layouts=readClockLayouts(); layouts[design]={x:clockEditorRect.left/window.innerWidth,y:clockEditorRect.top/window.innerHeight,w:clockEditorRect.width/window.innerWidth,h:clockEditorRect.height/window.innerHeight};
+                    try { localStorage.setItem(clockLayoutStorageKey,JSON.stringify(layouts)); } catch {}
+                }
+                clockEditor.hidden=true; document.body.classList.remove('clock-layout-editing');
+                if(!save&&clockEditorTarget) clearClockLayoutStyle(clockEditorTarget);
+                applySavedClockLayout(); clockEditorTarget=null; clockEditorMode=null; clockEditorRect=null;
+            };
+            clockEditor.addEventListener('click',event=>{const action=event.target.closest('[data-action]')?.dataset.action;if(action==='save')finish(true);else if(action==='cancel')finish(false);else if(action==='reset'){const layouts=readClockLayouts();delete layouts[currentClockDesign()];try{localStorage.setItem(clockLayoutStorageKey,JSON.stringify(layouts));}catch{}finish(false);}});
+            clockEditorBox.addEventListener('pointerdown',event=>{
+                if(event.button!==undefined&&event.button!==0)return;
+                clockEditorMode=event.target.closest('[data-resize]')?.dataset.resize||'move';
+                clockEditorStart={x:event.clientX,y:event.clientY,rect:{...clockEditorRect}}; clockEditorBox.setPointerCapture(event.pointerId); event.preventDefault();
+            });
+            clockEditorBox.addEventListener('pointermove',event=>{
+                if(!clockEditorMode||!clockEditorStart||!clockEditorRect)return;
+                const dx=event.clientX-clockEditorStart.x,dy=event.clientY-clockEditorStart.y,vw=window.innerWidth,vh=window.innerHeight,r={...clockEditorStart.rect},mode=clockEditorMode,minW=110,minH=52;
+                if(mode==='move'){r.left+=dx;r.top+=dy;} else {
+                    if(mode.includes('e'))r.width=Math.max(minW,Math.min(vw-r.left,r.width+dx));
+                    if(mode.includes('s'))r.height=Math.max(minH,Math.min(vh-r.top,r.height+dy));
+                    if(mode.includes('w')){const right=r.left+r.width;r.left=Math.max(0,Math.min(right-minW,r.left+dx));r.width=right-r.left;}
+                    if(mode.includes('n')){const bottom=r.top+r.height;r.top=Math.max(0,Math.min(bottom-minH,r.top+dy));r.height=bottom-r.top;}
+                }
+                if(mode==='move'){
+                    const snap=(pos,size,total)=>{const options=[0,(total-size)/2,total-size];const nearest=options.reduce((a,b)=>Math.abs(b-pos)<Math.abs(a-pos)?b:a,options[0]);return Math.abs(nearest-pos)<=18?nearest:pos;};
+                    r.left=snap(r.left,r.width,vw);r.top=snap(r.top,r.height,vh);r.left=Math.max(0,Math.min(vw-r.width,r.left));r.top=Math.max(0,Math.min(vh-r.height,r.top));
+                } else {
+                    const snapEdge=(value,total)=>{const nearest=[0,total/2,total].reduce((a,b)=>Math.abs(b-value)<Math.abs(a-value)?b:a,0);return Math.abs(nearest-value)<=18?nearest:value;};
+                    if(mode.includes('w')){const right=r.left+r.width;r.left=snapEdge(r.left,vw);r.width=Math.max(minW,right-r.left);} if(mode.includes('e')){const right=snapEdge(r.left+r.width,vw);r.width=Math.max(minW,right-r.left);}
+                    if(mode.includes('n')){const bottom=r.top+r.height;r.top=snapEdge(r.top,vh);r.height=Math.max(minH,bottom-r.top);} if(mode.includes('s')){const bottom=snapEdge(r.top+r.height,vh);r.height=Math.max(minH,bottom-r.top);}
+                }
+                clockEditorRect=r;applyClockRect(clockEditorTarget,r,currentClockDesign());paintBox();
+            });
+            const stop=event=>{if(event&&clockEditorBox.hasPointerCapture(event.pointerId))clockEditorBox.releasePointerCapture(event.pointerId);clockEditorMode=null;clockEditorStart=null;};
+            clockEditorBox.addEventListener('pointerup',stop);clockEditorBox.addEventListener('pointercancel',stop);
+            document.addEventListener('keydown',event=>{if(event.key==='Escape'&&clockEditor&&!clockEditor.hidden)finish(false);});
+            window.addEventListener('resize',()=>{if(clockEditor&&!clockEditor.hidden&&clockEditorRect){clockEditorRect.left=Math.max(0,Math.min(window.innerWidth-clockEditorRect.width,clockEditorRect.left));clockEditorRect.top=Math.max(0,Math.min(window.innerHeight-clockEditorRect.height,clockEditorRect.top));paintBox();}else applySavedClockLayout();});
+        }
+        function startClockLayoutEditor() {
+            makeClockEditor(); const design=currentClockDesign(); clockEditorTarget=primaryClockTarget(design); if(!clockEditorTarget)return;
+            const rect=clockEditorTarget.getBoundingClientRect(); clockEditorRect={left:Math.max(0,rect.left),top:Math.max(0,rect.top),width:Math.max(110,Math.min(window.innerWidth,rect.width)),height:Math.max(52,Math.min(window.innerHeight,rect.height))};
+            applyClockRect(clockEditorTarget,clockEditorRect,design); clockEditor.hidden=false;document.body.classList.add('clock-layout-editing');
+            clockEditorBox.style.left=`${clockEditorRect.left}px`;clockEditorBox.style.top=`${clockEditorRect.top}px`;clockEditorBox.style.width=`${clockEditorRect.width}px`;clockEditorBox.style.height=`${clockEditorRect.height}px`;
+            settingsModal.classList.add('hidden');
+        }
+        document.getElementById('clock-layout-open-btn')?.addEventListener('click',startClockLayoutEditor);
+        document.getElementById('clock-layout-reset-btn')?.addEventListener('click',()=>{const layouts=readClockLayouts();delete layouts[currentClockDesign()];try{localStorage.setItem(clockLayoutStorageKey,JSON.stringify(layouts));}catch{}applySavedClockLayout();});
+        const clockPreferenceStorageKey='dashboardClockPreferencesV1';
+        const clockFontSelect=document.getElementById('clock-font-select'), clockTimeFormatSelect=document.getElementById('clock-time-format-select'), clockDateFormatSelect=document.getElementById('clock-date-format-select'), clockColorSelect=document.getElementById('clock-color-select'), clockOpacityRange=document.getElementById('clock-opacity-range');
+        const clockFontFamilies={Orbitron:"'Orbitron',sans-serif",Rajdhani:"'Rajdhani',sans-serif",'Space Grotesk':"'Space Grotesk',sans-serif",'Exo 2':"'Exo 2',sans-serif",Oxanium:"'Oxanium',sans-serif",'Share Tech Mono':"'Share Tech Mono',monospace",'DM Mono':"'DM Mono',monospace",'Roboto Mono':"'Roboto Mono',monospace",'Barlow Condensed':"'Barlow Condensed',sans-serif",'Baloo 2':"'Baloo 2',sans-serif",Comfortaa:"'Comfortaa',sans-serif",Fredoka:"'Fredoka',sans-serif",Nunito:"'Nunito',sans-serif",Audiowide:"'Audiowide',sans-serif",Michroma:"'Michroma',sans-serif",Oswald:"'Oswald',sans-serif",'Bebas Neue':"'Bebas Neue',sans-serif",Teko:"'Teko',sans-serif",Anton:"'Anton',sans-serif"};
+        function readClockPreferences(design=currentClockDesign()) {
+            let all={};try{const parsed=JSON.parse(localStorage.getItem(clockPreferenceStorageKey)||'{}');if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))all=parsed;}catch{}
+            const stored=all[design]&&typeof all[design]==='object'?all[design]:{};
+            return {font:Object.hasOwn(clockFontFamilies,stored.font)?stored.font:'system',timeFormat:stored.timeFormat==='hms'?'hms':stored.timeFormat==='hm'?'hm':design==='simple'?'hm':'hms',dateFormat:stored.dateFormat==='us'?'us':'ko',color:['auto','white','pastel-yellow','pastel-pink','pastel-blue','pastel-mint','pastel-lavender'].includes(stored.color)?stored.color:'auto',opacity:Number.isFinite(Number(stored.opacity))?Math.max(20,Math.min(100,Number(stored.opacity))):100};
+        }
+        function saveClockPreferences(patch) {
+            const all=(()=>{try{const parsed=JSON.parse(localStorage.getItem(clockPreferenceStorageKey)||'{}');return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};}catch{return {};}})();
+            all[currentClockDesign()]={...readClockPreferences(),...patch};try{localStorage.setItem(clockPreferenceStorageKey,JSON.stringify(all));}catch{}
+            syncClockPreferenceControls();applyClockPreferences();updateTime();
+        }
+        function syncClockPreferenceControls() {
+            const preferences=readClockPreferences();
+            if(clockFontSelect)clockFontSelect.value=preferences.font;
+            if(clockTimeFormatSelect)clockTimeFormatSelect.value=preferences.timeFormat;
+            if(clockDateFormatSelect)clockDateFormatSelect.value=preferences.dateFormat;
+            if(clockColorSelect)clockColorSelect.value=preferences.color;
+            if(clockOpacityRange)clockOpacityRange.value=preferences.opacity;
+            const opacityValue=document.getElementById('clock-opacity-value');if(opacityValue)opacityValue.textContent=`${preferences.opacity}%`;
+            if(clockEditor)clockEditor.querySelectorAll('[data-clock-editor-pref]').forEach(control=>{const key=control.dataset.clockEditorPref;if(preferences[key]!==undefined)control.value=preferences[key];if(key==='opacity'){const output=control.closest('label')?.querySelector('[data-clock-opacity-value]');if(output)output.textContent=`${preferences.opacity}%`;}});
+        }
+        function applyClockPreferences() {
+            const preferences=readClockPreferences(), family=clockFontFamilies[preferences.font]||'';
+            const colors={white:'#ffffff','pastel-yellow':'#fff1a8','pastel-pink':'#ffd6e7','pastel-blue':'#c9e8ff','pastel-mint':'#c9f5e7','pastel-lavender':'#e3d5ff'};
+            const autoColor=document.documentElement.dataset.theme==='light'?'#263247':'#ffffff';
+            const color=preferences.color==='auto'?autoColor:(colors[preferences.color]||'#ffffff');
+            for(const target of clockTargets()) {
+                target.style.setProperty('opacity',String(preferences.opacity/100),'important');
+                target.querySelectorAll('#current-time,.aux-time,#weather-modern-time,#weather-modern-seconds,#weather-modern-date,#simple-weather-time,#simple-weather-date').forEach(element=>element.style.setProperty('color',color,'important'));
+                let digits=[];
+                if(target.matches('#weather-modern-clock')) {
+                    digits=[target.querySelector('#weather-modern-time'),target.querySelector('#weather-modern-seconds')];
+                    const seconds=target.querySelector('#weather-modern-seconds');if(seconds)seconds.style.setProperty('display',preferences.timeFormat==='hms'?'inline':'none','important');
+                } else if(target.matches('#simple-weather-clock')) digits=[target.querySelector('#simple-weather-time')];
+                else digits=[...target.querySelectorAll('#current-time,.aux-time')];
+                digits.filter(Boolean).forEach(element=>{if(family)element.style.setProperty('font-family',family,'important');else element.style.removeProperty('font-family');});
+            }
+        }
+        function formatClockDate(date,format=readClockPreferences().dateFormat) {
+            if(format==='us') return new Intl.DateTimeFormat('en-US',{month:'2-digit',day:'2-digit',year:'numeric',timeZone:'Asia/Seoul'}).format(date);
+            const parts=new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Asia/Seoul'}).formatToParts(date),values=Object.fromEntries(parts.map(part=>[part.type,part.value]));
+            return `${values.year}년 ${values.month}월 ${values.day}일`;
+        }
+        clockFontSelect?.addEventListener('change',event=>saveClockPreferences({font:event.target.value}));
+        clockTimeFormatSelect?.addEventListener('change',event=>saveClockPreferences({timeFormat:event.target.value}));
+        clockDateFormatSelect?.addEventListener('change',event=>saveClockPreferences({dateFormat:event.target.value}));
+        clockColorSelect?.addEventListener('change',event=>saveClockPreferences({color:event.target.value}));
+        clockOpacityRange?.addEventListener('input',event=>saveClockPreferences({opacity:Number(event.target.value)}));
+        clockOpacityRange?.addEventListener('change',event=>saveClockPreferences({opacity:Number(event.target.value)}));
+        document.addEventListener('input',event=>{const control=event.target.closest('#clock-layout-editor [data-clock-editor-pref="opacity"]');if(control)saveClockPreferences({opacity:Number(control.value)});});
+        document.addEventListener('change',event=>{const control=event.target.closest('#clock-layout-editor [data-clock-editor-pref]');if(control)saveClockPreferences({[control.dataset.clockEditorPref]:control.dataset.clockEditorPref==='opacity'?Number(control.value):control.value});});
+        syncClockPreferenceControls();applySavedClockLayout();applyClockPreferences();
+        new MutationObserver(()=>{applySavedClockLayout();syncClockPreferenceControls();applyClockPreferences();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','data-weather-design']});
 
         const UPDATE_URL = 'https://adk090612.github.io/cast_standby/';
         const REPO_URL = 'https://github.com/adk090612/cast_standby';
@@ -3031,32 +3257,27 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 if(timeElement) { timeElement.hidden=true; timeElement.style.setProperty('display','none','important'); }
                 if(dateElement) { dateElement.hidden=true; dateElement.style.setProperty('display','none','important'); }
                 const simpleTime=document.getElementById('simple-weather-time'), simpleDate=document.getElementById('simple-weather-date');
-                if(simpleTime) simpleTime.textContent=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Seoul'});
-                if(simpleDate) { const parts=new Intl.DateTimeFormat('en-GB',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Asia/Seoul'}).formatToParts(now); const values=Object.fromEntries(parts.map(part=>[part.type,part.value])); simpleDate.textContent=`${values.year}/${values.month}/${values.day}`; }
+                const clockPreferences=readClockPreferences(), simpleTimeOptions={hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Seoul'};
+                if(clockPreferences.timeFormat==='hms')simpleTimeOptions.second='2-digit';
+                if(simpleTime)simpleTime.textContent=now.toLocaleTimeString('en-GB',simpleTimeOptions);
+                if(simpleDate)simpleDate.textContent=formatClockDate(now,clockPreferences.dateFormat);
                 updateSimpleSchedulePills();
                 return;
             }
             if(timeElement) { timeElement.hidden=false; timeElement.style.removeProperty('display'); }
             if(dateElement) { dateElement.hidden=false; dateElement.style.removeProperty('display'); }
-            const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'Asia/Seoul' };
-            const timeOptionsWithSeconds = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Seoul' };
-            const dateText = now.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short', timeZone: 'Asia/Seoul' });
-
-            dateElement.textContent = now.toLocaleDateString('ko-KR', dateOptions);
-            if (timeElement) timeElement.textContent = now.toLocaleTimeString('ko-KR', timeOptionsWithSeconds);
+            const clockPreferences=readClockPreferences(), timeOptions={hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Seoul'};
+            if(clockPreferences.timeFormat==='hms')timeOptions.second='2-digit';
+            dateElement.textContent=formatClockDate(now,clockPreferences.dateFormat);
+            if(timeElement)timeElement.textContent=now.toLocaleTimeString('ko-KR',timeOptions);
             const modernTime = document.getElementById('weather-modern-time');
             const modernSeconds = document.getElementById('weather-modern-seconds');
             const modernDate = document.getElementById('weather-modern-date');
-            if (modernTime) modernTime.textContent = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Seoul' });
-            if (modernSeconds) modernSeconds.textContent = ':' + String(now.getSeconds()).padStart(2, '0');
-            if (modernDate) {
-                const dateParts = new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Asia/Seoul' }).formatToParts(now);
-                const dateValues = Object.fromEntries(dateParts.map(part => [part.type, part.value]));
-                modernDate.textContent = `${dateValues.year}년 ${dateValues.month}월 ${dateValues.day}일`;
-            }
-
-            auxTimeElems().forEach(el => { el.textContent = now.toLocaleTimeString('ko-KR', timeOptionsWithSeconds); });
-            auxDateElems().forEach(el => { el.textContent = dateText.replace(/\s+/g, ' '); });
+            if(modernTime)modernTime.textContent=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Seoul'});
+            if(modernSeconds)modernSeconds.textContent=':'+String(now.getSeconds()).padStart(2,'0');
+            if(modernDate)modernDate.textContent=formatClockDate(now,clockPreferences.dateFormat);
+            auxTimeElems().forEach(el=>{el.textContent=now.toLocaleTimeString('ko-KR',timeOptions);});
+            auxDateElems().forEach(el=>{el.textContent=formatClockDate(now,clockPreferences.dateFormat);});
         }
 
         function toggleCardBlur(screenIndex, enableBlur) {
@@ -4868,13 +5089,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       const sx=rand(ranges[2],ranges[3])*size*aspect, sy=rand(ranges[4],ranges[5])*size/aspect;
       const form=Math.random(), rowCount=form<.2?2:form>.82?4:3;
       const rows=Array.from({length:rowCount},(_,row)=>{
-        const rowT=row/Math.max(1,rowCount-1), baseSpread=form<.25?.72+rowT*.17:form>.75?.48+rowT*.43:.54+rowT*.36;
+        const rowT=row/Math.max(1,rowCount-1), baseSpread=(form<.25?.72+rowT*.17:form>.75?.48+rowT*.43:.54+rowT*.36)*.82;
         const puffCount=Math.max(6,Math.round(rand(8,16)*(row===rowCount-1?1.14:.88)*Math.pow(sx/50,.16)));
         return Array.from({length:puffCount},(_,i)=>{
-          const t=(i/(puffCount-1))-.5, spread=baseSpread*rand(.88,1.12);
-          const puffScale=rand(.68,1.28)*(row===0?.9:row===rowCount-1?1.08:1);
-          const asymmetry=(form>.42&&form<.68)?(rowT-.35)*sx*.22:0;
-          return {x:t*sx*2*spread+asymmetry+rand(-sx*.075,sx*.075),y:sy*(.04+rowT*.72)+rand(-sy*.11,sy*.11),rx:sx*rand(.045,.125)*puffScale,ry:sy*rand(.18,.48)*puffScale,light:rand(.72,1.16)};
+          const t=(i/(puffCount-1))-.5, spread=baseSpread*rand(.94,1.06);
+          const puffScale=rand(.55,1.61)*(row===0?.96:row===rowCount-1?1.06:1);
+          const asymmetry=(form>.42&&form<.68)?(rowT-.35)*sx*.18:0;
+          return {x:t*sx*2*spread+asymmetry+rand(-sx*.045,sx*.045),y:sy*(.04+rowT*.72)+rand(-sy*.075,sy*.075),rx:sx*rand(.05,.135)*puffScale,ry:sy*rand(.22,.55)*puffScale,light:rand(.72,1.16)};
         });
       });
       const baseY=rand(height*ranges[0],height*ranges[1]);
@@ -4984,7 +5205,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     }
     mountainCtx.restore();
   }
-  let groundCurrentColors=null;
+  let groundCurrentColors=null, lastGroundPalettePaint=0;
   function groundPaletteFor(phase,weather) {
     const rainWet=weather.kind==='rain'&&weather.amount>0, snowCover=weather.kind==='snow'&&weather.amount>0;
     const nightScene=phase==='night'||phase==='bluehour', nightSnow=snowCover&&nightScene;
@@ -5006,7 +5227,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       groundCurrentColors=target.map((row,i)=>row.map((value,j)=>Math.round(groundCurrentColors[i][j]+(value-groundCurrentColors[i][j])*blend)));
     }
     const color=row=>`rgb(${row[0]} ${row[1]} ${row[2]})`;
-    ground.style.background=`linear-gradient(180deg,${color(groundCurrentColors[0])} 0%,${color(groundCurrentColors[1])} 22%,${color(groundCurrentColors[2])} 100%)`;
+    const now=performance.now();
+    if(now-lastGroundPalettePaint>=32) {
+      ground.style.background=`linear-gradient(180deg,${color(groundCurrentColors[0])} 0%,${color(groundCurrentColors[1])} 22%,${color(groundCurrentColors[2])} 100%)`;
+      lastGroundPalettePaint=now;
+    }
   }
   function drawGrass() {
     grassCtx.clearRect(0, 0, width, height);
@@ -5015,7 +5240,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     const lowPower=document.body.classList.contains('low-performance-mode');
     const count = Math.min(lowPower?90000:150000, Math.round(width * height / 7.2));
     // Reuse the large, deterministic blade geometry when only sky colors or lighting change.
-    const bands=8, shades=3, widths=2, geometryKey=`${Math.round(width)}:${Math.round(height)}:${count}:${rainWet?1:0}:${snowCover?1:0}`;
+    const bands=8, shades=3, widths=2, geometryKey=`${Math.round(width)}:${Math.round(height)}:${count}`;
     let paths=grassGeometryCache.key===geometryKey?grassGeometryCache.paths:null;
     if(!paths) {
       let grassSeed=((Math.round(width)*73856093)^(Math.round(height)*19349663))>>>0;
@@ -5024,10 +5249,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       paths=Array.from({length:bands*shades*widths},()=>new Path2D());
       for (let i = 0; i < count; i++) {
         const u=grassRandom(), densityFalloff=5.2, depth=-Math.log(1-u*(1-Math.exp(-densityFalloff)))/densityFalloff;
-        const y=horizon+depth*(height-horizon), x=grassRandom()*width, len=grassRand(.35,1.1)+depth*(snowCover?5:11);
+        const y=horizon+depth*(height-horizon), x=grassRandom()*width, len=grassRand(.35,1.1)+depth*11;
         const band=Math.min(bands-1,Math.floor(depth*bands)), shade=Math.floor(grassRandom()*shades), widthBand=Math.floor(grassRandom()*widths);
-        const path=paths[(band*shades+shade)*widths+widthBand], droop=rainWet?grassRand(.18,.62):grassRand(-.2,.2);
-        path.moveTo(x,y); path.lineTo(x+len*droop,y-len*(rainWet?.62:1));
+        const path=paths[(band*shades+shade)*widths+widthBand], droop=grassRand(-.2,.2);
+        path.moveTo(x,y); path.lineTo(x+len*droop,y-len);
       }
       grassGeometryCache={key:geometryKey,paths};
     }
@@ -5194,7 +5419,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     const phaseGlow=timelineMode ? .12 : phase==='sunset' ? .37 : phase==='sunrise' ? .31 : phase==='dawn' ? .2 : phase==='bluehour' ? .13 : phase==='night' ? (snowy ? .13 : .055) : .12;
     const glowAlpha=clamp(phaseGlow*(.35+sunExposure*.65)*(rainy?.48:1),.008,.4);
     const skyValue=`radial-gradient(circle 44vmin at ${solarX} ${horizonStop},rgba(${glowRgb},${glowAlpha}) 0%,rgba(${glowRgb},${glowAlpha*.34}) 48%,rgba(${glowRgb},0) 100%),linear-gradient(180deg,${skyColors[0]} 0%,${skyColors[1]} ${middleStop},${skyColors[2]} 68%,${skyColors[2]} 100%)|${darken.toFixed(3)}`;
-    const now=performance.now(); if(forcePaint||(skyValue!==lastSkyValue&&(timelineMode||now-lastSkyPaint>80))) { const [background,brightness]=skyValue.split('|'); sky.style.background=background; sky.style.filter=`brightness(${brightness})`; lastSkyValue=skyValue; lastSkyPaint=now; }
+    const now=performance.now(); if(forcePaint||(skyValue!==lastSkyValue&&now-lastSkyPaint>=(timelineMode?32:80))) { const [background,brightness]=skyValue.split('|'); sky.style.background=background; sky.style.filter=`brightness(${brightness})`; lastSkyValue=skyValue; lastSkyPaint=now; }
     scene.style.setProperty('--weather-light',darken.toFixed(2));
 
     return phase;
@@ -5326,6 +5551,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     const phase=solarPhase(), weather=weatherVisualState(), lowPower=document.body.classList.contains('low-performance-mode');
     const dawnShape=phase==='dawn'||phase==='sunrise', stretch=dawnShape?1.58:1, flatten=dawnShape?.76:1;
     const simpleClouds=lowPower||(weather.amount>0&&weather.kind!=='none');
+    let cloudSpriteBuildBudget=2;
     for (const cloud of clouds) {
       const targetOpacity=cloud.targetOpacity;
       cloud.opacity=clamp(cloud.opacity+clamp(targetOpacity-cloud.opacity,-fadeStep,fadeStep),0,1);
@@ -5350,7 +5576,17 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         cloudCtx.fillStyle=cloudFill; cloudCtx.beginPath(); cloudCtx.ellipse(cloudX,cloudY,sx*1.15,sy*.72,0,0,Math.PI*2); cloudCtx.fill();
         continue;
       }
-      if(!cloud.sprite||cloud.spriteSignature!==`${phase}:${weather.kind}`) createCloudSprite(cloud,phase,weather);
+      const desiredCloudSpriteSignature=`${phase}:${weather.kind}`;
+      if((!cloud.sprite||cloud.spriteSignature!==desiredCloudSpriteSignature)&&cloudSpriteBuildBudget>0) {
+        createCloudSprite(cloud,phase,weather);
+        cloudSpriteBuildBudget--;
+      }
+      if(!cloud.sprite) {
+        const cloudFill=cloudCtx.createRadialGradient(cloudX,cloudY,sy*.05,cloudX,cloudY,sx*1.3);
+        cloudFill.addColorStop(0,`rgba(242,247,255,${opacity*.82})`); cloudFill.addColorStop(.62,`rgba(229,238,247,${opacity*.46})`); cloudFill.addColorStop(1,'rgba(229,238,247,0)');
+        cloudCtx.fillStyle=cloudFill; cloudCtx.beginPath(); cloudCtx.ellipse(cloudX,cloudY,sx*1.15,sy*.72,0,0,Math.PI*2); cloudCtx.fill();
+        continue;
+      }
       cloudCtx.globalAlpha=opacity;
       cloudCtx.drawImage(cloud.sprite,cloudX-sx*2*perspective*stretch,cloudY-sy*.8*perspective*flatten,cloud.sprite.width*perspective*stretch,cloud.sprite.height*perspective*flatten);
       cloudCtx.globalAlpha=1;
