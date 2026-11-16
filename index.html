@@ -1162,6 +1162,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </div>
 
                             <div class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold text-white">자동 업데이트</h5>
+                                <label class="glass-checkbox-label"><input id="auto-update-toggle" type="checkbox" class="glass-checkbox-input"><span class="glass-checkbox-box"></span><span class="text-sm">자동 업데이트 켜기 (30분마다 확인, 업데이트 발견 후 1시간 뒤 새로고침)</span></label>
+                            </div>
+                            <div class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold text-white">알림 설정</h5>
                                 <div>
                                     <label for="update-snooze-select" class="block text-sm font-medium text-gray-200 mb-1">업데이트 알림 일시 중지</label>
@@ -1185,6 +1189,14 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
                                 <div>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.6.3</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>자동 업데이트 설정 추가 및 활성화·비활성화 지원</li>
+                                        <li>자동 업데이트 사용 시 30분마다 새 버전 확인</li>
+                                        <li>업데이트 발견 알림 및 1시간 후 자동 새로고침 적용</li>
+                                    </ul>
+                                </div>
+                                <div class="pt-2 border-t border-white/10">
                                     <h5 class="font-bold text-blue-300 text-lg">v2.6.2</h5>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
                                         <li>심플 테마 급식 위젯에 총 칼로리 정보를 표시하고 제목과 표시 형식을 개선</li>
@@ -1642,7 +1654,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
                             <div id="info-version" class="info-tab-content hidden">
                                 <h5 class="font-semibold">버전</h5>
-                                <p id="app-version-text" class="text-gray-300" data-version="2.6.2">2.6.2</p>
+                                <p id="app-version-text" class="text-gray-300" data-version="2.6.3">2.6.3</p>
                             </div>
                         </div>
                         
@@ -1929,6 +1941,42 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
         const UPDATE_URL = 'https://adk090612.github.io/cast_standby/';
         const REPO_URL = 'https://github.com/adk090612/cast_standby';
+        const AUTO_UPDATE_INTERVAL = 30 * 60 * 1000;
+        const AUTO_UPDATE_DELAY = 60 * 60 * 1000;
+        const autoUpdateToggle = document.getElementById('auto-update-toggle');
+        let autoUpdateIntervalId = null;
+        let autoUpdateReloadId = null;
+        let scheduledUpdateVersion = '';
+
+        function isAutoUpdateEnabled() { return localStorage.getItem('dashboardAutoUpdateEnabled') !== 'false'; }
+        function cancelScheduledAutoUpdate() {
+            if (autoUpdateReloadId !== null) clearTimeout(autoUpdateReloadId);
+            autoUpdateReloadId = null;
+            scheduledUpdateVersion = '';
+        }
+        function scheduleAutoUpdate(version) {
+            if (!isAutoUpdateEnabled() || !version || scheduledUpdateVersion === version) return;
+            cancelScheduledAutoUpdate();
+            scheduledUpdateVersion = version;
+            autoUpdateReloadId = setTimeout(() => {
+                autoUpdateReloadId = null;
+                if (!isAutoUpdateEnabled()) return;
+                const headerText = updateNotificationHeader?.querySelector('.font-semibold');
+                if (headerText) headerText.textContent = `v${version} 업데이트 적용 중`;
+                updateNotification?.classList.remove('hidden');
+                updateNotification?.classList.add('flex');
+                const statusText = document.getElementById('update-status-text');
+                if (statusText) statusText.textContent = `v${version} 업데이트를 적용하기 위해 새로고침합니다.`;
+                setTimeout(() => { if (isAutoUpdateEnabled()) window.location.reload(); }, 2500);
+            }, AUTO_UPDATE_DELAY);
+        }
+        function configureAutoUpdate(enabled) {
+            localStorage.setItem('dashboardAutoUpdateEnabled', String(enabled));
+            if (autoUpdateIntervalId !== null) clearInterval(autoUpdateIntervalId);
+            autoUpdateIntervalId = null;
+            if (!enabled) { cancelScheduledAutoUpdate(); return; }
+            if (autoUpdateIntervalId === null) autoUpdateIntervalId = setInterval(() => checkForUpdates(), AUTO_UPDATE_INTERVAL);
+        }
 
         let showPastSchedules = false; // 이전 일정 보기 상태 변수
 
@@ -1973,11 +2021,17 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                     const installBtn = document.getElementById('install-update-btn');
                     if(installBtn) installBtn.classList.remove('hidden');
 
+                    if (isAutoUpdateEnabled()) scheduleAutoUpdate(remoteVersion);
+                    const headerText = updateNotificationHeader?.querySelector('.font-semibold');
+                    if (headerText) headerText.textContent = `새로운 업데이트 v${remoteVersion} 발견`;
+                    if (updateNotificationHeader) updateNotificationHeader.title = isAutoUpdateEnabled() ? `v${remoteVersion} 업데이트가 있습니다. 1시간 뒤 자동 새로고침됩니다.` : `v${remoteVersion} 업데이트가 있습니다.`;
+                    const updateStatus = document.getElementById('update-status-text');
+                    if (updateStatus && isAutoUpdateEnabled()) updateStatus.textContent = `새로운 업데이트(v${remoteVersion})가 있습니다. 설치하지 않으면 1시간 뒤 자동으로 새로고침됩니다.`;
                     if (!manual) {
                         updateNotification.classList.remove('hidden');
                         updateNotification.classList.add('flex');
                     } else {
-                        alert(`새로운 업데이트(v${remoteVersion})가 발견되었습니다. 설치 버튼을 눌러주세요.`);
+                        alert(isAutoUpdateEnabled() ? `새로운 업데이트(v${remoteVersion})가 발견되었습니다. 설치하지 않으면 1시간 뒤 자동으로 새로고침됩니다.` : `새로운 업데이트(v${remoteVersion})가 발견되었습니다. 설치 버튼을 눌러주세요.`);
                     }
                 } else {
                     const statusText = document.getElementById('update-status-text');
@@ -2025,7 +2079,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             }
         });
 
+        autoUpdateToggle.checked = isAutoUpdateEnabled();
+        autoUpdateToggle.addEventListener('change', event => configureAutoUpdate(event.target.checked));
+
         document.getElementById('install-update-btn').addEventListener('click', () => {
+            cancelScheduledAutoUpdate();
             if (window.location.protocol === 'file:') {
                 alert("현재 내 컴퓨터(로컬 파일)에서 실행 중이므로 자동 덮어쓰기가 불가능합니다.\n오른쪽 상단 알림 메뉴에서 [새 HTML 다운로드] 또는 [GitHub로 이동]을 선택해주세요.");
             } else {
@@ -4248,7 +4306,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const mealSource=document.getElementById('meal-content');
             if(mealSource&&window.MutationObserver) { new MutationObserver(syncSimpleMeal).observe(mealSource,{childList:true,subtree:true,characterData:true}); syncSimpleMeal(); }
             Promise.allSettled([fetchApiSchedules(), fetchManchon3DongWeather(), fetchTodayMeal()]).finally(hideInitialLoading);
-            checkForUpdates(); 
+            if (isAutoUpdateEnabled()) { checkForUpdates(); configureAutoUpdate(true); }
             updateMusicBarVisibility();
             updateMusicBarUI();
             if (!isSimpleDesignMode()) renderPlaylistUI();
