@@ -704,6 +704,10 @@
           :root[data-weather-design="modern"] #meal-screen > div:first-of-type > .glass-card { left:16px; right:16px; width:auto; }
           :root[data-weather-design="modern"] #weather-modern-date { font-size:clamp(.55rem,1.4vw,.7rem); }
         }
+        #meal-screen > div:first-of-type > .glass-card { height:fit-content; max-height:none!important; overflow:visible!important; }
+        #meal-screen #meal-content,
+        #meal-screen > div:first-of-type > .glass-card > div:last-child { overflow:visible!important; }
+        #meal-content [data-meal-calories] { margin-top:.65rem; font-size:.8em; font-weight:400; }
 
 
 
@@ -1194,6 +1198,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                         <li>자동 업데이트 설정 추가 및 활성화·비활성화 지원</li>
                                         <li>자동 업데이트 사용 시 30분마다 새 버전 확인</li>
                                         <li>업데이트 발견 알림 및 1시간 후 자동 새로고침 적용</li>
+                                        <li>다른 테마의 급식 상자에서 내부 스크롤을 없애고 내용에 맞춰 높이 조정</li>
+                                        <li>급식 메뉴 글자 굵기를 기본으로 조정하고 총 칼로리 정보 추가</li>
                                     </ul>
                                 </div>
                                 <div class="pt-2 border-t border-white/10">
@@ -1714,12 +1720,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 <div class="aux-date aux-date-el">00월 00일(요일)</div>
             </div>
      
-            <div class="glass-card no-initial-blur w-full p-8 sm:p-12 rounded-[40px] shadow-2xl flex flex-col sm:flex-row justify-between max-h-[60vh] overflow-hidden gap-6 sm:gap-10">
-                <div id="meal-content" class="w-full sm:w-2/3 text-2xl sm:text-3xl font-semibold leading-relaxed text-white space-y-3 overflow-y-auto text-center sm:text-left">
+            <div class="glass-card no-initial-blur w-full p-8 sm:p-12 rounded-[40px] shadow-2xl flex flex-col sm:flex-row justify-between gap-6 sm:gap-10">
+                <div id="meal-content" class="w-full sm:w-2/3 text-2xl sm:text-3xl leading-relaxed text-white space-y-3 text-center sm:text-left">
                     <p class="text-gray-150 font-light text-center">급식 정보를 불러오는 중입니다...</p>
                 </div>
                 
-                <div class="w-full sm:w-1/3 border-t sm:border-t-0 sm:border-l border-white/20 pt-6 sm:pt-0 sm:pl-8 text-left overflow-y-auto flex flex-col justify-center">
+                <div class="w-full sm:w-1/3 border-t sm:border-t-0 sm:border-l border-white/20 pt-6 sm:pt-0 sm:pl-8 text-left flex flex-col justify-center">
                     <h3 class="text-xl font-bold text-gray-300 mb-4 tracking-wide">식품 알러지 정보</h3>
                     <ul class="text-sm sm:text-base text-gray-100 leading-relaxed grid grid-cols-2 gap-x-2 gap-y-1">
                         <li>1. 난류</li>
@@ -2879,7 +2885,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         function syncSimpleMeal() {
             const source=document.getElementById('meal-content'), target=document.getElementById('simple-meal-items');
             if(!source||!target) return;
-            const items=[...source.children].map(node=>node.textContent.replace(/\s*\(\s*\d+(?:\.\d+)*\.?\s*\)/g,'').replace(/\s+/g,' ').trim()).filter(Boolean);
+            const items=[...source.children].filter(node=>!node.hasAttribute('data-meal-calories')).map(node=>node.textContent.replace(/\s*\(\s*\d+(?:\.\d+)*\.?\s*\)/g,'').replace(/\s+/g,' ').trim()).filter(Boolean);
             target.replaceChildren();
             (items.length?items:['오늘은 급식이 없습니다.']).forEach(text=>{const item=document.createElement('p');item.textContent=text;target.appendChild(item);});
             const calories=document.getElementById('simple-meal-calories');
@@ -2922,7 +2928,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                     
                     const menuItems = mealText.split('<br/>').map(item => item.trim()).filter(item => item.length > 0);
                     
-                    mealContent.innerHTML = menuItems.map(item => `<p class="text-[20px] leading-tight">${item}</p>`).join('');
+                    mealContent.innerHTML = menuItems.map(item => `<p class="text-[20px] leading-tight">${item}</p>`).join('') + (mealContent.dataset.calories ? `<p data-meal-calories>총 칼로리: ${mealContent.dataset.calories} kcal</p>` : '');
                 } else {
                     mealContent.dataset.calories='';
                     mealContent.innerHTML = '<p class="font-light text-gray-150 text-center">오늘은 급식이 없습니다.</p>';
