@@ -617,11 +617,12 @@
         :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-time { position:static; width:100%; transform:none; text-align:center; font-size:clamp(2.8rem,6.2vw,5.4rem); font-weight:800; line-height:1; letter-spacing:-.04em; white-space:nowrap; }
         :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-date { position:static; align-self:stretch; width:100%; margin-top:.16em; transform:none; text-align:center; font-size:clamp(.8rem,1.5vw,1rem); font-weight:700; line-height:1; white-space:nowrap; }
         :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-temperature { z-index:49; left:calc(var(--safe-left) + 1.5rem); bottom:calc(var(--safe-bottom) + 1.25rem); font-size:clamp(.9rem,1.8vw,1.4rem); font-weight:800; white-space:nowrap; }
-        :root[data-theme="weather"][data-weather-design="simple"] #simple-meal { z-index:42; right:calc(var(--safe-right) + 1.5rem); bottom:calc(var(--safe-bottom) + 2rem); display:block; width:min(360px,42vw); max-height:38vh; overflow:auto; padding:1rem 1.25rem; border-radius:20px; background:var(--standby-glass-bg,rgba(255,255,255,.13))!important; border:0!important; backdrop-filter:blur(24px) saturate(150%); -webkit-backdrop-filter:blur(24px) saturate(150%); box-shadow:inset 0 1px 1px var(--standby-glass-highlight,rgba(255,255,255,.18)),0 16px 44px var(--standby-glass-shadow,rgba(0,0,0,.2)); }
-        :root[data-theme="weather"][data-weather-design="simple"] #simple-meal-title { margin-bottom:.5rem; font-size:.85rem; font-weight:700; color:rgba(255,255,255,.7); }
+        :root[data-theme="weather"][data-weather-design="simple"] #simple-meal { z-index:42; right:calc(var(--safe-right) + 1.5rem); bottom:calc(var(--safe-bottom) + 2rem); display:block; width:min(360px,42vw); overflow:visible; padding:1rem 1.25rem; border-radius:20px; background:var(--standby-glass-bg,rgba(255,255,255,.13))!important; border:0!important; backdrop-filter:blur(24px) saturate(150%); -webkit-backdrop-filter:blur(24px) saturate(150%); box-shadow:inset 0 1px 1px var(--standby-glass-highlight,rgba(255,255,255,.18)),0 16px 44px var(--standby-glass-shadow,rgba(0,0,0,.2)); }
+        :root[data-theme="weather"][data-weather-design="simple"] #simple-meal-title { margin-bottom:.5rem; font-size:1.15rem; font-weight:800; color:rgba(255,255,255,.7); }
+        :root[data-weather-design="simple"] #simple-meal-calories { margin-top:.5rem; font-size:1.15rem; font-weight:800; color:rgba(255,255,255,.7); }
         :root[data-theme="weather"][data-weather-design="simple"] #simple-meal-items { font-size:clamp(.8rem,1.4vw,1rem); line-height:1.5; }
         :root[data-theme="weather"][data-weather-design="simple"] #simple-meal-items p + p { margin-top:.12rem; }
-        @media(max-width:640px) { :root[data-theme="weather"][data-weather-design="simple"] #simple-meal { right:calc(var(--safe-right) + 12px); bottom:calc(var(--safe-bottom) + 1.75rem); width:min(58vw,300px); max-height:34vh; padding:.75rem .9rem; } :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-date { right:calc(var(--safe-right) + 12px); top:calc(var(--safe-top) + 1rem); font-size:.9rem; } }
+        @media(max-width:640px) { :root[data-theme="weather"][data-weather-design="simple"] #simple-meal { right:calc(var(--safe-right) + 12px); bottom:calc(var(--safe-bottom) + 1.75rem); width:min(58vw,300px); padding:.75rem .9rem; } :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-date { right:calc(var(--safe-right) + 12px); top:calc(var(--safe-top) + 1rem); font-size:.9rem; } }
         /* Simple layout for dark and light themes; weather keeps its weather-specific treatment above. */
         :root:not([data-theme="weather"])[data-weather-design="simple"] .screen { z-index:-1!important; display:none!important; visibility:hidden!important; opacity:0!important; pointer-events:none!important; }
         :root:not([data-theme="weather"])[data-weather-design="simple"] #dday-banner { display:none!important; }
@@ -641,7 +642,8 @@
         :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-weather-date { margin-top:.16em; font-size:clamp(.8rem,1.5vw,1rem); font-weight:700; line-height:1; }
         :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-weather-temperature { z-index:49; left:calc(var(--safe-left) + 1.5rem); bottom:calc(var(--safe-bottom) + 1.25rem); font-size:clamp(.9rem,1.8vw,1.4rem); font-weight:800; white-space:nowrap; }
         :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal { z-index:42; right:calc(var(--safe-right) + 1.5rem); bottom:calc(var(--safe-bottom) + 2rem); width:min(360px,42vw); max-height:38vh; overflow:auto; padding:1rem 1.25rem; border-radius:20px; background:var(--standby-glass-bg,rgba(255,255,255,.13))!important; border:0!important; backdrop-filter:blur(24px) saturate(150%); -webkit-backdrop-filter:blur(24px) saturate(150%); box-shadow:inset 0 1px 1px var(--standby-glass-highlight,rgba(255,255,255,.18)),0 16px 44px var(--standby-glass-shadow,rgba(0,0,0,.2)); }
-        :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal-title { margin-bottom:.5rem; font-size:.85rem; font-weight:700; color:rgba(255,255,255,.7); }
+        :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal-title { margin-bottom:.5rem; font-size:1.15rem; font-weight:800; color:rgba(255,255,255,.7); }
+        :root[data-weather-design="simple"] #simple-meal-calories { margin-top:.5rem; font-size:1.15rem; font-weight:800; color:rgba(255,255,255,.7); }
         :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal-items { font-size:clamp(.8rem,1.4vw,1rem); line-height:1.5; }
         :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal-items p + p { margin-top:.12rem; }
         :root[data-theme="light"][data-weather-design="simple"] #simple-weather-clock,
@@ -655,7 +657,7 @@
         :root[data-theme="light"][data-weather-design="default"] #simple-weather-temperature { color:#263247!important; text-shadow:0 1px 4px rgba(255,255,255,.75)!important; }
         :root[data-theme="weather"][data-weather-design="default"] #simple-weather-temperature { color:var(--weather-dynamic-color)!important; text-shadow:0 2px 8px rgba(0,0,0,.72)!important; }
         :root[data-theme="light"][data-schedule-pills="true"] #simple-schedule-pills .simple-schedule-pill { color:#263247; background:rgba(255,255,255,.74); border-color:rgba(60,76,100,.18); }
-        @media(max-width:640px) { :root[data-weather-design="default"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal { right:calc(var(--safe-right) + 12px); bottom:calc(var(--safe-bottom) + 1.75rem); width:min(58vw,300px); max-height:34vh; padding:.75rem .9rem; } :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } }
+        @media(max-width:640px) { :root[data-weather-design="default"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal { right:calc(var(--safe-right) + 12px); bottom:calc(var(--safe-bottom) + 1.75rem); width:min(58vw,300px); padding:.75rem .9rem; } :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } }
 
         #weather-modern-clock, #weather-modern-date { display:none; }
         :root[data-weather-design="modern"] .screen { transition:none!important; }
@@ -1183,6 +1185,16 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
                                 <div>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.6.2</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>심플 테마 급식 위젯에 총 칼로리 정보를 표시하고 제목과 표시 형식을 개선</li>
+                                        <li>급식 내용에 맞춰 위젯 높이를 조정해 내부 스크롤 방지</li>
+                                        <li>시작 시 자동 전체 화면 전환 설정 제공</li>
+                                        <li>날씨 타임라인 시간에 맞춰 해와 달이 이동하도록 개선</li>
+                                        <li>비·눈 및 시간대 전환 시 캔버스 스냅샷 복사를 생략해 화면 순간 정지 개선</li>
+                                    </ul>
+                                </div>
+                                <div class="pt-2 border-t border-white/10">
                                     <h5 class="font-bold text-blue-300 text-lg">v2.6.1</h5>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
                                         <li>기존 버전의 버그 해결</li>
@@ -1630,7 +1642,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
                             <div id="info-version" class="info-tab-content hidden">
                                 <h5 class="font-semibold">버전</h5>
-                                <p id="app-version-text" class="text-gray-300" data-version="2.6.1">2.6.1</p>
+                                <p id="app-version-text" class="text-gray-300" data-version="2.6.2">2.6.2</p>
                             </div>
                         </div>
                         
@@ -1655,7 +1667,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         <div id="simple-weather-date" aria-label="오늘 날짜">0000/00/00</div>
     </div>
     <div id="simple-weather-temperature" aria-label="현재 기온">00°C</div>
-    <section id="simple-meal" class="glass-card" aria-label="오늘 급식 메뉴"><div id="simple-meal-title">오늘의 급식</div><div id="simple-meal-items"><p>급식 정보를 불러오는 중입니다.</p></div></section>
+    <section id="simple-meal" class="glass-card" aria-label="오늘 급식 메뉴"><div id="simple-meal-title">오늘의 급식</div><div id="simple-meal-items"><p>급식 정보를 불러오는 중입니다.</p></div><div id="simple-meal-calories" aria-live="polite"></div></section>
     <div id="weather-screen" class="screen p-4 sm:p-8">
         
         <div class="max-w-4xl w-full text-center space-y-8">
@@ -2812,6 +2824,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const items=[...source.children].map(node=>node.textContent.replace(/\s*\(\s*\d+(?:\.\d+)*\.?\s*\)/g,'').replace(/\s+/g,' ').trim()).filter(Boolean);
             target.replaceChildren();
             (items.length?items:['오늘은 급식이 없습니다.']).forEach(text=>{const item=document.createElement('p');item.textContent=text;target.appendChild(item);});
+            const calories=document.getElementById('simple-meal-calories');
+            if(calories) { const value=(source.dataset.calories||'').replace(/\s*(?:kcal|calories?)\s*/gi,'').trim(); calories.textContent=value?`총 칼로리: ${value} kcal`:''; }
         }
 
         async function fetchTodayMealRequest() {
@@ -2838,21 +2852,25 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 const data = await res.json();
 
                 if (data.RESULT && data.RESULT.CODE === 'INFO-200') {
+                    mealContent.dataset.calories='';
                     mealContent.innerHTML = '<p class="font-light text-gray-150 text-center">오늘은 급식이 없습니다.</p>';
                     return;
                 }
 
                 if (data.mealServiceDietInfo && data.mealServiceDietInfo[1].row) {
                     const row = data.mealServiceDietInfo[1].row[0];
+                    mealContent.dataset.calories=(row.CAL_INFO||'').replace(/\s*(?:kcal|calories?)\s*/gi,'').trim();
                     let mealText = row.DDISH_NM;
                     
                     const menuItems = mealText.split('<br/>').map(item => item.trim()).filter(item => item.length > 0);
                     
                     mealContent.innerHTML = menuItems.map(item => `<p class="text-[20px] leading-tight">${item}</p>`).join('');
                 } else {
+                    mealContent.dataset.calories='';
                     mealContent.innerHTML = '<p class="font-light text-gray-150 text-center">오늘은 급식이 없습니다.</p>';
                 }
             } catch (err) {
+                mealContent.dataset.calories='';
                 console.error('급식 정보 조회 실패:', err);
                 mealContent.innerHTML = '<p class="font-light text-gray-150 text-center">급식 정보를 불러오지 못했습니다.</p>';
             }
@@ -5606,6 +5624,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     const frameStartedAt=performance.now();
     let effectContextSaved=false;
     const dt = clamp(lastFrame?(now-lastFrame)/16.67:1, .5, 3.1); lastFrame = now;
+    let precipitationFadeCompleted=false;
     try {
     frameVisualContext={hour:NaN,weather:null,phase:null};
     frameVisualContext.hour=computeCurrentHour();
@@ -5619,7 +5638,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       if(precipitationFadeRemaining<=0) precipitationFadeRemaining=12000;
       precipitationFadeRemaining=Math.max(0,precipitationFadeRemaining-dt*16.67);
       visualPrecipitation=50*precipitationFadeRemaining/12000;
-      if(precipitationFadeRemaining===0) { clearAccumulatedWeather(); visualPrecipitationKind='none'; visualPrecipitation=0; }
+      if(precipitationFadeRemaining===0) { precipitationFadeCompleted=true; clearAccumulatedWeather(); visualPrecipitationKind='none'; visualPrecipitation=0; }
     }
     const weather=visualPrecipitationKind!=='none'?{kind:visualPrecipitationKind,amount:visualPrecipitation}:{kind:'none',amount:0};
     frameVisualContext.weather=weather;
@@ -5627,8 +5646,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     const twilight=twilightStrength(), twilightActive=twilight>0||twilightWasVisible;
     scene.style.setProperty('--twilight-glow',twilight.toFixed(3)); twilightWasVisible=twilight>0;
     const visualSignature=`${state.time==='timeline'?'timeline':solarPhase()}:${weather.kind}:${state.reflectTime}`;
-    const precipitationEnded=visualPrecipitationKind!=='none'&&weather.kind!==visualPrecipitationKind;
-    if(lastWeatherVisualSignature && visualSignature!==lastWeatherVisualSignature && !state.aurora && !twilightActive) fadeWeatherFrame(!precipitationEnded);
+    // Avoid synchronous full-canvas snapshots during weather or time transitions; they can stall rendering on large displays.
+    // The live scene already animates continuously, so keep it running without a captured crossfade frame.
     lastWeatherVisualSignature=visualSignature;
     const phase = setSky(), wind = windVector(), precipitationBlend=clamp(visualPrecipitation/50,0,1), cloudiness=(weather.kind==='rain'||weather.kind==='snow') ? .1*precipitationBlend+clamp(state.cloud/100,0,1)*(1-precipitationBlend) : clamp(state.cloud/100,0,1);
     updateGroundPalette(phase,weather,dt*16.67);
@@ -5643,7 +5662,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     starCtx.clearRect(0,0,width,height); cloudCtx.clearRect(0,0,width,height);
     if (starVisibility>.003) drawNight(now,cloudiness,starVisibility);
     drawClouds(wind,cloudiness,dt);
-    if(state.time!=='timeline') drawCelestial();
+    drawCelestial();
     effectCtx.clearRect(0,0,width,height);
     const {left:safeLeft,right:safeRight,top:safeTop,bottom:safeBottom}=safeInsets(now);
     effectCtx.save(); effectContextSaved=true; effectCtx.beginPath(); effectCtx.rect(safeLeft,safeTop,Math.max(0,width-safeLeft-safeRight),Math.max(0,height-safeTop-safeBottom)); effectCtx.clip();
