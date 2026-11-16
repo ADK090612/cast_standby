@@ -565,8 +565,7 @@
         :root[data-theme="light"] input[type="range"].glass-input::-moz-range-progress { background:linear-gradient(90deg,#61b9a0,#5c82c0); }
         :root[data-theme="light"] input[type="range"].glass-input::-webkit-slider-thumb { border-color:rgba(255,255,255,.92); background:linear-gradient(135deg,#8dcfbd,#7e9dc9); box-shadow:inset 0 1px 2px rgba(255,255,255,.75),0 2px 7px rgba(28,39,57,.22); }
         :root[data-theme="light"] input[type="range"].glass-input::-moz-range-thumb { border-color:rgba(255,255,255,.92); background:linear-gradient(135deg,#8dcfbd,#7e9dc9); box-shadow:inset 0 1px 2px rgba(255,255,255,.75),0 2px 7px rgba(28,39,57,.22); }
-        .update-illustration.is-loading svg { animation:update-check-spin .85s linear infinite; }
-        @keyframes update-check-spin { to { transform:rotate(360deg); } }
+        .update-illustration.is-loading .region-loader-dots { width:42px; height:42px; flex-basis:42px; }
         
 
         :root[data-theme="weather"] #weather-scene { display:block; }
@@ -2300,12 +2299,15 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         });
 
         manualCheckUpdateBtn.addEventListener('click', async () => {
+            const loadingStartedAt = performance.now();
             const statusText = document.getElementById('update-status-text');
             if (statusText) statusText.textContent = "확인 중...";
-            if (updateIllustration) { updateIllustration.classList.add('is-loading'); updateIllustration.setAttribute('aria-label', '업데이트 확인 중'); updateIllustration.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="8.5" opacity=".24"/><path d="M12 3.5a8.5 8.5 0 0 1 8.5 8.5" stroke-linecap="round"/></svg>'; }
+            if (updateIllustration) { updateIllustration.classList.add('is-loading'); updateIllustration.setAttribute('aria-label', '업데이트 확인 중'); updateIllustration.innerHTML = '<span class="region-loader-dots" aria-hidden="true"><span class="region-loader-dot"></span><span class="region-loader-dot"></span><span class="region-loader-dot"></span><span class="region-loader-dot"></span></span>'; }
             manualCheckUpdateBtn.disabled = true;
             try { await checkForUpdates(true); }
             finally {
+                const remainingLoadingTime = 2000 - (performance.now() - loadingStartedAt);
+                if (remainingLoadingTime > 0) await new Promise(resolve => setTimeout(resolve, remainingLoadingTime));
                 if (updateIllustration) { updateIllustration.classList.remove('is-loading'); updateIllustration.removeAttribute('aria-label'); updateIllustration.innerHTML = updateIllustrationMarkup; }
                 manualCheckUpdateBtn.disabled = false;
             }
