@@ -1228,6 +1228,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
                                 <div>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.6.5</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>날씨 배경 연산 루프에서 강수 효과가 없을 때 불필요한 캔버스 정리와 화면 표면 탐색을 생략</li>
+                                        <li>구름 애니메이션의 반복 객체 생성과 중복 황혼 계산을 줄여 연산 부담 완화</li>
+                                    </ul>
+                                </div>
+                                <div class="pt-2 border-t border-white/10">
                                     <h5 class="font-bold text-blue-300 text-lg">v2.6.4</h5>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
                                         <li>각 디자인에서 시계를 사각형으로 이동·크기 조절하고 위치를 저장하는 기능 추가</li>
@@ -1722,7 +1729,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
                             <div id="info-version" class="info-tab-content hidden">
                                 <h5 class="font-semibold">버전</h5>
-                                <p id="app-version-text" class="text-gray-300" data-version="2.6.4">2.6.4</p>
+                                <p id="app-version-text" class="text-gray-300" data-version="2.6.5">2.6.5</p>
                             </div>
                         </div>
                         
@@ -4254,6 +4261,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             ['top','right','bottom','left'].forEach(side => { const input=document.getElementById(`margin-${side}`); if(input) input.value=savedMargins[side] || '0'; });
             applySafeMargins();
             const fullscreenOnStart = document.getElementById('fullscreen-on-start');
+            if (localStorage.getItem('dashboardFullscreenOnStart') === null) localStorage.setItem('dashboardFullscreenOnStart', 'true');
             if (fullscreenOnStart) fullscreenOnStart.checked = localStorage.getItem('dashboardFullscreenOnStart') === 'true';
             applySchoolPillSettings();
             const savedRegionCode = localStorage.getItem('dashboardRegionCode') || 'D10';
@@ -4987,6 +4995,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   'use strict';
   const $ = id => document.getElementById(id);
   const cloudLevelOrder = ['high','mid','low'];
+  const cloudBandRanges = {low:[.27,.40],mid:[.13,.26],high:[.02,.14]};
   const scene = $('weather-scene'), sky = $('weather-sky'), ground = $('weather-ground');
   const starCanvas = $('weather-stars'), celestialCanvas = $('weather-celestial'), cloudCanvas = $('weather-clouds'), mountainCanvas = $('weather-mountains'), grassCanvas = $('weather-grass'), effectCanvas = $('weather-precip');
   if (!scene || !sky || !ground || !starCanvas || !celestialCanvas || !cloudCanvas || !mountainCanvas || !grassCanvas || !effectCanvas) return;
@@ -4996,7 +5005,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     lat: 35.8714, lon: 128.6014, windSpeed: 8, windDir: 240, temperature: null, weatherTime: null, weatherFetchedAt: 0,
     location: '대구', detail: '', isDay: null, cloudLow: 20, cloudMid: 20, cloudHigh: 20, radiation: null
   };
-  let width = 0, height = 0, dpr = 1, sunVisibleArea = 0, sunDiscCheckAt = 0, sunDiscCheckX = NaN, clouds = [], cloudLayers = {high:[],mid:[],low:[]}, stars = [], shootingStars = [], nextShootingStarAt = 0, starRotation = 0, lastStarRotationAt = 0, rain = [], splashes = [], flakes = [], beads = [], snowPatches = [], snowClumps = [], shelves = [], snowBeds = new Map(), lastShelfScan = 0, lastFrame = 0, lastGrassPhase = '', lastSkyPaint = 0, lastSkyValue = '', lastWeatherVisualSignature = '', twilightWasVisible = false, weatherRequestId = 0, frameErrorNotified = false, starVisibility = 0, visualPrecipitation = 0, visualPrecipitationKind = 'none', precipitationFadeRemaining = 0;
+  let width = 0, height = 0, dpr = 1, sunVisibleArea = 0, sunDiscCheckAt = 0, sunDiscCheckX = NaN, clouds = [], cloudLayers = {high:[],mid:[],low:[]}, stars = [], shootingStars = [], nextShootingStarAt = 0, starRotation = 0, lastStarRotationAt = 0, rain = [], splashes = [], flakes = [], beads = [], snowPatches = [], snowClumps = [], shelves = [], snowBeds = new Map(), lastShelfScan = 0, lastFrame = 0, lastGrassPhase = '', lastSkyPaint = 0, lastSkyValue = '', lastWeatherVisualSignature = '', weatherRequestId = 0, frameErrorNotified = false, starVisibility = 0, visualPrecipitation = 0, visualPrecipitationKind = 'none', precipitationFadeRemaining = 0;
   // A lower render cadence cuts repeated canvas and particle work while keeping motion time-based.
   let nextFrameAt = 0, previousFrameCost = 0, weatherFrameRunning = false, weatherFrameRequestId = null, weatherFrameTimerId = 0, weatherFrameGeneration = 0, weatherFrameWatchdogId = 0, weatherFrameStartedAt = 0, weatherFetchIntervalId = 0;
   let grassGeometryCache={key:'',paths:null};
@@ -5373,12 +5382,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
       celestialCtx.save();celestialCtx.beginPath();celestialCtx.arc(x,y,r,0,Math.PI*2);celestialCtx.clip();celestialCtx.fillStyle=daylight?'rgba(0,0,0,1)':'rgba(255,255,255,.96)';celestialCtx.globalCompositeOperation=daylight?'destination-out':'source-over';celestialCtx.beginPath();celestialCtx.arc(x+offset,y,r,0,Math.PI*2);celestialCtx.fill();celestialCtx.restore();
     }
-    const altitude=solarAltitude(hour),twilight=smooth(-12,-5,altitude)*(1-smooth(1,8,altitude));scene.style.setProperty('--twilight-glow',clamp(twilight,0,1).toFixed(3));twilightWasVisible=twilight>.01;
-  }
-  function twilightStrength() {
-    if(state.time==='auto'&&!state.reflectTime) return 0;
-    if(state.time!=='auto'&&state.time!=='timeline') return ['dawn','sunrise','sunset'].includes(state.time)?1:0;
-    const altitude=solarAltitude(currentHour()),smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};return smooth(-12,-5,altitude)*(1-smooth(1,8,altitude));
+    const altitude=solarAltitude(hour),twilight=smooth(-12,-5,altitude)*(1-smooth(1,8,altitude));scene.style.setProperty('--twilight-glow',clamp(twilight,0,1).toFixed(3));
   }
   function continuousSkyPalette() {
     const palettes = {
@@ -5558,13 +5562,14 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       const targetOpacity=cloud.targetOpacity;
       cloud.opacity=clamp(cloud.opacity+clamp(targetOpacity-cloud.opacity,-fadeStep,fadeStep),0,1);
       const lateral=Math.abs(cloud.x/Math.max(1,width)*2-1), perspective=.48+.72*lateral;
-      cloud.x += (wind.x*(.12+.22*lateral)+Math.sign(wind.x || 1)*(.018+cloud.speed*lateral))*dt;
+      const horizontalVelocity=wind.x*(.12+.22*lateral)+Math.sign(wind.x || 1)*(.018+cloud.speed*lateral);
+      cloud.x += horizontalVelocity*dt;
       cloud.baseY -= wind.y*(.018+.03*lateral)*dt;
-      const cloudBand={low:[.27,.40],mid:[.13,.26],high:[.02,.14]}[cloud.level];
+      const cloudBand=cloudBandRanges[cloud.level];
       if(cloud.baseY<height*cloudBand[0]) cloud.baseY=height*cloudBand[1];
       if(cloud.baseY>height*cloudBand[1]) cloud.baseY=height*cloudBand[0];
-      if (cloud.x - cloud.sx * 2 > width) cloud.x = -cloud.sx * 2;
-      if (cloud.x + cloud.sx * 2 < 0) cloud.x = width + cloud.sx * 2;
+      if (horizontalVelocity > 0 && cloud.x - cloud.sx * 2 > width) cloud.x = -cloud.sx * 2;
+      else if (horizontalVelocity < 0 && cloud.x + cloud.sx * 2 < 0) cloud.x = width + cloud.sx * 2;
       const cloudX=cloud.x, cloudY=cloud.baseY+Math.pow(1-lateral,1.7)*height*.018;
       const sx=cloud.sx*perspective*stretch, sy=cloud.sy*perspective*flatten;
 
@@ -5945,8 +5950,6 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     const weather=visualPrecipitationKind!=='none'?{kind:visualPrecipitationKind,amount:visualPrecipitation}:{kind:'none',amount:0};
     frameVisualContext.weather=weather;
     frameVisualContext.phase=computeSolarPhase(frameVisualContext.hour);
-    const twilight=twilightStrength(), twilightActive=twilight>0||twilightWasVisible;
-    scene.style.setProperty('--twilight-glow',twilight.toFixed(3)); twilightWasVisible=twilight>0;
     const visualSignature=`${state.time==='timeline'?'timeline':solarPhase()}:${weather.kind}:${state.reflectTime}`;
     // Avoid synchronous full-canvas snapshots during weather or time transitions; they can stall rendering on large displays.
     // The live scene already animates continuously, so keep it running without a captured crossfade frame.
@@ -5965,16 +5968,16 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     if (starVisibility>.003) drawNight(now,cloudiness,starVisibility);
     drawClouds(wind,cloudiness,dt);
     drawCelestial();
-    effectCtx.clearRect(0,0,width,height);
-    const {left:safeLeft,right:safeRight,top:safeTop,bottom:safeBottom}=safeInsets(now);
-    effectCtx.save(); effectContextSaved=true; effectCtx.beginPath(); effectCtx.rect(safeLeft,safeTop,Math.max(0,width-safeLeft-safeRight),Math.max(0,height-safeTop-safeBottom)); effectCtx.clip();
-    const targetKind=visualPrecipitationKind;
-    try { scanSurfaces(now); } catch(error) { shelves=[]; clearAccumulatedWeather(); if(!frameErrorNotified) { console.warn('강수 표면 상태를 초기화하고 애니메이션을 계속합니다.',error); frameErrorNotified=true; } }
     const intensity = visualPrecipitation/100;
-    if (visualPrecipitationKind === 'rain' && intensity > 0) { flakes = []; snowPatches = []; snowClumps=[]; drawRain(wind,intensity,dt); }
-    else if (visualPrecipitationKind === 'snow' && intensity > 0) { rain = []; beads = []; splashes=[]; drawSnow(wind,intensity,dt); }
-    else { rain = []; flakes = []; beads = []; splashes=[]; snowPatches = []; snowClumps=[]; }
-    effectCtx.restore(); effectContextSaved=false;
+    if(visualPrecipitationKind!=='none' && intensity>0) {
+      effectCtx.clearRect(0,0,width,height);
+      const {left:safeLeft,right:safeRight,top:safeTop,bottom:safeBottom}=safeInsets(now);
+      effectCtx.save(); effectContextSaved=true; effectCtx.beginPath(); effectCtx.rect(safeLeft,safeTop,Math.max(0,width-safeLeft-safeRight),Math.max(0,height-safeTop-safeBottom)); effectCtx.clip();
+      try { scanSurfaces(now); } catch(error) { shelves=[]; clearAccumulatedWeather(); if(!frameErrorNotified) { console.warn('강수 표면 상태를 초기화하고 애니메이션을 계속합니다.',error); frameErrorNotified=true; } }
+      if (visualPrecipitationKind === 'rain') { flakes = []; snowPatches = []; snowClumps=[]; drawRain(wind,intensity,dt); }
+      else if (visualPrecipitationKind === 'snow') { rain = []; beads = []; splashes=[]; drawSnow(wind,intensity,dt); }
+      effectCtx.restore(); effectContextSaved=false;
+    } else { rain = []; flakes = []; beads = []; splashes=[]; snowPatches = []; snowClumps=[]; }
     } catch(error) { if(!frameErrorNotified) { console.warn('날씨 애니메이션 렌더링을 복구합니다.',error); frameErrorNotified=true; } }
     finally { if(effectContextSaved) { try { effectCtx.restore(); } catch(error) {} } frameVisualContext=null; }
     previousFrameCost=performance.now()-frameStartedAt;
