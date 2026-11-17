@@ -397,6 +397,8 @@
         .glass-input { border-radius: 14px; background: rgba(255,255,255,.075); border-color: rgba(255,255,255,.19); }
         #dday-banner { background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.24); border-radius: 999px; box-shadow: inset 0 1px 1px rgba(255,255,255,.16), 0 10px 28px rgba(0,0,0,.18); }
         #update-notification { border-radius: 22px; box-shadow: 0 12px 32px rgba(0,0,0,.24); }
+        .update-notification-spinner { width: 14px; height: 14px; flex: 0 0 14px; border: 2px solid rgba(255,255,255,.38); border-top-color: #fff; border-radius: 50%; animation: update-notification-spin .8s linear infinite; }
+        @keyframes update-notification-spin { to { transform: rotate(360deg); } }
         .schedule-list-container > *, #meal-content > * { border-radius: 14px; }
         @media (prefers-reduced-motion: reduce) { .screen > div { animation: none; } }
         @media (max-width: 640px) {
@@ -955,11 +957,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 </head>
 <body class="min-h-screen text-white overflow-hidden">
 
-    <div id="update-notification" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden bg-blue-600/80 backdrop-blur-md border border-blue-400 text-white rounded-[24px] shadow-lg transition-all duration-300 overflow-hidden group hover:bg-blue-600/95 max-h-[44px] hover:max-h-[100px] w-[180px] hover:w-[300px]">
+    <div id="update-notification" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden bg-blue-600/80 backdrop-blur-md border border-blue-400 text-white rounded-[24px] shadow-lg transition-all duration-300 overflow-hidden group hover:bg-blue-600/95 max-h-[44px] hover:max-h-[100px] w-[230px] max-w-[calc(100vw-2rem)] hover:w-[300px]">
         <div class="flex flex-col w-full h-full p-2">
-            <div class="flex items-center justify-center gap-2 cursor-pointer w-full h-[28px] shrink-0" id="update-notification-header">
-                <span class="animate-spin" style="animation-duration: 3s; display: inline-block;">🔄</span>
-                <span class="font-semibold text-sm whitespace-nowrap">새로운 업데이트 발견</span>
+            <div class="flex items-center justify-center gap-2 cursor-pointer w-full h-[28px] shrink-0 px-2 whitespace-nowrap" id="update-notification-header" role="status" aria-live="polite">
+                <span class="font-semibold text-sm whitespace-nowrap">업데이트 준비 중...</span>
+                <span class="update-notification-spinner" aria-hidden="true"></span>
             </div>
             <div class="flex justify-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 w-full">
                 <button id="go-to-update-btn" class="flex-1 bg-white/20 hover:bg-white/30 text-white text-xs py-1.5 px-2 rounded-full transition-colors whitespace-nowrap">업데이트로 이동</button>
@@ -2200,7 +2202,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 autoUpdateReloadId = null;
                 if (!isAutoUpdateEnabled()) return;
                 const headerText = updateNotificationHeader?.querySelector('.font-semibold');
-                if (headerText) headerText.textContent = `v${version} 업데이트 적용 중`;
+                if (headerText) headerText.textContent = '업데이트 준비 중...';
                 updateNotification?.classList.remove('hidden');
                 updateNotification?.classList.add('flex');
                 const statusText = document.getElementById('update-status-text');
@@ -2261,7 +2263,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
                     if (isAutoUpdateEnabled()) scheduleAutoUpdate(remoteVersion);
                     const headerText = updateNotificationHeader?.querySelector('.font-semibold');
-                    if (headerText) headerText.textContent = `새로운 업데이트 v${remoteVersion} 발견`;
+                    if (headerText) headerText.textContent = '업데이트 준비 중...';
                     if (updateNotificationHeader) updateNotificationHeader.title = isAutoUpdateEnabled() ? `v${remoteVersion} 업데이트가 있습니다. 1시간 뒤 자동 새로고침됩니다.` : `v${remoteVersion} 업데이트가 있습니다.`;
                     const updateStatus = document.getElementById('update-status-text');
                     if (updateStatus && isAutoUpdateEnabled()) updateStatus.textContent = `새로운 업데이트(v${remoteVersion})가 있습니다. 설치하지 않으면 1시간 뒤 자동으로 새로고침됩니다.`;
