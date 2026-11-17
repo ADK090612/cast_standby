@@ -397,8 +397,12 @@
         .glass-input { border-radius: 14px; background: rgba(255,255,255,.075); border-color: rgba(255,255,255,.19); }
         #dday-banner { background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.24); border-radius: 999px; box-shadow: inset 0 1px 1px rgba(255,255,255,.16), 0 10px 28px rgba(0,0,0,.18); }
         #update-notification { border-radius: 22px; box-shadow: 0 12px 32px rgba(0,0,0,.24); }
-        .update-notification-spinner { width: 14px; height: 14px; flex: 0 0 14px; border: 2px solid rgba(255,255,255,.38); border-top-color: #fff; border-radius: 50%; animation: update-notification-spin .8s linear infinite; }
-        @keyframes update-notification-spin { to { transform: rotate(360deg); } }
+        .update-notification-loader { display:inline-block; width:42px; height:42px; flex:0 0 18px; scale:.42; transform-origin:center; margin:0 -12px; }
+        #update-notification-progress { width:100%; padding:1px 10px 4px; }
+        #update-notification-time { display:flex; align-items:center; justify-content:space-between; gap:8px; color:rgba(255,255,255,.9); font-size:10px; line-height:12px; white-space:nowrap; }
+        #update-notification-track { width:100%; height:3px; margin-top:3px; overflow:hidden; border-radius:999px; background:rgba(255,255,255,.24); }
+        #update-notification-fill { display:block; width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,#bfdbfe,#fff); box-shadow:0 0 6px rgba(255,255,255,.72); transition:width 1s linear; }
+        @media (prefers-reduced-motion: reduce) { #update-notification-fill { transition:none; } }
         .schedule-list-container > *, #meal-content > * { border-radius: 14px; }
         @media (prefers-reduced-motion: reduce) { .screen > div { animation: none; } }
         @media (max-width: 640px) {
@@ -505,7 +509,9 @@
         #matte-right { right:0; top:var(--safe-top); bottom:var(--safe-bottom); width:var(--safe-right); }
         #dday-banner { top:calc(var(--safe-top) + 1rem); left:calc(var(--safe-left) + 1rem); }
         #dynamic-bottom-bar { left:var(--safe-left) !important; right:var(--safe-right) !important; margin-left:auto; margin-right:auto; width:max-content; transform:none !important; bottom:calc(var(--safe-bottom) + 1.25rem) !important; max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 2rem); min-width:0 !important; }
-        #update-notification { left:var(--safe-left) !important; right:var(--safe-right); max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 2rem); margin-left:auto; margin-right:auto; transform:none !important; }
+        #update-notification { top:calc(var(--safe-top) + 1rem) !important; left:var(--safe-left) !important; right:var(--safe-right); width:230px; max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 2rem); box-sizing:border-box; margin-left:auto; margin-right:auto; transform:none !important; }
+        #update-notification.has-countdown { max-height:72px; }
+        #update-notification.has-countdown:hover { max-height:120px; }
         .powered-by { right:calc(var(--safe-right) + 1.25rem) !important; bottom:calc(var(--safe-bottom) + .75rem) !important; }
         #initial-loading-overlay { inset:var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left); }
         .settings-container { display:flex; align-items:center; gap:8px; }
@@ -745,6 +751,20 @@
         #meal-screen #meal-content,
         #meal-screen > div:first-of-type > .glass-card > div:last-child { overflow:visible!important; }
         #meal-content [data-meal-calories] { margin-top:.65rem; font-size:.8em; font-weight:400; }
+        #meal-content.has-dinner { width:100%; max-width:none; }
+        .meal-period-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(.65rem,2vw,1.5rem); width:100%; text-align:left; }
+        .meal-period-column { min-width:0; }
+        .meal-period-heading { margin:0 0 .45rem; font-size:.78em; font-weight:800; color:rgba(255,255,255,.72); }
+        .meal-period-menu { min-width:0; font-size:.82em; line-height:1.45; overflow-wrap:anywhere; }
+        .meal-period-menu p + p { margin-top:.12em; }
+        .meal-period-calories { margin-top:.45rem; font-size:.62em; color:rgba(255,255,255,.7); }
+        #simple-meal.has-dinner { width:min(520px,68vw)!important; max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 24px); }
+        #simple-meal.has-dinner .meal-period-grid { gap:.6rem; }
+        #simple-meal.has-dinner .meal-period-heading { font-size:.95em; }
+        #simple-meal.has-dinner .meal-period-menu { font-size:.78em; }
+        #simple-meal.has-dinner #simple-meal-calories { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.6rem; text-align:left; font-size:.72rem; line-height:1.35; }
+        #simple-meal.has-dinner #simple-meal-calories span { min-width:0; }
+        @media(max-width:640px) { #simple-meal.has-dinner { width:min(88vw,420px)!important; } }
 
 
 
@@ -961,8 +981,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         <div class="flex flex-col w-full h-full p-2">
             <div class="flex items-center justify-center gap-2 cursor-pointer w-full h-[28px] shrink-0 px-2 whitespace-nowrap" id="update-notification-header" role="status" aria-live="polite">
                 <span class="font-semibold text-sm whitespace-nowrap">업데이트 준비 중...</span>
-                <span class="update-notification-spinner" aria-hidden="true"></span>
+                <span class="region-loader-dots update-notification-loader" aria-hidden="true"><span class="region-loader-dot"></span><span class="region-loader-dot"></span><span class="region-loader-dot"></span><span class="region-loader-dot"></span></span>
             </div>
+            <div id="update-notification-progress" class="hidden shrink-0" role="status" aria-live="polite"><div id="update-notification-time"><span>강제 업데이트까지 남은 시간</span><span id="update-notification-remaining">60:00</span></div><div id="update-notification-track"><span id="update-notification-fill"></span></div></div>
             <div class="flex justify-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 w-full">
                 <button id="go-to-update-btn" class="flex-1 bg-white/20 hover:bg-white/30 text-white text-xs py-1.5 px-2 rounded-full transition-colors whitespace-nowrap">업데이트로 이동</button>
                 <button id="remind-later-btn" class="flex-1 bg-black/20 hover:bg-black/30 text-white text-xs py-1.5 px-2 rounded-full transition-colors whitespace-nowrap">나중에 다시 알림</button>
@@ -1127,6 +1148,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div class="text-xs text-gray-300">정보 및 버전</div>
                         </div>
                     </div>
+                    <div id="developer-options-nav" class="sidebar-item p-3 rounded-lg cursor-pointer flex items-center gap-3 hidden" data-view="developer-options" tabindex="0" role="button" aria-pressed="false">
+                        <span class="settings-tab-icon w-10 h-10 rounded-xl flex items-center justify-center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 8-4 4 4 4m8-8 4 4-4 4m-3-14-2 20"/></svg></span>
+                        <div class="text-sm"><div class="font-semibold">개발자 옵션</div><div class="text-xs text-gray-300">시뮬레이션 / API 테스트</div></div>
+                    </div>
                 </aside>
 
                 <section class="settings-details flex-1 p-3 relative">
@@ -1230,6 +1255,30 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
                                 <div>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.6.8</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>점심과 저녁이 모두 있는 날 칼로리 정보를 좌우로 나눠 표시</li>
+                                        <li>업데이트 알림 로딩 애니메이션을 화면 공용 로더와 동일하게 조정</li>
+                                    </ul>
+                                </div>
+                                <div class="pt-2 border-t border-white/10">
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.6.7</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>업데이트 pill 문구 뒤에 로딩 점 애니메이션 추가</li>
+                                        <li>자동 업데이트까지 남은 시간과 진행 막대를 알림 pill에 표시</li>
+                                        <li>화면 여백 설정에 맞춰 업데이트 pill 위치와 폭을 화면 영역 안으로 제한</li>
+                                        <li>석식이 있는 날 급식 박스를 점심·저녁 두 칸으로 나눠 표시</li>
+                                    </ul>
+                                </div>
+                                <div class="pt-2 border-t border-white/10">
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.6.6</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>정보 탭의 개발자 항목을 다섯 번 눌러 개발자 옵션을 여는 기능 추가</li>
+                                        <li>업데이트 알림, 시각·시간대, 날씨·급식·학사 일정 API 응답 시뮬레이션 추가</li>
+                                        <li>실제 설정을 바꾸지 않고 날씨 배경 상태를 시험하는 기능 추가</li>
+                                    </ul>
+                                </div>
+                                <div class="pt-2 border-t border-white/10">
                                     <h5 class="font-bold text-blue-300 text-lg">v2.6.5</h5>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
                                         <li>날씨 배경 연산 루프에서 강수 효과가 없을 때 불필요한 캔버스 정리와 화면 표면 탐색을 생략</li>
@@ -1731,8 +1780,41 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
                             <div id="info-version" class="info-tab-content hidden">
                                 <h5 class="font-semibold">버전</h5>
-                                <p id="app-version-text" class="text-gray-300" data-version="2.6.5">2.6.5</p>
+                                <p id="app-version-text" class="text-gray-300" data-version="2.6.8">2.6.8</p>
                             </div>
+                        </div>
+
+                        <div id="developer-options-view" class="settings-view hidden space-y-4 max-h-[70vh] overflow-y-auto pr-2">
+                            <h4 class="text-xl font-semibold border-b border-white/30 pb-2">개발자 옵션</h4>
+                            <p class="text-xs text-white/60">테스트 값은 현재 페이지에서만 적용되며 실제 API 설정과 저장된 학교 정보를 바꾸지 않습니다.</p>
+                            <section class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">업데이트 알림</h5>
+                                <div class="flex flex-wrap items-end gap-2"><label class="text-sm space-y-1">가상 최신 버전<input id="dev-update-version" class="glass-input w-full" value="99.0.0"></label><button type="button" id="dev-show-update" class="glass-button">높은 버전 알림 표시</button><button type="button" id="dev-hide-update" class="glass-button">알림 닫기</button></div>
+                                <p id="dev-update-status" class="text-xs text-white/60" aria-live="polite">실제 업데이트 확인이나 자동 설치를 실행하지 않습니다.</p>
+                            </section>
+                            <section class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">시계·시간대</h5>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3"><label class="text-sm space-y-1">시뮬레이션 날짜와 시각<input id="dev-clock-value" type="datetime-local" class="glass-input w-full"></label><label class="text-sm space-y-1">표시 시간대<select id="dev-timezone" class="glass-input w-full"><option value="Asia/Seoul">서울 (Asia/Seoul)</option><option value="UTC">UTC</option><option value="America/Los_Angeles">로스앤젤레스</option><option value="Europe/London">런던</option><option value="Asia/Tokyo">도쿄</option></select></label></div>
+                                <div class="flex flex-wrap gap-2"><button type="button" id="dev-apply-clock" class="glass-button">시계에 적용</button><button type="button" id="dev-clear-clock" class="glass-button">현재 시각으로 복원</button></div><p id="dev-clock-status" class="text-xs text-white/60" aria-live="polite">날씨 배경의 시간대 계산에도 반영됩니다.</p>
+                            </section>
+                            <section class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">날씨 API 응답</h5>
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3"><label class="text-sm space-y-1">기온 °C<input id="dev-weather-temp" type="number" class="glass-input w-full" value="22"></label><label class="text-sm space-y-1">체감온도 °C<input id="dev-weather-feels" type="number" class="glass-input w-full" value="24"></label><label class="text-sm space-y-1">습도 %<input id="dev-weather-humidity" type="number" min="0" max="100" class="glass-input w-full" value="65"></label><label class="text-sm space-y-1">풍속 m/s<input id="dev-weather-wind" type="number" min="0" class="glass-input w-full" value="2.4"></label></div>
+                                <label class="block text-sm space-y-1">날씨 설명<input id="dev-weather-description" class="glass-input w-full" value="구름 조금"></label><div class="flex flex-wrap gap-2"><button type="button" id="dev-apply-weather" class="glass-button">가상 날씨 적용</button><button type="button" id="dev-weather-empty" class="glass-button">데이터 없음</button><button type="button" id="dev-weather-error" class="glass-button">API 오류</button><button type="button" id="dev-clear-weather" class="glass-button">실제 API로 복원</button></div><p id="dev-weather-status" class="text-xs text-white/60" aria-live="polite">실시간 날씨 카드 응답을 대체합니다.</p>
+                            </section>
+                            <section class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">급식 API 응답</h5>
+                                <label class="block text-sm space-y-1">점심 메뉴 (한 줄에 하나씩)<textarea id="dev-meal-items" class="glass-input w-full min-h-24" placeholder="현미밥&#10;미역국&#10;불고기"></textarea></label>
+                                <label class="block text-sm space-y-1">저녁 메뉴 (있는 날에 입력)<textarea id="dev-meal-dinner-items" class="glass-input w-full min-h-20" placeholder="석식 메뉴"></textarea></label>
+                                <div class="flex flex-wrap items-end gap-2"><label class="text-sm space-y-1">점심 칼로리<input id="dev-meal-calories" class="glass-input w-full" value="742.5"></label><label class="text-sm space-y-1">저녁 칼로리<input id="dev-meal-dinner-calories" class="glass-input w-full" value=""></label><label class="text-sm space-y-1">응답 상태<select id="dev-meal-mode" class="glass-input w-full"><option value="success">정상 메뉴</option><option value="empty">급식 없음</option><option value="error">API 오류</option></select></label><button type="button" id="dev-apply-meal" class="glass-button">가상 급식 적용</button><button type="button" id="dev-clear-meal" class="glass-button">실제 API로 복원</button></div><p id="dev-meal-status" class="text-xs text-white/60" aria-live="polite">점심과 저녁 응답을 나눠 급식 화면과 심플 급식 위젯에 적용합니다.</p>
+                            </section>
+                            <section class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">학사 일정 API 응답</h5><label class="block text-sm space-y-1">일정 JSON<textarea id="dev-schedule-json" class="glass-input w-full min-h-32 font-mono text-xs">[{"date":"2026.12.24","endDate":null,"event":"개발자 테스트 일정","dday":false},{"date":"2026.12.31","endDate":null,"event":"테스트 D-Day","dday":true}]</textarea></label><div class="flex flex-wrap gap-2"><button type="button" id="dev-apply-schedules" class="glass-button">가상 일정 적용</button><button type="button" id="dev-clear-schedules" class="glass-button">실제 API로 복원</button></div><p id="dev-schedule-status" class="text-xs text-white/60" aria-live="polite">date, event, 선택 항목 endDate와 dday를 사용합니다.</p>
+                            </section>
+                            <section class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">날씨 배경</h5><div class="grid grid-cols-2 sm:grid-cols-3 gap-3"><label class="text-sm space-y-1">시간대<select id="dev-scene-time" class="glass-input w-full"><option value="dawn">새벽</option><option value="sunrise">일출</option><option value="day" selected>낮</option><option value="sunset">일몰</option><option value="night">밤</option></select></label><label class="text-sm space-y-1">강수<select id="dev-scene-kind" class="glass-input w-full"><option value="none">맑음</option><option value="rain">비</option><option value="snow">눈</option></select></label><label class="text-sm space-y-1">구름 양 %<input id="dev-scene-cloud" type="number" min="0" max="100" class="glass-input w-full" value="55"></label><label class="text-sm space-y-1">강수량 %<input id="dev-scene-amount" type="number" min="0" max="100" class="glass-input w-full" value="50"></label><label class="text-sm space-y-1">풍속 km/h<input id="dev-scene-wind-speed" type="number" min="0" max="400" class="glass-input w-full" value="8"></label><label class="text-sm space-y-1">풍향 °<input id="dev-scene-wind-direction" type="number" min="0" max="359" class="glass-input w-full" value="240"></label></div><div class="flex flex-wrap gap-2"><button type="button" id="dev-apply-scene" class="glass-button">날씨 배경 적용</button><button type="button" id="dev-clear-scene" class="glass-button">날씨 배경 복원</button></div><p id="dev-scene-status" class="text-xs text-white/60" aria-live="polite">시뮬레이션 값은 날씨 테마에서 보이며 실제 날씨 설정은 변경하지 않습니다.</p>
+                            </section>
+                            <div class="flex flex-wrap justify-between gap-2"><button type="button" id="dev-clear-all" class="glass-button">모든 시뮬레이션 초기화</button><button type="button" id="dev-disable-options" class="glass-button">개발자 옵션 잠그기</button></div>
                         </div>
                         
                     </div>
@@ -2163,9 +2245,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 digits.filter(Boolean).forEach(element=>{if(family)element.style.setProperty('font-family',family,'important');else element.style.removeProperty('font-family');});
             }
         }
-        function formatClockDate(date,format=readClockPreferences().dateFormat) {
-            if(format==='us') return new Intl.DateTimeFormat('en-US',{month:'2-digit',day:'2-digit',year:'numeric',timeZone:'Asia/Seoul'}).format(date);
-            const parts=new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Asia/Seoul'}).formatToParts(date),values=Object.fromEntries(parts.map(part=>[part.type,part.value]));
+        function formatClockDate(date,format=readClockPreferences().dateFormat,timeZone='Asia/Seoul') {
+            if(format==='us') return new Intl.DateTimeFormat('en-US',{month:'2-digit',day:'2-digit',year:'numeric',timeZone}).format(date);
+            const parts=new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit',timeZone}).formatToParts(date),values=Object.fromEntries(parts.map(part=>[part.type,part.value]));
             return `${values.year}년 ${values.month}월 ${values.day}일`;
         }
         clockFontSelect?.addEventListener('change',event=>saveClockPreferences({font:event.target.value}));
@@ -2186,21 +2268,51 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         const autoUpdateToggle = document.getElementById('auto-update-toggle');
         let autoUpdateIntervalId = null;
         let autoUpdateReloadId = null;
+        let autoUpdateCountdownId = null;
+        let autoUpdateDueAt = 0;
         let scheduledUpdateVersion = '';
 
         function isAutoUpdateEnabled() { return localStorage.getItem('dashboardAutoUpdateEnabled') !== 'false'; }
+        function updateAutoUpdateCountdown() {
+            if (!autoUpdateDueAt) return;
+            const remaining = Math.max(0, autoUpdateDueAt - Date.now());
+            const progress = document.getElementById('update-notification-progress');
+            const fill = document.getElementById('update-notification-fill');
+            const remainingText = document.getElementById('update-notification-remaining');
+            progress?.classList.remove('hidden');
+            updateNotification?.classList.add('has-countdown');
+            if (fill) fill.style.width = `${Math.min(100, Math.max(0, (1 - remaining / AUTO_UPDATE_DELAY) * 100))}%`;
+            if (remainingText) remainingText.textContent = `${String(Math.floor(remaining / 60000)).padStart(2, '0')}:${String(Math.floor((remaining % 60000) / 1000)).padStart(2, '0')}`;
+            if (remaining <= 0 && autoUpdateCountdownId !== null) { clearInterval(autoUpdateCountdownId); autoUpdateCountdownId = null; }
+        }
+        function clearAutoUpdateCountdown() {
+            if (autoUpdateCountdownId !== null) clearInterval(autoUpdateCountdownId);
+            autoUpdateCountdownId = null;
+            autoUpdateDueAt = 0;
+            document.getElementById('update-notification-progress')?.classList.add('hidden');
+            updateNotification?.classList.remove('has-countdown');
+            const fill = document.getElementById('update-notification-fill');
+            const remainingText = document.getElementById('update-notification-remaining');
+            if (fill) fill.style.width = '0%';
+            if (remainingText) remainingText.textContent = '60:00';
+        }
         function cancelScheduledAutoUpdate() {
             if (autoUpdateReloadId !== null) clearTimeout(autoUpdateReloadId);
             autoUpdateReloadId = null;
+            clearAutoUpdateCountdown();
             scheduledUpdateVersion = '';
         }
         function scheduleAutoUpdate(version) {
             if (!isAutoUpdateEnabled() || !version || scheduledUpdateVersion === version) return;
             cancelScheduledAutoUpdate();
             scheduledUpdateVersion = version;
+            autoUpdateDueAt = Date.now() + AUTO_UPDATE_DELAY;
+            updateAutoUpdateCountdown();
+            autoUpdateCountdownId = setInterval(updateAutoUpdateCountdown, 1000);
             autoUpdateReloadId = setTimeout(() => {
                 autoUpdateReloadId = null;
                 if (!isAutoUpdateEnabled()) return;
+                updateAutoUpdateCountdown();
                 const headerText = updateNotificationHeader?.querySelector('.font-semibold');
                 if (headerText) headerText.textContent = '업데이트 준비 중...';
                 updateNotification?.classList.remove('hidden');
@@ -2303,6 +2415,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
         remindLaterBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            if (developerUpdateSimulationActive) { clearDeveloperUpdateSimulation(); return; }
             updateNotification.classList.add('hidden');
             localStorage.setItem('dashboardUpdateSnooze', Date.now() + (12 * 60 * 60 * 1000));
         });
@@ -2326,6 +2439,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         autoUpdateToggle.addEventListener('change', event => configureAutoUpdate(event.target.checked));
 
         document.getElementById('install-update-btn').addEventListener('click', () => {
+            if (developerUpdateSimulationActive) { const statusText=document.getElementById('update-status-text'); if(statusText) statusText.textContent='테스트용 가상 업데이트입니다. 실제 설치는 진행하지 않았습니다.'; return; }
             cancelScheduledAutoUpdate();
             if (window.location.protocol === 'file:') {
                 alert("현재 내 컴퓨터(로컬 파일)에서 실행 중이므로 자동 덮어쓰기가 불가능합니다.\n오른쪽 상단 알림 메뉴에서 [새 HTML 다운로드] 또는 [GitHub로 이동]을 선택해주세요.");
@@ -2470,6 +2584,14 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         const NEIS_API_KEY = '9415686e1ade498d8755f0d28aa7489e';
         
         const weatherCard = weatherScreen.querySelector('.glass-card.no-initial-blur');
+        let developerClockOverride = null, developerTimeZone = 'Asia/Seoul';
+        let developerWeatherOverride = null, developerMealOverride = null, developerScheduleOverride = null;
+        let developerTapCount = 0, developerLastTapAt = 0, developerOptionsEnabled = false, developerUpdateSimulationActive = false, developerUpdateStatusBefore = null, developerUpdateNotificationWasVisible = null, developerUpdateTitleBefore = null, developerUpdateHeaderBefore = null, developerInstallButtonWasVisible = null, developerInstallButtonContent = null;
+        function getDeveloperNow() { return developerClockOverride ? new Date(developerClockOverride.timestamp + Date.now() - developerClockOverride.startedAt) : new Date(); }
+        window.__dashboardDeveloperNow = getDeveloperNow;
+        window.__dashboardDeveloperClockActive = () => developerClockOverride !== null;
+        window.__dashboardDeveloperTimeZone = () => developerTimeZone;
+        window.__dashboardDeveloperSceneOverride = null;
 
         // ==== Play(플레이리스트) & PiP 기능 로직 ====
         let ytMusicPlaylist = JSON.parse(localStorage.getItem('dashboardPlaylist') || '[]');
@@ -3033,6 +3155,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         // ==== 날씨/급식/일정/시계 로직 (기존과 동일) ====
         async function fetchManchon3DongWeatherRequest() {
             if (!weatherCard) return;
+            if (developerWeatherOverride) { renderDeveloperWeatherOverride(); return; }
             if (!OPENWEATHER_API_KEY) {
                 weatherCard.innerHTML = `<div class="text-sm text-gray-300">OpenWeatherMap API 키가 설정되어 있지 않습니다.</div>`;
                 return;
@@ -3090,8 +3213,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const feels = Math.round(data.main.feels_like);
             const humidity = data.main.humidity;
             const wind = Number.isFinite(Number(data.wind?.speed)) ? Number(data.wind.speed) : null;
-            const description = data.weather && data.weather[0] ? data.weather[0].description : '';
-            const icon = data.weather && data.weather[0] ? data.weather[0].icon : '01d';
+            const description = data.weather && data.weather[0] ? String(data.weather[0].description || '') : '';
+            const safeDescription = description.replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
+            const iconValue = data.weather && data.weather[0] ? String(data.weather[0].icon || '01d') : '01d';
+            const icon = /^\d{2}[dn]$/.test(iconValue) ? iconValue : '01d';
             const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
             const conditionColor='#ffffff';
             const temperatureTextColor=temperatureColor(exactTemp), feelsTextColor=temperatureColor(exactFeels), humidityTextColor=interpolateWeatherColor(humidity,humidityColorStops), windTextColor=wind===null?conditionColor:interpolateWeatherColor(wind,windSpeedColorStops);
@@ -3100,10 +3225,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 <p class="text-xl sm:text-2xl font-semibold text-gray-200 mb-4">현재 위치: <span data-weather-school-name>(만촌3동)</span></p>
                 <div class="flex flex-col sm:flex-row justify-around items-center">
                     <div class="flex items-center space-x-4 mb-6 sm:mb-0">
-                        <img src="${iconUrl}" alt="${description}" class="w-20 h-20">
+                        <img src="${iconUrl}" alt="${safeDescription}" class="w-20 h-20">
                         <div>
                             <p id="weather-current-temperature" class="weather-dynamic-color text-5xl sm:text-6xl font-bold text-yellow-300" style="--weather-dynamic-color:${temperatureTextColor}">${temp}°C</p>
-                            <p class="weather-dynamic-color text-lg text-gray-200" style="--weather-dynamic-color:${conditionColor}">${description}</p>
+                            <p class="weather-dynamic-color text-lg text-gray-200" style="--weather-dynamic-color:${conditionColor}">${safeDescription}</p>
                         </div>
                     </div>
                     <div class="text-left space-y-2 sm:border-l border-gray-400/50 sm:pl-6">
@@ -3119,30 +3244,101 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             if(simpleTemperature) { simpleTemperature.textContent=`${temp}°C`; simpleTemperature.style.setProperty('--weather-dynamic-color',temperatureTextColor); }
         }
 
+        function renderDeveloperWeatherOverride() {
+            if(!developerWeatherOverride)return;
+            if(developerWeatherOverride.mode==='empty'||developerWeatherOverride.mode==='error') {
+                const isError=developerWeatherOverride.mode==='error';
+                weatherCard.innerHTML=`<div class="text-sm text-gray-300">${isError?'테스트 응답: 날씨 정보를 불러오는 중 오류가 발생했습니다.':'테스트 응답: 날씨 데이터가 없습니다.'}</div>`;
+                const simpleTemperature=document.getElementById('simple-weather-temperature');
+                if(simpleTemperature)simpleTemperature.textContent='--°C';
+            } else renderWeather(developerWeatherOverride);
+        }
+
         function syncSimpleMeal() {
             const source=document.getElementById('meal-content'), target=document.getElementById('simple-meal-items');
             if(!source||!target) return;
-            const items=[...source.children].filter(node=>!node.hasAttribute('data-meal-calories')).map(node=>node.textContent.replace(/\s*\(\s*\d+(?:\.\d+)*\.?\s*\)/g,'').replace(/\s+/g,' ').trim()).filter(Boolean);
+            const simpleMeal=document.getElementById('simple-meal');
+            const hasDinner=source.classList.contains('has-dinner');
+            simpleMeal?.classList.toggle('has-dinner',hasDinner);
             target.replaceChildren();
-            (items.length?items:['오늘은 급식이 없습니다.']).forEach(text=>{const item=document.createElement('p');item.textContent=text;target.appendChild(item);});
+            if(hasDinner) {
+                const grid=source.querySelector('.meal-period-grid');
+                if(grid) {
+                    const simpleGrid=grid.cloneNode(true);
+                    simpleGrid.querySelectorAll('.meal-period-calories').forEach(item=>item.remove());
+                    target.appendChild(simpleGrid);
+                }
+            } else {
+                const mealNodes=[...source.querySelectorAll('[data-meal-item]')];
+                const items=mealNodes.length?mealNodes.map(node=>node.textContent.trim()).filter(Boolean):[...source.children].filter(node=>!node.hasAttribute('data-meal-calories')).map(node=>node.textContent.replace(/\s*\(\s*\d+(?:\.\d+)*\.?\s*\)/g,'').replace(/\s+/g,' ').trim()).filter(Boolean);
+                (items.length?items:['오늘은 급식이 없습니다.']).forEach(text=>{const item=document.createElement('p');item.textContent=text;target.appendChild(item);});
+            }
             const calories=document.getElementById('simple-meal-calories');
-            if(calories) { const value=(source.dataset.calories||'').replace(/\s*(?:kcal|calories?)\s*/gi,'').trim(); calories.textContent=value?`총 칼로리: ${value} kcal`:''; }
+            if(calories) {
+                const lunch=(source.dataset.calories||'').replace(/\s*(?:kcal|calories?)\s*/gi,'').trim();
+                const dinner=(source.dataset.dinnerCalories||'').replace(/\s*(?:kcal|calories?)\s*/gi,'').trim();
+                if(hasDinner) {
+                    calories.replaceChildren();
+                    for(const [label,value] of [['점심',lunch],['저녁',dinner]]) {
+                        const item=document.createElement('span');
+                        item.textContent=value?`${label} 칼로리: ${value} kcal`:'';
+                        calories.appendChild(item);
+                    }
+                } else calories.textContent=lunch?`총 칼로리: ${lunch} kcal`:'';
+            }
+        }
+
+        function renderMealData(lunch,dinner=null) {
+            const mealContent=document.getElementById('meal-content');
+            if(!mealContent)return;
+            const lunchData=lunch||{items:[],calories:''};
+            mealContent.replaceChildren();
+            mealContent.dataset.calories=lunchData.calories||'';
+            mealContent.dataset.dinnerCalories=dinner?.calories||'';
+            mealContent.classList.toggle('has-dinner',!!dinner);
+            const appendItems=(container,meal,label)=>{
+                if(meal?.items?.length) meal.items.forEach(text=>{const item=document.createElement('p');item.dataset.mealItem='';item.textContent=text;container.appendChild(item);});
+                else {const empty=document.createElement('p');empty.className='text-sm opacity-70';empty.textContent=`${label} 급식이 없습니다.`;container.appendChild(empty);}
+            };
+            if(dinner) {
+                const grid=document.createElement('div');grid.className='meal-period-grid';
+                for(const [label,meal] of [['점심',lunchData],['저녁',dinner]]) {
+                    const column=document.createElement('section');column.className='meal-period-column';column.dataset.mealPeriod=label==='점심'?'lunch':'dinner';
+                    const heading=document.createElement('h3');heading.className='meal-period-heading';heading.textContent=label;column.appendChild(heading);
+                    const menu=document.createElement('div');menu.className='meal-period-menu';appendItems(menu,meal,label);column.appendChild(menu);
+                    if(meal?.calories) {const calories=document.createElement('p');calories.className='meal-period-calories';calories.textContent=`총 칼로리: ${meal.calories} kcal`;column.appendChild(calories);}
+                    grid.appendChild(column);
+                }
+                mealContent.appendChild(grid);
+            } else if(lunchData.items?.length) appendItems(mealContent,lunchData,'점심');
+            else {const empty=document.createElement('p');empty.className='font-light text-gray-150 text-center';empty.textContent='오늘은 급식이 없습니다.';mealContent.appendChild(empty);}
+            if(!dinner&&lunchData.calories) {const calories=document.createElement('p');calories.dataset.mealCalories='';calories.textContent=`총 칼로리: ${lunchData.calories} kcal`;mealContent.appendChild(calories);}
+            syncSimpleMeal();
+        }
+
+        function renderMealMessage(message) {
+            const mealContent=document.getElementById('meal-content');
+            if(!mealContent)return;
+            mealContent.dataset.calories='';mealContent.dataset.dinnerCalories='';mealContent.classList.remove('has-dinner');
+            const item=document.createElement('p');item.className='font-light text-gray-150 text-center';item.textContent=message;mealContent.replaceChildren(item);
+            syncSimpleMeal();
         }
 
         async function fetchTodayMealRequest() {
             const mealContent = document.getElementById('meal-content');
             if (!mealContent) return;
+            if (developerMealOverride) { renderDeveloperMealOverride(); return; }
 
             const regionCode = localStorage.getItem('dashboardRegionCode') || 'D10'; 
             const schoolCode = localStorage.getItem('dashboardSchoolCode') || '7240085'; 
             
-            const now = new Date();
+            const now = getDeveloperNow();
             const yyyy = now.getFullYear();
             const mm = String(now.getMonth() + 1).padStart(2, '0');
             const dd = String(now.getDate()).padStart(2, '0');
             const dateStr = `${yyyy}${mm}${dd}`;
 
-            let apiUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=${regionCode}&SD_SCHUL_CODE=${schoolCode}&MLSV_YMD=${dateStr}`;
+            let apiUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?Type=json&pIndex=1&pSize=10&ATPT_OFCDC_SC_CODE=${regionCode}&SD_SCHUL_CODE=${schoolCode}&MLSV_YMD=${dateStr}`;
             
             if (NEIS_API_KEY && NEIS_API_KEY !== '(9415686e1ade498d8755f0d28aa7489e)') {
                 apiUrl += `&KEY=${NEIS_API_KEY}`;
@@ -3152,38 +3348,34 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 const res = await fetch(apiUrl);
                 const data = await res.json();
 
-                if (data.RESULT && data.RESULT.CODE === 'INFO-200') {
-                    mealContent.dataset.calories='';
-                    mealContent.innerHTML = '<p class="font-light text-gray-150 text-center">오늘은 급식이 없습니다.</p>';
-                    return;
-                }
-
-                if (data.mealServiceDietInfo && data.mealServiceDietInfo[1].row) {
-                    const row = data.mealServiceDietInfo[1].row[0];
-                    mealContent.dataset.calories=(row.CAL_INFO||'').replace(/\s*(?:kcal|calories?)\s*/gi,'').trim();
-                    let mealText = row.DDISH_NM;
-                    
-                    const menuItems = mealText.split('<br/>').map(item => item.trim()).filter(item => item.length > 0);
-                    
-                    mealContent.innerHTML = menuItems.map(item => `<p class="text-[20px] leading-tight">${item}</p>`).join('') + (mealContent.dataset.calories ? `<p data-meal-calories>총 칼로리: ${mealContent.dataset.calories} kcal</p>` : '');
-                } else {
-                    mealContent.dataset.calories='';
-                    mealContent.innerHTML = '<p class="font-light text-gray-150 text-center">오늘은 급식이 없습니다.</p>';
-                }
+                if (data.RESULT && data.RESULT.CODE === 'INFO-200') { renderMealData({items:[],calories:''}); return; }
+                const rows=data.mealServiceDietInfo?.[1]?.row;
+                if(Array.isArray(rows)&&rows.length) {
+                    const mealCode=row=>String(row.MMEAL_SC_CODE||'');
+                    const lunchRow=rows.find(row=>mealCode(row)==='2')||(rows.every(row=>!row.MMEAL_SC_CODE)?rows[0]:null);
+                    const dinnerRow=rows.find(row=>mealCode(row)==='3')||null;
+                    const parseMealRow=row=>row?{items:String(row.DDISH_NM||'').split(/<br\s*\/?>/i).map(item=>item.trim()).filter(Boolean),calories:String(row.CAL_INFO||'').replace(/\s*(?:kcal|calories?)\s*/gi,'').trim()}:{items:[],calories:''};
+                    if(lunchRow||dinnerRow) renderMealData(parseMealRow(lunchRow),dinnerRow?parseMealRow(dinnerRow):null);
+                    else renderMealData({items:[],calories:''});
+                } else renderMealData({items:[],calories:''});
             } catch (err) {
-                mealContent.dataset.calories='';
                 console.error('급식 정보 조회 실패:', err);
-                mealContent.innerHTML = '<p class="font-light text-gray-150 text-center">급식 정보를 불러오지 못했습니다.</p>';
+                renderMealMessage('급식 정보를 불러오지 못했습니다.');
             }
         }
 
         function fetchTodayMeal() { return withRegionLoading('meal-content', '급식 정보를 불러오는 중', fetchTodayMealRequest); }
 
         async function fetchApiSchedulesRequest() {
+            if (developerScheduleOverride) {
+                apiSchedules = developerScheduleOverride.map(schedule => ({...schedule}));
+                renderDisplaySchedules(); renderModalSchedules();
+                return;
+            }
             const regionCode = localStorage.getItem('dashboardRegionCode') || 'D10'; 
             const schoolCode = localStorage.getItem('dashboardSchoolCode') || '7240085';
             
-            const now = new Date();
+            const now = getDeveloperNow();
             const yyyy = now.getFullYear();
             const mm = String(now.getMonth() + 1).padStart(2, '0');
             const fromYMD = `${yyyy}${mm}01`;
@@ -3261,34 +3453,34 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
         function updateTime() {
             prunePastSchedules();
-            const now = new Date();
+            const now = getDeveloperNow(), displayTimeZone = developerTimeZone;
             const simpleClock=document.getElementById('simple-weather-clock');
             const simpleMode=document.documentElement.dataset.weatherDesign==='simple'||(simpleClock&&getComputedStyle(simpleClock).display!=='none');
             if(simpleMode) {
                 if(timeElement) { timeElement.hidden=true; timeElement.style.setProperty('display','none','important'); }
                 if(dateElement) { dateElement.hidden=true; dateElement.style.setProperty('display','none','important'); }
                 const simpleTime=document.getElementById('simple-weather-time'), simpleDate=document.getElementById('simple-weather-date');
-                const clockPreferences=readClockPreferences(), simpleTimeOptions={hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Seoul'};
+                const clockPreferences=readClockPreferences(), simpleTimeOptions={hour:'2-digit',minute:'2-digit',hour12:false,timeZone:displayTimeZone};
                 if(clockPreferences.timeFormat==='hms')simpleTimeOptions.second='2-digit';
                 if(simpleTime)simpleTime.textContent=now.toLocaleTimeString('en-GB',simpleTimeOptions);
-                if(simpleDate)simpleDate.textContent=formatClockDate(now,clockPreferences.dateFormat);
+                if(simpleDate)simpleDate.textContent=formatClockDate(now,clockPreferences.dateFormat,displayTimeZone);
                 updateSimpleSchedulePills();
                 return;
             }
             if(timeElement) { timeElement.hidden=false; timeElement.style.removeProperty('display'); }
             if(dateElement) { dateElement.hidden=false; dateElement.style.removeProperty('display'); }
-            const clockPreferences=readClockPreferences(), timeOptions={hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Seoul'};
+            const clockPreferences=readClockPreferences(), timeOptions={hour:'2-digit',minute:'2-digit',hour12:false,timeZone:displayTimeZone};
             if(clockPreferences.timeFormat==='hms')timeOptions.second='2-digit';
-            dateElement.textContent=formatClockDate(now,clockPreferences.dateFormat);
+            dateElement.textContent=formatClockDate(now,clockPreferences.dateFormat,displayTimeZone);
             if(timeElement)timeElement.textContent=now.toLocaleTimeString('ko-KR',timeOptions);
             const modernTime = document.getElementById('weather-modern-time');
             const modernSeconds = document.getElementById('weather-modern-seconds');
             const modernDate = document.getElementById('weather-modern-date');
             if(modernTime)modernTime.textContent=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Seoul'});
             if(modernSeconds)modernSeconds.textContent=':'+String(now.getSeconds()).padStart(2,'0');
-            if(modernDate)modernDate.textContent=formatClockDate(now,clockPreferences.dateFormat);
+            if(modernDate)modernDate.textContent=formatClockDate(now,clockPreferences.dateFormat,displayTimeZone);
             auxTimeElems().forEach(el=>{el.textContent=now.toLocaleTimeString('ko-KR',timeOptions);});
-            auxDateElems().forEach(el=>{el.textContent=formatClockDate(now,clockPreferences.dateFormat);});
+            auxDateElems().forEach(el=>{el.textContent=formatClockDate(now,clockPreferences.dateFormat,displayTimeZone);});
         }
 
         function toggleCardBlur(screenIndex, enableBlur) {
@@ -3419,8 +3611,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const backgroundView = document.getElementById('background-view');
             const profileViewEl = document.getElementById('profile-view');
             const infoViewEl = document.getElementById('info-view');
+            const developerOptionsView = document.getElementById('developer-options-view');
             
-            [mainMenuView, displayView, customTextView, scheduleEditView, playView, backgroundView, profileViewEl, infoViewEl, systemView, updateView, releaseNotesView, pipView, document.getElementById('broadcasts-view')].forEach(view => view && view.classList.add('hidden'));
+            [mainMenuView, displayView, customTextView, scheduleEditView, playView, backgroundView, profileViewEl, infoViewEl, developerOptionsView, systemView, updateView, releaseNotesView, pipView, document.getElementById('broadcasts-view')].forEach(view => view && view.classList.add('hidden'));
             
             let titleText = '대시보드 설정';
             let showBackButton = false;
@@ -3449,6 +3642,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 titleText = '초기화 및 백업 설정'; showBackButton = true; targetView = systemView;
             } else if (viewName === 'info') {
                 titleText = '정보'; showBackButton = true; targetView = infoViewEl;
+            } else if (viewName === 'developer-options' && developerOptionsEnabled) {
+                titleText = '개발자 옵션'; showBackButton = true; targetView = developerOptionsView;
             } else if (viewName === 'update') {
                 titleText = '업데이트 설정'; showBackButton = true; targetView = updateView;
             } else if (viewName === 'release-notes') {
@@ -3476,6 +3671,149 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             if (showEl) showEl.classList.remove('hidden');
             const btn = document.querySelector(`.info-tab-button[data-tab="${tabName}"]`);
             if (btn) btn.classList.add('active');
+        }
+
+        function renderDeveloperMealOverride() {
+            if(!developerMealOverride)return;
+            if(developerMealOverride.mode==='error') { renderMealMessage('급식 정보를 불러오지 못했습니다.'); return; }
+            if(developerMealOverride.mode==='empty') { renderMealData({items:[],calories:''}); return; }
+            const lunch={items:developerMealOverride.items||[],calories:developerMealOverride.calories||''};
+            const dinnerItems=developerMealOverride.dinnerItems||[];
+            const dinner=dinnerItems.length?{items:dinnerItems,calories:developerMealOverride.dinnerCalories||''}:null;
+            renderMealData(lunch,dinner);
+        }
+
+        function clearDeveloperUpdateSimulation() {
+            if(!developerUpdateSimulationActive)return;
+            if(developerUpdateNotificationWasVisible===true) { updateNotification?.classList.remove('hidden'); updateNotification?.classList.add('flex'); }
+            else { updateNotification?.classList.add('hidden'); updateNotification?.classList.remove('flex'); }
+            if(updateNotificationHeader&&developerUpdateTitleBefore!==null) updateNotificationHeader.title=developerUpdateTitleBefore;
+            const header=updateNotificationHeader?.querySelector('.font-semibold');
+            if(header&&developerUpdateHeaderBefore!==null) header.textContent=developerUpdateHeaderBefore;
+            const installButton=document.getElementById('install-update-btn');
+            if(installButton&&developerInstallButtonWasVisible!==null) {
+                installButton.classList.toggle('hidden',!developerInstallButtonWasVisible);
+                if(developerInstallButtonContent!==null) installButton.innerHTML=developerInstallButtonContent;
+            }
+            const updateStatus=document.getElementById('update-status-text');
+            if(updateStatus&&developerUpdateStatusBefore!==null) updateStatus.innerHTML=developerUpdateStatusBefore;
+            developerUpdateSimulationActive=false; developerUpdateStatusBefore=null; developerUpdateNotificationWasVisible=null; developerUpdateTitleBefore=null; developerUpdateHeaderBefore=null; developerInstallButtonWasVisible=null; developerInstallButtonContent=null;
+        }
+
+        function setDeveloperOptionsEnabled(enabled) {
+            developerOptionsEnabled=enabled;
+            const nav=document.getElementById('developer-options-nav');
+            nav?.classList.toggle('hidden',!enabled);
+            try { if(enabled) sessionStorage.setItem('dashboardDeveloperOptionsEnabled','true'); else sessionStorage.removeItem('dashboardDeveloperOptionsEnabled'); } catch {}
+            if(enabled) switchSettingsView('developer-options');
+            else if(currentSettingsView==='developer-options') switchSettingsView('info');
+        }
+
+        function resetDeveloperSimulations() {
+            developerClockOverride=null; developerTimeZone='Asia/Seoul';
+            developerWeatherOverride=null; developerMealOverride=null; developerScheduleOverride=null;
+            window.__dashboardDeveloperSceneOverride=null;
+            clearDeveloperUpdateSimulation();
+            document.getElementById('dev-timezone').value='Asia/Seoul';
+            document.getElementById('dev-update-status').textContent='테스트 알림을 초기화했습니다.';
+            document.getElementById('dev-clock-status').textContent='시뮬레이션 시각을 해제했습니다.';
+            document.getElementById('dev-weather-status').textContent='실제 날씨 API 응답을 다시 사용합니다.';
+            document.getElementById('dev-meal-status').textContent='실제 급식 API 응답을 다시 사용합니다.';
+            document.getElementById('dev-schedule-status').textContent='실제 학사 일정 API 응답을 다시 사용합니다.';
+            document.getElementById('dev-scene-status').textContent='날씨 배경 시뮬레이션을 해제했습니다.';
+            updateTime();
+            fetchManchon3DongWeather(); fetchTodayMeal(); fetchApiSchedules();
+        }
+
+        function setupDeveloperOptions() {
+            const nav=document.getElementById('developer-options-nav');
+            try { developerOptionsEnabled=sessionStorage.getItem('dashboardDeveloperOptionsEnabled')==='true'; } catch { developerOptionsEnabled=false; }
+            nav?.classList.toggle('hidden',!developerOptionsEnabled);
+            const clockInput=document.getElementById('dev-clock-value'), now=new Date();
+            now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
+            if(clockInput) clockInput.value=now.toISOString().slice(0,16);
+
+            document.getElementById('dev-show-update')?.addEventListener('click',()=>{
+                const version=document.getElementById('dev-update-version').value.trim()||'99.0.0';
+                const localVersion=document.getElementById('app-version-text')?.dataset.version||'0.0.0';
+                const current=localVersion.split('.').map(Number), candidate=version.split('.').map(Number);
+                const isHigher=version.split('.').every(part=>/^\d+$/.test(part))&&candidate.some((part,index)=>part>(current[index]||0)&&candidate.slice(0,index).every((value,prior)=>value===(current[prior]||0)));
+                if(!isHigher) { document.getElementById('dev-update-status').textContent=`v${version}은 현재 버전 v${localVersion}보다 높은 버전이 아닙니다.`; return; }
+                if(developerUpdateNotificationWasVisible===null) developerUpdateNotificationWasVisible=!updateNotification?.classList.contains('hidden');
+                if(developerUpdateTitleBefore===null) developerUpdateTitleBefore=updateNotificationHeader?.title||'';
+                const header=updateNotificationHeader?.querySelector('.font-semibold');
+                if(developerUpdateHeaderBefore===null) developerUpdateHeaderBefore=header?.textContent||'';
+                const installButton=document.getElementById('install-update-btn');
+                if(installButton&&developerInstallButtonWasVisible===null) { developerInstallButtonWasVisible=!installButton.classList.contains('hidden'); developerInstallButtonContent=installButton.innerHTML; }
+                developerUpdateSimulationActive=true;
+                if(header) header.textContent='업데이트 준비 중...';
+                if(updateNotificationHeader) updateNotificationHeader.title=`테스트용 가상 업데이트 v${version}`;
+                updateNotification?.classList.remove('hidden'); updateNotification?.classList.add('flex');
+                if(installButton) { installButton.classList.remove('hidden'); installButton.textContent='테스트: 설치 동작 확인'; }
+                const updateStatus=document.getElementById('update-status-text');
+                if(updateStatus) { if(developerUpdateStatusBefore===null) developerUpdateStatusBefore=updateStatus.innerHTML; updateStatus.textContent=`테스트: 더 높은 버전 v${version}이 있는 상황입니다.`; }
+                document.getElementById('dev-update-status').textContent=`테스트 알림 표시 중 · 가상 버전 v${version} (실제 업데이트 비교·설치는 하지 않음)`;
+            });
+            document.getElementById('dev-hide-update')?.addEventListener('click',()=>{clearDeveloperUpdateSimulation();document.getElementById('dev-update-status').textContent='테스트 알림을 닫았습니다.';});
+
+            document.getElementById('dev-apply-clock')?.addEventListener('click',()=>{
+                const value=clockInput?.value, timestamp=value?new Date(value).getTime():NaN;
+                if(!Number.isFinite(timestamp)) { document.getElementById('dev-clock-status').textContent='날짜와 시각을 입력하세요.'; return; }
+                developerClockOverride={timestamp,startedAt:Date.now()}; developerTimeZone=document.getElementById('dev-timezone').value||'Asia/Seoul';
+                updateTime(); fetchTodayMeal(); fetchApiSchedules(); document.getElementById('dev-clock-status').textContent=`시뮬레이션 시각 적용 중 · ${developerTimeZone}`;
+            });
+            document.getElementById('dev-clear-clock')?.addEventListener('click',()=>{
+                developerClockOverride=null; developerTimeZone='Asia/Seoul'; document.getElementById('dev-timezone').value='Asia/Seoul';
+                updateTime(); fetchTodayMeal(); fetchApiSchedules(); document.getElementById('dev-clock-status').textContent='현재 시각과 서울 시간대로 복원했습니다.';
+            });
+            document.getElementById('dev-timezone')?.addEventListener('change',event=>{
+                developerTimeZone=event.target.value||'Asia/Seoul'; updateTime();
+                document.getElementById('dev-clock-status').textContent=developerClockOverride?`시뮬레이션 시각 · ${developerTimeZone}`:`표시 시간대 변경 · ${developerTimeZone}`;
+            });
+
+            const applyWeather=(mode='success')=>{
+                if(mode==='empty'||mode==='error') developerWeatherOverride={mode};
+                else developerWeatherOverride={mode:'success',main:{temp:Number(document.getElementById('dev-weather-temp').value)||0,feels_like:Number(document.getElementById('dev-weather-feels').value)||0,humidity:Math.max(0,Math.min(100,Number(document.getElementById('dev-weather-humidity').value)||0))},wind:{speed:Math.max(0,Number(document.getElementById('dev-weather-wind').value)||0)},weather:[{description:document.getElementById('dev-weather-description').value.trim()||'맑음',icon:'02d'}]};
+                renderDeveloperWeatherOverride();
+                document.getElementById('dev-weather-status').textContent=mode==='error'?'API 오류 응답 시뮬레이션 중':mode==='empty'?'데이터 없음 응답 시뮬레이션 중':'가상 날씨 API 응답 적용 중';
+            };
+            document.getElementById('dev-apply-weather')?.addEventListener('click',()=>applyWeather());
+            document.getElementById('dev-weather-empty')?.addEventListener('click',()=>applyWeather('empty'));
+            document.getElementById('dev-weather-error')?.addEventListener('click',()=>applyWeather('error'));
+            document.getElementById('dev-clear-weather')?.addEventListener('click',()=>{developerWeatherOverride=null;fetchManchon3DongWeather();document.getElementById('dev-weather-status').textContent='실제 날씨 API 응답으로 복원했습니다.';});
+
+            document.getElementById('dev-apply-meal')?.addEventListener('click',()=>{
+                const mode=document.getElementById('dev-meal-mode').value, items=document.getElementById('dev-meal-items').value.split(/\r?\n/).map(item=>item.trim()).filter(Boolean), calories=document.getElementById('dev-meal-calories').value.trim();
+                const dinnerItems=document.getElementById('dev-meal-dinner-items').value.split(/\r?\n/).map(item=>item.trim()).filter(Boolean), dinnerCalories=document.getElementById('dev-meal-dinner-calories').value.trim();
+                developerMealOverride={mode,items,calories,dinnerItems,dinnerCalories}; renderDeveloperMealOverride();
+                document.getElementById('dev-meal-status').textContent=`${mode==='error'?'API 오류':mode==='empty'?'급식 없음':dinnerItems.length?'점심·저녁 가상 메뉴':'점심 가상 메뉴'} 응답 적용 중`;
+            });
+            document.getElementById('dev-clear-meal')?.addEventListener('click',()=>{developerMealOverride=null;fetchTodayMeal();document.getElementById('dev-meal-status').textContent='실제 급식 API 응답으로 복원했습니다.';});
+
+            document.getElementById('dev-apply-schedules')?.addEventListener('click',()=>{
+                try {
+                    const parsed=JSON.parse(document.getElementById('dev-schedule-json').value);
+                    if(!Array.isArray(parsed)) throw new Error('일정은 JSON 배열이어야 합니다.');
+                    developerScheduleOverride=parsed.map((item,index)=>{
+                        const normalizeDate=value=>String(value||'').replace(/-/g,'.');
+                        const date=normalizeDate(item.date), endDate=item.endDate?normalizeDate(item.endDate):null;
+                        if(!/^\d{4}\.\d{2}\.\d{2}$/.test(date)||!String(item.event||'').trim()) throw new Error(`${index+1}번째 항목의 date 또는 event를 확인하세요.`);
+                        if(endDate&&!/^\d{4}\.\d{2}\.\d{2}$/.test(endDate)) throw new Error(`${index+1}번째 항목의 endDate를 확인하세요.`);
+                        return {date,endDate,event:String(item.event).trim(),dday:!!item.dday,isApi:true};
+                    });
+                    fetchApiSchedules(); document.getElementById('dev-schedule-status').textContent=`가상 API 일정 ${developerScheduleOverride.length}개 적용 중`;
+                } catch(error) { document.getElementById('dev-schedule-status').textContent=error.message||'일정 JSON 형식을 확인하세요.'; }
+            });
+            document.getElementById('dev-clear-schedules')?.addEventListener('click',()=>{developerScheduleOverride=null;fetchApiSchedules();document.getElementById('dev-schedule-status').textContent='실제 학사 일정 API 응답으로 복원했습니다.';});
+
+            document.getElementById('dev-apply-scene')?.addEventListener('click',()=>{
+                const selectedKind=document.getElementById('dev-scene-kind').value;
+                window.__dashboardDeveloperSceneOverride={active:true,timePhase:document.getElementById('dev-scene-time').value,kind:selectedKind,amount:selectedKind==='none'?0:Math.max(1,Math.min(100,Number(document.getElementById('dev-scene-amount').value)||50)),cloud:Math.max(0,Math.min(100,Number(document.getElementById('dev-scene-cloud').value)||0)),windSpeed:Math.max(0,Math.min(400,Number(document.getElementById('dev-scene-wind-speed').value)||0)),windDir:Math.max(0,Math.min(359,Number(document.getElementById('dev-scene-wind-direction').value)||0))};
+                document.getElementById('dev-scene-status').textContent='시뮬레이션 적용 중 · 날씨 테마에서 표시됩니다.';
+            });
+            document.getElementById('dev-clear-scene')?.addEventListener('click',()=>{window.__dashboardDeveloperSceneOverride=null;document.getElementById('dev-scene-status').textContent='저장된 날씨 설정을 사용합니다.';});
+            document.getElementById('dev-clear-all')?.addEventListener('click',resetDeveloperSimulations);
+            document.getElementById('dev-disable-options')?.addEventListener('click',()=>{resetDeveloperSimulations();setDeveloperOptionsEnabled(false);});
         }
 
         // --- 일정 및 UI 관련 유틸 함수 생략(기존 유지) ---
@@ -4774,10 +5112,16 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 });
             }
 
+            setupDeveloperOptions();
             document.querySelectorAll('.info-tab-button').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const t = btn.dataset.tab;
                     if (t) switchInfoTab(t);
+                    if (t === 'developer' && !developerOptionsEnabled) {
+                        const now=Date.now(); if(now-developerLastTapAt>3000) developerTapCount=0;
+                        developerLastTapAt=now; developerTapCount++;
+                        if(developerTapCount>=5) { developerTapCount=0; setDeveloperOptionsEnabled(true); }
+                    } else if(t!=='developer') { developerTapCount=0; developerLastTapAt=0; }
                 });
             });
             try { switchInfoTab('developer'); } catch (e) {}
@@ -5129,6 +5473,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     });
   }
   function computeWeatherVisualState() {
+    const developerOverride=window.__dashboardDeveloperSceneOverride;
+    if(developerOverride?.active) return {kind:developerOverride.kind,amount:developerOverride.kind==='none'?0:developerOverride.amount};
     if(state.time!=='timeline') return {kind:state.kind,amount:state.kind==='rain'||state.kind==='snow'?50:state.amount};
     const rise=timeNumber(state.sunrise), set=timeNumber(state.sunset), dayLength=(set-rise+24)%24;
     if(dayLength<=0) return {kind:'none',amount:0};
@@ -5301,6 +5647,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     return hour+minute/60;
   }
   function computeCurrentHour() {
+    if(window.__dashboardDeveloperClockActive?.()) {
+      const date=window.__dashboardDeveloperNow(), timeZone=window.__dashboardDeveloperTimeZone?.()||'Asia/Seoul';
+      const parts=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23',timeZone}).formatToParts(date), values=Object.fromEntries(parts.map(part=>[part.type,part.value]));
+      return Number(values.hour)+Number(values.minute)/60+Number(values.second)/3600;
+    }
     if (state.time === 'timeline') {
       const durationMinutes=clamp(Number(state.timelineDuration)||120,1,1440), startedAt=Number(state.timelineStartedAt)||Date.now();
       const elapsed=Math.max(0,Date.now()-startedAt);
@@ -5313,8 +5664,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   function currentHour() { return Number.isFinite(frameVisualContext?.hour)?frameVisualContext.hour:computeCurrentHour(); }
   function computeSolarPhase(hour=currentHour()) {
     const timelineMode=state.time==='timeline';
-    if (state.time !== 'auto' && !timelineMode) return state.time;
-    if (!state.reflectTime && !timelineMode) return 'day';
+    const sceneOverride=window.__dashboardDeveloperSceneOverride;
+    if(sceneOverride?.active&&['dawn','sunrise','day','sunset','night'].includes(sceneOverride.timePhase)) return sceneOverride.timePhase;
+    const developerClockActive=window.__dashboardDeveloperClockActive?.()===true;
+    if (!developerClockActive && state.time !== 'auto' && !timelineMode) return state.time;
+    if (!developerClockActive && !state.reflectTime && !timelineMode) return 'day';
     const rise = timeNumber(state.sunrise), set = timeNumber(state.sunset);
     if (hour < rise - .65 || hour > set + 1.25) return 'night';
     if (hour < rise + .25) return 'dawn';
@@ -5325,6 +5679,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   }
   function solarPhase() { return frameVisualContext?.phase||computeSolarPhase(); }
   function visualDate() {
+    if(window.__dashboardDeveloperClockActive?.()) return window.__dashboardDeveloperNow();
     if(state.time==='timeline') { const duration=clamp(Number(state.timelineDuration)||120,1,1440), startedAt=Number(state.timelineStartedAt)||Date.now(); return new Date(startedAt+Math.max(0,Date.now()-startedAt)/(duration*60000)*86400000); }
     if(state.mode==='live'&&state.weatherTime) { const parsed=new Date(state.weatherTime); if(Number.isFinite(parsed.getTime())) return parsed; }
     return new Date();
@@ -5334,6 +5689,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     return {age,angle,illumination:(1-Math.cos(angle))*.5,waxing:age<synodicMonth*.5};
   }
   function visualHour() {
+    const sceneOverride=window.__dashboardDeveloperSceneOverride;
+    if(sceneOverride?.active&&sceneOverride.timePhase) {
+      const rise=timeNumber(state.sunrise), set=timeNumber(state.sunset);
+      return sceneOverride.timePhase==='dawn'?(rise-.38+24)%24:sceneOverride.timePhase==='sunrise'?(rise+.12)%24:sceneOverride.timePhase==='sunset'?(set-.12+24)%24:sceneOverride.timePhase==='night'?(set+2)%24:(rise+((set-rise+24)%24)*.5)%24;
+    }
+    if(window.__dashboardDeveloperClockActive?.()) return currentHour();
     if(state.time==='timeline'||(state.time==='auto'&&state.reflectTime)) return currentHour();
     const rise=timeNumber(state.sunrise),set=timeNumber(state.sunset),dayLength=(set-rise+24)%24;
     if(state.time==='dawn') return (rise-.38+24)%24;
@@ -5433,7 +5794,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     return phase;
   }
   // Wind direction follows meteorological convention: the value points to the direction wind comes from.
-  function windVector() { const a = (state.windDir + 180) * Math.PI / 180, s = clamp(state.windSpeed / 16, .08, 1.25); return { x: Math.sin(a) * s, y: Math.cos(a) * s }; }
+  function windVector() { const override=window.__dashboardDeveloperSceneOverride, speed=override?.active?override.windSpeed:state.windSpeed, direction=override?.active?override.windDir:state.windDir, a = (direction + 180) * Math.PI / 180, s = clamp(speed / 16, .08, 1.25); return { x: Math.sin(a) * s, y: Math.cos(a) * s }; }
   function scanSurfaces(now) {
     if (now - lastShelfScan < 600) return; lastShelfScan = now;
     if(document.documentElement.dataset.theme==='weather'&&document.documentElement.dataset.weatherDesign==='simple') {
@@ -5956,7 +6317,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     // Avoid synchronous full-canvas snapshots during weather or time transitions; they can stall rendering on large displays.
     // The live scene already animates continuously, so keep it running without a captured crossfade frame.
     lastWeatherVisualSignature=visualSignature;
-    const phase = setSky(), wind = windVector(), precipitationBlend=clamp(visualPrecipitation/50,0,1), cloudiness=(weather.kind==='rain'||weather.kind==='snow') ? .1*precipitationBlend+clamp(state.cloud/100,0,1)*(1-precipitationBlend) : clamp(state.cloud/100,0,1);
+    const phase = setSky(), wind = windVector(), precipitationBlend=clamp(visualPrecipitation/50,0,1), sceneOverride=window.__dashboardDeveloperSceneOverride, cloudAmount=sceneOverride?.active?sceneOverride.cloud:state.cloud, cloudiness=(weather.kind==='rain'||weather.kind==='snow') ? .1*precipitationBlend+clamp(cloudAmount/100,0,1)*(1-precipitationBlend) : clamp(cloudAmount/100,0,1);
     updateGroundPalette(phase,weather,dt*16.67);
     const auroraPhase=['night','dawn','sunrise','sunset','bluehour'].includes(phase);
     scene.classList.toggle('aurora-enabled',state.aurora===true);
