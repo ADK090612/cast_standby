@@ -466,7 +466,7 @@
         .notification-list.open { display:flex; }
         .notification-card { width:100%; box-sizing:border-box; }
         #custom-notification-pill { display:none !important; }
-        :root[data-theme="light"] body, :root[data-theme="light"] body * { color:#202b3d !important; }
+        /* Light-theme text is styled by component tokens below; do not flatten every text role to one color. */
         :root[data-theme="light"] svg, :root[data-theme="light"] svg [stroke="currentColor"] { color:#111827 !important; stroke:#111827 !important; }
         :root[data-theme="light"] svg [fill="currentColor"] { fill:#111827 !important; }
         :root[data-theme="light"] .notification-badge { color:#fff !important; }
@@ -775,6 +775,31 @@
 :root[data-theme="weather"] #weather-screen .weather-dynamic-color { color:var(--weather-dynamic-color) !important; text-shadow:0 2px 6px rgba(0,0,0,.92),0 0 12px rgba(0,0,0,.6) !important; }
 :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-temperature { color:var(--weather-dynamic-color)!important; text-shadow:0 2px 8px rgba(0,0,0,.72)!important; }
 #simple-weather-temperature, #weather-current-temperature { transition:color .7s ease; }
+
+        #clock-layout-editor .clock-editor-settings { width:min(620px,calc(100vw - 24px)); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 18px; padding:18px 20px; border-radius:28px; background:rgba(34,35,32,.76); border-color:rgba(255,255,255,.16); -webkit-backdrop-filter:blur(32px) saturate(145%); backdrop-filter:blur(32px) saturate(145%); }
+        #clock-layout-editor .clock-editor-font-panel,#clock-layout-editor .clock-editor-color-panel { min-width:0; grid-column:1/-1; padding:0 0 14px; border-bottom:1px solid rgba(255,255,255,.16); }
+        #clock-layout-editor .clock-editor-panel-heading { display:flex; align-items:center; justify-content:space-between; margin:0 2px 10px; color:rgba(255,255,255,.92); font:600 13px/1.2 'Noto Sans KR',sans-serif; }
+        #clock-layout-editor .clock-editor-panel-heading span:last-child { display:none; }
+        #clock-layout-editor .clock-editor-font-choices,#clock-layout-editor .clock-editor-color-choices { display:flex; gap:10px; overflow-x:auto; padding:5px 3px 8px; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.35) transparent; }
+        #clock-layout-editor .clock-font-choice { flex:0 0 58px; width:58px; height:58px; display:grid; place-items:center; padding:0; border:1px solid rgba(255,255,255,.12); border-radius:50%; color:#fff; background:rgba(255,255,255,.12); cursor:pointer; transition:border-color .18s,transform .18s,background .18s; }
+        #clock-layout-editor .clock-font-choice-sample { font-size:26px; font-weight:700; line-height:1; }
+        #clock-layout-editor .clock-font-choice[aria-pressed="true"] { border:3px solid #4f83ff; background:rgba(255,255,255,.2); box-shadow:0 0 0 2px rgba(79,131,255,.18); }
+        #clock-layout-editor .clock-color-choice { flex:0 0 48px; width:48px; height:48px; display:grid; place-items:center; padding:0; border:1px solid rgba(255,255,255,.22); border-radius:50%; background:transparent; cursor:pointer; }
+        #clock-layout-editor .clock-color-swatch { width:40px; height:40px; display:block; border-radius:50%; background:var(--swatch-color); }
+        #clock-layout-editor .clock-color-choice[aria-pressed="true"] { border:3px solid #4f83ff; }
+        #clock-layout-editor .clock-color-choice[aria-pressed="true"] .clock-color-swatch { width:34px; height:34px; }
+        #clock-layout-editor .clock-editor-hidden-pref { position:absolute!important; width:1px!important; height:1px!important; margin:-1px!important; padding:0!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important; }
+        #clock-layout-editor .clock-editor-setting { flex:initial; min-width:0; padding:12px 2px 2px; }
+        #clock-layout-editor .clock-editor-setting select { min-height:38px; }
+        #clock-layout-editor .clock-editor-setting input[type="range"] { accent-color:#a9b8ad; }
+        #clock-layout-editor .clock-editor-box { border:0; border-radius:0; background:transparent; box-shadow:0 0 0 9999px rgba(0,0,0,.12); }
+        #clock-layout-editor .clock-editor-box::before { content:""; position:absolute; inset:-5px; pointer-events:none; background:linear-gradient(#f5f5ed,#f5f5ed) left top/42px 6px no-repeat,linear-gradient(#f5f5ed,#f5f5ed) left top/6px 42px no-repeat,linear-gradient(#f5f5ed,#f5f5ed) right top/42px 6px no-repeat,linear-gradient(#f5f5ed,#f5f5ed) right top/6px 42px no-repeat,linear-gradient(#f5f5ed,#f5f5ed) left bottom/42px 6px no-repeat,linear-gradient(#f5f5ed,#f5f5ed) left bottom/6px 42px no-repeat,linear-gradient(#f5f5ed,#f5f5ed) right bottom/42px 6px no-repeat,linear-gradient(#f5f5ed,#f5f5ed) right bottom/6px 42px no-repeat; filter:drop-shadow(0 1px 1px rgba(0,0,0,.18)); }
+        #clock-layout-editor .clock-editor-handle { opacity:0; }
+        #clock-layout-editor .clock-editor-label { top:auto; left:50%; bottom:calc(100% + 12px); transform:translateX(-50%); padding:7px 12px; border:1px solid rgba(255,255,255,.16); border-radius:999px; background:rgba(32,33,31,.72); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); }
+        #clock-layout-editor .clock-editor-actions { gap:10px; padding:10px 14px; border:1px solid rgba(255,255,255,.16); border-radius:999px; background:rgba(34,35,32,.72); -webkit-backdrop-filter:blur(24px) saturate(145%); backdrop-filter:blur(24px) saturate(145%); }
+        #clock-layout-editor .clock-editor-actions button { width:48px; height:48px; }
+        #clock-layout-editor .clock-editor-actions button[data-action="save"] { color:#fff; background:rgba(70,115,235,.82); }
+        @media(max-width:640px) { #clock-layout-editor .clock-editor-settings { top:auto; bottom:calc(var(--safe-bottom) + 78px); grid-template-columns:repeat(2,minmax(0,1fr)); width:calc(100vw - 24px); max-height:56vh; overflow:auto; } #clock-layout-editor .clock-editor-font-choices,#clock-layout-editor .clock-editor-color-choices { gap:8px; } #clock-layout-editor .clock-font-choice { flex-basis:52px; width:52px; height:52px; } #clock-layout-editor .clock-color-choice { flex-basis:44px; width:44px; height:44px; } #clock-layout-editor .clock-color-swatch { width:36px; height:36px; } #clock-layout-editor .clock-editor-actions { bottom:calc(var(--safe-bottom) + 14px); } }
 </style>
     <!-- YouTube media integration disabled: video and music features are removed from the standby UI. -->
     <head>
@@ -1020,13 +1045,15 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     <div class="powered-by fixed bottom-3 right-5 z-[1] text-white/40 text-[11px] font-semibold tracking-widest pointer-events-none font-system">powered by. ADK</div>
 
     <div class="settings-container">
+        <button id="clock-quick-edit-btn" class="edit-btn" type="button" aria-label="시계 편집" title="시계 편집">
+            <svg class="edit-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>
+        </button>
         <button id="fullscreen-btn" class="edit-btn" type="button" aria-label="전체 화면으로 전환" title="전체 화면">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/></svg>
         </button>
-        <button id="settings-btn" class="edit-btn" type="button" aria-label="설정" title="설정">
-            <svg class="edit-svg w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5L2 22l1.5-5.5L17 3z"/>
-            </svg>
+        <button id="settings-btn" class="edit-btn settings-entry-btn" type="button" aria-label="설정" title="설정">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"/><path d="m19.4 15 .1.1a1.7 1.7 0 1 1-2.4 2.4L17 17.4a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 1 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 1 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 1 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 1 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 1 1 3.4 0v.2A1.7 1.7 0 0 0 17 3.4l.1-.1a1.7 1.7 0 1 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 1 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg>
+            <span>설정</span>
         </button>
     </div>
 
@@ -1209,10 +1236,14 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
                         <div id="update-view" class="settings-view hidden space-y-4">
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">업데이트 설정 및 확인</h4>
+                            <div class="software-version-hero update-version-hero">
+                                <div class="software-version-glow" aria-hidden="true"></div>
+                                <h2>ADK Dash <span id="update-version-hero-value">2.6.9</span></h2>
+                                <p id="update-status-text">최신 버전을 확인하는 중입니다...</p>
+                            </div>
                             
                             <div class="glass-card w-full p-6 space-y-4 text-center">
                                 <div class="update-illustration" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg></div>
-                                <p id="update-status-text" class="text-lg text-gray-200">현재 버전 상태를 확인하는 중입니다...</p>
                                 
                                 <div class="flex flex-col gap-2 mt-4">
                                     <button id="manual-check-update-btn" class="glass-button w-full bg-white/10 hover:bg-white/20">
@@ -1246,7 +1277,6 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <button id="save-update-settings-btn" class="glass-button w-full mt-2">알림 설정 저장</button>
                             </div>
 
-                            <p class="text-xs text-gray-400 mt-2 text-center">* 깃허브(adk090612.github.io/cast_standby/)의 원본 코드와 비교하여 업데이트를 확인합니다.</p>
                         </div>
 
                         <div id="release-notes-view" class="settings-view hidden space-y-4">
@@ -1255,6 +1285,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
                                 <div>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.6.9</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>대구광역시 수성구 긴급 재난 문자를 5분 간격으로 조회해 새 메시지를 자동 표시</li>
+                                        <li>개발자 옵션에서 가상 재난 문자 송출과 실제 API 즉시 조회 지원</li>
+                                    </ul>
+                                </div>
+                                <div class="pt-2 border-t border-white/10">
                                     <h5 class="font-bold text-blue-300 text-lg">v2.6.8</h5>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
                                         <li>점심과 저녁이 모두 있는 날 칼로리 정보를 좌우로 나눠 표시</li>
@@ -1376,7 +1413,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
                         <div id="display-view" class="settings-view hidden space-y-4">
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">화면 표시 영역</h4>
-                            <p class="text-sm text-gray-300">여백 바깥은 검정색으로 표시되고, 방송 화면의 UI는 남은 영역을 기준으로 정렬됩니다.</p>
+                            
                             <div class="glass-section p-4 space-y-4">
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <label class="space-y-2"><span class="flex justify-between text-sm"><span>위쪽 여백</span><span><b id="margin-top-value">0</b>%</span></span><input id="margin-top" type="range" min="0" max="20" step="1" value="0" class="glass-input w-full"></label>
@@ -1387,7 +1424,6 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </div>
                             <div class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">시계 크기와 위치</h5>
-                                <p class="text-sm text-gray-300">시계를 사각형으로 조절하고 이동할 수 있습니다. 화면 가장자리와 가로·세로 중앙에 가까워지면 자석처럼 맞춰집니다.</p>
                                 <div class="flex flex-wrap gap-2">
                                     <button id="clock-layout-open-btn" type="button" class="glass-button">시계 조절</button>
                                     <button id="clock-layout-reset-btn" type="button" class="glass-button">현재 디자인 기본값으로 초기화</button>
@@ -1406,7 +1442,6 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </div>
                             <div class="glass-section p-4">
                                 <label class="glass-checkbox-label"><input id="fullscreen-on-start" type="checkbox" class="glass-checkbox-input"><span class="glass-checkbox-box"></span><span class="text-sm">시작할 때 자동으로 전체 화면 전환</span></label>
-                                <p class="text-xs text-gray-400 mt-2">자동 전환을 허용하지 않는 경우에는 버튼을 눌러 전환하세요.</p>
                             </div>
                                                     <div class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">하단 학교 정보</h5>
@@ -1417,9 +1452,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                         <div id="broadcasts-view" class="settings-view hidden space-y-4">
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">긴급·예약 방송 설정</h4>
                             <p class="text-sm text-gray-300"></p>
-                            <section class="glass-section p-4 space-y-3"><div><h5 class="font-semibold">알림 타임라인</h5><p class="text-xs text-white/60 mt-1">드래그 앤 드롭 또는 위·아래 버튼으로 순서 변경</p></div><div id="broadcast-timeline-list"></div></section>
+                            <section class="glass-section p-4 space-y-3"><div><h5 class="font-semibold">알림 타임라인</h5></div><div id="broadcast-timeline-list"></div></section>
                             <section class="glass-section p-4 space-y-4">
-                                <div><h5 class="font-semibold">긴급·예약 메시지</h5><p class="text-xs text-white/60 mt-1">예약 메시지는 지정한 시각에 표시됩니다.</p></div>
+                                <div><h5 class="font-semibold">긴급·예약 메시지</h5></div>
                                 <div class="broadcast-settings-grid">
                                     <label class="block space-y-1 text-sm">방송 방식<select id="broadcast-mode-select" class="glass-input w-full"><option value="urgent">긴급 방송 버튼</option><option value="scheduled">예약 방송</option></select></label>
                                     <label class="block space-y-1 text-sm">긴급 종류<select id="broadcast-category-select" class="glass-input w-full"><option value="공습">공습</option><option value="화재">화재</option><option value="지진">지진</option><option value="기타">기타 긴급 방송</option></select></label>
@@ -1440,18 +1475,18 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <div class="broadcast-settings-grid"><label class="block space-y-1 text-sm">TTS 엔진<select id="broadcast-tts-engine" class="glass-input w-full"><option value="auto">사용 가능한 모든 엔진</option></select></label><label class="block space-y-1 text-sm">목소리<select id="broadcast-tts-voice" class="glass-input w-full"><option value="">기본 목소리</option></select></label></div>
                                 <div class="flex items-center gap-3 flex-wrap"><button id="broadcast-tts-preview-btn" type="button" class="glass-button">목소리 미리 듣기</button><span id="broadcast-tts-status" class="text-xs text-white/60" aria-live="polite"></span></div>
                             </section>
-                            <section class="glass-section p-4 space-y-4"><div><h5 class="font-semibold">효과음</h5><p class="text-xs text-white/60 mt-1">방송 메시지와 함께 재생합니다.</p></div>
+                            <section class="glass-section p-4 space-y-4"><div><h5 class="font-semibold">효과음</h5></div>
                                 <label class="glass-checkbox-label"><input id="broadcast-sound-enabled" type="checkbox" class="glass-checkbox-input"><span class="glass-checkbox-box"></span><span class="text-sm">기본 효과음 사용</span></label>
                                 <div class="broadcast-settings-grid"><label class="block space-y-1 text-sm">효과음<select id="broadcast-sound-type" class="glass-input w-full"><option value="siren">사이렌</option><option value="bell">종소리</option><option value="chime">차임</option><option value="beep">알림음</option></select></label><label class="block space-y-1 text-sm">음량 <span id="broadcast-sound-volume-label">50%</span><input id="broadcast-sound-volume" type="range" min="0" max="100" value="100" class="glass-input w-full"></label></div>
                                 <div class="flex items-center gap-3 flex-wrap"><button id="broadcast-sound-preview-btn" type="button" class="glass-button">효과음 미리 듣기</button><span id="broadcast-sound-status" class="text-xs text-white/60" aria-live="polite"></span></div>
                             </section>
                             <section class="glass-section p-4 space-y-4">
-                                <div><h5 class="font-semibold">교시·급식 시간 알림</h5><p class="text-xs text-white/60 mt-1">선택한 요일에 반복됩니다. 교시별 시작·종료 시각과 급식 시간, 급식 시간 안의 학년별 이동 시각을 설정하세요.</p></div>
+                                <div><h5 class="font-semibold">교시·급식 시간 알림</h5></div>
                                 <div class="flex flex-wrap items-center gap-2 text-sm"><span class="text-white/80">적용 요일</span>
                                     <label class="broadcast-day-label"><input type="checkbox" data-bell-day="1" checked> 월</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="2" checked> 화</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="3" checked> 수</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="4" checked> 목</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="5" checked> 금</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="6"> 토</label><label class="broadcast-day-label"><input type="checkbox" data-bell-day="0"> 일</label>
                                     <label class="ml-auto flex items-center gap-2">교시 수<input id="broadcast-period-count" type="number" min="1" max="12" value="7" class="glass-input w-20"></label></div>
                                 <div id="broadcast-period-list" class="space-y-2"></div>
-                                <div class="glass-section p-3 space-y-3"><div><h6 class="font-semibold">급식 시간</h6><p class="text-xs text-white/60 mt-1">수업 시간과 겹치지 않는 시간으로 설정하세요.</p></div>
+                                <div class="glass-section p-3 space-y-3"><div><h6 class="font-semibold">급식 시간</h6></div>
                                     <div class="broadcast-settings-grid"><label class="block space-y-1 text-sm">시작<input id="broadcast-lunch-start" type="time" class="glass-input w-full"></label><label class="block space-y-1 text-sm">종료<input id="broadcast-lunch-end" type="time" class="glass-input w-full"></label></div><div id="broadcast-grade-list" class="space-y-2"></div>
                                 </div><p id="broadcast-bell-status" class="text-xs text-white/60" aria-live="polite"></p>
                             </section>
@@ -1460,7 +1495,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div class="p-4 space-y-5">
                                 <section class="theme-settings glass-section p-4" aria-labelledby="theme-settings-title">
                                     <div class="flex items-center justify-between gap-4">
-                                        <div><h4 id="theme-settings-title" class="font-semibold">화면 테마</h4><p class="text-sm text-white/60 mt-1">화면 테마를 변경 할 수 있습니다.</p></div>
+                                        <div><h4 id="theme-settings-title" class="font-semibold">화면 테마</h4></div>
                                         <div class="theme-picker" role="group" aria-label="화면 테마 선택">
                                             <button type="button" class="theme-choice" data-theme-choice="dark" aria-pressed="true"><span aria-hidden="true">☾</span> 다크</button>
                                             <button type="button" class="theme-choice" data-theme-choice="light" aria-pressed="false"><span aria-hidden="true">☼</span> 라이트</button>
@@ -1468,7 +1503,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                         </div>
                                     </div>
                                     <div class="weather-design-control flex items-center justify-between gap-4 mt-4"><div><h5 class="font-semibold">화면 디자인</h5><p class="text-xs text-white/60 mt-1">레이아웃 선택</p></div><div class="theme-picker" role="group" aria-label="화면 디자인 선택"><button type="button" class="weather-design-choice" data-weather-design-choice="default" aria-pressed="true">기본</button><button type="button" class="weather-design-choice" data-weather-design-choice="modern" aria-pressed="false">모던</button><button type="button" class="weather-design-choice" data-weather-design-choice="simple" aria-pressed="false">심플</button></div></div>
-                                    <div class="flex items-center justify-between gap-4 mt-3"><div><h5 class="font-semibold">상단 일정 알림</h5><p class="text-xs text-white/60 mt-1">일정 화면이 자동 전환에서 제외됨.</p></div><label class="glass-checkbox-label"><input type="checkbox" id="schedule-pills-toggle" class="glass-checkbox-input" aria-label="상단 일정 알림 표시"><span class="glass-checkbox-box"></span><span class="text-sm">표시</span></label></div>
+                                    <div class="flex items-center justify-between gap-4 mt-3"><div><h5 class="font-semibold">상단 일정 알림</h5></div><label class="glass-checkbox-label"><input type="checkbox" id="schedule-pills-toggle" class="glass-checkbox-input" aria-label="상단 일정 알림 표시"><span class="glass-checkbox-box"></span><span class="text-sm">표시</span></label></div>
                                 </section>
                                 <section class="weather-settings-panel glass-section p-4 space-y-4" aria-labelledby="weather-scene-title">
                                     <div><h4 id="weather-scene-title" class="font-semibold">실시간 날씨 배경</h4><p class="text-sm text-white/60 mt-1"></p></div>
@@ -1488,9 +1523,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                       <label class="block space-y-1 text-sm">수동 시간대<select id="weather-time" class="glass-input w-full"><option value="auto">현재 시간</option><option value="dawn">새벽</option><option value="sunrise">일출</option><option value="day">낮</option><option value="sunset">일몰</option><option value="night">밤</option><option value="timeline">타임라인</option></select></label>
                                       <label class="block space-y-1 text-sm">강수<select id="weather-kind" class="glass-input w-full"><option value="none">없음</option><option value="rain">비</option><option value="snow">눈</option></select></label>
                                     </div>
-                                    <div id="weather-timeline-controls" class="weather-control-grid" hidden><label class="block space-y-1 text-sm">타임라인 한 바퀴 (분)<input id="weather-timeline-duration" class="glass-input w-full" type="number" min="1" max="1440" step="1" value="120"></label><p class="text-xs text-white/60 self-center">타임라인 선택시 지정된 순서대로 날씨와 시간 변경됨.</p></div>
+                                    <div id="weather-timeline-controls" class="weather-control-grid" hidden><label class="block space-y-1 text-sm">타임라인 한 바퀴 (분)<input id="weather-timeline-duration" class="glass-input w-full" type="number" min="1" max="1440" step="1" value="120"></label></div>
                                     <label class="block space-y-1 text-sm">천구 회전 속도 <span id="weather-rotation-value">10%</span><input id="weather-rotation-speed" type="range" min="0" max="300" step="10" value="10" aria-label="천구 회전 속도 조절" class="glass-input w-full"></label>
-                                    <p id="weather-detail" class="text-xs text-white/60">Open-Meteo 공개 날씨 API를 사용합니다. 대구 좌표로 시작합니다.</p>
+                                    
                                 </section>
                                 <h3 id="screen-transition-title" class="text-lg font-semibold border-b border-white/30 pb-2 flex items-center gap-2">
                                     <span class="settings-section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></span> 화면 모드
@@ -1643,7 +1678,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                         <option value="font-family-jua">Jua</option>
                                         <option value="font-family-blackhan">Black Han Sans</option>
                                     </select>
-                                    <p class="text-xs text-gray-400 mt-1">(*Windows11 22H2 이상의 크로미움 기반 환경에 최적화)</p>
+                                    
                                 </div>
                             </div>
 
@@ -1661,7 +1696,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 </label>
                                 <button type="submit" class="glass-button">일정 추가</button>
                             </form>
-                            <p class="text-xs text-gray-400 mt-1">* 나이스(NEIS) 연동 데이터는 자동으로 표시되며 수동 일정과 병합됩니다. 체크박스를 통해 개별 D-Day 설정이 가능합니다.</p>
+                            
 
                             <div class="flex justify-end mt-2 mb-1">
                                 <button type="button" id="toggle-past-schedules-btn" class="text-xs bg-white/10 hover:bg-white/20 text-white py-1.5 px-3 rounded-md transition-colors font-medium">이전 일정 보기</button>
@@ -1694,7 +1729,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <div class="flex-1">
                                     <label for="profile-logo-input" class="glass-button cursor-pointer block text-center">로고 업로드</label>
                                     <input type="file" id="profile-logo-input" class="hidden" accept="image/*">
-                                    <p class="text-xs text-gray-400 mt-2">권장: PNG(투명) 또는 JPG 최대 용량: 1MB</p>
+                                    
                                 </div>
                             </div>
 
@@ -1708,7 +1743,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                     <input type="text" id="school-code-input" class="glass-input w-full mt-1" placeholder="예: 7240085">
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-400 mt-1">* 기본값: 대구광역시교육청(D10), 대륜고등학교(7240085). 나이스 급식 및 학사일정 연동에 사용됩니다.</p>
+                            
 
                             <div class="flex gap-2 mt-4">
                                 <button id="save-profile-btn" class="glass-button flex-1 bg-blue-500/30 hover:bg-blue-500/50">저장 및 연동 새로고침</button>
@@ -1734,18 +1769,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                         <div id="system-view" class="settings-view hidden space-y-4">
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2 mt-2">시스템 초기화</h4>
                             <div class="space-y-3">
-                                <button id="reset-schedule-btn" class="glass-button w-full flex justify-between items-center text-left">
-                                    <span>수동 일정 초기화</span>
-                                    <span class="text-sm text-gray-300 font-normal">수동으로 입력한 학사 일정을 모두 지웁니다.</span>
-                                </button>
-                                <button id="reset-message-btn" class="glass-button w-full flex justify-between items-center text-left">
-                                    <span>메시지 초기화</span>
-                                    <span class="text-sm text-gray-300 font-normal">메시지를 기본값으로 되돌림</span>
-                                </button>
-                                <button id="reset-all-btn" class="glass-button w-full flex justify-between items-center text-left" style="background: linear-gradient(145deg, rgba(255, 60, 60, 0.15), rgba(255, 60, 60, 0.05)); border-color: rgba(255, 60, 60, 0.5);">
-                                    <span class="text-red-200">전체 초기화</span>
-                                    <span class="text-sm text-red-200/70 font-normal">모든 설정을 지우고 새로고침</span>
-                                </button>
+                                <button id="reset-schedule-btn" class="glass-button w-full flex items-center justify-center text-center"><span>수동 일정 초기화</span></button>
+                                <button id="reset-message-btn" class="glass-button w-full flex items-center justify-center text-center"><span>메시지 초기화</span></button>
+                                <button id="reset-all-btn" class="glass-button w-full flex items-center justify-center text-center" style="background: linear-gradient(145deg, rgba(255, 60, 60, 0.15), rgba(255, 60, 60, 0.05)); border-color: rgba(255, 60, 60, 0.5);"><span class="text-red-200">전체 초기화</span></button>
                             </div>
                             
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2 mt-6">데이터 백업 및 복원</h4>
@@ -1758,18 +1784,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
                         <div id="info-view" class="settings-view hidden space-y-4">
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">정보</h4>
-                            <div class="info-tabs">
-                                <button type="button" class="info-tab-button" data-tab="developer">개발자</button>
-                                <button type="button" class="info-tab-button" data-tab="languages">사용된 언어</button>
-                                <button type="button" class="info-tab-button" data-tab="version">버전</button>
-                            </div>
-
                             <div id="info-developer" class="info-tab-content">
                                 <h5 class="font-semibold">개발자</h5>
                                 <p class="text-sm text-gray-300">ADK(andogyeong090612@gmail.com)</p>
                             </div>
 
-                            <div id="info-languages" class="info-tab-content hidden">
+                            <div id="info-languages" class="info-tab-content">
                                 <h5 class="font-semibold">사용된 언어</h5>
                                 <ul class="list-disc pl-5 text-gray-300">
                                     <li>HTML</li>
@@ -1778,9 +1798,21 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 </ul>
                             </div>
 
-                            <div id="info-version" class="info-tab-content hidden">
-                                <h5 class="font-semibold">버전</h5>
-                                <p id="app-version-text" class="text-gray-300" data-version="2.6.8">2.6.8</p>
+                            <div id="info-version" class="info-tab-content">
+                                <div class="software-version-hero">
+                                    <div class="software-version-glow" aria-hidden="true"></div>
+                                    <h2>ADK Dash <span id="software-version-hero-value">2.6.9</span></h2>
+                                    <p id="software-school-name">대륜고등학교</p>
+                                </div>
+                                <h5 class="software-info-title">소프트웨어 정보</h5>
+                                <div class="software-info-list">
+                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.6.9">2.6.9</p></div>
+                                    <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
+                                    <div class="software-info-row"><span>실행 환경</span><span id="software-runtime-info">브라우저</span></div>
+                                    <div class="software-info-row"><span>화면 모드</span><span>방송 대기 화면</span></div>
+                                    <div class="software-info-row"><span>업데이트 확인</span><span>업데이트 탭에서 확인</span></div>
+                                    <div class="software-info-row"><span>저장 방식</span><span>이 브라우저의 로컬 저장소</span></div>
+                                </div>
                             </div>
                         </div>
 
@@ -1791,6 +1823,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <h5 class="font-semibold">업데이트 알림</h5>
                                 <div class="flex flex-wrap items-end gap-2"><label class="text-sm space-y-1">가상 최신 버전<input id="dev-update-version" class="glass-input w-full" value="99.0.0"></label><button type="button" id="dev-show-update" class="glass-button">높은 버전 알림 표시</button><button type="button" id="dev-hide-update" class="glass-button">알림 닫기</button></div>
                                 <p id="dev-update-status" class="text-xs text-white/60" aria-live="polite">실제 업데이트 확인이나 자동 설치를 실행하지 않습니다.</p>
+                            </section>
+                            <section class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">긴급 재난 문자</h5>
+                                <label class="block text-sm space-y-1">가상 재난 문자<textarea id="dev-disaster-message" class="glass-input w-full min-h-20">[훈련] 대구광역시 수성구 재난 문자 자동 표시 테스트입니다.</textarea></label>
+                                <div class="flex flex-wrap gap-2"><button type="button" id="dev-show-disaster" class="glass-button">가상 문자 띄우기</button><button type="button" id="dev-fetch-disaster" class="glass-button">실제 API 즉시 조회</button></div>
+                                <p id="dev-disaster-status" class="text-xs text-white/60" aria-live="polite">대구광역시 수성구 재난 문자를 5분마다 조회합니다.</p>
                             </section>
                             <section class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">시계·시간대</h5>
@@ -2124,14 +2162,16 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             if(!element) return;
             const width=Math.max(100,Math.min(window.innerWidth,rect.width)), height=Math.max(48,Math.min(window.innerHeight,rect.height));
             const left=Math.max(0,Math.min(window.innerWidth-width,rect.left)), top=Math.max(0,Math.min(window.innerHeight-height,rect.top));
-            const clockFont=Math.max(14,Math.min(height*.76,width/(design==='simple'?3.15:5.6)));
+            const clockLayout=readClockPreferences(design).layout, horizontal=clockLayout==='date-left'||clockLayout==='date-right';
+            const clockFont=Math.max(14,Math.min(horizontal?height*.58:height*.76,width/(horizontal?3.2:(design==='simple'?3.15:5.6))));
+            const direction=clockLayout==='date-bottom'?'column-reverse':clockLayout==='date-left'?'row-reverse':clockLayout==='date-right'?'row':'column';
             element.classList.add('clock-layout-applied');
-            for(const [name,value] of Object.entries({position:'fixed',left:`${left}px`,top:`${top}px`,right:'auto',bottom:'auto',width:`${width}px`,height:`${height}px`,maxWidth:'none',margin:'0',transform:'none',zIndex:'49',boxSizing:'border-box',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'0'})) element.style.setProperty(name.replace(/[A-Z]/g,m=>'-'+m.toLowerCase()),value,'important');
+            for(const [name,value] of Object.entries({position:'fixed',left:`${left}px`,top:`${top}px`,right:'auto',bottom:'auto',width:`${width}px`,height:`${height}px`,maxWidth:'none',margin:'0',transform:'none',zIndex:'49',boxSizing:'border-box',flexDirection:direction,alignItems:'center',justifyContent:'center',gap:horizontal?`${Math.max(5,clockFont*.16)}px`:'0'})) element.style.setProperty(name.replace(/[A-Z]/g,m=>'-'+m.toLowerCase()),value,'important');
             if(!element.classList.contains('aux-clock')) element.style.setProperty('display','flex','important');
             const times=element.matches('#weather-modern-clock')?[element.querySelector('#weather-modern-time'),element.querySelector('#weather-modern-seconds')]:element.matches('#simple-weather-clock')?[element.querySelector('#simple-weather-time')]:[...element.querySelectorAll('#current-time,.aux-time')];
             times.filter(Boolean).forEach((child,index)=>{ child.style.setProperty('font-size',`${index===1?clockFont*.34:clockFont}px`,'important'); child.style.setProperty('position','static','important'); child.style.setProperty('width','auto','important'); child.style.setProperty('transform','none','important'); });
             const dates=element.matches('#weather-modern-clock')?[element.querySelector('#weather-modern-date')]:element.matches('#simple-weather-clock')?[element.querySelector('#simple-weather-date')]:[...element.querySelectorAll('#current-date,.aux-date')];
-            dates.filter(Boolean).forEach(child=>{ child.style.setProperty('position','static','important'); child.style.setProperty('inset','auto','important'); child.style.setProperty('width','auto','important'); child.style.setProperty('margin',`${Math.max(1,clockFont*.08)}px 0 0`,'important'); child.style.setProperty('font-size',`${Math.max(10,clockFont*.23)}px`,'important'); child.style.setProperty('text-align','center','important'); });
+            dates.filter(Boolean).forEach(child=>{ child.style.setProperty('position','static','important'); child.style.setProperty('inset','auto','important'); child.style.setProperty('width','auto','important'); child.style.setProperty('margin',horizontal?'0':`${Math.max(1,clockFont*.08)}px 0 0`,'important'); child.style.setProperty('font-size',`${Math.max(10,clockFont*.23)}px`,'important'); child.style.setProperty('text-align','center','important'); });
         }
         function applySavedClockLayout() {
             const design=currentClockDesign(), layout=readClockLayouts()[design];
@@ -2145,14 +2185,29 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         function makeClockEditor() {
             if(clockEditor) return;
             clockEditor=document.createElement('div'); clockEditor.id='clock-layout-editor'; clockEditor.hidden=true;
-            clockEditor.innerHTML='<div class="clock-editor-settings"><label class="clock-editor-setting"><span>시계 숫자 글꼴</span><select data-clock-editor-pref="font"></select></label><label class="clock-editor-setting"><span>시간 형식</span><select data-clock-editor-pref="timeFormat"></select></label><label class="clock-editor-setting"><span>날짜 표기</span><select data-clock-editor-pref="dateFormat"></select></label><label class="clock-editor-setting"><span>시계 색상</span><select data-clock-editor-pref="color"></select></label><label class="clock-editor-setting"><span>투명도 <output data-clock-opacity-value>100%</output></span><input data-clock-editor-pref="opacity" type="range" min="20" max="100" step="5" value="100"></label></div><div class="clock-editor-box"><span class="clock-editor-label">시계 · 드래그하여 이동</span><span class="clock-editor-handle" data-resize="n"></span><span class="clock-editor-handle" data-resize="s"></span><span class="clock-editor-handle" data-resize="e"></span><span class="clock-editor-handle" data-resize="w"></span><span class="clock-editor-handle" data-resize="nw"></span><span class="clock-editor-handle" data-resize="ne"></span><span class="clock-editor-handle" data-resize="sw"></span><span class="clock-editor-handle" data-resize="se"></span></div><div class="clock-editor-actions"><button type="button" data-action="cancel" title="취소" aria-label="취소"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button><button type="button" data-action="reset" title="기본값으로 초기화" aria-label="기본값으로 초기화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/></svg></button><button type="button" data-action="save" title="저장" aria-label="저장"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></button></div>';
+            clockEditor.innerHTML='<div class="clock-editor-settings"><div class="clock-editor-layout-panel"><div class="clock-editor-panel-heading"><span>레이아웃</span></div><div class="clock-editor-layout-choices"><button type="button" data-clock-layout="date-top" aria-label="날짜 위" title="날짜 위"><span class="preview-date"></span><span class="preview-time"></span></button><button type="button" data-clock-layout="date-bottom" aria-label="날짜 아래" title="날짜 아래"><span class="preview-time"></span><span class="preview-date"></span></button><button type="button" data-clock-layout="date-left" aria-label="날짜 왼쪽" title="날짜 왼쪽"><span class="preview-date"></span><span class="preview-time"></span></button><button type="button" data-clock-layout="date-right" aria-label="날짜 오른쪽" title="날짜 오른쪽"><span class="preview-time"></span><span class="preview-date"></span></button></div></div><div class="clock-editor-font-panel"><div class="clock-editor-panel-heading"><span>폰트</span></div><div class="clock-editor-font-choices" data-clock-font-choices></div><label class="clock-editor-setting clock-editor-hidden-pref"><span>시계 숫자 글꼴</span><select data-clock-editor-pref="font"></select></label></div><label class="clock-editor-setting"><span>시간 형식</span><select data-clock-editor-pref="timeFormat"></select></label><label class="clock-editor-setting"><span>날짜 표기</span><select data-clock-editor-pref="dateFormat"></select></label><div class="clock-editor-color-panel"><div class="clock-editor-panel-heading"><span>색상</span></div><div class="clock-editor-color-choices" data-clock-color-choices></div><label class="clock-editor-setting clock-editor-hidden-pref"><span>시계 색상</span><select data-clock-editor-pref="color"></select></label></div><label class="clock-editor-setting"><span>투명도 <output data-clock-opacity-value>100%</output></span><input data-clock-editor-pref="opacity" type="range" min="20" max="100" step="5" value="100"></label></div><div class="clock-editor-box"><span class="clock-editor-label">시계 · 드래그하여 이동</span><span class="clock-editor-handle" data-resize="n"></span><span class="clock-editor-handle" data-resize="s"></span><span class="clock-editor-handle" data-resize="e"></span><span class="clock-editor-handle" data-resize="w"></span><span class="clock-editor-handle" data-resize="nw"></span><span class="clock-editor-handle" data-resize="ne"></span><span class="clock-editor-handle" data-resize="sw"></span><span class="clock-editor-handle" data-resize="se"></span></div><div class="clock-editor-actions"><button type="button" data-action="cancel" title="취소" aria-label="취소"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button><button type="button" data-action="reset" title="기본값으로 초기화" aria-label="기본값으로 초기화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/></svg></button><button type="button" data-action="save" title="저장" aria-label="저장"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></button></div>';
             const editorPreferences={font:clockFontSelect,timeFormat:clockTimeFormatSelect,dateFormat:clockDateFormatSelect,color:clockColorSelect};
             for(const [key,source] of Object.entries(editorPreferences)) {
                 const select=clockEditor.querySelector(`[data-clock-editor-pref="${key}"]`);
                 if(!source||!select)continue;
                 select.innerHTML=source.innerHTML;select.value=source.value;
-                select.addEventListener('change',()=>saveClockPreferences({[key]:select.value}));
+                select.addEventListener('change',()=>{saveClockPreferences({[key]:select.value});updateClockEditorChoices();});
             }
+            function updateClockEditorChoices(){
+                const fontValue=clockEditor.querySelector('[data-clock-editor-pref="font"]')?.value,colorValue=clockEditor.querySelector('[data-clock-editor-pref="color"]')?.value;
+                const layoutValue=readClockPreferences().layout;
+                clockEditor.querySelectorAll('[data-clock-font-choices] button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.value===fontValue)));
+                clockEditor.querySelectorAll('[data-clock-color-choices] button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.value===colorValue)));
+                clockEditor.querySelectorAll('[data-clock-layout]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.clockLayout===layoutValue)));
+            }
+            clockEditor.querySelectorAll('[data-clock-layout]').forEach(button=>button.addEventListener('click',()=>{saveClockPreferences({layout:button.dataset.clockLayout});if(clockEditorRect&&clockEditorTarget)applyClockRect(clockEditorTarget,clockEditorRect,currentClockDesign());updateClockEditorChoices();}));
+            const fontSelect=clockEditor.querySelector('[data-clock-editor-pref="font"]'),fontChoices=clockEditor.querySelector('[data-clock-font-choices]');
+            if(fontSelect&&fontChoices){
+                [...fontSelect.options].forEach(option=>{if(!option.value)return;const button=document.createElement('button');button.type='button';button.className='clock-font-choice';button.dataset.value=option.value;button.setAttribute('aria-label',option.textContent.trim());button.title=option.textContent.trim();button.innerHTML='<span class="clock-font-choice-sample">12</span>';button.querySelector('.clock-font-choice-sample').style.fontFamily=option.value==='system'?'inherit':`"${option.value}",sans-serif`;button.addEventListener('click',()=>{fontSelect.value=option.value;fontSelect.dispatchEvent(new Event('change',{bubbles:true}));});fontChoices.appendChild(button);});
+            }
+            const colorSelect=clockEditor.querySelector('[data-clock-editor-pref="color"]'),colorChoices=clockEditor.querySelector('[data-clock-color-choices]'),colorSwatches={auto:'conic-gradient(#4f7df3 0 25%,#fff1a8 25% 50%,#fff 50% 75%,#a8dff5 75%)',white:'#ffffff','pastel-yellow':'#fff1a8','pastel-pink':'#f7b6bf','pastel-blue':'#a8dff5','pastel-mint':'#d5f4b9','pastel-lavender':'#d8c5f5'};
+            if(colorSelect&&colorChoices){[...colorSelect.options].forEach(option=>{const button=document.createElement('button');button.type='button';button.className='clock-color-choice';button.dataset.value=option.value;button.setAttribute('aria-label',option.textContent.trim());button.title=option.textContent.trim();button.style.setProperty('--swatch-color',colorSwatches[option.value]||'#fff');button.innerHTML='<span class="clock-color-swatch"></span>';button.addEventListener('click',()=>{colorSelect.value=option.value;colorSelect.dispatchEvent(new Event('change',{bubbles:true}));});colorChoices.appendChild(button);});}
+            updateClockEditorChoices();
             document.body.appendChild(clockEditor); clockEditorBox=clockEditor.querySelector('.clock-editor-box');
             const paintBox=()=>{ if(clockEditorRect) { clockEditorBox.style.left=`${clockEditorRect.left}px`; clockEditorBox.style.top=`${clockEditorRect.top}px`; clockEditorBox.style.width=`${clockEditorRect.width}px`; clockEditorBox.style.height=`${clockEditorRect.height}px`; } };
             const finish=save=>{
@@ -2194,29 +2249,40 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const stop=event=>{if(event&&clockEditorBox.hasPointerCapture(event.pointerId))clockEditorBox.releasePointerCapture(event.pointerId);clockEditorMode=null;clockEditorStart=null;};
             clockEditorBox.addEventListener('pointerup',stop);clockEditorBox.addEventListener('pointercancel',stop);
             document.addEventListener('keydown',event=>{if(event.key==='Escape'&&clockEditor&&!clockEditor.hidden)finish(false);});
+            document.addEventListener('pointerdown',event=>{if(clockEditor&&!clockEditor.hidden&&!clockEditor.contains(event.target))finish(true);},true);
             window.addEventListener('resize',()=>{if(clockEditor&&!clockEditor.hidden&&clockEditorRect){clockEditorRect.left=Math.max(0,Math.min(window.innerWidth-clockEditorRect.width,clockEditorRect.left));clockEditorRect.top=Math.max(0,Math.min(window.innerHeight-clockEditorRect.height,clockEditorRect.top));paintBox();}else applySavedClockLayout();});
         }
         function startClockLayoutEditor() {
-            makeClockEditor(); const design=currentClockDesign(); clockEditorTarget=primaryClockTarget(design); if(!clockEditorTarget)return;
+            const design=currentClockDesign(); if(!['simple','modern'].includes(design)) return;
+            makeClockEditor(); clockEditorTarget=primaryClockTarget(design); if(!clockEditorTarget)return;
             const rect=clockEditorTarget.getBoundingClientRect(); clockEditorRect={left:Math.max(0,rect.left),top:Math.max(0,rect.top),width:Math.max(110,Math.min(window.innerWidth,rect.width)),height:Math.max(52,Math.min(window.innerHeight,rect.height))};
             applyClockRect(clockEditorTarget,clockEditorRect,design); clockEditor.hidden=false;document.body.classList.add('clock-layout-editing');
             clockEditorBox.style.left=`${clockEditorRect.left}px`;clockEditorBox.style.top=`${clockEditorRect.top}px`;clockEditorBox.style.width=`${clockEditorRect.width}px`;clockEditorBox.style.height=`${clockEditorRect.height}px`;
+            const panel=clockEditor.querySelector('.clock-editor-settings'),actions=clockEditor.querySelector('.clock-editor-actions');
+            const safeTop=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-top'))||0,safeBottom=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-bottom'))||0,gap=24;
+            const panelHeight=panel?.getBoundingClientRect().height||300,topSpace=Math.max(0,clockEditorRect.top-safeTop-gap),bottomSpace=Math.max(0,innerHeight-safeBottom-clockEditorRect.top-clockEditorRect.height-gap);
+            const useTop=topSpace>=panelHeight?true:bottomSpace>=panelHeight?false:topSpace>=bottomSpace;
+            const available=useTop?topSpace:bottomSpace;
+            panel?.classList.toggle('clock-editor-panel-top',useTop);panel?.classList.toggle('clock-editor-panel-bottom',!useTop);
+            if(panel){panel.style.maxHeight=`${Math.max(120,Math.min(panelHeight,available||innerHeight*.6))}px`;panel.style.overflowY='auto';panel.style.overflowX='hidden';}
+            actions?.classList.toggle('clock-editor-actions-top',!useTop);actions?.classList.toggle('clock-editor-actions-bottom',useTop);
             settingsModal.classList.add('hidden');
         }
         document.getElementById('clock-layout-open-btn')?.addEventListener('click',startClockLayoutEditor);
-        document.getElementById('clock-layout-reset-btn')?.addEventListener('click',()=>{const layouts=readClockLayouts();delete layouts[currentClockDesign()];try{localStorage.setItem(clockLayoutStorageKey,JSON.stringify(layouts));}catch{}applySavedClockLayout();});
+        document.getElementById('clock-quick-edit-btn')?.addEventListener('click',startClockLayoutEditor);
+        document.getElementById('clock-layout-reset-btn')?.addEventListener('click',()=>{if(!['simple','modern'].includes(currentClockDesign()))return;const layouts=readClockLayouts();delete layouts[currentClockDesign()];try{localStorage.setItem(clockLayoutStorageKey,JSON.stringify(layouts));}catch{}applySavedClockLayout();});
         const clockPreferenceStorageKey='dashboardClockPreferencesV1';
         const clockFontSelect=document.getElementById('clock-font-select'), clockTimeFormatSelect=document.getElementById('clock-time-format-select'), clockDateFormatSelect=document.getElementById('clock-date-format-select'), clockColorSelect=document.getElementById('clock-color-select'), clockOpacityRange=document.getElementById('clock-opacity-range');
         const clockFontFamilies={Orbitron:"'Orbitron',sans-serif",Rajdhani:"'Rajdhani',sans-serif",'Space Grotesk':"'Space Grotesk',sans-serif",'Exo 2':"'Exo 2',sans-serif",Oxanium:"'Oxanium',sans-serif",'Share Tech Mono':"'Share Tech Mono',monospace",'DM Mono':"'DM Mono',monospace",'Roboto Mono':"'Roboto Mono',monospace",'Barlow Condensed':"'Barlow Condensed',sans-serif",'Baloo 2':"'Baloo 2',sans-serif",Comfortaa:"'Comfortaa',sans-serif",Fredoka:"'Fredoka',sans-serif",Nunito:"'Nunito',sans-serif",Audiowide:"'Audiowide',sans-serif",Michroma:"'Michroma',sans-serif",Oswald:"'Oswald',sans-serif",'Bebas Neue':"'Bebas Neue',sans-serif",Teko:"'Teko',sans-serif",Anton:"'Anton',sans-serif"};
         function readClockPreferences(design=currentClockDesign()) {
             let all={};try{const parsed=JSON.parse(localStorage.getItem(clockPreferenceStorageKey)||'{}');if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))all=parsed;}catch{}
             const stored=all[design]&&typeof all[design]==='object'?all[design]:{};
-            return {font:Object.hasOwn(clockFontFamilies,stored.font)?stored.font:'system',timeFormat:stored.timeFormat==='hms'?'hms':stored.timeFormat==='hm'?'hm':design==='simple'?'hm':'hms',dateFormat:stored.dateFormat==='us'?'us':'ko',color:['auto','white','pastel-yellow','pastel-pink','pastel-blue','pastel-mint','pastel-lavender'].includes(stored.color)?stored.color:'auto',opacity:Number.isFinite(Number(stored.opacity))?Math.max(20,Math.min(100,Number(stored.opacity))):100};
+            return {font:Object.hasOwn(clockFontFamilies,stored.font)?stored.font:'system',timeFormat:stored.timeFormat==='hms'?'hms':stored.timeFormat==='hm'?'hm':design==='simple'?'hm':'hms',dateFormat:stored.dateFormat==='us'?'us':'ko',color:['auto','white','pastel-yellow','pastel-pink','pastel-blue','pastel-mint','pastel-lavender'].includes(stored.color)?stored.color:'auto',opacity:Number.isFinite(Number(stored.opacity))?Math.max(20,Math.min(100,Number(stored.opacity))):100,layout:['date-top','date-bottom','date-left','date-right'].includes(stored.layout)?stored.layout:'date-top'};
         }
         function saveClockPreferences(patch) {
             const all=(()=>{try{const parsed=JSON.parse(localStorage.getItem(clockPreferenceStorageKey)||'{}');return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};}catch{return {};}})();
             all[currentClockDesign()]={...readClockPreferences(),...patch};try{localStorage.setItem(clockPreferenceStorageKey,JSON.stringify(all));}catch{}
-            syncClockPreferenceControls();applyClockPreferences();updateTime();
+            syncClockPreferenceControls();applyClockPreferences();if(Object.hasOwn(patch,'layout')&&clockEditorRect&&clockEditorTarget)applyClockRect(clockEditorTarget,clockEditorRect,currentClockDesign());updateTime();
         }
         function syncClockPreferenceControls() {
             const preferences=readClockPreferences();
@@ -2422,8 +2488,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
         manualCheckUpdateBtn.addEventListener('click', async () => {
             const loadingStartedAt = performance.now();
+            const originalButtonContent = manualCheckUpdateBtn.innerHTML;
             const statusText = document.getElementById('update-status-text');
-            if (statusText) statusText.textContent = "확인 중...";
+            if (statusText) statusText.textContent = '';
+            manualCheckUpdateBtn.innerHTML = '<span class="region-loader-dots" role="status" aria-label="업데이트 확인 중"><span class="region-loader-dot"></span><span class="region-loader-dot"></span><span class="region-loader-dot"></span><span class="region-loader-dot"></span></span>';
+            manualCheckUpdateBtn.setAttribute('aria-label', '업데이트 확인 중');
             if (updateIllustration) { updateIllustration.classList.add('is-loading'); updateIllustration.setAttribute('aria-label', '업데이트 확인 중'); updateIllustration.innerHTML = '<span class="region-loader-dots" aria-hidden="true"><span class="region-loader-dot"></span><span class="region-loader-dot"></span><span class="region-loader-dot"></span><span class="region-loader-dot"></span></span>'; }
             manualCheckUpdateBtn.disabled = true;
             try { await checkForUpdates(true); }
@@ -2431,6 +2500,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 const remainingLoadingTime = 2000 - (performance.now() - loadingStartedAt);
                 if (remainingLoadingTime > 0) await new Promise(resolve => setTimeout(resolve, remainingLoadingTime));
                 if (updateIllustration) { updateIllustration.classList.remove('is-loading'); updateIllustration.removeAttribute('aria-label'); updateIllustration.innerHTML = updateIllustrationMarkup; }
+                manualCheckUpdateBtn.innerHTML = originalButtonContent;
+                manualCheckUpdateBtn.removeAttribute('aria-label');
                 manualCheckUpdateBtn.disabled = false;
             }
         });
@@ -2855,6 +2926,90 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         const BROADCAST_FONT_CLASSES=['font-family-system','font-family-notosanskr','font-family-pretendard','font-family-nanum','font-family-gowun','font-family-jua','font-family-blackhan'];
         const BROADCAST_FONT_OPTIONS=[['font-family-notosanskr','Noto Sans KR'],['font-family-system','시스템 기본'],['font-family-pretendard','Pretendard'],['font-family-nanum','Nanum Gothic'],['font-family-gowun','Gowun Dodum'],['font-family-jua','Jua'],['font-family-blackhan','Black Han Sans']];
         const BROADCAST_SOUND_OPTIONS=[['default','기본 효과음 설정 사용'],['off','효과음 없음'],['siren','사이렌'],['bell','종소리'],['chime','차임'],['beep','알림음']];
+        const DISASTER_API_KEY='O3S1R6705P0C4YIQ';
+        const DISASTER_API_URL='https://www.safetydata.go.kr/V2/api/DSSP-IF-00247';
+        const DISASTER_POLL_INTERVAL=5*60*1000;
+        const DISASTER_SEEN_STORAGE_KEY='dashboardSeenDisasterMessageIds';
+        let disasterPollId=null,disasterRequestInFlight=false;
+        function disasterDateKey(date=new Date()){return `${date.getFullYear()}${String(date.getMonth()+1).padStart(2,'0')}${String(date.getDate()).padStart(2,'0')}`}
+        function disasterTimestamp(value){
+            const raw=String(value||'').trim();if(!raw)return NaN;
+            let parsed=new Date(raw.replace(/\./g,'-').replace(' ','T')).getTime();
+            if(Number.isFinite(parsed))return parsed;
+            const parts=raw.match(/^(\d{4})\D?(\d{2})\D?(\d{2})(?:\D?(\d{2})(?:\D?(\d{2})(?:\D?(\d{2}))?)?)?/);
+            return parts?new Date(Number(parts[1]),Number(parts[2])-1,Number(parts[3]),Number(parts[4]||0),Number(parts[5]||0),Number(parts[6]||0)).getTime():NaN;
+        }
+        function disasterRowId(row){return String(row.SN||`${row.CRT_DT||''}|${row.RCPTN_RGN_NM||''}|${row.MSG_CN||''}`)}
+        function disasterApiRows(payload){
+            const body=payload?.body??payload?.data??payload?.items??[];
+            if(Array.isArray(body))return body;
+            if(body&&typeof body==='object')return Array.isArray(body.items)?body.items:Array.isArray(body.item)?body.item:[body];
+            return [];
+        }
+        function disasterMessageFromRow(row){
+            const level=String(row.EMRG_STEP_NM||'안전 안내'),type=String(row.DST_SE_NM||'재난 문자'),region=String(row.RCPTN_RGN_NM||'대구광역시 수성구'),body=String(row.MSG_CN||'').trim();
+            return {id:'disaster:'+disasterRowId(row),title:`${level} · ${type}`,text:`${region} · ${body}`,category:type,pillColor:/긴급|위급/.test(level)?'#b91c1c':'#1d4ed8',textColor:'#ffffff',fontClass:'font-family-notosanskr',displayMode:'minutes',displayMinutes:2,soundType:'bell'};
+        }
+        function showDisasterMessage(message,isSimulation=false){
+            const alert={...message,id:message.id||`disaster-test-${Date.now()}`,displayMode:'minutes',displayMinutes:2};
+            queueBroadcastMessage(alert,true,'bell');
+            const status=document.getElementById('dev-disaster-status');
+            if(status)status.textContent=isSimulation?'가상 재난 문자를 송출했습니다. (실제 API 결과에는 반영되지 않음)':`새 재난 문자 자동 송출 · ${new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})}`;
+        }
+        async function fetchDisasterAlerts(manual=false){
+            if(disasterRequestInFlight)return;
+            disasterRequestInFlight=true;
+            const status=document.getElementById('dev-disaster-status');
+            try{
+                const params=new URLSearchParams({serviceKey:DISASTER_API_KEY,returnType:'json',pageNo:'1',numOfRows:'100',crtDt:disasterDateKey(),rgnNm:'대구광역시 수성구'});
+                const controller=new AbortController(),timeoutId=window.setTimeout(()=>controller.abort(),15000);
+                let response;
+                try{response=await fetch(`${DISASTER_API_URL}?${params.toString()}`,{signal:controller.signal,cache:'no-store'})}finally{clearTimeout(timeoutId)}
+                if(!response.ok)throw new Error(`HTTP ${response.status}`);
+                const payload=await response.json(),header=payload?.header||{};
+                if(header.resultCode&&String(header.resultCode)!=='00')throw new Error(header.resultMsg||header.errorMsg||`API ${header.resultCode}`);
+                const rows=disasterApiRows(payload).filter(row=>row&&String(row.MSG_CN||'').trim()&&(!row.RCPTN_RGN_NM||/수성구|대구광역시\s*(?:전역|전체)/.test(String(row.RCPTN_RGN_NM))));
+                rows.sort((a,b)=>disasterTimestamp(b.CRT_DT)-disasterTimestamp(a.CRT_DT));
+                let seen=[];try{const stored=JSON.parse(localStorage.getItem(DISASTER_SEEN_STORAGE_KEY)||'null');if(Array.isArray(stored))seen=stored.map(String)}catch{}
+                const firstCheck=localStorage.getItem(DISASTER_SEEN_STORAGE_KEY)===null,seenSet=new Set(seen),unseen=rows.filter(row=>!seenSet.has(disasterRowId(row)));
+                let deliver=unseen;
+                if(firstCheck){
+                    const newest=unseen[0],created=newest?disasterTimestamp(newest.CRT_DT):NaN;
+                    deliver=newest&&(!Number.isFinite(created)||Date.now()-created<6*60*60*1000)?[newest]:[];
+                }
+                const fresh=deliver.slice().sort((a,b)=>disasterTimestamp(a.CRT_DT)-disasterTimestamp(b.CRT_DT));
+                const nextSeen=[...new Set([...seen,...rows.map(disasterRowId)])].slice(-500);
+                try{localStorage.setItem(DISASTER_SEEN_STORAGE_KEY,JSON.stringify(nextSeen))}catch{}
+                fresh.forEach((row,index)=>queueBroadcastMessage(disasterMessageFromRow(row),index===0,'bell'));
+                if(status){
+                    const checked=new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+                    status.textContent=fresh.length?`새 재난 문자 ${fresh.length}건을 자동 표시했습니다. · ${checked} 확인`:`수성구 새 재난 문자 없음 · ${checked} 확인`;
+                }
+                return {count:rows.length,newCount:fresh.length};
+            }catch(error){
+                console.warn('긴급 재난 문자 조회 실패:',error);
+                if(status)status.textContent=`재난 문자 API 조회 실패 · ${error.name==='AbortError'?'응답 시간 초과':'브라우저 CORS·네트워크·API 설정 확인 필요'}`;
+                if(manual)throw error;
+                return {count:0,newCount:0,error};
+            }finally{disasterRequestInFlight=false}
+        }
+        function initDisasterAlerts(){
+            if(disasterPollId!==null)clearInterval(disasterPollId);
+            const testButton=document.getElementById('dev-show-disaster'),fetchButton=document.getElementById('dev-fetch-disaster');
+            testButton?.addEventListener('click',()=>{
+                const text=document.getElementById('dev-disaster-message')?.value.trim();
+                if(!text){document.getElementById('dev-disaster-status').textContent='가상 재난 문자 내용을 입력하세요.';return}
+                showDisasterMessage({title:'훈련 재난 문자',text,category:'훈련',pillColor:'#b91c1c',textColor:'#ffffff'},true);
+            });
+            fetchButton?.addEventListener('click',async()=>{
+                if(fetchButton.disabled)return;fetchButton.disabled=true;
+                try{const result=await fetchDisasterAlerts(true);if(result&&!result.newCount&&result.count===0){const statusEl=document.getElementById('dev-disaster-status');if(statusEl)statusEl.textContent='현재 조회 결과에 수성구 대상 문자가 없습니다.'}}
+                catch(error){/* 상태 문구는 조회 함수에서 표시 */}
+                finally{fetchButton.disabled=false}
+            });
+            fetchDisasterAlerts();
+            disasterPollId=window.setInterval(()=>fetchDisasterAlerts(),DISASTER_POLL_INTERVAL);
+        }
         function broadcastSoundOptions(selected){return BROADCAST_SOUND_OPTIONS.map(x=>'<option value='+x[0]+' '+(x[0]===selected?'selected':'')+'>'+x[1]+'</option>').join('')}
         function normalizeBroadcastSoundType(value){return BROADCAST_SOUND_OPTIONS.some(x=>x[0]===value)?value:'default'}
         function broadcastColor(v,f){return /^#[0-9a-f]{6}$/i.test(v||'')?v:f}
@@ -3665,12 +3820,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         }
 
         function switchInfoTab(tabName) {
-            document.querySelectorAll('.info-tab-content').forEach(c => c.classList.add('hidden'));
-            document.querySelectorAll('.info-tab-button').forEach(b => b.classList.remove('active'));
-            const showEl = document.getElementById('info-' + tabName);
-            if (showEl) showEl.classList.remove('hidden');
-            const btn = document.querySelector(`.info-tab-button[data-tab="${tabName}"]`);
-            if (btn) btn.classList.add('active');
+            document.querySelectorAll('#info-view .info-tab-content').forEach(c => c.classList.remove('hidden'));
         }
 
         function renderDeveloperMealOverride() {
@@ -3716,6 +3866,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             clearDeveloperUpdateSimulation();
             document.getElementById('dev-timezone').value='Asia/Seoul';
             document.getElementById('dev-update-status').textContent='테스트 알림을 초기화했습니다.';
+            document.getElementById('dev-disaster-status').textContent='대구광역시 수성구 재난 문자를 5분마다 조회합니다.';
             document.getElementById('dev-clock-status').textContent='시뮬레이션 시각을 해제했습니다.';
             document.getElementById('dev-weather-status').textContent='실제 날씨 API 응답을 다시 사용합니다.';
             document.getElementById('dev-meal-status').textContent='실제 급식 API 응답을 다시 사용합니다.';
@@ -4867,6 +5018,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
         function initApp() {
             initBroadcastFeature();
+            initDisasterAlerts();
             updateTime();
             setInterval(updateTime, 1000);
             loadSettings(); // 이 내부에서 설정 로딩 및 renderPipMedia() 호출
@@ -5113,18 +5265,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             }
 
             setupDeveloperOptions();
-            document.querySelectorAll('.info-tab-button').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const t = btn.dataset.tab;
-                    if (t) switchInfoTab(t);
-                    if (t === 'developer' && !developerOptionsEnabled) {
-                        const now=Date.now(); if(now-developerLastTapAt>3000) developerTapCount=0;
-                        developerLastTapAt=now; developerTapCount++;
-                        if(developerTapCount>=5) { developerTapCount=0; setDeveloperOptionsEnabled(true); }
-                    } else if(t!=='developer') { developerTapCount=0; developerLastTapAt=0; }
-                });
+            document.querySelector('#info-developer h5')?.addEventListener('click', () => {
+                if (developerOptionsEnabled) return;
+                const now=Date.now(); if(now-developerLastTapAt>3000) developerTapCount=0;
+                developerLastTapAt=now; developerTapCount++;
+                if(developerTapCount>=5) { developerTapCount=0; setDeveloperOptionsEnabled(true); }
             });
-            try { switchInfoTab('developer'); } catch (e) {}
+            try { switchInfoTab('version'); } catch (e) {}
 
             document.body.addEventListener('mousemove', updateSettingsButtonProximity);
 
@@ -5288,6 +5435,22 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             
             container.appendChild(card);
             });
+        const actions=document.createElement('div');
+        actions.className='notification-pill-actions';
+        const clearButton=document.createElement('button');
+        clearButton.type='button';
+        clearButton.className='notification-clear-all';
+        clearButton.textContent='모두 지우기';
+        clearButton.addEventListener('click',clearAllNotifications);
+        actions.appendChild(clearButton);
+        container.appendChild(actions);
+    }
+
+    function clearAllNotifications() {
+        appNotifications=[];
+        isPillHidden=false;
+        updateNotificationUI();
+        showAllNotifications();
     }
 
     function dismissNotification(id) {
@@ -6483,5 +6646,268 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 })();
 
 </script>
-</body>
+<style id="oneui-settings-surface">
+:root{--settings-bg:#111112;--settings-card:#1b1b1d;--settings-card-2:#222225;--settings-border:#333337;--settings-text:#f5f5f7;--settings-muted:#a8a8ad;--settings-accent:#3d7df4;--settings-track:#3b3b3e}
+:root[data-theme="light"]{--settings-bg:#eef0f1;--settings-card:#fff;--settings-card-2:#f4f5f6;--settings-border:#dfe1e3;--settings-text:#111;--settings-muted:#777b80;--settings-accent:#59655d;--settings-track:#a2a3a6}
+:root[data-theme="weather"]{--settings-bg:#11191d;--settings-card:#1b2529;--settings-card-2:#222e33;--settings-border:#334047;--settings-text:#f5f8f9;--settings-muted:#aab9bf;--settings-accent:#70c4df;--settings-track:#3a4b52}
+#settings-modal{background:var(--settings-bg)!important;color:var(--settings-text)!important;border:1px solid var(--settings-border)!important;border-radius:30px!important;box-shadow:0 24px 76px rgba(0,0,0,.38)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+#settings-modal,#settings-modal *{text-shadow:none!important}
+#settings-modal .settings-sidebar,#settings-modal .settings-details>.glass-section,#settings-modal .settings-details .glass-section{background:var(--settings-card)!important;border:1px solid var(--settings-border)!important;border-radius:24px!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+#settings-modal .settings-sidebar{padding:12px!important}
+#settings-modal .sidebar-item{min-height:62px;border:1px solid transparent!important;border-radius:18px!important;transition:background .16s,border-color .16s}
+#settings-modal .sidebar-item:hover,#settings-modal .sidebar-item[aria-pressed="true"],#settings-modal .sidebar-item.active{background:var(--settings-card-2)!important;border-color:var(--settings-border)!important;box-shadow:none!important;transform:none!important}
+#settings-modal .settings-tab-icon{width:42px!important;height:42px!important;flex:0 0 42px;border-radius:50%!important;color:#fff!important;background:#3978e8!important;box-shadow:none!important}
+#settings-modal .settings-tab-icon svg{width:20px;height:20px;stroke-width:1.8}
+#settings-modal [data-view="display"] .settings-tab-icon{background:#4a9b65!important}#settings-modal [data-view="broadcasts"] .settings-tab-icon{background:#e57828!important}#settings-modal [data-view="custom-text"] .settings-tab-icon{background:#7558cf!important}#settings-modal [data-view="schedule-edit"] .settings-tab-icon{background:#168c9b!important}#settings-modal [data-view="background"] .settings-tab-icon{background:#58a64a!important}#settings-modal [data-view="system"] .settings-tab-icon{background:#697580!important}#settings-modal [data-view="update"] .settings-tab-icon{background:#327ce3!important}#settings-modal [data-view="info"] .settings-tab-icon{background:#7163b7!important}#settings-modal [data-view="developer-options"] .settings-tab-icon{background:#5965d8!important}
+#settings-modal .glass-input:not([type="range"]):not([type="checkbox"]):not([type="color"]),#settings-modal input[type="text"],#settings-modal input[type="number"],#settings-modal input[type="time"],#settings-modal input[type="date"],#settings-modal textarea{color:var(--settings-text)!important;background:var(--settings-card-2)!important;border:1px solid var(--settings-border)!important;border-radius:16px!important;box-shadow:none!important}
+#settings-modal .glass-input::placeholder,#settings-modal input::placeholder,#settings-modal textarea::placeholder{color:var(--settings-muted)!important}
+#settings-modal .glass-section{border-radius:24px!important}
+#settings-modal .glass-checkbox-label{color:var(--settings-text)!important}
+#settings-modal .glass-checkbox-box{border:1px solid var(--settings-muted)!important;border-radius:50%!important;background:var(--settings-track)!important;box-shadow:none!important;backdrop-filter:none!important}
+#settings-modal .glass-checkbox-input:checked+.glass-checkbox-box{border-color:var(--settings-accent)!important;background:var(--settings-accent)!important;box-shadow:none!important}
+#settings-modal input[type="range"].glass-input::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-progress),var(--settings-track) var(--range-progress),var(--settings-track) 100%)!important;box-shadow:none!important}
+#settings-modal input[type="range"].glass-input::-moz-range-track{background:var(--settings-track)!important;box-shadow:none!important}#settings-modal input[type="range"].glass-input::-moz-range-progress{background:var(--settings-accent)!important}
+#settings-modal input[type="range"].glass-input::-webkit-slider-thumb,#settings-modal input[type="range"].glass-input::-moz-range-thumb{border:2px solid var(--settings-bg)!important;background:var(--settings-accent)!important;box-shadow:0 0 0 1px var(--settings-accent)!important}
+:root[data-theme="weather"] #settings-modal [class*="text-white"],:root[data-theme="weather"] #settings-modal .text-gray-100,:root[data-theme="weather"] #settings-modal .text-gray-200,:root[data-theme="weather"] #settings-modal .text-gray-300,:root[data-theme="weather"] #settings-modal .text-gray-400{color:var(--settings-text)!important}
+:root[data-theme="light"] #settings-modal .text-gray-100,:root[data-theme="light"] #settings-modal .text-gray-200,:root[data-theme="light"] #settings-modal .text-gray-300,:root[data-theme="light"] #settings-modal .text-gray-400{color:var(--settings-muted)!important}
+.app-select-host{position:relative;display:block;width:100%;min-width:0}.app-select-native{position:absolute!important;width:1px!important;height:1px!important;min-height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;opacity:0!important}
+.app-select-trigger{width:100%;min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 16px;border:1px solid var(--settings-border);border-radius:16px;color:var(--settings-text);background:var(--settings-card-2);font-family:inherit;font-size:14px;font-weight:500;line-height:1.35;text-align:left;cursor:pointer}
+.app-select-trigger:hover,.app-select-trigger[aria-expanded="true"]{border-color:var(--settings-accent)}.app-select-trigger:focus-visible{outline:2px solid var(--settings-accent);outline-offset:2px}.app-select-chevron{width:10px;height:10px;flex:0 0 10px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);opacity:.76}
+.app-select-listbox{position:fixed;z-index:2147483000;max-height:min(340px,55vh);overflow:auto;padding:5px;border:1px solid var(--settings-border);border-radius:16px;background:var(--settings-card);color:var(--settings-text);box-shadow:0 16px 36px rgba(0,0,0,.32);scrollbar-width:thin}
+.app-select-group-label{padding:9px 12px 5px;color:var(--settings-muted);font-size:11px;font-weight:700;letter-spacing:.04em}.app-select-option{width:100%;min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;border:0;border-radius:11px;color:var(--settings-text);background:transparent;text-align:left;font-family:inherit;font-size:13px;font-weight:500;line-height:1.3;cursor:pointer}.app-select-option:hover,.app-select-option:focus-visible{outline:none;background:var(--settings-card-2)}.app-select-option[aria-selected="true"]{background:color-mix(in srgb,var(--settings-accent) 17%,var(--settings-card))}.app-select-check{width:17px;height:17px;flex:0 0 17px;border:1.5px solid var(--settings-muted);border-radius:50%}.app-select-option[aria-selected="true"] .app-select-check{border:5px solid var(--settings-accent)}
+#clock-layout-editor .clock-editor-settings.clock-editor-panel-bottom{top:auto!important;bottom:calc(var(--safe-bottom) + 82px)!important}#clock-layout-editor .clock-editor-settings.clock-editor-panel-top{top:calc(var(--safe-top) + 72px)!important;bottom:auto!important}
+#clock-layout-editor .clock-editor-actions.clock-editor-actions-top{top:calc(var(--safe-top) + 12px)!important;bottom:auto!important;left:auto!important;right:calc(var(--safe-right) + 14px)!important;transform:none!important}#clock-layout-editor .clock-editor-actions.clock-editor-actions-bottom{top:auto!important;bottom:calc(var(--safe-bottom) + 14px)!important}
+@media(max-width:700px){#settings-modal{border-radius:24px!important}#settings-modal .settings-sidebar{border-radius:20px!important}#clock-layout-editor .clock-editor-settings.clock-editor-panel-bottom{bottom:calc(var(--safe-bottom) + 78px)!important}}
+</style><script id="settings-select-visual-adapter">
+(()=>{
+ const valueDesc=Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value'),indexDesc=Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'selectedIndex');let active=null;
+ function sync(s){const r=s.__appSelect;if(!r)return;const o=s.options[s.selectedIndex];const current=r.button.querySelector('.app-select-current');current.textContent=o?o.textContent.trim():'선택';if(o)current.style.fontFamily=fontForOption(s,o);r.list.querySelectorAll('[role=option]').forEach(x=>x.setAttribute('aria-selected',String(x.dataset.value===s.value)))}
+ function close(){if(!active)return;active.list.remove();active.button.setAttribute('aria-expanded','false');active=null} function fontForOption(s,o){const v=o.value;if(s.id==='clock-font-select')return v==='system'?'inherit':`"${v}",sans-serif`;const fonts={'font-family-system':'Malgun Gothic,Apple SD Gothic Neo,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif','font-family-pretendard':'Pretendard Variable,Pretendard,sans-serif','font-family-gowun':'Gowun Dodum,sans-serif','font-family-notosanskr':'Noto Sans KR,sans-serif','font-family-nanum':'Nanum Gothic,sans-serif','font-family-jua':'Jua,sans-serif','font-family-blackhan':'Black Han Sans,sans-serif','font-system':'Malgun Gothic,Apple SD Gothic Neo,sans-serif','font-pretendard':'Pretendard Variable,Pretendard,sans-serif','font-gowun':'Gowun Dodum,sans-serif','font-notosanskr':'Noto Sans KR,sans-serif','font-nanum':'Nanum Gothic,sans-serif','font-jua':'Jua,sans-serif','font-blackhan':'Black Han Sans,sans-serif'};return fonts[v]||''}
+ function place(r){const b=r.button.getBoundingClientRect(),vv=window.visualViewport,vw=vv?.width||innerWidth,vh=vv?.height||innerHeight,ox=vv?.offsetLeft||0,oy=vv?.offsetTop||0,gap=8,pad=12,w=Math.min(Math.max(b.width,240),vw-pad*2),left=Math.max(ox+pad,Math.min(b.left+ox,vw+ox-w-pad)),below=Math.max(0,oy+vh-(b.bottom+oy)-gap-pad),above=Math.max(0,b.top+oy-oy-gap-pad),natural=Math.min(r.list.scrollHeight||340,340),openAbove=below<Math.min(natural,180)&&above>below,maxH=Math.max(96,Math.min(natural,openAbove?above:below));r.list.style.width=w+'px';r.list.style.left=left+'px';r.list.style.maxHeight=maxH+'px';r.list.style.top=(openAbove?Math.max(oy+pad,b.top+oy-maxH-gap):b.bottom+oy+gap)+'px'}
+ function open(s){const r=s.__appSelect;if(!r)return;if(active===r){close();return}close();(s.closest('#clock-layout-editor')||document.body).append(r.list);active=r;r.button.setAttribute('aria-expanded','true');place(r);r.list.querySelector('[aria-selected=true]')?.scrollIntoView({block:'nearest'})}
+ function enhance(s){if(s.dataset.appSelectReady||s.multiple||s.closest('.clock-editor-hidden-pref'))return;s.dataset.appSelectReady='true';s.classList.add('app-select-native');s.tabIndex=-1;s.setAttribute('aria-hidden','true');const host=document.createElement('span');host.className='app-select-host';s.parentNode.insertBefore(host,s);host.append(s);const b=document.createElement('button');b.type='button';b.className='app-select-trigger';b.setAttribute('role','combobox');b.setAttribute('aria-haspopup','listbox');b.setAttribute('aria-expanded','false');b.innerHTML='<span class="app-select-current"></span><span class="app-select-chevron" aria-hidden="true"></span>';const list=document.createElement('div');list.className='app-select-listbox';list.id='app-select-'+Math.random().toString(36).slice(2);list.setAttribute('role','listbox');b.setAttribute('aria-controls',list.id);const add=o=>{if(o.disabled)return;const x=document.createElement('button');x.type='button';x.className='app-select-option';x.setAttribute('role','option');x.dataset.value=o.value;x.innerHTML='<span></span><span class="app-select-check" aria-hidden="true"></span>';x.firstElementChild.textContent=o.textContent.trim();const sampleFont=fontForOption(s,o);if(sampleFont)x.firstElementChild.style.fontFamily=sampleFont;x.addEventListener('click',()=>{s.value=o.value;s.dispatchEvent(new Event('input',{bubbles:true}));s.dispatchEvent(new Event('change',{bubbles:true}));sync(s);close();b.focus()});list.append(x)};[...s.children].forEach(c=>{if(c.tagName==='OPTGROUP'){const h=document.createElement('div');h.className='app-select-group-label';h.textContent=c.label;list.append(h);[...c.children].forEach(add)}else if(c.tagName==='OPTION')add(c)});host.append(b);const r={button:b,list};s.__appSelect=r;b.addEventListener('click',()=>open(s));b.addEventListener('keydown',e=>{if(['ArrowDown','ArrowUp','Enter',' '].includes(e.key)){e.preventDefault();open(s)}if(e.key==='Escape')close()});s.addEventListener('change',()=>sync(s));s.closest('label')?.addEventListener('click',e=>{e.preventDefault();if(e.target!==b&&!b.contains(e.target))open(s)});const vg=valueDesc.get,vs=valueDesc.set;Object.defineProperty(s,'value',{configurable:true,get(){return vg.call(this)},set(v){vs.call(this,v);sync(this)}});if(indexDesc){const ig=indexDesc.get,is=indexDesc.set;Object.defineProperty(s,'selectedIndex',{configurable:true,get(){return ig.call(this)},set(v){is.call(this,v);sync(this)}})}sync(s)}
+ function scan(root=document){root.querySelectorAll?.('#settings-modal select,#clock-layout-editor select').forEach(enhance)}
+ scan();new MutationObserver(records=>records.forEach(r=>r.addedNodes.forEach(n=>{if(n.nodeType===1)scan(n)}))).observe(document.body,{childList:true,subtree:true});document.addEventListener('pointerdown',e=>{if(active&&!active.list.contains(e.target)&&!active.button.contains(e.target))close()},true);document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});window.addEventListener('resize',()=>active&&place(active));window.addEventListener('scroll',()=>active&&place(active),true)
+})();
+</script><style id="settings-selection-emphasis">
+#clock-layout-editor .clock-font-choice[aria-pressed="true"]{transform:scale(1.12);z-index:1;border-width:3px}
+#clock-layout-editor .clock-color-choice[aria-pressed="true"]{flex-basis:56px;width:56px;height:56px;border-width:3px;transform:scale(1.04)}
+#clock-layout-editor .clock-color-choice[aria-pressed="true"] .clock-color-swatch{width:46px;height:46px}
+@media(max-width:640px){#clock-layout-editor .clock-color-choice[aria-pressed="true"]{flex-basis:50px;width:50px;height:50px}#clock-layout-editor .clock-color-choice[aria-pressed="true"] .clock-color-swatch{width:40px;height:40px}}
+</style><style id="oneui-home-notification-polish">
+.settings-container{gap:10px!important}
+.settings-container .edit-btn{width:46px!important;height:46px!important;min-width:46px!important;min-height:46px!important;flex:0 0 46px!important;padding:0!important;border:0!important;border-radius:50%!important;display:inline-flex;align-items:center;justify-content:center;color:var(--settings-text,#fff);background:rgba(32,35,39,.72);box-shadow:0 3px 12px rgba(0,0,0,.18);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);transition:transform .18s,background .18s}
+.settings-container .edit-btn:hover{transform:scale(1.04);background:rgba(50,54,59,.86)}
+.settings-container .edit-btn svg{width:21px;height:21px;display:block;flex:0 0 21px}
+.settings-container #settings-btn{width:auto!important;min-width:96px!important;flex:0 0 auto!important;gap:8px;padding:0 16px!important;border-radius:999px!important;font-family:inherit;font-size:14px;font-weight:600;white-space:nowrap}
+.settings-container #settings-btn svg{width:19px;height:19px;flex-basis:19px}
+.settings-container #clock-quick-edit-btn{order:0}.settings-container #fullscreen-btn{order:1}.settings-container #settings-btn{order:2}
+:root[data-theme="light"] .settings-container .edit-btn{color:#252a28;background:rgba(255,255,255,.86);box-shadow:0 2px 12px rgba(36,42,38,.12)}
+:root[data-theme="weather"] .settings-container .edit-btn{color:#f3f7f8;background:rgba(24,35,40,.78)}
+.notification-list{position:fixed;top:calc(var(--safe-top) + 64px)!important;left:50%!important;right:auto!important;transform:translateX(-50%);z-index:9998;width:min(560px,calc(100vw - var(--safe-left) - var(--safe-right) - 28px))!important;max-height:calc(100vh - var(--safe-top) - var(--safe-bottom) - 86px)!important;padding:0 2px 12px;gap:10px!important;overflow:auto;scrollbar-width:thin}
+.notification-list.open:before{content:"";position:fixed;inset:calc(-1 * var(--safe-top) - 64px) calc(-50vw + 50%) calc(-1 * var(--safe-bottom));z-index:-1;background:rgba(15,17,20,.74);backdrop-filter:blur(24px) saturate(125%);-webkit-backdrop-filter:blur(24px) saturate(125%);pointer-events:none}
+.notification-card{position:relative;z-index:1;width:100%!important;box-sizing:border-box;padding:20px 22px!important;gap:12px!important;border:1px solid var(--settings-border)!important;border-radius:28px!important;background:var(--settings-card)!important;color:var(--settings-text)!important;box-shadow:0 4px 18px rgba(0,0,0,.12)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.notification-card>div:first-child{align-items:center!important;min-height:24px}
+.notification-card>div:first-child>span{color:var(--settings-muted)!important;font-size:12px!important;font-weight:700!important;letter-spacing:.01em!important;text-transform:none!important}
+.notification-card p{color:var(--settings-text)!important;font-size:15px!important;line-height:1.5!important;overflow-wrap:anywhere}
+.notification-card button[onclick^="dismissNotification"]{width:32px;height:32px;display:grid;place-items:center;border:0;border-radius:50%;color:var(--settings-muted);background:var(--settings-card-2);font-size:15px}
+.notification-card .glass-button{min-height:42px;border:0!important;border-radius:999px!important;background:var(--settings-card-2)!important;color:var(--settings-text)!important;box-shadow:none!important}
+:root{--oneui-screen-bg:#111112;--oneui-screen-card:#1b1b1d;--oneui-screen-line:#333337;--oneui-screen-text:#f5f5f7;--oneui-screen-muted:#a8a8ad}
+:root[data-theme="light"]{--oneui-screen-bg:#eef0f1;--oneui-screen-card:#fff;--oneui-screen-line:#dfe1e3;--oneui-screen-text:#111;--oneui-screen-muted:#777b80}
+#settings-modal{background:var(--oneui-screen-bg)!important;color:var(--oneui-screen-text)!important}
+#settings-modal .settings-details>.glass-section,#settings-modal .settings-details .glass-section{background:var(--oneui-screen-card)!important;border-color:var(--oneui-screen-line)!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+#clock-layout-editor .clock-editor-layout-panel{flex:1 1 100%;min-width:0;display:flex;flex-direction:column;gap:8px;padding:3px 2px 10px;border-bottom:1px solid var(--settings-border)}
+#clock-layout-editor .clock-editor-layout-choices{display:flex;align-items:center;gap:12px;overflow-x:auto;padding:5px 3px 8px;scrollbar-width:thin}
+#clock-layout-editor .clock-editor-layout-choices button{width:76px;height:76px;flex:0 0 76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:1px solid var(--settings-border);border-radius:20px;color:var(--settings-text);background:var(--settings-card-2);cursor:pointer;transition:transform .16s,border-color .16s,background .16s}
+#clock-layout-editor .clock-editor-layout-choices button[data-clock-layout="date-bottom"]{flex-direction:column-reverse}#clock-layout-editor .clock-editor-layout-choices button[data-clock-layout="date-left"]{flex-direction:row-reverse}#clock-layout-editor .clock-editor-layout-choices button[data-clock-layout="date-right"]{flex-direction:row}
+#clock-layout-editor .clock-editor-layout-choices .preview-date{width:20px;height:5px;border-radius:5px;background:var(--settings-muted);opacity:.8}#clock-layout-editor .clock-editor-layout-choices .preview-time{width:38px;height:22px;border-radius:7px;background:var(--settings-text);opacity:.94}
+#clock-layout-editor .clock-editor-layout-choices [aria-pressed="true"]{transform:scale(1.12);border:3px solid var(--settings-accent);background:var(--settings-card);z-index:1}
+.glass-checkbox-label:has(#pip-enable-toggle,#auto-update-toggle,#fullscreen-on-start,#show-school-logo,#show-school-name,#broadcast-tts-enabled,#broadcast-sound-enabled,#schedule-pills-toggle,#weather-reflect-toggle,#weather-time-reflect-toggle,#weather-aurora-toggle,#always-show-clock,#auto-darken-bg,#low-performance-mode,#show-music-bar-toggle,.bell-event-editor input[type="checkbox"]) .glass-checkbox-box{position:relative;width:48px!important;height:28px!important;flex:0 0 48px!important;margin-left:auto;border:0!important;border-radius:999px!important;background:#a1a1a6!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:block!important}
+.glass-checkbox-label:has(#pip-enable-toggle,#auto-update-toggle,#fullscreen-on-start,#show-school-logo,#show-school-name,#broadcast-tts-enabled,#broadcast-sound-enabled,#schedule-pills-toggle,#weather-reflect-toggle,#weather-time-reflect-toggle,#weather-aurora-toggle,#always-show-clock,#auto-darken-bg,#low-performance-mode,#show-music-bar-toggle,.bell-event-editor input[type="checkbox"]) .glass-checkbox-box:after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border:0;border-radius:50%;background:#fff;opacity:1;transform:none;transition:transform .18s ease}
+.glass-checkbox-label:has(#pip-enable-toggle,#auto-update-toggle,#fullscreen-on-start,#show-school-logo,#show-school-name,#broadcast-tts-enabled,#broadcast-sound-enabled,#schedule-pills-toggle,#weather-reflect-toggle,#weather-time-reflect-toggle,#weather-aurora-toggle,#always-show-clock,#auto-darken-bg,#low-performance-mode,#show-music-bar-toggle,.bell-event-editor input[type="checkbox"]) .glass-checkbox-input:checked+.glass-checkbox-box{background:var(--settings-accent)!important}
+.glass-checkbox-label:has(#pip-enable-toggle,#auto-update-toggle,#fullscreen-on-start,#show-school-logo,#show-school-name,#broadcast-tts-enabled,#broadcast-sound-enabled,#schedule-pills-toggle,#weather-reflect-toggle,#weather-time-reflect-toggle,#weather-aurora-toggle,#always-show-clock,#auto-darken-bg,#low-performance-mode,#show-music-bar-toggle,.bell-event-editor input[type="checkbox"]) .glass-checkbox-input:checked+.glass-checkbox-box:after{transform:translateX(20px)}
+:root[data-theme="light"] .notification-list.open:before{background:rgba(32,36,37,.36)}
+:root[data-theme="light"] .notification-card{background:#fff!important;border-color:#e5e6e8!important;color:#171918!important}
+:root[data-theme="light"] .notification-card p{color:#303432!important}
+@media(max-width:640px){.settings-container{gap:6px!important}.settings-container .edit-btn{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;flex-basis:42px!important}.settings-container #settings-btn{min-width:84px!important;padding:0 13px!important;font-size:13px}.notification-list{top:calc(var(--safe-top) + 58px)!important;width:calc(100vw - var(--safe-left) - var(--safe-right) - 20px)!important;max-height:calc(100vh - var(--safe-top) - var(--safe-bottom) - 72px)!important}.notification-card{border-radius:24px!important;padding:17px!important}}
+/* One UI surfaces: light mode uses Samsung's soft gray canvas and clean white cards. */
+:root[data-theme="light"]{--theme-bg:#eef0f1;--theme-text:#111;--theme-muted:#777b80;--theme-glass:#fff;--theme-glass-border:#dfe1e3;--theme-highlight:#fff;--theme-shadow:rgba(0,0,0,.08);--settings-bg:#eef0f1;--settings-card:#fff;--settings-card-2:#f5f5f5;--settings-border:#dedfe1;--settings-text:#111;--settings-muted:#777b80;--settings-accent:#59655d;--settings-track:#a2a3a6}
+:root[data-theme="light"] body,:root[data-theme="light"] #default-animated-bg{background-color:#eef0f1!important;background-image:none!important}
+:root[data-theme="light"] #settings-modal .settings-details>.glass-section,:root[data-theme="light"] #settings-modal .settings-details .glass-section,:root[data-theme="light"] #settings-modal .settings-sidebar{background:#fff!important;border-color:#dfe1e3!important}
+:root[data-theme="light"] #settings-modal .settings-view h4,:root[data-theme="light"] #settings-modal .settings-view h5,:root[data-theme="light"] #settings-modal .settings-view label,:root[data-theme="light"] #settings-modal .settings-view p,:root[data-theme="light"] #settings-modal .settings-view li,:root[data-theme="light"] #settings-modal .settings-view span{color:var(--settings-text)!important}
+:root[data-theme="light"] #settings-modal .settings-view .text-gray-100,:root[data-theme="light"] #settings-modal .settings-view .text-gray-200,:root[data-theme="light"] #settings-modal .settings-view .text-gray-300,:root[data-theme="light"] #settings-modal .settings-view .text-gray-400{color:var(--settings-muted)!important}
+#settings-modal .glass-button,#settings-modal button.glass-button{min-height:46px;padding:11px 18px!important;border:1px solid var(--settings-border)!important;border-radius:999px!important;background:var(--settings-card-2)!important;color:var(--settings-text)!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;font-weight:650;transition:background .16s,transform .16s,border-color .16s}
+#settings-modal .glass-button:hover{transform:translateY(-1px);background:color-mix(in srgb,var(--settings-accent) 10%,var(--settings-card-2))!important}
+#settings-modal #manual-check-update-btn{min-height:54px;background:var(--settings-accent)!important;color:#fff!important;font-size:16px;font-weight:700}
+#settings-modal #view-release-notes-btn{background:var(--settings-card-2)!important;color:var(--settings-text)!important}
+#settings-modal #reset-all-btn{border-color:#d66!important;background:#fff1f0!important;color:#b42318!important}
+#settings-modal input[type="range"],#clock-layout-editor input[type="range"]{appearance:none;-webkit-appearance:none;height:28px;min-height:28px;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;cursor:pointer;touch-action:pan-y}
+#settings-modal input[type="range"]::-webkit-slider-runnable-track,#clock-layout-editor input[type="range"]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-progress,50%),var(--settings-track) var(--range-progress,50%),var(--settings-track) 100%);box-shadow:none}
+#settings-modal input[type="range"]::-moz-range-track,#clock-layout-editor input[type="range"]::-moz-range-track{height:6px;border-radius:999px;background:var(--settings-track)}
+#settings-modal input[type="range"]::-moz-range-progress,#clock-layout-editor input[type="range"]::-moz-range-progress{height:6px;border-radius:999px;background:var(--settings-accent)}
+#settings-modal input[type="range"]::-webkit-slider-thumb,#clock-layout-editor input[type="range"]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:22px;height:22px;margin-top:-8px;border:3px solid var(--settings-card)!important;border-radius:50%;background:var(--settings-accent)!important;box-shadow:0 0 0 1px var(--settings-accent)!important}
+#settings-modal input[type="range"]::-moz-range-thumb,#clock-layout-editor input[type="range"]::-moz-range-thumb{width:16px;height:16px;border:3px solid var(--settings-card)!important;border-radius:50%;background:var(--settings-accent)!important;box-shadow:0 0 0 1px var(--settings-accent)!important}
+.software-version-hero{position:relative;isolation:isolate;min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:28px 16px;margin-bottom:22px;text-align:center}
+.software-version-glow{position:absolute;z-index:-1;width:min(62vw,360px);height:min(48vw,280px);border-radius:50%;background:radial-gradient(ellipse,rgba(70,112,255,.28),rgba(120,72,220,.13) 42%,rgba(255,132,72,.10) 62%,transparent 74%);filter:blur(42px)}
+.software-version-hero h2{margin:0;color:var(--settings-text);font-size:clamp(36px,7vw,64px);font-weight:850;letter-spacing:-.055em;line-height:1.05}.software-version-hero p{margin:12px 0 0;color:var(--settings-muted);font-size:16px}
+.software-info-title{padding:0 2px 12px;border-bottom:1px solid var(--settings-border);font-size:21px;font-weight:750}
+.software-info-list{padding:0 20px;border-radius:24px;background:var(--settings-card)}.software-info-row{display:flex;flex-direction:column;gap:4px;padding:17px 0;border-bottom:1px solid var(--settings-border);color:var(--settings-text)}.software-info-row:last-child{border-bottom:0}.software-info-row span:last-child{color:var(--settings-muted);font-size:.92em;overflow-wrap:anywhere}
+#update-view>h4{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.update-settings-menu{position:relative;flex:0 0 auto}.update-settings-trigger{width:42px;height:42px;border:0;border-radius:50%;display:grid;place-items:center;background:var(--settings-card-2);color:var(--settings-text);font-size:24px;line-height:1;cursor:pointer}
+.update-settings-popup{position:absolute;top:calc(100% + 10px);right:0;z-index:1000;width:min(420px,calc(100vw - 48px));max-height:min(70vh,560px);overflow:auto;padding:12px;border:1px solid var(--settings-border);border-radius:24px;background:var(--settings-card);box-shadow:0 18px 48px rgba(0,0,0,.28)}.update-settings-popup[hidden]{display:none!important}.update-settings-popup .glass-section{margin:0 0 10px}.update-settings-popup .glass-section:last-child{margin-bottom:0}
+#clock-layout-editor .clock-editor-actions button{border:1px solid var(--settings-border)!important;border-radius:50%!important;background:var(--settings-card)!important;color:var(--settings-text)!important;box-shadow:0 4px 14px rgba(0,0,0,.16)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+#clock-layout-editor .clock-editor-actions button[data-action="save"]{background:var(--settings-accent)!important;color:#fff!important;border-color:var(--settings-accent)!important}
+#clock-layout-editor .clock-editor-settings{color:var(--settings-text)!important;background:var(--settings-card)!important;border-color:var(--settings-border)!important;box-shadow:0 16px 44px rgba(0,0,0,.2)!important;backdrop-filter:blur(18px) saturate(130%)!important;-webkit-backdrop-filter:blur(18px) saturate(130%)!important}
+#clock-layout-editor .clock-editor-setting select{color:var(--settings-text)!important;background:var(--settings-card-2)!important;border-color:var(--settings-border)!important;border-radius:16px!important}
+#clock-layout-editor .clock-editor-panel-heading,#clock-layout-editor .clock-editor-setting>span{color:var(--settings-text)!important}
+#clock-layout-editor .clock-editor-actions button:hover{background:var(--settings-card-2)!important;transform:translateY(-1px)}
+#clock-layout-editor .clock-editor-layout-choices [aria-pressed="true"],#clock-layout-editor .clock-color-choice[aria-pressed="true"],#clock-layout-editor .clock-font-choice[aria-pressed="true"]{border-color:var(--settings-accent)!important;box-shadow:0 0 0 2px color-mix(in srgb,var(--settings-accent) 30%,transparent)!important}
+@media(max-width:640px){.software-version-hero{min-height:170px}.software-info-list{padding:0 16px}.update-settings-popup{position:fixed;top:calc(var(--safe-top) + 64px);right:calc(var(--safe-right) + 16px)}}
+#settings-modal input[type="range"].glass-input::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-progress,50%),var(--settings-track) var(--range-progress,50%),var(--settings-track) 100%)!important}
+#settings-modal input[type="range"].glass-input::-moz-range-track{background:var(--settings-track)!important}
+#settings-modal input[type="range"].glass-input::-moz-range-progress{background:var(--settings-accent)!important}
+#settings-modal input[type="range"].glass-input::-webkit-slider-thumb{border:3px solid var(--settings-card)!important;background:var(--settings-accent)!important;box-shadow:0 0 0 1px var(--settings-accent)!important}
+#settings-modal input[type="range"].glass-input::-moz-range-thumb{border:3px solid var(--settings-card)!important;background:var(--settings-accent)!important;box-shadow:0 0 0 1px var(--settings-accent)!important}
+#settings-modal #info-version .software-info-row>p{margin:0;color:var(--settings-muted)!important;font-size:.92em;overflow-wrap:anywhere}#settings-modal #info-version .software-version-hero p{color:var(--settings-muted)!important}
+#settings-modal input[type="checkbox"]:not(.glass-checkbox-input),#settings-modal input[type="radio"]{appearance:none;-webkit-appearance:none;width:22px;height:22px;min-width:22px;min-height:22px;margin:0;vertical-align:middle;border:2px solid var(--settings-muted);border-radius:50%;background:var(--settings-card);box-shadow:none;cursor:pointer;transition:background .16s,border-color .16s,box-shadow .16s}
+#settings-modal input[type="checkbox"]:not(.glass-checkbox-input):checked{border-color:var(--settings-accent);background-color:var(--settings-accent);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m4 10 4 4 8-8' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-size:15px;background-position:center;background-repeat:no-repeat}
+#settings-modal input[type="radio"]:checked{border:6px solid var(--settings-accent);background:var(--settings-card)}
+#settings-modal input[type="checkbox"]:not(.glass-checkbox-input):focus-visible,#settings-modal input[type="radio"]:focus-visible{outline:2px solid var(--settings-accent);outline-offset:3px}
+:root[data-theme="light"] #settings-modal .settings-tab-icon{color:#315b9b!important;background:#e8eef8!important;border:1px solid rgba(38,74,126,.08);box-shadow:none!important}
+:root[data-theme="light"] #settings-modal .settings-tab-icon svg{color:inherit!important}
+:root[data-theme="light"] #settings-modal .settings-tab-icon svg [stroke="currentColor"]{stroke:currentColor!important}
+:root[data-theme="light"] #settings-modal .settings-tab-icon svg [fill="currentColor"]{fill:currentColor!important}
+:root[data-theme="light"] #settings-modal [data-view="display"] .settings-tab-icon{color:#317446!important;background:#e6f2e8!important}
+:root[data-theme="light"] #settings-modal [data-view="broadcasts"] .settings-tab-icon{color:#a95419!important;background:#fff0e2!important}
+:root[data-theme="light"] #settings-modal [data-view="custom-text"] .settings-tab-icon{color:#654ab1!important;background:#eee9fb!important}
+:root[data-theme="light"] #settings-modal [data-view="schedule-edit"] .settings-tab-icon{color:#14747e!important;background:#e3f2f3!important}
+:root[data-theme="light"] #settings-modal [data-view="background"] .settings-tab-icon{color:#467d35!important;background:#e9f2e4!important}
+:root[data-theme="light"] #settings-modal [data-view="system"] .settings-tab-icon{color:#4b5864!important;background:#e8ecef!important}
+:root[data-theme="light"] #settings-modal [data-view="update"] .settings-tab-icon{color:#2863b7!important;background:#e6eefb!important}
+:root[data-theme="light"] #settings-modal [data-view="info"] .settings-tab-icon{color:#6753a8!important;background:#eeeafb!important}
+:root[data-theme="light"] #settings-modal [data-view="developer-options"] .settings-tab-icon{color:#4e5bc2!important;background:#e9ebfb!important}
+:root[data-theme="light"] #settings-modal .sidebar-item[aria-pressed="true"] .settings-tab-icon,:root[data-theme="light"] #settings-modal .sidebar-item.active .settings-tab-icon{filter:saturate(1.08);box-shadow:0 0 0 2px rgba(50,80,130,.08)!important}
+/* Keep every clock control inside the editor panel and scroll the panel when space is tight. */
+#clock-layout-editor .clock-editor-settings{box-sizing:border-box!important;max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 24px)!important;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+#clock-layout-editor .clock-editor-layout-panel{grid-column:1/-1;width:100%;box-sizing:border-box}
+#clock-layout-editor .clock-editor-layout-choices{width:100%;max-width:100%;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:thin}
+#clock-layout-editor .clock-editor-setting:last-child{grid-column:1/-1;width:100%;min-width:0;box-sizing:border-box}
+#clock-layout-editor .clock-editor-setting:last-child input[type="range"]{display:block;width:100%;min-width:0;box-sizing:border-box}
+@media(max-height:760px){#clock-layout-editor .clock-editor-settings{padding-top:14px;padding-bottom:14px;gap:0 14px}#clock-layout-editor .clock-editor-panel-heading{margin-bottom:7px}#clock-layout-editor .clock-editor-layout-panel{gap:5px;padding-bottom:7px}}
+/* Keep clock date/time choice menus visible above the scrolling editor. */
+#clock-layout-editor .app-select-listbox{z-index:2147483647!important;pointer-events:auto}
+#clock-layout-editor .clock-editor-setting .app-select-host{display:block;width:100%;min-width:0}
+#clock-layout-editor .clock-editor-setting .app-select-trigger{width:100%;min-height:44px;box-sizing:border-box;border-radius:999px}
+#clock-layout-editor .clock-editor-setting:last-child input[type="range"]{appearance:none;-webkit-appearance:none;width:100%;height:28px;min-height:28px;padding:0;border:0;background:transparent;accent-color:var(--settings-accent);cursor:pointer;touch-action:pan-y}
+#clock-layout-editor .clock-editor-setting:last-child input[type="range"]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-progress,100%),var(--settings-track) var(--range-progress,100%),var(--settings-track) 100%)}
+#clock-layout-editor .clock-editor-setting:last-child input[type="range"]::-moz-range-track{height:6px;border-radius:999px;background:var(--settings-track)}
+#clock-layout-editor .clock-editor-setting:last-child input[type="range"]::-moz-range-progress{height:6px;border-radius:999px;background:var(--settings-accent)}
+#clock-layout-editor .clock-editor-setting:last-child input[type="range"]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:22px;height:22px;margin-top:-8px;border:3px solid var(--settings-card);border-radius:50%;background:var(--settings-accent);box-shadow:0 0 0 1px var(--settings-accent)}
+#clock-layout-editor .clock-editor-setting:last-child input[type="range"]::-moz-range-thumb{width:16px;height:16px;border:3px solid var(--settings-card);border-radius:50%;background:var(--settings-accent);box-shadow:0 0 0 1px var(--settings-accent)}
+/* Notifications float as pills over a softly blurred backdrop. */
+.notification-list.open{z-index:2147483000!important;left:50%!important;right:auto!important;transform:translateX(-50%);width:max-content!important;max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 28px)!important;max-height:calc(100vh - var(--safe-top) - var(--safe-bottom) - 86px)!important;padding:4px!important;overflow:auto;background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.notification-list.open:before{inset:calc(-1 * var(--safe-top) - 64px) calc(-50vw + 50%) calc(-1 * var(--safe-bottom))!important;background:rgba(12,16,24,.28)!important;backdrop-filter:blur(28px) saturate(135%)!important;-webkit-backdrop-filter:blur(28px) saturate(135%)!important}
+.notification-card{width:max-content!important;min-width:min(300px,calc(100vw - 48px));max-width:min(520px,calc(100vw - var(--safe-left) - var(--safe-right) - 40px));padding:12px 20px!important;border-radius:999px!important;background:rgba(31,36,42,.76)!important;border-color:rgba(255,255,255,.18)!important;box-shadow:0 10px 30px rgba(0,0,0,.18)!important;backdrop-filter:blur(20px) saturate(140%)!important;-webkit-backdrop-filter:blur(20px) saturate(140%)!important}
+.notification-card p{margin:0!important;font-size:14px!important;line-height:1.35!important}
+.notification-card>div:first-child{min-height:0!important}
+.notification-card>div:first-child>span{font-size:11px!important}
+:root[data-theme="light"] .notification-list.open:before{background:rgba(238,240,241,.26)!important}
+:root[data-theme="light"] .notification-card{background:rgba(255,255,255,.82)!important}
+/* The weekday chips keep their pill shape; selection is a circle with a dot, never a tick. */
+.broadcast-day-label{gap:8px!important;padding:7px 12px!important;border:0!important;border-radius:999px!important;background:var(--settings-card-2,rgba(255,255,255,.08))!important;color:var(--settings-text,#fff)!important}
+.broadcast-day-label input[type="checkbox"]{appearance:none!important;-webkit-appearance:none!important;position:relative;width:22px!important;height:22px!important;min-width:22px!important;min-height:22px!important;margin:0!important;border:2px solid var(--settings-muted,rgba(255,255,255,.34))!important;border-radius:50%!important;background:transparent!important;box-shadow:none!important;cursor:pointer}
+.broadcast-day-label input[type="checkbox"]:checked{border:2px solid #91c8df!important;background:transparent!important;box-shadow:0 0 0 1px rgba(145,200,223,.12)!important}
+.broadcast-day-label input[type="checkbox"]:checked:after{content:"";position:absolute;inset:5px;border-radius:50%;background:#91c8df}
+.broadcast-day-label input[type="checkbox"]:focus-visible{outline:2px solid var(--settings-accent);outline-offset:3px}
+@media(max-width:640px){.notification-list.open{top:calc(var(--safe-top) + 58px)!important;width:max-content!important;max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 20px)!important}.notification-card{min-width:min(250px,calc(100vw - 40px));padding:11px 16px!important}}
+:root{--settings-danger-bg:rgba(127,29,29,.22);--settings-danger-border:rgba(248,113,113,.58);--settings-danger-text:#fecaca;--settings-danger-muted:#fca5a5}
+:root[data-theme="light"]{--settings-danger-bg:#fff1f0;--settings-danger-border:#e5a09b;--settings-danger-text:#a12622;--settings-danger-muted:#b54742}
+#settings-modal #reset-all-btn{background:var(--settings-danger-bg)!important;border-color:var(--settings-danger-border)!important;color:var(--settings-danger-text)!important}
+#settings-modal #reset-all-btn span,#settings-modal #reset-all-btn .text-red-200,#settings-modal #reset-all-btn .text-red-200\/70{color:var(--settings-danger-text)!important}
+#settings-modal #reset-all-btn span:last-child{color:var(--settings-danger-muted)!important}
+#settings-modal #reset-all-btn:hover{background:color-mix(in srgb,var(--settings-danger-text) 14%,var(--settings-danger-bg))!important}
+/* About and update views follow the full-page One UI software information layout. */
+#info-view{max-height:calc(100vh - var(--safe-top) - var(--safe-bottom) - 112px);overflow-y:auto;overscroll-behavior:contain;padding-right:6px}
+#info-view .info-tabs{position:sticky;top:0;z-index:2;display:flex;gap:10px;padding:8px 0 14px;background:var(--settings-bg);overflow-x:auto;scrollbar-width:none}
+#info-view .info-tab-button{flex:0 0 auto;min-height:46px;padding:10px 18px!important;border:1px solid var(--settings-border)!important;border-radius:18px!important;background:var(--settings-card-2)!important;color:var(--settings-text)!important;font-size:15px;font-weight:650;box-shadow:none!important}
+#info-view .info-tab-button.active{background:var(--settings-accent)!important;border-color:var(--settings-accent)!important;color:#fff!important}
+#info-view .info-tab-content:not(.hidden){display:block;padding:20px;border:1px solid var(--settings-border);border-radius:26px;background:var(--settings-card);color:var(--settings-text)}
+#info-view .software-version-hero{min-height:clamp(230px,38vh,390px);margin:-4px -4px 24px;border-radius:22px;background:radial-gradient(ellipse at 50% 52%,rgba(76,67,171,.22),transparent 62%)}
+#info-view .software-info-title{margin:0 0 14px;padding:0 2px 12px;border-color:var(--settings-border);font-size:22px;font-weight:750}
+#info-view .software-info-list{padding:0 18px;border:1px solid var(--settings-border);border-radius:22px;background:var(--settings-card-2)}
+#info-view .software-info-row{padding:16px 0;border-color:var(--settings-border);font-size:15px}
+#info-view .software-info-row>span:first-child{font-weight:650}
+#info-view .software-info-row span:last-child,#info-view .software-info-row p{color:var(--settings-muted)!important}
+#info-view #info-developer h5,#info-view #info-languages h5{margin:0 0 12px;font-size:20px;font-weight:750}
+#info-view #info-developer p,#info-view #info-languages li{color:var(--settings-muted)!important;font-size:16px;line-height:1.7}
+#update-view:not(.hidden){display:flex;flex-direction:column;min-height:0;height:100%;gap:0!important;overflow:auto;overscroll-behavior:contain}
+#update-view>h4{flex:0 0 auto;margin-bottom:4px}
+#update-view .update-version-hero{flex:1 1 auto;min-height:clamp(240px,45vh,520px);margin:0;padding:24px 12px;background:radial-gradient(ellipse at 50% 52%,rgba(76,67,171,.24),transparent 62%)}
+#update-view .update-version-hero h2{font-size:clamp(42px,8vw,86px)}
+#update-view .update-version-hero p{margin-top:14px;color:var(--settings-muted)!important;font-size:clamp(16px,2.4vw,24px);font-weight:500}
+#update-view>.glass-card{flex:0 0 auto;margin-top:auto;padding:8px 0 10px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+#update-view .update-illustration,#update-view .update-status-spacer,#update-view #view-release-notes-btn{display:none!important}
+#update-view #manual-check-update-btn{width:min(460px,90%)!important;min-height:68px;margin:0 auto;border:0!important;border-radius:999px!important;background:#a7b0a8!important;color:#fff!important;font-size:clamp(18px,2.5vw,25px)!important;font-weight:750!important;box-shadow:none!important}
+#update-view #install-update-btn{width:min(460px,90%)!important;min-height:58px;margin:12px auto 0!important;border-radius:999px!important}
+#update-view .update-settings-popup{background:radial-gradient(ellipse at 50% 8%,rgba(76,67,171,.22),transparent 58%),var(--settings-card)!important}
+#update-view .update-release-menu-item{margin:0!important;background:transparent!important;border:0!important;box-shadow:none!important}
+#update-view .update-release-menu-item #view-release-notes-btn{display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;min-height:48px;border-radius:999px!important;background:var(--settings-card-2)!important;color:var(--settings-text)!important}
+/* Every checked box uses a round outer ring and a filled center instead of a checkmark. */
+#settings-modal .glass-checkbox-input:checked+.glass-checkbox-box{border:2px solid #91c8df!important;border-radius:50%!important;background:transparent!important;box-shadow:0 0 0 1px rgba(145,200,223,.12)!important}
+#settings-modal .glass-checkbox-input:checked+.glass-checkbox-box:after{width:12px;height:12px;inset:auto;opacity:1;transform:none;border-radius:50%;background:#91c8df!important;background-image:none!important}
+#settings-modal input[type="checkbox"]:not(.glass-checkbox-input):checked{border:2px solid #91c8df!important;border-radius:50%!important;background-color:transparent!important;background-image:radial-gradient(circle,#91c8df 0 5px,transparent 5.5px)!important;background-size:100% 100%!important;box-shadow:0 0 0 1px rgba(145,200,223,.12)!important}
+input[type="checkbox"]:not(.glass-checkbox-input){appearance:none;-webkit-appearance:none;width:22px;height:22px;min-width:22px;min-height:22px;margin:0;vertical-align:middle;border:2px solid var(--settings-muted,rgba(255,255,255,.34));border-radius:50%;background:transparent;box-shadow:none;cursor:pointer;transition:background .16s,border-color .16s,box-shadow .16s}
+input[type="checkbox"]:not(.glass-checkbox-input):checked{border:2px solid #91c8df!important;border-radius:50%!important;background-color:transparent!important;background-image:radial-gradient(circle,#91c8df 0 5px,transparent 5.5px)!important;background-size:100% 100%!important;box-shadow:0 0 0 1px rgba(145,200,223,.12)!important}
+input[type="checkbox"]:not(.glass-checkbox-input):focus-visible{outline:2px solid var(--settings-accent);outline-offset:3px}
+#info-view:not(.hidden){display:flex;flex-direction:column;gap:16px;overflow-y:auto}
+#settings-modal:has(#info-view:not(.hidden)) #settings-content-wrapper{overflow:visible!important}
+#settings-modal:has(#info-view:not(.hidden)) .settings-details>.glass-section{height:auto!important;min-height:0!important;overflow:visible!important}
+#settings-modal:has(#info-view:not(.hidden)){display:flex!important;flex-direction:column!important;height:auto!important;max-height:calc(100vh - var(--safe-top) - var(--safe-bottom) - 2rem)!important;overflow-x:hidden!important;overflow-y:auto!important}
+#settings-modal:has(#info-view:not(.hidden)) #settings-content-wrapper,#settings-modal:has(#info-view:not(.hidden)) .settings-layout,#settings-modal:has(#info-view:not(.hidden)) .settings-details{flex:0 0 auto!important;min-height:0!important;height:auto!important;overflow:visible!important}
+#settings-modal:has(#info-view:not(.hidden)) #settings-content-wrapper,#settings-modal:has(#info-view:not(.hidden)) .settings-layout{width:100%!important;max-width:none!important}
+#settings-modal:has(#info-view:not(.hidden)) .settings-layout{align-items:flex-start!important}
+#settings-modal:has(#info-view:not(.hidden)) .settings-details{flex:1 1 0%!important;width:0!important;max-width:none!important}
+#settings-modal:has(#info-view:not(.hidden)) .settings-details>.glass-section{width:100%!important;box-sizing:border-box!important}
+#settings-modal #info-view{height:auto!important;max-height:none!important;min-height:0!important;overflow:visible!important;flex:0 0 auto}
+#settings-modal #info-view .info-tab-content{flex:0 0 auto;width:100%;box-sizing:border-box}
+#info-view #info-version{order:0}
+#info-view #info-developer{order:1}
+#info-view #info-languages{order:2}
+#info-view #info-developer h5{cursor:pointer}
+#settings-modal .glass-checkbox-label:has(#pip-enable-toggle,#auto-update-toggle,#fullscreen-on-start,#show-school-logo,#show-school-name,#broadcast-tts-enabled,#broadcast-sound-enabled,#schedule-pills-toggle,#weather-reflect-toggle,#weather-time-reflect-toggle,#weather-aurora-toggle,#always-show-clock,#auto-darken-bg,#low-performance-mode,#show-music-bar-toggle,.bell-event-editor input[type="checkbox"]) .glass-checkbox-input:checked+.glass-checkbox-box{border:0!important;border-radius:999px!important;background:var(--settings-accent)!important;box-shadow:none!important}
+#settings-modal .glass-checkbox-label:has(#pip-enable-toggle,#auto-update-toggle,#fullscreen-on-start,#show-school-logo,#show-school-name,#broadcast-tts-enabled,#broadcast-sound-enabled,#schedule-pills-toggle,#weather-reflect-toggle,#weather-time-reflect-toggle,#weather-aurora-toggle,#always-show-clock,#auto-darken-bg,#low-performance-mode,#show-music-bar-toggle,.bell-event-editor input[type="checkbox"]) .glass-checkbox-input:checked+.glass-checkbox-box:after{left:3px!important;top:3px!important;right:auto!important;bottom:auto!important;inset:3px auto auto 3px!important;width:22px!important;height:22px!important;border-radius:50%!important;background:#fff!important;background-image:none!important;transform:translateX(20px)!important}
+#settings-modal :is(#pip-enable-toggle,#auto-update-toggle,#fullscreen-on-start,#show-school-logo,#show-school-name,#broadcast-tts-enabled,#broadcast-sound-enabled,#schedule-pills-toggle,#weather-reflect-toggle,#weather-time-reflect-toggle,#weather-aurora-toggle,#always-show-clock,#auto-darken-bg,#low-performance-mode,#show-music-bar-toggle):checked+.glass-checkbox-box{border:0!important;border-radius:999px!important;background:var(--settings-accent)!important;box-shadow:none!important}
+#settings-modal :is(#pip-enable-toggle,#auto-update-toggle,#fullscreen-on-start,#show-school-logo,#show-school-name,#broadcast-tts-enabled,#broadcast-sound-enabled,#schedule-pills-toggle,#weather-reflect-toggle,#weather-time-reflect-toggle,#weather-aurora-toggle,#always-show-clock,#auto-darken-bg,#low-performance-mode,#show-music-bar-toggle):checked+.glass-checkbox-box:after{left:3px!important;top:3px!important;right:auto!important;bottom:auto!important;inset:3px auto auto 3px!important;width:22px!important;height:22px!important;border:0!important;border-radius:50%!important;background:#fff!important;background-image:none!important;transform:translateX(20px)!important}
+/* Notification surfaces are floating pills; the list itself stays invisible and never scrolls. */
+.notification-list.open{display:flex!important;align-items:center!important;gap:10px!important;width:max-content!important;height:auto!important;max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 24px)!important;max-height:none!important;overflow:visible!important;overflow-x:visible!important;overflow-y:visible!important;padding:0!important;scrollbar-width:none!important;background:transparent!important;border:0!important;box-shadow:none!important}
+.notification-list.open::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+.notification-card{display:flex!important;flex-direction:row!important;align-items:center!important;gap:10px!important;width:max-content!important;min-width:0!important;max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 32px)!important;padding:12px 18px!important;overflow:visible!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:999px!important;background:rgba(31,36,42,.78)!important;box-shadow:0 10px 30px rgba(0,0,0,.18)!important;backdrop-filter:blur(20px) saturate(140%)!important;-webkit-backdrop-filter:blur(20px) saturate(140%)!important}
+.notification-card>div:first-child{display:flex!important;align-items:center!important;gap:10px!important;flex:0 0 auto!important;order:0!important}
+.notification-card>div:first-child>span{white-space:nowrap!important;font-size:13px!important}
+.notification-card p{margin:0!important;min-width:0!important;max-width:min(48vw,560px)!important;font-size:14px!important;line-height:1.35!important;overflow-wrap:anywhere!important}
+.notification-card>div:last-child:not(:first-child){display:none!important}
+.notification-card button[onclick^="dismissNotification"]{width:24px!important;height:24px!important;flex:0 0 24px!important;display:grid!important;place-items:center!important;border:0!important;border-radius:50%!important;color:var(--settings-text)!important;background:rgba(255,255,255,.12)!important;font-size:13px!important}
+.notification-pill-actions{align-self:flex-end!important;width:auto!important;margin-top:2px!important}
+.notification-clear-all{min-height:34px!important;padding:7px 15px!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:999px!important;background:rgba(31,36,42,.72)!important;color:var(--settings-text)!important;font-size:13px!important;backdrop-filter:blur(16px)!important;-webkit-backdrop-filter:blur(16px)!important}
+:root[data-theme="light"] .notification-card{background:rgba(45,50,48,.84)!important;color:#fff!important}
+:root[data-theme="light"] .notification-card p,:root[data-theme="light"] .notification-card>div:first-child>span{color:#fff!important}
+@media(max-width:640px){.notification-card p{max-width:58vw!important}.notification-list.open{max-width:calc(100vw - 20px)!important}}
+@media(max-width:640px){#info-view{max-height:calc(100vh - var(--safe-top) - var(--safe-bottom) - 88px)}#info-view .info-tab-content:not(.hidden){padding:14px}#info-view .software-version-hero{min-height:30vh}#update-view:not(.hidden){min-height:calc(100vh - var(--safe-top) - var(--safe-bottom) - 150px)}#update-view .update-version-hero{min-height:42vh}}
+/* Keep the update check indicator identical to the shared four-dot loader. */
+#update-view #manual-check-update-btn .region-loader-dots{position:relative!important;display:block!important;width:42px!important;height:42px!important;flex:0 0 42px!important;margin:auto!important;animation:regionLoaderRotate 2.64s linear infinite!important}
+#update-view #manual-check-update-btn .region-loader-dot{position:absolute!important;width:12px!important;height:12px!important;border-radius:50%!important;opacity:.62!important;filter:blur(2px) drop-shadow(0 0 7px currentColor)!important;animation:regionLoaderGather 3.3s cubic-bezier(.55,.05,.45,.95) infinite!important}/* Compact settings spacing and align toggle rows to the left. */
+#settings-modal .glass-section:has(#fullscreen-on-start),#settings-modal .glass-section:has(#show-school-logo),#settings-modal .glass-section:has(#show-school-name){padding:12px!important;margin-bottom:8px!important}
+#settings-modal .glass-section:has(#fullscreen-on-start) .glass-checkbox-label,#settings-modal .glass-section:has(#show-school-logo) .glass-checkbox-label,#settings-modal .glass-section:has(#show-school-name) .glass-checkbox-label{justify-content:flex-start!important;width:100%;text-align:left}
+#settings-modal .glass-section:has(#fullscreen-on-start) .glass-checkbox-box,#settings-modal .glass-section:has(#show-school-logo) .glass-checkbox-box,#settings-modal .glass-section:has(#show-school-name) .glass-checkbox-box{margin-left:0!important}
+#settings-modal .glass-section:has(#show-school-logo),#settings-modal .glass-section:has(#show-school-name){display:flex;flex-direction:column;gap:4px!important}
+#settings-modal .settings-details>.glass-section:has(#fullscreen-on-start),#settings-modal .settings-details>.glass-section:has(#show-school-logo),#settings-modal .settings-details>.glass-section:has(#show-school-name){padding:16px!important;margin-bottom:12px!important}
+#settings-modal .settings-details>.glass-section:has(#fullscreen-on-start) .glass-checkbox-label,#settings-modal .settings-details>.glass-section:has(#show-school-logo) .glass-checkbox-label,#settings-modal .settings-details>.glass-section:has(#show-school-name) .glass-checkbox-label{justify-content:flex-start!important;width:100%;text-align:left}
+#settings-modal .settings-details>.glass-section:has(#show-school-logo),#settings-modal .settings-details>.glass-section:has(#show-school-name){display:flex;flex-direction:column;gap:10px}
+#settings-modal .settings-details>.glass-section:has(#show-school-logo) h5,#settings-modal .settings-details>.glass-section:has(#show-school-name) h5{margin-bottom:4px}
+<style id="settings-spacing-and-reset-polish">#settings-modal .glass-section:has(#fullscreen-on-start),#settings-modal .glass-section:has(#show-school-logo),#settings-modal .glass-section:has(#show-school-name){padding:10px 12px!important;margin:0 0 8px!important}#settings-modal .glass-section:has(#show-school-logo) .glass-checkbox-label,#settings-modal .glass-section:has(#show-school-name) .glass-checkbox-label{justify-content:flex-start!important;gap:10px!important;margin:0!important}#settings-modal .glass-section:has(#show-school-logo) .glass-checkbox-box,#settings-modal .glass-section:has(#show-school-name) .glass-checkbox-box{margin-left:0!important}#system-view #reset-schedule-btn,#system-view #reset-message-btn,#system-view #reset-all-btn{justify-content:center!important;text-align:center!important;padding:14px 18px!important}#system-view #reset-schedule-btn>span,#system-view #reset-message-btn>span,#system-view #reset-all-btn>span{width:100%;text-align:center!important}</style><script id="oneui-update-menu-and-version">
+(()=>{const root=document.documentElement;function setup(){const version=document.getElementById('app-version-text'),hero=document.getElementById('software-version-hero-value'),runtime=document.getElementById('software-runtime-info'),school=document.getElementById('software-school-name');if(school)school.textContent=localStorage.getItem('dashboardSchoolName')||'대륜고등학교';if(version&&hero)hero.textContent=version.dataset.version||version.textContent.trim();if(runtime)runtime.textContent=(navigator.userAgentData?.platform||navigator.platform||'브라우저 환경');const view=document.getElementById('update-view');if(!view||view.dataset.menuReady)return;view.dataset.menuReady='true';const title=view.querySelector(':scope > h4'),sections=[...view.querySelectorAll(':scope > .glass-section')];if(!title||!sections.length)return;const host=document.createElement('span');host.className='update-settings-menu';const trigger=document.createElement('button');trigger.type='button';trigger.className='update-settings-trigger';trigger.setAttribute('aria-label','업데이트 설정');trigger.setAttribute('aria-expanded','false');trigger.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>';const popup=document.createElement('div');popup.className='update-settings-popup';popup.hidden=true;host.append(trigger,popup);title.append(host);sections.forEach(section=>popup.append(section));trigger.addEventListener('click',()=>{popup.hidden=!popup.hidden;trigger.setAttribute('aria-expanded',String(!popup.hidden))});document.addEventListener('pointerdown',e=>{if(!host.contains(e.target)){popup.hidden=true;trigger.setAttribute('aria-expanded','false')}});document.addEventListener('keydown',e=>{if(e.key==='Escape'){popup.hidden=true;trigger.setAttribute('aria-expanded','false')}})}window.addEventListener('school-profile-updated',event=>{const school=document.getElementById('software-school-name');if(school)school.textContent=event.detail?.name||localStorage.getItem('dashboardSchoolName')||'대륜고등학교'});window.addEventListener('storage',event=>{if(event.key==='dashboardSchoolName'){const school=document.getElementById('software-school-name');if(school)school.textContent=event.newValue||'대륜고등학교'}});if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();new MutationObserver(()=>{const v=document.getElementById('app-version-text'),h=document.getElementById('software-version-hero-value');if(v&&h){const value=v.dataset.version||v.textContent.trim();if(h.textContent!==value)h.textContent=value}}).observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['data-version']});
+})();
+</script><script id="oneui-update-screen-menu-finish">
+(()=>{function setup(){const source=document.getElementById('app-version-text'),updateVersion=document.getElementById('update-version-hero-value');if(source&&updateVersion)updateVersion.textContent=source.dataset.version||source.textContent.trim();const view=document.getElementById('update-view'),menu=view?.querySelector('.update-settings-menu'),popup=menu?.querySelector('.update-settings-popup'),trigger=menu?.querySelector('.update-settings-trigger'),release=document.getElementById('view-release-notes-btn');if(trigger)trigger.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>';if(popup&&release&&!popup.contains(release)){const section=document.createElement('section');section.className='glass-section update-release-menu-item';section.append(release);popup.append(section)} }if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();const source=document.getElementById('app-version-text');if(source)new MutationObserver(()=>{const target=document.getElementById('update-version-hero-value');if(target)target.textContent=source.dataset.version||source.textContent.trim()}).observe(source,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['data-version']})})();
+</script></body>
 </html>
