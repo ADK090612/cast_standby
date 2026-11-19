@@ -1808,6 +1808,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <div class="software-info-list">
                                     <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.0">2.7.0</p></div>
                                     <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.7.0-1">Ko-Kr-Daeryun-hs-v.2.7.0-1</p></div>
+                                    <div class="software-info-row"><span>기반</span><span>HTML5</span></div>
                                     <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
                                     <div class="software-info-row"><span>실행 환경</span><span id="software-runtime-info">브라우저</span></div>
                                     <div class="software-info-row"><span>화면 모드</span><span>방송 대기 화면</span></div>
@@ -5394,14 +5395,30 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     <script>
     let appNotifications = [];
     let isPillHidden = false;
+    let notificationCloseTimer = null;
+
+    function closeNotificationList() {
+        const list=document.getElementById('custom-notification-container');
+        if(!list||!list.classList.contains('open'))return;
+        list.classList.add('closing');
+        if(notificationCloseTimer)window.clearTimeout(notificationCloseTimer);
+        notificationCloseTimer=window.setTimeout(()=>{
+            list.classList.remove('open','closing');
+            notificationCloseTimer=null;
+        },420);
+    }
 
     function toggleNotificationList() {
         const list = document.getElementById('custom-notification-container');
         const toggle = document.getElementById('notification-toggle');
         if (!list || !toggle) return;
-        const opening = !list.classList.contains('open');
-        if (opening) showAllNotifications();
-        else list.classList.remove('open');
+        const opening = !list.classList.contains('open')||list.classList.contains('closing');
+        if (opening) {
+            if(notificationCloseTimer)window.clearTimeout(notificationCloseTimer);
+            notificationCloseTimer=null;
+            list.classList.remove('closing');
+            showAllNotifications();
+        } else closeNotificationList();
         toggle.setAttribute('aria-expanded', String(opening));
         toggle.setAttribute('aria-label', opening ? '알림 목록 닫기' : '알림 목록 열기');
     }
@@ -5409,7 +5426,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         const list = document.getElementById('custom-notification-container');
         const toggle = document.getElementById('notification-toggle');
         if (list && list.classList.contains('open') && !list.contains(event.target) && !toggle.contains(event.target)) {
-            list.classList.remove('open');
+            closeNotificationList();
             toggle.setAttribute('aria-expanded', 'false');
             toggle.setAttribute('aria-label', '알림 목록 열기');
         }
@@ -5452,6 +5469,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
     function showAllNotifications() {
         const container = document.getElementById('custom-notification-container');
+        if(notificationCloseTimer)window.clearTimeout(notificationCloseTimer);
+        notificationCloseTimer=null;
+        container.classList.remove('closing');
         container.classList.add('open');
         container.innerHTML = ''; 
         
@@ -5493,20 +5513,24 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     }
 
     function clearAllNotifications() {
-        appNotifications=[];
-        isPillHidden=false;
-        updateNotificationUI();
-        showAllNotifications();
+        const container=document.getElementById('custom-notification-container');
+        if(!container||container.dataset.clearing==='true')return;
+        const cards=[...container.querySelectorAll('.notification-card[id^="card-"]')].reverse();
+        const finish=()=>{appNotifications=[];isPillHidden=false;updateNotificationUI();container.dataset.clearing='false';showAllNotifications()};
+        if(!cards.length){finish();return}
+        container.dataset.clearing='true';
+        cards.forEach((card,index)=>{card.style.setProperty('--dismiss-delay',`${index*85}ms`);card.classList.add('notification-dismiss-right')});
+        window.setTimeout(finish,420+(cards.length-1)*85);
     }
 
     function dismissNotification(id) {
-        appNotifications = appNotifications.filter(n => n.id !== id);
-        updateNotificationUI();
-        
+        const container=document.getElementById('custom-notification-container');
+        if(container?.dataset.clearing==='true')return;
         const card = document.getElementById(`card-${id}`);
-        if (card) {
-            card.remove();
-        }
+        if(!card||card.dataset.dismissing==='true')return;
+        card.dataset.dismissing='true';
+        card.classList.add('notification-dismiss-right');
+        window.setTimeout(()=>{appNotifications=appNotifications.filter(n=>n.id!==id);updateNotificationUI();card.remove()},420);
     }
 
     function downloadCurrentHTML() {
@@ -7120,5 +7144,22 @@ body.clock-layout-editing .settings-container{visibility:hidden!important;opacit
 #clock-layout-editor .clock-editor-settings{max-height:none!important;overflow-x:hidden!important;overflow-y:hidden!important;overscroll-behavior:none!important;scrollbar-width:none!important}
 #clock-layout-editor .clock-editor-settings::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
 @media(max-height:760px){#clock-layout-editor .clock-editor-settings{gap:6px!important;padding-top:10px!important;padding-bottom:10px!important}#clock-layout-editor .clock-editor-layout-choices button{width:64px!important;height:64px!important;flex-basis:64px!important}#clock-layout-editor .clock-editor-layout-panel{gap:4px!important;padding-bottom:6px!important}#clock-layout-editor .clock-editor-panel-heading{margin-bottom:5px!important}}
+</style><style id="notification-backdrop-top-fade">
+.notification-list.open:before{background:linear-gradient(to bottom,rgba(12,16,24,.46) 0%,rgba(12,16,24,.34) 34%,rgba(12,16,24,.16) 68%,rgba(12,16,24,0) 100%)!important;backdrop-filter:blur(30px) saturate(135%)!important;-webkit-backdrop-filter:blur(30px) saturate(135%)!important;mask-image:linear-gradient(to bottom,#000 0%,rgba(0,0,0,.9) 28%,rgba(0,0,0,.52) 62%,transparent 100%)!important;-webkit-mask-image:linear-gradient(to bottom,#000 0%,rgba(0,0,0,.9) 28%,rgba(0,0,0,.52) 62%,transparent 100%)!important}
+.notification-card>div.notification-card-header{display:contents!important}
+.notification-card .notification-card-source{order:0!important;flex:0 0 auto!important}
+.notification-card>p{order:1!important;flex:0 1 auto!important}
+.notification-card .notification-close-button{order:2!important;margin-left:auto!important;opacity:0!important;pointer-events:none!important;transform:translateX(4px);transition:opacity .16s ease,transform .16s ease!important}
+.notification-card:hover .notification-close-button,.notification-card .notification-close-button:focus-visible{opacity:1!important;pointer-events:auto!important;transform:translateX(0)!important}
+@keyframes notificationHoverSway{0%,100%{translate:0 0}25%{translate:-3px 0}75%{translate:3px 0}}
+@keyframes notificationDismissRight{to{opacity:0;translate:52px 0;filter:blur(5px)}}
+@keyframes notificationBackdropIn{from{opacity:0}to{opacity:1}}
+@keyframes notificationBackdropOut{from{opacity:1}to{opacity:0}}
+.notification-list.open:not(.closing):before{animation:notificationBackdropIn .8s ease both}
+.notification-list.open.closing:before{animation:notificationBackdropOut .42s ease both!important}
+.notification-list.open.closing .notification-card{animation:notificationDescendClear .42s ease reverse both!important;pointer-events:none!important}
+.notification-card:hover{animation:notificationHoverSway .48s ease-in-out infinite!important}
+.notification-card.notification-dismiss-right{animation:notificationDismissRight .42s cubic-bezier(.35,0,.8,.3) var(--dismiss-delay,0ms) both!important;pointer-events:none!important}
+@media(prefers-reduced-motion:reduce){.notification-card:hover{animation:none!important}.notification-card.notification-dismiss-right{animation:notificationDismissRight .01ms linear var(--dismiss-delay,0ms) both!important}.notification-list.open:not(.closing):before{animation:notificationBackdropIn .01ms linear both}.notification-list.open.closing:before,.notification-list.open.closing .notification-card{animation-duration:.01ms!important}}
 </style></body>
 </html>
