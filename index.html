@@ -1091,7 +1091,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 </svg>
             </button>
             <h2 id="settings-title" class="text-2xl font-bold text-white flex-grow text-center sm:text-left">설정</h2>
-            <button id="close-settings-btn" class="text-2xl text-white hover:text-sky-300 transition-colors">&times;</button>
+            <button id="close-settings-btn" type="button" aria-label="설정 닫기" title="설정 닫기" onclick="document.getElementById('settings-modal').classList.add('hidden')"></button>
         </div>
 
         <div id="settings-content-wrapper" class="overflow-hidden">
@@ -1238,7 +1238,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">업데이트 설정 및 확인</h4>
                             <div class="software-version-hero update-version-hero">
                                 <div class="software-version-glow" aria-hidden="true"></div>
-                                <h2>ADK Dash <span id="update-version-hero-value">2.6.9</span></h2>
+                                <h2>ADK Dash <span id="update-version-hero-value">2.7.0</span></h2>
                                 <p id="update-status-text">최신 버전을 확인하는 중입니다...</p>
                             </div>
                             
@@ -1285,7 +1285,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
                                 <div>
-                                    <h5 class="font-bold text-blue-300 text-lg">v2.6.9</h5>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.7.0</h5><ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1"><li>시스템·시계 글꼴 목록에 글꼴별 미리보기 적용</li><li>설정의 불필요한 설명과 여백을 줄이고 초기화 버튼 이름을 가운데 정렬</li><li>설정 탭 아이콘을 선명한 색상 배경과 흰색 도형으로 통일하고 라이트 테마 대비 개선</li><li>업데이트 확인 로딩 표시를 공통 애니메이션으로 통일</li><li>정보 화면에 설정된 학교 이름 표시</li><li>기본 디자인에서 시계 전용 설정과 홈의 시계 편집 아이콘 숨김</li><li>시계 레이아웃 미리보기 네 가지를 실제 날짜·시간 배치와 일치하도록 조정</li><li>시계 크기 슬라이더를 추가하고 부드러운 둥근 스타일 적용</li><li>알림을 상단에서 내려오며 블러와 투명도가 서서히 풀리도록 조정</li><li>알림 주체별 원형 아이콘과 우측 닫기 버튼 추가</li><li>설정 뒤로 가기·닫기 버튼의 외곽 테두리를 없애고 아이콘 스타일 통일</li><li>전체 화면에서 아이콘을 축소 표시로 전환</li><li>1·2교시 시간을 기준으로 수업·쉬는 시간을 계산해 이후 교시를 자동 입력하고 급식 시간대를 비움</li><li>교시 시작·종료와 급식실 안내 문구 개선</li><li>설정 화면을 팝업 대신 전체 화면으로 표시</li><li>좁은 화면에서도 상단 일정 알림 이름이 끊겨 보이지 않도록 정렬 개선</li></ul></div><div class="pt-2 border-t border-white/10"><h5 class="font-bold text-blue-300 text-lg">v2.6.9</h5>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
                                         <li>대구광역시 수성구 긴급 재난 문자를 5분 간격으로 조회해 새 메시지를 자동 표시</li>
                                         <li>개발자 옵션에서 가상 재난 문자 송출과 실제 API 즉시 조회 지원</li>
@@ -1451,7 +1451,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                         </div>
                         <div id="broadcasts-view" class="settings-view hidden space-y-4">
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">긴급·예약 방송 설정</h4>
-                            <p class="text-sm text-gray-300"></p>
+                            
                             <section class="glass-section p-4 space-y-3"><div><h5 class="font-semibold">알림 타임라인</h5></div><div id="broadcast-timeline-list"></div></section>
                             <section class="glass-section p-4 space-y-4">
                                 <div><h5 class="font-semibold">긴급·예약 메시지</h5></div>
@@ -1470,7 +1470,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <div class="flex items-center justify-between gap-3 flex-wrap"><div id="broadcast-preview" class="broadcast-preview font-family-notosanskr" style="background:#dc2626;color:#fff">방송 메시지 미리보기</div><div class="flex gap-2"><button id="broadcast-cancel-edit-btn" type="button" class="glass-button" hidden>편집 취소</button><button id="broadcast-save-message-btn" type="button" class="glass-button">메시지 저장</button></div></div>
                                 <p id="broadcast-form-status" class="text-xs text-white/60 min-h-4" aria-live="polite"></p><div id="broadcast-message-list" class="space-y-2"></div>
                             </section>
-                            <section class="glass-section p-4 space-y-4"><div><h5 class="font-semibold">음성 안내 (TTS)</h5><p class="text-xs text-white/60 mt-1"></p></div>
+                            <section class="glass-section p-4 space-y-4"><div><h5 class="font-semibold">음성 안내 (TTS)</h5></div>
                                 <label class="glass-checkbox-label"><input id="broadcast-tts-enabled" type="checkbox" class="glass-checkbox-input"><span class="glass-checkbox-box"></span><span class="text-sm">방송 메시지를 TTS로 읽기</span></label>
                                 <div class="broadcast-settings-grid"><label class="block space-y-1 text-sm">TTS 엔진<select id="broadcast-tts-engine" class="glass-input w-full"><option value="auto">사용 가능한 모든 엔진</option></select></label><label class="block space-y-1 text-sm">목소리<select id="broadcast-tts-voice" class="glass-input w-full"><option value="">기본 목소리</option></select></label></div>
                                 <div class="flex items-center gap-3 flex-wrap"><button id="broadcast-tts-preview-btn" type="button" class="glass-button">목소리 미리 듣기</button><span id="broadcast-tts-status" class="text-xs text-white/60" aria-live="polite"></span></div>
@@ -1502,7 +1502,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                             <button type="button" class="theme-choice" data-theme-choice="weather" aria-pressed="false"><span aria-hidden="true">☁</span> 날씨</button>
                                         </div>
                                     </div>
-                                    <div class="weather-design-control flex items-center justify-between gap-4 mt-4"><div><h5 class="font-semibold">화면 디자인</h5><p class="text-xs text-white/60 mt-1">레이아웃 선택</p></div><div class="theme-picker" role="group" aria-label="화면 디자인 선택"><button type="button" class="weather-design-choice" data-weather-design-choice="default" aria-pressed="true">기본</button><button type="button" class="weather-design-choice" data-weather-design-choice="modern" aria-pressed="false">모던</button><button type="button" class="weather-design-choice" data-weather-design-choice="simple" aria-pressed="false">심플</button></div></div>
+                                    <div class="weather-design-control flex items-center justify-between gap-4 mt-4"><div><h5 class="font-semibold">화면 디자인</h5></div><div class="theme-picker" role="group" aria-label="화면 디자인 선택"><button type="button" class="weather-design-choice" data-weather-design-choice="default" aria-pressed="true">기본</button><button type="button" class="weather-design-choice" data-weather-design-choice="modern" aria-pressed="false">모던</button><button type="button" class="weather-design-choice" data-weather-design-choice="simple" aria-pressed="false">심플</button></div></div>
                                     <div class="flex items-center justify-between gap-4 mt-3"><div><h5 class="font-semibold">상단 일정 알림</h5></div><label class="glass-checkbox-label"><input type="checkbox" id="schedule-pills-toggle" class="glass-checkbox-input" aria-label="상단 일정 알림 표시"><span class="glass-checkbox-box"></span><span class="text-sm">표시</span></label></div>
                                 </section>
                                 <section class="weather-settings-panel glass-section p-4 space-y-4" aria-labelledby="weather-scene-title">
@@ -1801,12 +1801,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div id="info-version" class="info-tab-content">
                                 <div class="software-version-hero">
                                     <div class="software-version-glow" aria-hidden="true"></div>
-                                    <h2>ADK Dash <span id="software-version-hero-value">2.6.9</span></h2>
+                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.0</span></h2>
                                     <p id="software-school-name">대륜고등학교</p>
                                 </div>
                                 <h5 class="software-info-title">소프트웨어 정보</h5>
                                 <div class="software-info-list">
-                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.6.9">2.6.9</p></div>
+                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.0">2.7.0</p></div>
+                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.7.0-1">Ko-Kr-Daeryun-hs-v.2.7.0-1</p></div>
                                     <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
                                     <div class="software-info-row"><span>실행 환경</span><span id="software-runtime-info">브라우저</span></div>
                                     <div class="software-info-row"><span>화면 모드</span><span>방송 대기 화면</span></div>
@@ -1823,6 +1824,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <h5 class="font-semibold">업데이트 알림</h5>
                                 <div class="flex flex-wrap items-end gap-2"><label class="text-sm space-y-1">가상 최신 버전<input id="dev-update-version" class="glass-input w-full" value="99.0.0"></label><button type="button" id="dev-show-update" class="glass-button">높은 버전 알림 표시</button><button type="button" id="dev-hide-update" class="glass-button">알림 닫기</button></div>
                                 <p id="dev-update-status" class="text-xs text-white/60" aria-live="polite">실제 업데이트 확인이나 자동 설치를 실행하지 않습니다.</p>
+                            </section>
+                            <section class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">방송·교시·급식 알림 미리보기</h5>
+                                <div class="flex flex-wrap items-end gap-2"><label class="min-w-[220px] flex-1 text-sm space-y-1">방송 또는 알림<select id="dev-broadcast-select" data-native-select class="glass-input w-full"><option value="">방송·알림 선택</option></select></label><button type="button" id="dev-preview-broadcast" class="glass-button">하단 pill 미리보기</button><button type="button" id="dev-stop-broadcast-preview" class="glass-button" disabled>미리보기 종료</button></div>
+                                <p id="dev-broadcast-status" class="text-xs text-white/60" aria-live="polite">저장된 방송, 교시 또는 급식 알림을 하단 pill로 미리봅니다.</p>
                             </section>
                             <section class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">긴급 재난 문자</h5>
@@ -1857,7 +1863,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                         
                     </div>
                     
-                    <div class="absolute bottom-4 right-6 text-white/30 text-[10px] tracking-widest pointer-events-none font-system">powered by. ADK</div>
+                    <div id="settings-powered-by" class="text-white/30 text-[10px] tracking-widest pointer-events-none font-system">powered by. ADK</div>
                 </section>
             </div>
         </div>
@@ -2164,7 +2170,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const left=Math.max(0,Math.min(window.innerWidth-width,rect.left)), top=Math.max(0,Math.min(window.innerHeight-height,rect.top));
             const clockLayout=readClockPreferences(design).layout, horizontal=clockLayout==='date-left'||clockLayout==='date-right';
             const clockFont=Math.max(14,Math.min(horizontal?height*.58:height*.76,width/(horizontal?3.2:(design==='simple'?3.15:5.6))));
-            const direction=clockLayout==='date-bottom'?'column-reverse':clockLayout==='date-left'?'row-reverse':clockLayout==='date-right'?'row':'column';
+            const direction=clockLayout==='date-top'?'column-reverse':clockLayout==='date-left'?'row-reverse':clockLayout==='date-right'?'row':'column';
             element.classList.add('clock-layout-applied');
             for(const [name,value] of Object.entries({position:'fixed',left:`${left}px`,top:`${top}px`,right:'auto',bottom:'auto',width:`${width}px`,height:`${height}px`,maxWidth:'none',margin:'0',transform:'none',zIndex:'49',boxSizing:'border-box',flexDirection:direction,alignItems:'center',justifyContent:'center',gap:horizontal?`${Math.max(5,clockFont*.16)}px`:'0'})) element.style.setProperty(name.replace(/[A-Z]/g,m=>'-'+m.toLowerCase()),value,'important');
             if(!element.classList.contains('aux-clock')) element.style.setProperty('display','flex','important');
@@ -2185,7 +2191,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         function makeClockEditor() {
             if(clockEditor) return;
             clockEditor=document.createElement('div'); clockEditor.id='clock-layout-editor'; clockEditor.hidden=true;
-            clockEditor.innerHTML='<div class="clock-editor-settings"><div class="clock-editor-layout-panel"><div class="clock-editor-panel-heading"><span>레이아웃</span></div><div class="clock-editor-layout-choices"><button type="button" data-clock-layout="date-top" aria-label="날짜 위" title="날짜 위"><span class="preview-date"></span><span class="preview-time"></span></button><button type="button" data-clock-layout="date-bottom" aria-label="날짜 아래" title="날짜 아래"><span class="preview-time"></span><span class="preview-date"></span></button><button type="button" data-clock-layout="date-left" aria-label="날짜 왼쪽" title="날짜 왼쪽"><span class="preview-date"></span><span class="preview-time"></span></button><button type="button" data-clock-layout="date-right" aria-label="날짜 오른쪽" title="날짜 오른쪽"><span class="preview-time"></span><span class="preview-date"></span></button></div></div><div class="clock-editor-font-panel"><div class="clock-editor-panel-heading"><span>폰트</span></div><div class="clock-editor-font-choices" data-clock-font-choices></div><label class="clock-editor-setting clock-editor-hidden-pref"><span>시계 숫자 글꼴</span><select data-clock-editor-pref="font"></select></label></div><label class="clock-editor-setting"><span>시간 형식</span><select data-clock-editor-pref="timeFormat"></select></label><label class="clock-editor-setting"><span>날짜 표기</span><select data-clock-editor-pref="dateFormat"></select></label><div class="clock-editor-color-panel"><div class="clock-editor-panel-heading"><span>색상</span></div><div class="clock-editor-color-choices" data-clock-color-choices></div><label class="clock-editor-setting clock-editor-hidden-pref"><span>시계 색상</span><select data-clock-editor-pref="color"></select></label></div><label class="clock-editor-setting"><span>투명도 <output data-clock-opacity-value>100%</output></span><input data-clock-editor-pref="opacity" type="range" min="20" max="100" step="5" value="100"></label></div><div class="clock-editor-box"><span class="clock-editor-label">시계 · 드래그하여 이동</span><span class="clock-editor-handle" data-resize="n"></span><span class="clock-editor-handle" data-resize="s"></span><span class="clock-editor-handle" data-resize="e"></span><span class="clock-editor-handle" data-resize="w"></span><span class="clock-editor-handle" data-resize="nw"></span><span class="clock-editor-handle" data-resize="ne"></span><span class="clock-editor-handle" data-resize="sw"></span><span class="clock-editor-handle" data-resize="se"></span></div><div class="clock-editor-actions"><button type="button" data-action="cancel" title="취소" aria-label="취소"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button><button type="button" data-action="reset" title="기본값으로 초기화" aria-label="기본값으로 초기화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/></svg></button><button type="button" data-action="save" title="저장" aria-label="저장"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></button></div>';
+            clockEditor.innerHTML='<div class="clock-editor-settings"><div class="clock-editor-layout-panel"><div class="clock-editor-panel-heading"><span>레이아웃</span></div><div class="clock-editor-layout-choices"><button type="button" data-clock-layout="date-top" aria-label="날짜 위" title="날짜 위"><span class="preview-date"></span><span class="preview-time"></span></button><button type="button" data-clock-layout="date-bottom" aria-label="날짜 아래" title="날짜 아래"><span class="preview-time"></span><span class="preview-date"></span></button><button type="button" data-clock-layout="date-left" aria-label="날짜 왼쪽" title="날짜 왼쪽"><span class="preview-date"></span><span class="preview-time"></span></button><button type="button" data-clock-layout="date-right" aria-label="날짜 오른쪽" title="날짜 오른쪽"><span class="preview-time"></span><span class="preview-date"></span></button></div></div><div class="clock-editor-font-panel"><div class="clock-editor-panel-heading"><span>폰트</span></div><div class="clock-editor-font-choices" data-clock-font-choices></div><label class="clock-editor-setting clock-editor-hidden-pref"><span>시계 숫자 글꼴</span><select data-clock-editor-pref="font"></select></label></div><label class="clock-editor-setting"><span>시간 형식</span><select data-clock-editor-pref="timeFormat"></select></label><label class="clock-editor-setting"><span>날짜 표기</span><select data-clock-editor-pref="dateFormat"></select></label><div class="clock-editor-color-panel"><div class="clock-editor-panel-heading"><span>색상</span></div><div class="clock-editor-color-choices" data-clock-color-choices></div><label class="clock-editor-setting clock-editor-hidden-pref"><span>시계 색상</span><select data-clock-editor-pref="color"></select></label></div><label class="clock-editor-setting"><span>투명도 <output data-clock-opacity-value>100%</output></span><input data-clock-editor-pref="opacity" type="range" min="20" max="100" step="5" value="100"></label></div><div class="clock-editor-box"><span class="clock-editor-handle" data-resize="n"></span><span class="clock-editor-handle" data-resize="s"></span><span class="clock-editor-handle" data-resize="e"></span><span class="clock-editor-handle" data-resize="w"></span><span class="clock-editor-handle" data-resize="nw"></span><span class="clock-editor-handle" data-resize="ne"></span><span class="clock-editor-handle" data-resize="sw"></span><span class="clock-editor-handle" data-resize="se"></span></div><div class="clock-editor-actions"><button type="button" data-action="cancel" title="취소" aria-label="취소"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button><button type="button" data-action="reset" title="기본값으로 초기화" aria-label="기본값으로 초기화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/></svg></button><button type="button" data-action="save" title="저장" aria-label="저장"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></button></div>';
             const editorPreferences={font:clockFontSelect,timeFormat:clockTimeFormatSelect,dateFormat:clockDateFormatSelect,color:clockColorSelect};
             for(const [key,source] of Object.entries(editorPreferences)) {
                 const select=clockEditor.querySelector(`[data-clock-editor-pref="${key}"]`);
@@ -2244,13 +2250,25 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                     if(mode.includes('w')){const right=r.left+r.width;r.left=snapEdge(r.left,vw);r.width=Math.max(minW,right-r.left);} if(mode.includes('e')){const right=snapEdge(r.left+r.width,vw);r.width=Math.max(minW,right-r.left);}
                     if(mode.includes('n')){const bottom=r.top+r.height;r.top=snapEdge(r.top,vh);r.height=Math.max(minH,bottom-r.top);} if(mode.includes('s')){const bottom=snapEdge(r.top+r.height,vh);r.height=Math.max(minH,bottom-r.top);}
                 }
-                clockEditorRect=r;applyClockRect(clockEditorTarget,r,currentClockDesign());paintBox();
+                clockEditorRect=r;applyClockRect(clockEditorTarget,r,currentClockDesign());paintBox();positionClockEditorControls();
             });
             const stop=event=>{if(event&&clockEditorBox.hasPointerCapture(event.pointerId))clockEditorBox.releasePointerCapture(event.pointerId);clockEditorMode=null;clockEditorStart=null;};
             clockEditorBox.addEventListener('pointerup',stop);clockEditorBox.addEventListener('pointercancel',stop);
             document.addEventListener('keydown',event=>{if(event.key==='Escape'&&clockEditor&&!clockEditor.hidden)finish(false);});
             document.addEventListener('pointerdown',event=>{if(clockEditor&&!clockEditor.hidden&&!clockEditor.contains(event.target))finish(true);},true);
-            window.addEventListener('resize',()=>{if(clockEditor&&!clockEditor.hidden&&clockEditorRect){clockEditorRect.left=Math.max(0,Math.min(window.innerWidth-clockEditorRect.width,clockEditorRect.left));clockEditorRect.top=Math.max(0,Math.min(window.innerHeight-clockEditorRect.height,clockEditorRect.top));paintBox();}else applySavedClockLayout();});
+            window.addEventListener('resize',()=>{if(clockEditor&&!clockEditor.hidden&&clockEditorRect){clockEditorRect.left=Math.max(0,Math.min(window.innerWidth-clockEditorRect.width,clockEditorRect.left));clockEditorRect.top=Math.max(0,Math.min(window.innerHeight-clockEditorRect.height,clockEditorRect.top));paintBox();positionClockEditorControls();}else applySavedClockLayout();});
+        }
+        function positionClockEditorControls() {
+            if(!clockEditor||clockEditor.hidden||!clockEditorRect)return;
+            const panel=clockEditor.querySelector('.clock-editor-settings'),actions=clockEditor.querySelector('.clock-editor-actions');if(!panel)return;
+            const rootStyle=getComputedStyle(document.documentElement),safe=(side,total)=>{const raw=rootStyle.getPropertyValue('--safe-'+side).trim(),value=parseFloat(raw)||0;return raw.endsWith('vh')||raw.endsWith('vw')?value*total/100:value;},safeTop=safe('top',innerHeight),safeBottom=safe('bottom',innerHeight),safeLeft=safe('left',innerWidth),safeRight=safe('right',innerWidth),r=clockEditorRect;
+            const topSpace=Math.max(0,r.top-safeTop-16),bottomSpace=Math.max(0,innerHeight-safeBottom-r.top-r.height-16),upper=r.top<safeTop+innerHeight*.32,rightEdge=r.left+r.width>innerWidth-safeRight-innerWidth*.24,leftEdge=r.left<safeLeft+innerWidth*.18,lower=r.top+r.height>innerHeight-safeBottom-innerHeight*.28,sideWidth=Math.min(420,innerWidth-safeLeft-safeRight-24),canPanelLeft=r.left-safeLeft>=sideWidth+12,canPanelRight=innerWidth-safeRight-r.left-r.width>=sideWidth+12;
+            let placement=upper?'bottom':rightEdge&&canPanelLeft?'left':leftEdge&&canPanelRight?'right':lower?'top':(topSpace>=bottomSpace?'top':'bottom');
+            if(placement==='bottom'&&bottomSpace<80)placement=rightEdge&&canPanelLeft?'left':topSpace>=bottomSpace?'top':leftEdge&&canPanelRight?'right':'bottom';
+            if(placement==='top'&&topSpace<80)placement=rightEdge&&canPanelLeft?'left':bottomSpace>=topSpace?'bottom':leftEdge&&canPanelRight?'right':'top';
+            panel.classList.toggle('clock-editor-panel-left',placement==='left');panel.classList.toggle('clock-editor-panel-right',placement==='right');panel.classList.toggle('clock-editor-panel-top',placement==='top');panel.classList.toggle('clock-editor-panel-bottom',placement==='bottom');
+            panel.style.maxHeight='none';panel.style.overflowY='hidden';panel.style.overflowX='hidden';
+            actions?.classList.toggle('clock-editor-actions-side-right',placement==='left');actions?.classList.toggle('clock-editor-actions-side-left',placement==='right');actions?.classList.toggle('clock-editor-actions-top',placement==='bottom');actions?.classList.toggle('clock-editor-actions-bottom',placement==='top');
         }
         function startClockLayoutEditor() {
             const design=currentClockDesign(); if(!['simple','modern'].includes(design)) return;
@@ -2258,14 +2276,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const rect=clockEditorTarget.getBoundingClientRect(); clockEditorRect={left:Math.max(0,rect.left),top:Math.max(0,rect.top),width:Math.max(110,Math.min(window.innerWidth,rect.width)),height:Math.max(52,Math.min(window.innerHeight,rect.height))};
             applyClockRect(clockEditorTarget,clockEditorRect,design); clockEditor.hidden=false;document.body.classList.add('clock-layout-editing');
             clockEditorBox.style.left=`${clockEditorRect.left}px`;clockEditorBox.style.top=`${clockEditorRect.top}px`;clockEditorBox.style.width=`${clockEditorRect.width}px`;clockEditorBox.style.height=`${clockEditorRect.height}px`;
-            const panel=clockEditor.querySelector('.clock-editor-settings'),actions=clockEditor.querySelector('.clock-editor-actions');
-            const safeTop=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-top'))||0,safeBottom=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-bottom'))||0,gap=24;
-            const panelHeight=panel?.getBoundingClientRect().height||300,topSpace=Math.max(0,clockEditorRect.top-safeTop-gap),bottomSpace=Math.max(0,innerHeight-safeBottom-clockEditorRect.top-clockEditorRect.height-gap);
-            const useTop=topSpace>=panelHeight?true:bottomSpace>=panelHeight?false:topSpace>=bottomSpace;
-            const available=useTop?topSpace:bottomSpace;
-            panel?.classList.toggle('clock-editor-panel-top',useTop);panel?.classList.toggle('clock-editor-panel-bottom',!useTop);
-            if(panel){panel.style.maxHeight=`${Math.max(120,Math.min(panelHeight,available||innerHeight*.6))}px`;panel.style.overflowY='auto';panel.style.overflowX='hidden';}
-            actions?.classList.toggle('clock-editor-actions-top',!useTop);actions?.classList.toggle('clock-editor-actions-bottom',useTop);
+            positionClockEditorControls();
             settingsModal.classList.add('hidden');
         }
         document.getElementById('clock-layout-open-btn')?.addEventListener('click',startClockLayoutEditor);
@@ -2657,7 +2668,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         const weatherCard = weatherScreen.querySelector('.glass-card.no-initial-blur');
         let developerClockOverride = null, developerTimeZone = 'Asia/Seoul';
         let developerWeatherOverride = null, developerMealOverride = null, developerScheduleOverride = null;
-        let developerTapCount = 0, developerLastTapAt = 0, developerOptionsEnabled = false, developerUpdateSimulationActive = false, developerUpdateStatusBefore = null, developerUpdateNotificationWasVisible = null, developerUpdateTitleBefore = null, developerUpdateHeaderBefore = null, developerInstallButtonWasVisible = null, developerInstallButtonContent = null;
+        let developerTapCount = 0, developerLastTapAt = 0, developerOptionsEnabled = false, developerBroadcastPreviewActive = false, developerUpdateSimulationActive = false, developerUpdateStatusBefore = null, developerUpdateNotificationWasVisible = null, developerUpdateTitleBefore = null, developerUpdateHeaderBefore = null, developerInstallButtonWasVisible = null, developerInstallButtonContent = null;
         function getDeveloperNow() { return developerClockOverride ? new Date(developerClockOverride.timestamp + Date.now() - developerClockOverride.startedAt) : new Date(); }
         window.__dashboardDeveloperNow = getDeveloperNow;
         window.__dashboardDeveloperClockActive = () => developerClockOverride !== null;
@@ -3014,9 +3025,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         function normalizeBroadcastSoundType(value){return BROADCAST_SOUND_OPTIONS.some(x=>x[0]===value)?value:'default'}
         function broadcastColor(v,f){return /^#[0-9a-f]{6}$/i.test(v||'')?v:f}
         function broadcastEscape(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-        function makeBellEvent(n,edge){return {enabled:false,text:n+'교시 '+(edge==='end'?'종료':'시작')+'합니다.',pillColor:edge==='end'?'#2563eb':'#059669',textColor:'#ffffff',fontClass:'font-family-notosanskr',displayMode:'minutes',displayMinutes:1,soundType:'default'}}
-        function defaultBellSchedule(){return {days:[1,2,3,4,5],periods:Array.from({length:7},(_,i)=>({number:i+1,start:'',end:'',startEvent:makeBellEvent(i+1,'start'),endEvent:makeBellEvent(i+1,'end')})),lunch:{start:'',end:''},grades:[1,2,3].map(g=>({grade:g,time:'',event:{enabled:false,text:g+'학년 급식실로 이동합니다.',pillColor:'#d97706',textColor:'#ffffff',fontClass:'font-family-notosanskr',displayMode:'minutes',displayMinutes:1}}))}}
-        function normalizeBellSchedule(raw){const fallback=defaultBellSchedule(),src=raw&&typeof raw==='object'?raw:{},count=Math.max(1,Math.min(12,Number(src.periods?.length)||7));const periods=Array.from({length:count},(_,i)=>{const old=src.periods?.[i]||{},n=i+1;return {number:n,start:old.start||'',end:old.end||'',startEvent:{...makeBellEvent(n,'start'),...(old.startEvent||{})},endEvent:{...makeBellEvent(n,'end'),...(old.endEvent||{})}}});const grades=[1,2,3].map(g=>{const old=src.grades?.find?.(x=>Number(x.grade)===g)||fallback.grades[g-1];return {grade:g,time:old.time||'',event:{...fallback.grades[g-1].event,...(old.event||{})}}});return {days:Array.isArray(src.days)?src.days.map(Number).filter(d=>d>=0&&d<=6):fallback.days,periods,lunch:{start:src.lunch?.start||'',end:src.lunch?.end||''},grades}}
+        function makeBellEvent(n,edge){return {enabled:false,text:edge==='end'?n+'교시 수업이 종료되었습니다.':n+'교시 수업이 시작됩니다.',pillColor:edge==='end'?'#2563eb':'#059669',textColor:'#ffffff',fontClass:'font-family-notosanskr',displayMode:'minutes',displayMinutes:1,soundType:'default'}}
+        function defaultBellSchedule(){return {days:[1,2,3,4,5],periods:Array.from({length:7},(_,i)=>({number:i+1,start:'',end:'',startEvent:makeBellEvent(i+1,'start'),endEvent:makeBellEvent(i+1,'end')})),lunch:{start:'',end:''},grades:[1,2,3].map(g=>({grade:g,time:'',event:{enabled:false,text:g+'학년 학생들을 급식실로 이동하시기 바랍니다.',pillColor:'#d97706',textColor:'#ffffff',fontClass:'font-family-notosanskr',displayMode:'minutes',displayMinutes:1}}))}}
+        function normalizeBellSchedule(raw){const fallback=defaultBellSchedule(),src=raw&&typeof raw==='object'?raw:{},count=Math.max(1,Math.min(12,Number(src.periods?.length)||7));const periods=Array.from({length:count},(_,i)=>{const old=src.periods?.[i]||{},n=i+1,startEvent={...makeBellEvent(n,'start'),...(old.startEvent||{})},endEvent={...makeBellEvent(n,'end'),...(old.endEvent||{})};if(startEvent.text===n+'교시 시작합니다.')startEvent.text=makeBellEvent(n,'start').text;if(endEvent.text===n+'교시 종료합니다.')endEvent.text=makeBellEvent(n,'end').text;return {number:n,start:old.start||'',end:old.end||'',startEvent,endEvent}});const grades=[1,2,3].map(g=>{const old=src.grades?.find?.(x=>Number(x.grade)===g)||fallback.grades[g-1],event={...fallback.grades[g-1].event,...(old.event||{})};if(event.text===g+'학년 급식실로 이동합니다.')event.text=fallback.grades[g-1].event.text;return {grade:g,time:old.time||'',event}});return {days:Array.isArray(src.days)?src.days.map(Number).filter(d=>d>=0&&d<=6):fallback.days,periods,lunch:{start:src.lunch?.start||'',end:src.lunch?.end||''},grades}}
         function loadBroadcastMessages(){try{const a=JSON.parse(localStorage.getItem('dashboardBroadcastMessages')||'[]');return Array.isArray(a)?a.filter(x=>x&&typeof x==='object'):[]}catch{return []}}
         function saveBroadcastMessages(){try{localStorage.setItem('dashboardBroadcastMessages',JSON.stringify(broadcastMessages))}catch(e){console.warn('방송 메시지 저장 실패',e)}}
         function saveBellSchedule(){try{localStorage.setItem('dashboardBellSchedule',JSON.stringify(bellSchedule))}catch(e){console.warn('교시·급식 설정 저장 실패',e)}}
@@ -3039,6 +3050,24 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             if(!bellSchedule)return;bellSchedule.days=Array.from(document.querySelectorAll('[data-bell-day]:checked')).map(x=>Number(x.dataset.bellDay));bellSchedule.lunch={start:document.getElementById('broadcast-lunch-start').value,end:document.getElementById('broadcast-lunch-end').value};
             bellSchedule.periods=Array.from(document.querySelectorAll('.bell-period-card')).map(card=>{const n=Number(card.dataset.periodNumber),old=bellSchedule.periods[n-1]||{number:n,startEvent:makeBellEvent(n,'start'),endEvent:makeBellEvent(n,'end')};return {number:n,start:card.querySelector('[data-period-time="start"]').value,end:card.querySelector('[data-period-time="end"]').value,startEvent:readBellEvent(card.querySelector('[data-bell-event="startEvent"]'),old.startEvent),endEvent:readBellEvent(card.querySelector('[data-bell-event="endEvent"]'),old.endEvent)}});
             bellSchedule.grades=Array.from(document.querySelectorAll('.bell-grade-card')).map(card=>{const n=Number(card.dataset.gradeNumber),old=bellSchedule.grades[n-1],event=readBellEvent(card.querySelector('[data-bell-event="gradeEvent"]'),old.event);return {grade:n,time:card.querySelector('[data-grade-time]').value,event}});
+            saveBellSchedule();updateBellScheduleStatus();renderBroadcastTimeline();
+        }
+        function autoFillBellPeriods(){
+            if(!bellSchedule||bellSchedule.periods.length<3)return;
+            const first=bellSchedule.periods[0],second=bellSchedule.periods[1];if(!bellTimeValue(first?.start)||!bellTimeValue(first?.end)||!bellTimeValue(second?.start)||!bellTimeValue(second?.end))return;
+            const toMinutes=value=>{const [h,m]=value.split(':').map(Number);return h*60+m},toTime=value=>{const h=Math.floor(value/60),m=value%60;return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')};
+            const firstStart=toMinutes(first.start),firstEnd=toMinutes(first.end),secondStart=toMinutes(second.start),secondEnd=toMinutes(second.end),classLength=firstEnd-firstStart,breakLength=secondStart-firstEnd;
+            if(classLength<=0||breakLength<0||secondEnd<=secondStart)return;
+            const lunchStart=bellTimeValue(bellSchedule.lunch.start)?toMinutes(bellSchedule.lunch.start):null,lunchEnd=bellTimeValue(bellSchedule.lunch.end)?toMinutes(bellSchedule.lunch.end):null,hasLunch=lunchStart!==null&&lunchEnd!==null&&lunchEnd>lunchStart;
+            let previousEnd=secondEnd;
+            for(let i=2;i<bellSchedule.periods.length;i++){
+                let start=previousEnd+breakLength,end=start+classLength;
+                if(hasLunch&&start<lunchEnd&&end>lunchStart){start=lunchEnd;end=start+classLength;}
+                if(end>1439)break;
+                const period=bellSchedule.periods[i],card=document.querySelector('.bell-period-card[data-period-number="'+period.number+'"]');if(!card)continue;
+                const startInput=card.querySelector('[data-period-time="start"]'),endInput=card.querySelector('[data-period-time="end"]');if(!startInput||!endInput)continue;
+                period.start=toTime(start);period.end=toTime(end);startInput.value=period.start;endInput.value=period.end;previousEnd=end;
+            }
             saveBellSchedule();updateBellScheduleStatus();renderBroadcastTimeline();
         }
         function updateBellDurationVisibility(){document.querySelectorAll('.bell-event-editor').forEach(e=>{const w=e.querySelector('[data-bell-duration-wrap]');if(w)w.hidden=e.querySelector('[data-bell-field="displayMode"]')?.value!=='minutes'})}
@@ -3151,11 +3180,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const bar=document.getElementById('dynamic-bottom-bar'),view=document.getElementById('broadcast-view');if(!bar||!view)return;const active=!!broadcastActiveMessage;broadcastActiveMessage=m;if(broadcastTimer){clearTimeout(broadcastTimer);broadcastTimer=0}if(broadcastSpeechTimer){clearTimeout(broadcastSpeechTimer);broadcastSpeechTimer=0}stopBroadcastSpeech();stopBroadcastSound();
             if(!active){bar.style.width=bar.getBoundingClientRect().width+'px';bar.classList.add('broadcast-active');document.body.classList.add('broadcast-active');requestAnimationFrame(()=>bar.style.width=Math.min(window.innerWidth-24,900,Math.max(280,window.innerWidth*.88))+'px')}
             document.getElementById('school-view')?.classList.add('hidden');document.getElementById('music-view')?.classList.add('hidden');view.hidden=false;view.classList.remove('hidden');view.classList.add('flex');bar.style.setProperty('--broadcast-pill-color',broadcastColor(m.pillColor,'#dc2626'));bar.style.setProperty('--broadcast-text-color',broadcastColor(m.textColor,'#ffffff'));setBroadcastFont(document.getElementById('broadcast-text-viewport'),m.fontClass);
-            requestAnimationFrame(updateBroadcastMarquee);if(document.fonts?.ready)document.fonts.ready.then(()=>{if(broadcastActiveMessage===m)updateBroadcastMarquee()});window.setTimeout(()=>{if(broadcastActiveMessage===m)updateBroadcastMarquee()},680);if(soundProfile==='siren')startUrgentBroadcastCycle(m);else{const cueDuration=soundProfile==='bell'?playBroadcastCue(false,'bell'):playBroadcastCue(false,m.soundType);broadcastSpeechTimer=window.setTimeout(()=>{broadcastSpeechTimer=0;speakBroadcastText(m.text||'',false)},cueDuration)}
+            requestAnimationFrame(updateBroadcastMarquee);if(document.fonts?.ready)document.fonts.ready.then(()=>{if(broadcastActiveMessage===m)updateBroadcastMarquee()});window.setTimeout(()=>{if(broadcastActiveMessage===m)updateBroadcastMarquee()},680);if(soundProfile==='preview'){}else if(soundProfile==='siren')startUrgentBroadcastCycle(m);else{const cueDuration=soundProfile==='bell'?playBroadcastCue(false,'bell'):playBroadcastCue(false,m.soundType);broadcastSpeechTimer=window.setTimeout(()=>{broadcastSpeechTimer=0;speakBroadcastText(m.text||'',false)},cueDuration)}
             if(m.displayMode==='minutes')broadcastTimer=window.setTimeout(()=>finishBroadcast(true),Math.max(1,Math.min(1440,Number(m.displayMinutes)||1))*60000)
         }
         function queueBroadcastMessage(m,urgent,soundProfile='default'){if(urgent){broadcastQueue=[];showBroadcastMessage(m,soundProfile);return}if(!broadcastActiveMessage||broadcastActiveMessage.displayMode==='next'){showBroadcastMessage(m,soundProfile);return}broadcastQueue.push({message:m,soundProfile})}
-        function finishBroadcast(next){
+        function finishBroadcast(next){developerBroadcastPreviewActive=false;const previewStop=document.getElementById('dev-stop-broadcast-preview');if(previewStop)previewStop.disabled=true;
             if(broadcastTimer){clearTimeout(broadcastTimer);broadcastTimer=0}if(broadcastSpeechTimer){clearTimeout(broadcastSpeechTimer);broadcastSpeechTimer=0}broadcastActiveMessage=null;stopBroadcastSpeech();stopBroadcastSound();if(broadcastMarqueeAnimation){broadcastMarqueeAnimation.cancel();broadcastMarqueeAnimation=null}if(broadcastEntryAnimation){broadcastEntryAnimation.cancel();broadcastEntryAnimation=null}if(next&&broadcastQueue.length){const item=broadcastQueue.shift();showBroadcastMessage(item.message,item.soundProfile);return}
             const bar=document.getElementById('dynamic-bottom-bar'),view=document.getElementById('broadcast-view');view?.classList.add('hidden');if(view){view.classList.remove('flex');view.hidden=true}if(!bar)return;const from=bar.getBoundingClientRect().width;bar.style.width=from+'px';bar.classList.remove('broadcast-active');document.body.classList.remove('broadcast-active');bar.style.width='max-content';const to=bar.getBoundingClientRect().width;bar.style.width=from+'px';requestAnimationFrame(()=>bar.style.width=to+'px');window.setTimeout(()=>{if(!broadcastActiveMessage)bar.style.width=''},700);updateMusicBarVisibility()
         }
@@ -3184,15 +3213,15 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             if(old)broadcastMessages=broadcastMessages.map(x=>x.id===old.id?m:x);else broadcastMessages.push(m);saveBroadcastMessages();renderBroadcastMessages();clearBroadcastForm()
         }
         function initBroadcastFeature(){
-            broadcastMessages=loadBroadcastMessages();try{bellSchedule=normalizeBellSchedule(JSON.parse(localStorage.getItem('dashboardBellSchedule')||'null'))}catch{bellSchedule=defaultBellSchedule()}try{broadcastTimelineOrder=JSON.parse(localStorage.getItem('dashboardBroadcastTimelineOrder')||'[]')}catch{broadcastTimelineOrder=[]}
+            broadcastMessages=loadBroadcastMessages();try{bellSchedule=normalizeBellSchedule(JSON.parse(localStorage.getItem('dashboardBellSchedule')||'null'))}catch{bellSchedule=defaultBellSchedule()}saveBellSchedule();try{broadcastTimelineOrder=JSON.parse(localStorage.getItem('dashboardBroadcastTimelineOrder')||'[]')}catch{broadcastTimelineOrder=[]}
             renderBroadcastMessages();renderBellSettings();const view=document.getElementById('broadcasts-view'),bar=document.getElementById('dynamic-bottom-bar');if(!view||!bar)return;
             document.getElementById('broadcast-mode-select').addEventListener('change',setBroadcastFormMode);document.getElementById('broadcast-duration-mode').addEventListener('change',setBroadcastFormMode);
             ['broadcast-message-input','broadcast-pill-color','broadcast-text-color','broadcast-font-select'].forEach(id=>document.getElementById(id).addEventListener('input',updateBroadcastPreview));['broadcast-pill-color','broadcast-text-color','broadcast-font-select'].forEach(id=>document.getElementById(id).addEventListener('change',updateBroadcastPreview));
             document.getElementById('broadcast-save-message-btn').addEventListener('click',saveBroadcastMessageFromForm);document.getElementById('broadcast-cancel-edit-btn').addEventListener('click',clearBroadcastForm);
             document.getElementById('broadcast-message-list').addEventListener('click',e=>{const edit=e.target.closest('[data-broadcast-edit]'),del=e.target.closest('[data-broadcast-delete]');if(edit)editBroadcastMessage(edit.dataset.broadcastEdit);if(del){broadcastMessages=broadcastMessages.filter(x=>x.id!==del.dataset.broadcastDelete);saveBroadcastMessages();renderBroadcastMessages();if(broadcastEditingId===del.dataset.broadcastDelete)clearBroadcastForm()}});
-            document.getElementById('broadcast-period-count').addEventListener('change',e=>{captureBellSchedule();const n=Math.max(1,Math.min(12,Number(e.target.value)||7)),old=bellSchedule.periods.slice();bellSchedule.periods=Array.from({length:n},(_,i)=>old[i]||({number:i+1,start:'',end:'',startEvent:makeBellEvent(i+1,'start'),endEvent:makeBellEvent(i+1,'end')}));renderBellSettings();saveBellSchedule();renderBroadcastTimeline()});
-            view.addEventListener('input',e=>{if(e.target.matches('[data-bell-field="displayMode"]'))updateBellDurationVisibility();if(e.target.matches('[data-bell-day],[data-period-time],[data-grade-time],[data-bell-field]'))captureBellSchedule()});
-            view.addEventListener('change',e=>{if(e.target.matches('[data-bell-field="displayMode"]'))updateBellDurationVisibility();if(e.target.matches('[data-bell-day],[data-period-time],[data-grade-time],[data-bell-field]'))captureBellSchedule()});
+            document.getElementById('broadcast-period-count').addEventListener('change',e=>{captureBellSchedule();const n=Math.max(1,Math.min(12,Number(e.target.value)||7)),old=bellSchedule.periods.slice();bellSchedule.periods=Array.from({length:n},(_,i)=>old[i]||({number:i+1,start:'',end:'',startEvent:makeBellEvent(i+1,'start'),endEvent:makeBellEvent(i+1,'end')}));renderBellSettings();saveBellSchedule();renderBroadcastTimeline();autoFillBellPeriods()});
+            view.addEventListener('input',e=>{if(e.target.matches('[data-bell-field="displayMode"]'))updateBellDurationVisibility();if(e.target.matches('[data-bell-day],[data-period-time],[data-grade-time],[data-bell-field],#broadcast-lunch-start,#broadcast-lunch-end')){captureBellSchedule();if(e.target.matches('#broadcast-lunch-start,#broadcast-lunch-end')||(e.target.matches('[data-period-time]')&&Number(e.target.closest('.bell-period-card')?.dataset.periodNumber)<=2))autoFillBellPeriods()}});
+            view.addEventListener('change',e=>{if(e.target.matches('[data-bell-field="displayMode"]'))updateBellDurationVisibility();if(e.target.matches('[data-bell-day],[data-period-time],[data-grade-time],[data-bell-field],#broadcast-lunch-start,#broadcast-lunch-end')){captureBellSchedule();if(e.target.matches('#broadcast-lunch-start,#broadcast-lunch-end')||(e.target.matches('[data-period-time]')&&Number(e.target.closest('.bell-period-card')?.dataset.periodNumber)<=2))autoFillBellPeriods()}});
             const timeline=document.getElementById('broadcast-timeline-list');timeline.addEventListener('click',e=>{const item=e.target.closest('[data-timeline-id]');if(!item)return;if(e.target.closest('[data-timeline-edit]')){const id=item.dataset.timelineId;if(!id.startsWith('message:'))return;setBroadcastMenuOpen(false);settingsModal.classList.remove('hidden');settingsContainer.style.opacity='0';switchSettingsView('broadcasts');editBroadcastMessage(id.slice('message:'.length));return}if(e.target.closest('[data-timeline-delete]')){deleteTimelineEntry(item.dataset.timelineId);return}const b=e.target.closest('[data-timeline-move]');if(b)moveTimeline(item.dataset.timelineId,null,Number(b.dataset.timelineMove))});
             timeline.addEventListener('dragstart',e=>{const item=e.target.closest('[data-timeline-id]');if(!item)return;e.dataTransfer.setData('text/plain',item.dataset.timelineId);e.dataTransfer.effectAllowed='move';item.classList.add('is-dragging')});
             timeline.addEventListener('dragend',e=>e.target.closest('[data-timeline-id]')?.classList.remove('is-dragging'));
@@ -3860,6 +3889,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         }
 
         function resetDeveloperSimulations() {
+            if(developerBroadcastPreviewActive){developerBroadcastPreviewActive=false;finishBroadcast(false);const stop=document.getElementById('dev-stop-broadcast-preview');if(stop)stop.disabled=true;}
             developerClockOverride=null; developerTimeZone='Asia/Seoul';
             developerWeatherOverride=null; developerMealOverride=null; developerScheduleOverride=null;
             window.__dashboardDeveloperSceneOverride=null;
@@ -3876,10 +3906,24 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             fetchManchon3DongWeather(); fetchTodayMeal(); fetchApiSchedules();
         }
 
+        function populateDeveloperBroadcastPreviews(){
+            const select=document.getElementById('dev-broadcast-select');if(!select)return;
+            const previous=select.value,items=[];
+            broadcastMessages.filter(m=>m&&String(m.text||'').trim()).forEach(m=>items.push({id:'message:'+m.id,label:(m.mode==='scheduled'?'예약 방송':'긴급 방송')+' · '+(m.title||m.category||'알림'),message:{...m}}));
+            if(bellSchedule){
+                bellSchedule.periods.forEach(p=>[['start','startEvent','시작'],['end','endEvent','종료']].forEach(([edge,key,label])=>{const event=p[key];if(bellTimeValue(p[edge])&&String(event?.text||'').trim())items.push({id:'bell:period-'+p.number+'-'+edge,label:p.number+'교시 '+label+' 알림',message:{...event,id:'dev-period-'+p.number+'-'+edge,title:p.number+'교시 '+label,text:event.text}})}));
+                bellSchedule.grades.forEach(g=>{if(bellTimeValue(g.time)&&String(g.event?.text||'').trim())items.push({id:'bell:grade-'+g.grade,label:g.grade+'학년 급식 알림',message:{...g.event,id:'dev-meal-'+g.grade,title:g.grade+'학년 급식 이동',text:g.event.text}})});
+            }
+            select.innerHTML='<option value="">방송·알림 선택</option>'+items.map(item=>'<option value="'+broadcastEscape(item.id)+'">'+broadcastEscape(item.label)+'</option>').join('');
+            if(items.some(item=>item.id===previous))select.value=previous;
+        }
         function setupDeveloperOptions() {
             const nav=document.getElementById('developer-options-nav');
             try { developerOptionsEnabled=sessionStorage.getItem('dashboardDeveloperOptionsEnabled')==='true'; } catch { developerOptionsEnabled=false; }
             nav?.classList.toggle('hidden',!developerOptionsEnabled);
+            const devBroadcastSelect=document.getElementById('dev-broadcast-select'),devBroadcastStatus=document.getElementById('dev-broadcast-status'),devBroadcastStop=document.getElementById('dev-stop-broadcast-preview');populateDeveloperBroadcastPreviews();devBroadcastSelect?.addEventListener('focus',populateDeveloperBroadcastPreviews);devBroadcastSelect?.addEventListener('pointerdown',populateDeveloperBroadcastPreviews);
+            document.getElementById('dev-preview-broadcast')?.addEventListener('click',()=>{populateDeveloperBroadcastPreviews();const selected=devBroadcastSelect?.value,item=selected?.startsWith('message:')?broadcastMessages.find(m=>'message:'+m.id===selected):selected?.startsWith('bell:')?(()=>{const options=[];bellSchedule?.periods.forEach(p=>[['start','startEvent','시작'],['end','endEvent','종료']].forEach(([edge,key,label])=>{if('bell:period-'+p.number+'-'+edge===selected)options.push({...p[key],title:p.number+'교시 '+label,text:p[key]?.text})}));bellSchedule?.grades.forEach(g=>{if('bell:grade-'+g.grade===selected)options.push({...g.event,title:g.grade+'학년 급식 이동',text:g.event?.text})});return options[0]})():null;if(!item||!String(item.text||'').trim()){devBroadcastStatus.textContent='표시할 방송이나 알림을 선택하세요.';return}if(broadcastActiveMessage&&!developerBroadcastPreviewActive){devBroadcastStatus.textContent='현재 표시 중인 방송을 먼저 종료한 뒤 미리보기할 수 있습니다.';return}developerBroadcastPreviewActive=true;showBroadcastMessage({...item,id:'developer-preview-'+Date.now(),mode:'developer-preview',scheduledAt:0,displayMode:'next',soundType:'off'},'preview');if(devBroadcastStop)devBroadcastStop.disabled=false;devBroadcastStatus.textContent='선택한 알림을 소리 없이 하단 pill에 표시 중입니다.'});
+            devBroadcastStop?.addEventListener('click',()=>{if(!developerBroadcastPreviewActive)return;finishBroadcast(false);devBroadcastStop.disabled=true;devBroadcastStatus.textContent='하단 pill 미리보기를 종료했습니다.'});
             const clockInput=document.getElementById('dev-clock-value'), now=new Date();
             now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
             if(clockInput) clockInput.value=now.toISOString().slice(0,16);
@@ -4653,6 +4697,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const active=!!document.fullscreenElement;
             button.setAttribute('aria-label', active ? '전체 화면 종료' : '전체 화면으로 전환');
             button.title=active ? '전체 화면 종료' : '전체 화면';
+            button.innerHTML=active
+                ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3v4a2 2 0 0 1-2 2H3M21 9h-4a2 2 0 0 1-2-2V3M15 21v-4a2 2 0 0 1 2-2h4M3 15h4a2 2 0 0 1 2 2v4"/></svg>'
+                : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/></svg>';
         }
         function isSimpleDesignMode() {
             return document.documentElement.dataset.weatherDesign === 'simple';
@@ -5414,6 +5461,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             card.className = `glass-card notification-card p-4 flex flex-col space-y-2.5 pointer-events-auto w-80 relative overflow-hidden`;
             card.id = `card-${notif.id}`;
 
+            const sourceIcons={update:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>',pip:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><rect x="12" y="11" width="6" height="5" rx="1"/></svg>',meal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18l-2 9H5l-2-9Z"/><path d="M7 6c0-1 1-1 1-2m4 2c0-1 1-1 1-2m4 2c0-1 1-1 1-2"/></svg>',network:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9a14 14 0 0 1 18 0M6.5 12.5a9 9 0 0 1 11 0M10 16a4 4 0 0 1 4 0"/><path d="M12 20h.01"/></svg>',general:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-8 12h4"/></svg>'};
+            const sourceIcon=sourceIcons[notif.type]||sourceIcons.general;
             let actionButtonsHTML = '';
             if (notif.type === 'update') {
                 actionButtonsHTML = `
@@ -5425,10 +5474,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             }
 
             card.innerHTML = `
-                <div class="flex justify-between items-start z-10 relative">
-                    <span class="font-bold text-xs tracking-wider text-blue-300 uppercase">${notif.title}</span>
-                    <button onclick="dismissNotification('${notif.id}')" class="text-white hover:text-red-400 text-xs transition-colors px-1">✕</button>
-                </div>
+                <div class="notification-card-header z-10 relative"><div class="notification-card-source"><span class="notification-source-icon" aria-hidden="true">${sourceIcon}</span><span class="notification-source-title">${notif.title}</span></div><button type="button" onclick="dismissNotification('${notif.id}')" class="notification-close-button" aria-label="알림 닫기" title="알림 닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
                 <p class="text-xs text-gray-200 leading-relaxed break-all z-10 relative">${notif.message}</p>
                 ${actionButtonsHTML}
             `;
@@ -6686,7 +6732,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
  function place(r){const b=r.button.getBoundingClientRect(),vv=window.visualViewport,vw=vv?.width||innerWidth,vh=vv?.height||innerHeight,ox=vv?.offsetLeft||0,oy=vv?.offsetTop||0,gap=8,pad=12,w=Math.min(Math.max(b.width,240),vw-pad*2),left=Math.max(ox+pad,Math.min(b.left+ox,vw+ox-w-pad)),below=Math.max(0,oy+vh-(b.bottom+oy)-gap-pad),above=Math.max(0,b.top+oy-oy-gap-pad),natural=Math.min(r.list.scrollHeight||340,340),openAbove=below<Math.min(natural,180)&&above>below,maxH=Math.max(96,Math.min(natural,openAbove?above:below));r.list.style.width=w+'px';r.list.style.left=left+'px';r.list.style.maxHeight=maxH+'px';r.list.style.top=(openAbove?Math.max(oy+pad,b.top+oy-maxH-gap):b.bottom+oy+gap)+'px'}
  function open(s){const r=s.__appSelect;if(!r)return;if(active===r){close();return}close();(s.closest('#clock-layout-editor')||document.body).append(r.list);active=r;r.button.setAttribute('aria-expanded','true');place(r);r.list.querySelector('[aria-selected=true]')?.scrollIntoView({block:'nearest'})}
  function enhance(s){if(s.dataset.appSelectReady||s.multiple||s.closest('.clock-editor-hidden-pref'))return;s.dataset.appSelectReady='true';s.classList.add('app-select-native');s.tabIndex=-1;s.setAttribute('aria-hidden','true');const host=document.createElement('span');host.className='app-select-host';s.parentNode.insertBefore(host,s);host.append(s);const b=document.createElement('button');b.type='button';b.className='app-select-trigger';b.setAttribute('role','combobox');b.setAttribute('aria-haspopup','listbox');b.setAttribute('aria-expanded','false');b.innerHTML='<span class="app-select-current"></span><span class="app-select-chevron" aria-hidden="true"></span>';const list=document.createElement('div');list.className='app-select-listbox';list.id='app-select-'+Math.random().toString(36).slice(2);list.setAttribute('role','listbox');b.setAttribute('aria-controls',list.id);const add=o=>{if(o.disabled)return;const x=document.createElement('button');x.type='button';x.className='app-select-option';x.setAttribute('role','option');x.dataset.value=o.value;x.innerHTML='<span></span><span class="app-select-check" aria-hidden="true"></span>';x.firstElementChild.textContent=o.textContent.trim();const sampleFont=fontForOption(s,o);if(sampleFont)x.firstElementChild.style.fontFamily=sampleFont;x.addEventListener('click',()=>{s.value=o.value;s.dispatchEvent(new Event('input',{bubbles:true}));s.dispatchEvent(new Event('change',{bubbles:true}));sync(s);close();b.focus()});list.append(x)};[...s.children].forEach(c=>{if(c.tagName==='OPTGROUP'){const h=document.createElement('div');h.className='app-select-group-label';h.textContent=c.label;list.append(h);[...c.children].forEach(add)}else if(c.tagName==='OPTION')add(c)});host.append(b);const r={button:b,list};s.__appSelect=r;b.addEventListener('click',()=>open(s));b.addEventListener('keydown',e=>{if(['ArrowDown','ArrowUp','Enter',' '].includes(e.key)){e.preventDefault();open(s)}if(e.key==='Escape')close()});s.addEventListener('change',()=>sync(s));s.closest('label')?.addEventListener('click',e=>{e.preventDefault();if(e.target!==b&&!b.contains(e.target))open(s)});const vg=valueDesc.get,vs=valueDesc.set;Object.defineProperty(s,'value',{configurable:true,get(){return vg.call(this)},set(v){vs.call(this,v);sync(this)}});if(indexDesc){const ig=indexDesc.get,is=indexDesc.set;Object.defineProperty(s,'selectedIndex',{configurable:true,get(){return ig.call(this)},set(v){is.call(this,v);sync(this)}})}sync(s)}
- function scan(root=document){root.querySelectorAll?.('#settings-modal select,#clock-layout-editor select').forEach(enhance)}
+ function scan(root=document){root.querySelectorAll?.('#settings-modal select:not([data-native-select]),#clock-layout-editor select').forEach(enhance)}
  scan();new MutationObserver(records=>records.forEach(r=>r.addedNodes.forEach(n=>{if(n.nodeType===1)scan(n)}))).observe(document.body,{childList:true,subtree:true});document.addEventListener('pointerdown',e=>{if(active&&!active.list.contains(e.target)&&!active.button.contains(e.target))close()},true);document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});window.addEventListener('resize',()=>active&&place(active));window.addEventListener('scroll',()=>active&&place(active),true)
 })();
 </script><style id="settings-selection-emphasis">
@@ -6904,10 +6950,175 @@ input[type="checkbox"]:not(.glass-checkbox-input):focus-visible{outline:2px soli
 #settings-modal .settings-details>.glass-section:has(#fullscreen-on-start) .glass-checkbox-label,#settings-modal .settings-details>.glass-section:has(#show-school-logo) .glass-checkbox-label,#settings-modal .settings-details>.glass-section:has(#show-school-name) .glass-checkbox-label{justify-content:flex-start!important;width:100%;text-align:left}
 #settings-modal .settings-details>.glass-section:has(#show-school-logo),#settings-modal .settings-details>.glass-section:has(#show-school-name){display:flex;flex-direction:column;gap:10px}
 #settings-modal .settings-details>.glass-section:has(#show-school-logo) h5,#settings-modal .settings-details>.glass-section:has(#show-school-name) h5{margin-bottom:4px}
-<style id="settings-spacing-and-reset-polish">#settings-modal .glass-section:has(#fullscreen-on-start),#settings-modal .glass-section:has(#show-school-logo),#settings-modal .glass-section:has(#show-school-name){padding:10px 12px!important;margin:0 0 8px!important}#settings-modal .glass-section:has(#show-school-logo) .glass-checkbox-label,#settings-modal .glass-section:has(#show-school-name) .glass-checkbox-label{justify-content:flex-start!important;gap:10px!important;margin:0!important}#settings-modal .glass-section:has(#show-school-logo) .glass-checkbox-box,#settings-modal .glass-section:has(#show-school-name) .glass-checkbox-box{margin-left:0!important}#system-view #reset-schedule-btn,#system-view #reset-message-btn,#system-view #reset-all-btn{justify-content:center!important;text-align:center!important;padding:14px 18px!important}#system-view #reset-schedule-btn>span,#system-view #reset-message-btn>span,#system-view #reset-all-btn>span{width:100%;text-align:center!important}</style><script id="oneui-update-menu-and-version">
+</style><style id="settings-spacing-and-reset-polish">#settings-modal .glass-section:has(#fullscreen-on-start),#settings-modal .glass-section:has(#show-school-logo),#settings-modal .glass-section:has(#show-school-name){padding:10px 12px!important;margin:0 0 8px!important}#settings-modal .glass-section:has(#show-school-logo) .glass-checkbox-label,#settings-modal .glass-section:has(#show-school-name) .glass-checkbox-label{justify-content:flex-start!important;gap:10px!important;margin:0!important}#settings-modal .glass-section:has(#show-school-logo) .glass-checkbox-box,#settings-modal .glass-section:has(#show-school-name) .glass-checkbox-box{margin-left:0!important}#system-view #reset-schedule-btn,#system-view #reset-message-btn,#system-view #reset-all-btn{justify-content:center!important;text-align:center!important;padding:14px 18px!important}#system-view #reset-schedule-btn>span,#system-view #reset-message-btn>span,#system-view #reset-all-btn>span{width:100%;text-align:center!important}#settings-modal .settings-details>.glass-section:has(#fullscreen-on-start),#settings-modal .settings-details>.glass-section:has(#show-school-logo),#settings-modal .settings-details>.glass-section:has(#show-school-name){min-height:0!important;padding:10px 12px!important;margin:0 0 8px!important}#settings-modal .settings-details>.glass-section:has(#show-school-logo),#settings-modal .settings-details>.glass-section:has(#show-school-name){gap:4px!important}</style><script id="oneui-update-menu-and-version">
 (()=>{const root=document.documentElement;function setup(){const version=document.getElementById('app-version-text'),hero=document.getElementById('software-version-hero-value'),runtime=document.getElementById('software-runtime-info'),school=document.getElementById('software-school-name');if(school)school.textContent=localStorage.getItem('dashboardSchoolName')||'대륜고등학교';if(version&&hero)hero.textContent=version.dataset.version||version.textContent.trim();if(runtime)runtime.textContent=(navigator.userAgentData?.platform||navigator.platform||'브라우저 환경');const view=document.getElementById('update-view');if(!view||view.dataset.menuReady)return;view.dataset.menuReady='true';const title=view.querySelector(':scope > h4'),sections=[...view.querySelectorAll(':scope > .glass-section')];if(!title||!sections.length)return;const host=document.createElement('span');host.className='update-settings-menu';const trigger=document.createElement('button');trigger.type='button';trigger.className='update-settings-trigger';trigger.setAttribute('aria-label','업데이트 설정');trigger.setAttribute('aria-expanded','false');trigger.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>';const popup=document.createElement('div');popup.className='update-settings-popup';popup.hidden=true;host.append(trigger,popup);title.append(host);sections.forEach(section=>popup.append(section));trigger.addEventListener('click',()=>{popup.hidden=!popup.hidden;trigger.setAttribute('aria-expanded',String(!popup.hidden))});document.addEventListener('pointerdown',e=>{if(!host.contains(e.target)){popup.hidden=true;trigger.setAttribute('aria-expanded','false')}});document.addEventListener('keydown',e=>{if(e.key==='Escape'){popup.hidden=true;trigger.setAttribute('aria-expanded','false')}})}window.addEventListener('school-profile-updated',event=>{const school=document.getElementById('software-school-name');if(school)school.textContent=event.detail?.name||localStorage.getItem('dashboardSchoolName')||'대륜고등학교'});window.addEventListener('storage',event=>{if(event.key==='dashboardSchoolName'){const school=document.getElementById('software-school-name');if(school)school.textContent=event.newValue||'대륜고등학교'}});if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();new MutationObserver(()=>{const v=document.getElementById('app-version-text'),h=document.getElementById('software-version-hero-value');if(v&&h){const value=v.dataset.version||v.textContent.trim();if(h.textContent!==value)h.textContent=value}}).observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['data-version']});
 })();
 </script><script id="oneui-update-screen-menu-finish">
 (()=>{function setup(){const source=document.getElementById('app-version-text'),updateVersion=document.getElementById('update-version-hero-value');if(source&&updateVersion)updateVersion.textContent=source.dataset.version||source.textContent.trim();const view=document.getElementById('update-view'),menu=view?.querySelector('.update-settings-menu'),popup=menu?.querySelector('.update-settings-popup'),trigger=menu?.querySelector('.update-settings-trigger'),release=document.getElementById('view-release-notes-btn');if(trigger)trigger.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>';if(popup&&release&&!popup.contains(release)){const section=document.createElement('section');section.className='glass-section update-release-menu-item';section.append(release);popup.append(section)} }if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();const source=document.getElementById('app-version-text');if(source)new MutationObserver(()=>{const target=document.getElementById('update-version-hero-value');if(target)target.textContent=source.dataset.version||source.textContent.trim()}).observe(source,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['data-version']})})();
-</script></body>
+</script><style id="light-theme-and-settings-tab-icon-polish">
+:root[data-theme="light"] #settings-modal .weather-design-choice{color:#263247!important}
+:root[data-theme="light"] #settings-modal .weather-design-choice[aria-pressed="true"]{color:#fff!important;background:#59655d!important}
+#settings-modal .settings-tab-icon{color:#fff!important;border:0!important}
+#settings-modal .settings-tab-icon svg,#settings-modal .settings-tab-icon svg [stroke="currentColor"]{color:#fff!important;stroke:#fff!important}
+#settings-modal .settings-tab-icon svg [fill="currentColor"]{fill:#fff!important}
+#settings-modal [data-view="display"] .settings-tab-icon{background:#159447!important}
+#settings-modal [data-view="broadcasts"] .settings-tab-icon{background:#c94d00!important}
+#settings-modal [data-view="custom-text"] .settings-tab-icon{background:#6534d8!important}
+#settings-modal [data-view="schedule-edit"] .settings-tab-icon{background:#007f91!important}
+#settings-modal [data-view="play"] .settings-tab-icon{background:#b8178e!important}
+#settings-modal [data-view="background"] .settings-tab-icon{background:#4d8f0c!important}
+#settings-modal [data-view="system"] .settings-tab-icon{background:#4054d6!important}
+#settings-modal [data-view="update"] .settings-tab-icon{background:#126cd4!important}
+#settings-modal [data-view="info"] .settings-tab-icon{background:#6040c7!important}
+#settings-modal [data-view="pip"] .settings-tab-icon{background:#008269!important}
+#settings-modal [data-view="developer-options"] .settings-tab-icon{background:#bf286b!important}
+:root[data-weather-design="default"] #settings-modal #clock-quick-edit-btn,:root[data-weather-design="default"] #settings-modal #display-view .glass-section:has(#clock-font-select),:root[data-weather-design="default"] #settings-modal #always-clock-setting{display:none!important}
+:root[data-weather-design="default"] #clock-quick-edit-btn{display:none!important}
+#clock-layout-editor .clock-editor-layout-choices button[data-clock-layout="date-bottom"]{flex-direction:column!important}
+#clock-layout-editor .clock-editor-layout-choices button[data-clock-layout="date-left"]{flex-direction:row!important}#settings-modal #display-view .glass-section:has(#schedule-pills-toggle)>.flex.items-center.justify-between{width:100%;flex-wrap:nowrap!important;gap:12px!important}
+#settings-modal #display-view .glass-section:has(#schedule-pills-toggle)>.flex.items-center.justify-between>div{flex:1 1 auto;min-width:0}
+#settings-modal #display-view .glass-section:has(#schedule-pills-toggle)>.flex.items-center.justify-between h5{white-space:nowrap;word-break:keep-all}
+#settings-modal #display-view .glass-section:has(#schedule-pills-toggle)>.flex.items-center.justify-between>.glass-checkbox-label{flex:0 0 auto;width:auto;white-space:nowrap;gap:8px}
+#settings-modal #display-view .glass-section:has(#schedule-pills-toggle)>.flex.items-center.justify-between .glass-checkbox-box{margin-left:0!important}</style><style id="soft-controls-and-notification-motion">
+/* Borderless, unified settings navigation buttons and centered gear icon. */
+#settings-modal #back-settings-btn,#settings-modal #close-settings-btn{position:relative;box-sizing:border-box;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;padding:0!important;display:grid!important;place-items:center!important;border:0!important;border-radius:50%!important;background:var(--settings-card-2)!important;color:var(--settings-text)!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;font-size:0!important;line-height:1!important;transition:background .18s ease,transform .18s ease}
+#settings-modal #back-settings-btn:hover,#settings-modal #close-settings-btn:hover{background:color-mix(in srgb,var(--settings-accent) 18%,var(--settings-card-2))!important;transform:scale(1.04)}
+#settings-modal #back-settings-btn svg{display:block;width:21px;height:21px;stroke:currentColor;flex:none}
+#settings-modal #close-settings-btn:before,#settings-modal #close-settings-btn:after{content:"";position:absolute;width:20px;height:2px;border-radius:2px;background:currentColor}
+#settings-modal #close-settings-btn:before{transform:rotate(45deg)}#settings-modal #close-settings-btn:after{transform:rotate(-45deg)}
+#settings-modal #back-settings-btn:focus-visible,#settings-modal #close-settings-btn:focus-visible{outline:2px solid var(--settings-accent)!important;outline-offset:2px}
+.settings-container #settings-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:1!important}
+.settings-container #settings-btn svg{display:block!important;width:20px!important;height:20px!important;flex:0 0 20px!important;margin:0!important;align-self:center!important}
+.settings-container #settings-btn span{display:block;line-height:1!important}
+/* Notification pills descend from above while their blur and fade gently clear. */
+@keyframes notificationDescendClear{0%{opacity:0;transform:translateY(-26px);filter:blur(14px)}55%{opacity:.68;filter:blur(5px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}
+.notification-list.open .notification-card{animation:notificationDescendClear .8s cubic-bezier(.2,.75,.25,1) both}
+.notification-list.open .notification-card:nth-child(2){animation-delay:.08s}.notification-list.open .notification-card:nth-child(3){animation-delay:.16s}.notification-list.open .notification-card:nth-child(4){animation-delay:.24s}.notification-list.open .notification-card:nth-child(5){animation-delay:.32s}
+.notification-card-header{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;flex:1 1 auto!important;min-width:0!important}
+.notification-card-source{display:flex!important;align-items:center!important;gap:10px!important;min-width:0!important}
+.notification-source-icon{width:32px!important;height:32px!important;min-width:32px!important;flex:0 0 32px!important;display:grid!important;place-items:center!important;border-radius:50%!important;background:var(--settings-accent,#4f83ff)!important;color:#fff!important}
+.notification-source-icon svg{display:block;width:17px;height:17px;stroke:currentColor}
+.notification-source-title{max-width:min(38vw,220px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap!important;color:var(--settings-text)!important;font-size:13px!important;font-weight:700!important;letter-spacing:0!important;text-transform:none!important}
+.notification-close-button{width:30px!important;height:30px!important;min-width:30px!important;flex:0 0 30px!important;display:grid!important;place-items:center!important;padding:0!important;border:0!important;border-radius:50%!important;background:rgba(255,255,255,.1)!important;color:var(--settings-text)!important;cursor:pointer}
+.notification-close-button svg{display:block;width:16px;height:16px;stroke:currentColor}
+.notification-close-button:hover{background:rgba(255,255,255,.2)!important}
+@media(prefers-reduced-motion:reduce){.notification-list.open .notification-card{animation:none;filter:none;opacity:1;transform:none}}
+</style><style id="full-screen-settings-surface">
+#settings-modal{position:fixed!important;inset:0!important;top:0!important;right:0!important;bottom:0!important;left:0!important;transform:none!important;width:100vw!important;height:100vh!important;height:100dvh!important;max-width:none!important;max-height:none!important;box-sizing:border-box!important;padding:calc(var(--safe-top) + 20px) calc(var(--safe-right) + 24px) calc(var(--safe-bottom) + 20px) calc(var(--safe-left) + 24px)!important;border:0!important;border-radius:0!important;overflow:hidden!important;z-index:2147482000!important}
+#settings-modal #settings-header{min-height:48px;margin-bottom:16px!important}
+#settings-modal #settings-content-wrapper{height:calc(100% - 64px);min-height:0;overflow:hidden!important}
+#settings-modal .settings-layout{height:100%;min-height:0;align-items:stretch}
+#settings-modal .settings-sidebar{max-height:none!important;min-height:0;overflow-y:auto}
+#settings-modal .settings-details{min-height:0!important;height:100%;overflow-y:auto;overscroll-behavior:contain}
+#settings-modal .settings-details>.glass-section{min-height:100%;box-sizing:border-box}
+@media(max-width:720px){#settings-modal{padding:calc(var(--safe-top) + 14px) calc(var(--safe-right) + 14px) calc(var(--safe-bottom) + 14px) calc(var(--safe-left) + 14px)!important}#settings-modal .settings-layout{height:100%;min-height:0}#settings-modal .settings-sidebar{max-height:82px!important;min-height:0;overflow-x:auto;overflow-y:hidden}#settings-modal .settings-details{height:auto;min-height:0!important;flex:1 1 auto;overflow-y:auto}}
+#settings-modal:has(#info-view:not(.hidden)){position:fixed!important;inset:0!important;top:0!important;right:0!important;bottom:0!important;left:0!important;transform:none!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:100dvh!important}</style><style id="remove-settings-button-circles">
+#settings-modal #back-settings-btn,#settings-modal #close-settings-btn{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+#settings-modal #back-settings-btn:hover,#settings-modal #close-settings-btn:hover{background:transparent!important;box-shadow:none!important;transform:none!important}
+.settings-container #settings-btn{border:0!important;border-radius:999px!important}
+.settings-container #settings-btn:hover{transform:scale(1.04)}
+</style><style id="settings-type-and-spacing-system">
+#settings-modal{--settings-font-body:14px;--settings-font-small:12px;--settings-font-heading:20px;--settings-font-section:16px;--settings-space-1:6px;--settings-space-2:10px;--settings-space-3:14px;--settings-space-4:18px;--settings-control-height:44px;--settings-control-radius:14px;font-family:inherit!important;font-size:var(--settings-font-body)!important;line-height:1.45!important;letter-spacing:0!important}
+#settings-modal button,#settings-modal input,#settings-modal select,#settings-modal textarea{font:inherit}
+#settings-modal #settings-header{gap:var(--settings-space-3)!important}
+#settings-modal #settings-header h3,#settings-modal #settings-header h4{font-size:var(--settings-font-heading)!important;line-height:1.25!important;font-weight:750!important;margin:0!important}
+#settings-modal .settings-layout{gap:var(--settings-space-3)!important}
+#settings-modal .settings-sidebar{padding:var(--settings-space-2)!important;gap:var(--settings-space-1)!important}
+#settings-modal .sidebar-item{min-height:52px!important;padding:8px 10px!important;gap:10px!important;border-radius:14px!important;font-size:var(--settings-font-body)!important;line-height:1.25!important}
+#settings-modal .settings-tab-icon{width:38px!important;height:38px!important;flex:0 0 38px!important}
+#settings-modal .settings-tab-icon svg{width:19px!important;height:19px!important}
+#settings-modal .settings-details{padding:0 0 0 var(--settings-space-2)!important}
+#settings-modal .settings-details>.glass-section{padding:var(--settings-space-4)!important;border-radius:22px!important}
+#settings-modal .settings-view{gap:var(--settings-space-3)!important;font-size:var(--settings-font-body)!important;line-height:1.45!important}
+#settings-modal .settings-view>.glass-section,#settings-modal .settings-view>section.glass-section{padding:var(--settings-space-3)!important;border-radius:18px!important}
+#settings-modal .settings-view h4{font-size:var(--settings-font-heading)!important;line-height:1.25!important;font-weight:750!important;margin:0 0 var(--settings-space-2)!important}
+#settings-modal .settings-view h5{font-size:var(--settings-font-section)!important;line-height:1.3!important;font-weight:700!important;margin:0 0 var(--settings-space-2)!important}
+#settings-modal .settings-view h6{font-size:14px!important;line-height:1.3!important;font-weight:700!important;margin:0 0 var(--settings-space-1)!important}
+#settings-modal .settings-view p,#settings-modal .settings-view label,#settings-modal .settings-view li{font-size:var(--settings-font-body)!important;line-height:1.45!important}
+#settings-modal .settings-view .space-y-4>*+*{margin-top:var(--settings-space-3)!important}
+#settings-modal .settings-view .space-y-3>*+*{margin-top:var(--settings-space-2)!important}
+#settings-modal .settings-view .space-y-2>*+*{margin-top:var(--settings-space-1)!important}
+#settings-modal .settings-view .gap-4{gap:var(--settings-space-3)!important}
+#settings-modal .settings-view .gap-3{gap:var(--settings-space-2)!important}
+#settings-modal .settings-view .glass-input:not([type=range]):not([type=checkbox]):not([type=color]),#settings-modal .settings-view input[type=text],#settings-modal .settings-view input[type=number],#settings-modal .settings-view input[type=time],#settings-modal .settings-view input[type=date],#settings-modal .settings-view select,#settings-modal .settings-view textarea{min-height:var(--settings-control-height);padding:10px 13px!important;border-radius:var(--settings-control-radius)!important;font-size:var(--settings-font-body)!important;line-height:1.35!important;box-sizing:border-box}
+#settings-modal .settings-view textarea{min-height:88px}
+#settings-modal .settings-view button:not(.sidebar-item):not(.clock-editor-layout-choices button):not(.notification-close-button){font-size:var(--settings-font-body)!important;line-height:1.25!important}
+#settings-modal .settings-view .glass-checkbox-label{gap:10px!important;font-size:var(--settings-font-body)!important;line-height:1.35!important}
+#settings-modal .settings-view .glass-checkbox-box{flex:0 0 22px}
+#settings-modal .settings-view .glass-section .glass-section{padding:var(--settings-space-2)!important;border-radius:16px!important}
+@media(max-width:720px){#settings-modal{--settings-font-body:13px;--settings-font-heading:18px;--settings-font-section:15px;--settings-space-3:12px;--settings-space-4:14px;--settings-control-height:42px}#settings-modal .settings-layout{gap:10px!important}#settings-modal .settings-sidebar{padding:8px!important}#settings-modal .settings-details{padding:0!important}#settings-modal .settings-details>.glass-section{padding:14px!important}#settings-modal .settings-view>.glass-section,#settings-modal .settings-view>section.glass-section{padding:12px!important}}
+</style><style id="compact-update-check-button">
+#update-view #manual-check-update-btn{width:min(360px,78%)!important;min-height:54px!important;padding:12px 22px!important;font-size:18px!important;line-height:1.25!important;font-weight:700!important;border-radius:999px!important}
+@media(max-width:720px){#update-view #manual-check-update-btn{width:min(320px,86%)!important;min-height:50px!important;padding:11px 18px!important;font-size:16px!important}}
+</style><style id="broadcast-settings-scroll-fix">
+#settings-modal:has(#broadcasts-view:not(.hidden)) .settings-details{overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain!important;min-height:0!important}
+#settings-modal:has(#broadcasts-view:not(.hidden)) .settings-details>.glass-section{height:auto!important;min-height:100%!important;overflow:visible!important}
+#settings-modal #broadcasts-view:not(.hidden){height:auto!important;min-height:100%;max-height:none!important;overflow:visible!important;overscroll-behavior:auto!important}
+@media(max-width:720px){#settings-modal:has(#broadcasts-view:not(.hidden)) #settings-content-wrapper{min-height:0!important;overflow:hidden!important}#settings-modal:has(#broadcasts-view:not(.hidden)) .settings-layout{min-height:0!important}#settings-modal:has(#broadcasts-view:not(.hidden)) .settings-details{height:auto!important;min-height:0!important;overflow-y:auto!important}}
+</style><style id="settings-content-overflow-audit-fix">
+/* Let the details pane own vertical scrolling; inner cards must not clip tall views. */
+#settings-modal #settings-content-wrapper,#settings-modal .settings-layout,#settings-modal .settings-details{min-height:0!important}
+#settings-modal .settings-details{overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain!important}
+#settings-modal .settings-details>.glass-section{height:auto!important;min-height:100%!important;overflow:visible!important}
+#settings-modal .settings-view:not(.hidden){min-height:0!important;max-height:none!important}
+#settings-modal #developer-options-view:not(.hidden){height:auto!important;max-height:none!important;overflow:visible!important;padding-right:0!important}
+@media(max-width:720px){#settings-modal #settings-content-wrapper{height:calc(100% - 64px)!important;min-height:0!important;overflow:hidden!important}#settings-modal .settings-layout{height:100%!important;min-height:0!important}#settings-modal .settings-details{height:100%!important;min-height:0!important;overflow-y:auto!important}#settings-modal .settings-details>.glass-section{height:auto!important;min-height:100%!important;overflow:visible!important}}
+</style><style id="hide-duplicate-settings-view-titles">
+#settings-modal :is(#pip-view,#release-notes-view,#display-view,#broadcasts-view,#play-view,#custom-text-view,#schedule-edit-view,#profile-view,#background-view,#info-view,#developer-options-view)>h4:first-child{display:none!important}
+#settings-modal #update-view>h4:first-child{font-size:0!important;line-height:0!important;border:0!important;padding:0!important;margin:0 0 4px!important}
+</style><style id="system-reset-section-spacing">
+#settings-modal #system-view>h4{width:100%;text-align:center!important;box-sizing:border-box}
+#settings-modal #system-view>h4:first-of-type{margin:20px 0 20px!important;padding-bottom:12px!important}
+#settings-modal #system-view>h4:nth-of-type(2){margin:40px 0 20px!important;padding-bottom:12px!important}
+</style><style id="clock-editor-scrollbar-unification">
+#clock-layout-editor .clock-editor-settings{scrollbar-width:auto!important;scrollbar-color:rgba(255,255,255,.15) rgba(255,255,255,.02)!important}
+:root[data-theme="light"] #clock-layout-editor .clock-editor-settings{scrollbar-color:rgba(40,46,44,.3) rgba(40,46,44,.04)!important}
+#clock-layout-editor .clock-editor-settings::-webkit-scrollbar{width:14px!important;height:14px!important}
+#clock-layout-editor .clock-editor-settings::-webkit-scrollbar-track{background-color:rgba(255,255,255,.02)!important;border-radius:999px!important;margin:4px!important}
+#clock-layout-editor .clock-editor-settings::-webkit-scrollbar-thumb{background-color:rgba(255,255,255,.15)!important;border-radius:999px!important;border:3px solid transparent!important;background-clip:content-box!important;backdrop-filter:blur(4px)}
+#clock-layout-editor .clock-editor-settings::-webkit-scrollbar-thumb:hover{background-color:rgba(255,255,255,.3)!important}
+</style><style id="schedule-toggle-right-alignment">
+#settings-modal #main-menu-view .weather-settings-panel:has(#schedule-pills-toggle)>div.flex.items-center.justify-between{display:flex!important;align-items:center!important;justify-content:space-between!important;flex-wrap:nowrap!important;gap:12px!important;width:100%!important;min-width:0!important}
+#settings-modal #main-menu-view .weather-settings-panel:has(#schedule-pills-toggle)>div.flex.items-center.justify-between>div{flex:1 1 auto!important;min-width:0!important}
+#settings-modal #main-menu-view .weather-settings-panel:has(#schedule-pills-toggle) h5{white-space:nowrap!important;word-break:keep-all!important;font-size:clamp(13px,2vw,16px)!important}
+#settings-modal #main-menu-view .weather-settings-panel:has(#schedule-pills-toggle)>.glass-checkbox-label{flex:0 0 auto!important;width:auto!important;max-width:max-content!important;justify-content:flex-end!important;gap:8px!important;margin:0!important;white-space:nowrap!important}
+#settings-modal #main-menu-view .weather-settings-panel:has(#schedule-pills-toggle) .glass-checkbox-box{margin-left:0!important;flex:0 0 48px!important}
+@media(max-width:420px){#settings-modal #main-menu-view .weather-settings-panel:has(#schedule-pills-toggle)>div.flex.items-center.justify-between{gap:8px!important}#settings-modal #main-menu-view .weather-settings-panel:has(#schedule-pills-toggle) h5{font-size:13px!important}}
+</style><style id="light-theme-match-vivid-tab-icons">
+:root[data-theme="light"] #settings-modal .settings-tab-icon{color:#fff!important;border:0!important;box-shadow:none!important}
+:root[data-theme="light"] #settings-modal .settings-tab-icon svg,:root[data-theme="light"] #settings-modal .settings-tab-icon svg [stroke="currentColor"]{color:#fff!important;stroke:#fff!important}
+:root[data-theme="light"] #settings-modal .settings-tab-icon svg [fill="currentColor"]{fill:#fff!important}
+:root[data-theme="light"] #settings-modal [data-view="main-menu"] .settings-tab-icon{background:#3978e8!important}
+:root[data-theme="light"] #settings-modal [data-view="display"] .settings-tab-icon{background:#159447!important}
+:root[data-theme="light"] #settings-modal [data-view="broadcasts"] .settings-tab-icon{background:#c94d00!important}
+:root[data-theme="light"] #settings-modal [data-view="custom-text"] .settings-tab-icon{background:#6534d8!important}
+:root[data-theme="light"] #settings-modal [data-view="schedule-edit"] .settings-tab-icon{background:#007f91!important}
+:root[data-theme="light"] #settings-modal [data-view="play"] .settings-tab-icon{background:#b8178e!important}
+:root[data-theme="light"] #settings-modal [data-view="background"] .settings-tab-icon{background:#4d8f0c!important}
+:root[data-theme="light"] #settings-modal [data-view="system"] .settings-tab-icon{background:#4054d6!important}
+:root[data-theme="light"] #settings-modal [data-view="update"] .settings-tab-icon{background:#126cd4!important}
+:root[data-theme="light"] #settings-modal [data-view="info"] .settings-tab-icon{background:#6040c7!important}
+:root[data-theme="light"] #settings-modal [data-view="pip"] .settings-tab-icon{background:#008269!important}
+:root[data-theme="light"] #settings-modal [data-view="developer-options"] .settings-tab-icon{background:#bf286b!important}
+</style><style id="clock-editor-overlap-and-hint-polish">
+#clock-layout-editor .clock-editor-label,#clock-layout-editor .clock-editor-size-setting{display:none!important}
+body.clock-layout-editing .settings-container{visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+#clock-layout-editor .clock-editor-settings.clock-editor-panel-left{top:50%!important;left:calc(var(--safe-left) + 12px)!important;right:auto!important;bottom:auto!important;transform:translateY(-50%)!important;width:min(420px,calc(100vw - var(--safe-left) - var(--safe-right) - 24px))!important;max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 24px)!important}
+#clock-layout-editor .clock-editor-settings.clock-editor-panel-right{top:50%!important;left:auto!important;right:calc(var(--safe-right) + 12px)!important;bottom:auto!important;transform:translateY(-50%)!important;width:min(420px,calc(100vw - var(--safe-left) - var(--safe-right) - 24px))!important;max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 24px)!important}
+#clock-layout-editor .clock-editor-actions.clock-editor-actions-side-right{top:auto!important;left:auto!important;right:calc(var(--safe-right) + 14px)!important;bottom:calc(var(--safe-bottom) + 14px)!important;transform:none!important}
+#clock-layout-editor .clock-editor-actions.clock-editor-actions-side-left{top:auto!important;left:calc(var(--safe-left) + 14px)!important;right:auto!important;bottom:calc(var(--safe-bottom) + 14px)!important;transform:none!important}
+
+</style><style id="schedule-toggle-row-final-alignment">
+#settings-modal #main-menu-view .theme-settings>div.flex.items-center.justify-between:has(#schedule-pills-toggle){display:flex!important;align-items:center!important;justify-content:space-between!important;flex-wrap:nowrap!important;gap:10px!important;width:100%!important;min-width:0!important}
+#settings-modal #main-menu-view .theme-settings>div.flex.items-center.justify-between:has(#schedule-pills-toggle)>div{flex:1 1 auto!important;min-width:0!important}
+#settings-modal #main-menu-view .theme-settings>div.flex.items-center.justify-between:has(#schedule-pills-toggle) h5{white-space:nowrap!important;word-break:keep-all!important;font-size:clamp(13px,2vw,16px)!important}
+#settings-modal #main-menu-view .theme-settings>div.flex.items-center.justify-between:has(#schedule-pills-toggle)>.glass-checkbox-label{flex:0 0 auto!important;width:auto!important;margin:0!important;justify-content:flex-end!important;white-space:nowrap!important;gap:8px!important}
+#settings-modal #main-menu-view .theme-settings>div.flex.items-center.justify-between:has(#schedule-pills-toggle) .glass-checkbox-box{margin-left:0!important;flex:0 0 48px!important}
+</style><style id="settings-footer-content-flow">
+#settings-modal #settings-powered-by{position:static!important;display:block;width:100%;box-sizing:border-box;margin:16px 0 0;padding:0 8px 10px;text-align:right;line-height:1.4}
+</style><style id="clock-editor-no-scroll">
+#clock-layout-editor .clock-editor-settings{max-height:none!important;overflow-x:hidden!important;overflow-y:hidden!important;overscroll-behavior:none!important;scrollbar-width:none!important}
+#clock-layout-editor .clock-editor-settings::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+@media(max-height:760px){#clock-layout-editor .clock-editor-settings{gap:6px!important;padding-top:10px!important;padding-bottom:10px!important}#clock-layout-editor .clock-editor-layout-choices button{width:64px!important;height:64px!important;flex-basis:64px!important}#clock-layout-editor .clock-editor-layout-panel{gap:4px!important;padding-bottom:6px!important}#clock-layout-editor .clock-editor-panel-heading{margin-bottom:5px!important}}
+</style></body>
 </html>
