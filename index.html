@@ -624,12 +624,12 @@
         :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-time { position:static; width:100%; transform:none; text-align:center; font-size:clamp(2.8rem,6.2vw,5.4rem); font-weight:800; line-height:1; letter-spacing:-.04em; white-space:nowrap; }
         :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-date { position:static; align-self:stretch; width:100%; margin-top:.16em; transform:none; text-align:center; font-size:clamp(.8rem,1.5vw,1rem); font-weight:700; line-height:1; white-space:nowrap; }
         :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-temperature { z-index:49; left:calc(var(--safe-left) + 1.5rem); bottom:calc(var(--safe-bottom) + 1.25rem); font-size:clamp(.9rem,1.8vw,1.4rem); font-weight:800; white-space:nowrap; }
-        :root[data-theme="weather"][data-weather-design="simple"] #simple-meal { z-index:42; right:calc(var(--safe-right) + 1.5rem); bottom:calc(var(--safe-bottom) + 2rem); display:block; width:min(360px,42vw); overflow:visible; padding:1rem 1.25rem; border-radius:20px; background:var(--standby-glass-bg,rgba(255,255,255,.13))!important; border:0!important; backdrop-filter:blur(24px) saturate(150%); -webkit-backdrop-filter:blur(24px) saturate(150%); box-shadow:inset 0 1px 1px var(--standby-glass-highlight,rgba(255,255,255,.18)),0 16px 44px var(--standby-glass-shadow,rgba(0,0,0,.2)); }
-        :root[data-theme="weather"][data-weather-design="simple"] #simple-meal-title { margin-bottom:.5rem; font-size:1.15rem; font-weight:800; color:rgba(255,255,255,.7); }
+        :root[data-theme="weather"][data-weather-design="simple"] #simple-meal { z-index:42; right:calc(var(--safe-right) + 1.5rem); bottom:calc(var(--safe-bottom) + 2rem); display:block; width:min(440px,48vw); overflow:visible; padding:1.25rem 1.5rem; border-radius:20px; background:var(--standby-glass-bg,rgba(255,255,255,.13))!important; border:0!important; backdrop-filter:blur(24px) saturate(150%); -webkit-backdrop-filter:blur(24px) saturate(150%); box-shadow:inset 0 1px 1px var(--standby-glass-highlight,rgba(255,255,255,.18)),0 16px 44px var(--standby-glass-shadow,rgba(0,0,0,.2)); }
+        :root[data-theme="weather"][data-weather-design="simple"] #simple-meal-title { margin-bottom:.5rem; font-size:1.3rem; font-weight:800; color:rgba(255,255,255,.7); }
         :root[data-weather-design="simple"] #simple-meal-calories { margin-top:.5rem; font-size:1.15rem; font-weight:800; color:rgba(255,255,255,.7); }
-        :root[data-theme="weather"][data-weather-design="simple"] #simple-meal-items { font-size:clamp(.8rem,1.4vw,1rem); line-height:1.5; }
+        :root[data-theme="weather"][data-weather-design="simple"] #simple-meal-items { font-size:clamp(1rem,1.6vw,1.2rem); line-height:1.55; }
         :root[data-theme="weather"][data-weather-design="simple"] #simple-meal-items p + p { margin-top:.12rem; }
-        @media(max-width:640px) { :root[data-theme="weather"][data-weather-design="simple"] #simple-meal { right:calc(var(--safe-right) + 12px); bottom:calc(var(--safe-bottom) + 1.75rem); width:min(58vw,300px); padding:.75rem .9rem; } :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-date { right:calc(var(--safe-right) + 12px); top:calc(var(--safe-top) + 1rem); font-size:.9rem; } }
+        @media(max-width:640px) { :root[data-theme="weather"][data-weather-design="simple"] #simple-meal { right:calc(var(--safe-right) + 12px); bottom:calc(var(--safe-bottom) + 1.75rem); width:min(64vw,340px); padding:.9rem 1.05rem; } :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } :root[data-theme="weather"][data-weather-design="simple"] #simple-weather-date { right:calc(var(--safe-right) + 12px); top:calc(var(--safe-top) + 1rem); font-size:.9rem; } }
         /* Simple layout for dark and light themes; weather keeps its weather-specific treatment above. */
         :root:not([data-theme="weather"])[data-weather-design="simple"] .screen { z-index:-1!important; display:none!important; visibility:hidden!important; opacity:0!important; pointer-events:none!important; }
         :root:not([data-theme="weather"])[data-weather-design="simple"] #dday-banner { display:none!important; }
@@ -648,10 +648,10 @@
         :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-weather-time { font-size:clamp(2.8rem,6.2vw,5.4rem); font-weight:800; line-height:1; letter-spacing:-.04em; }
         :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-weather-date { margin-top:.16em; font-size:clamp(.8rem,1.5vw,1rem); font-weight:700; line-height:1; }
         :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-weather-temperature { z-index:49; left:calc(var(--safe-left) + 1.5rem); bottom:calc(var(--safe-bottom) + 1.25rem); font-size:clamp(.9rem,1.8vw,1.4rem); font-weight:800; white-space:nowrap; }
-        :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal { z-index:42; right:calc(var(--safe-right) + 1.5rem); bottom:calc(var(--safe-bottom) + 2rem); width:min(360px,42vw); max-height:38vh; overflow:auto; padding:1rem 1.25rem; border-radius:20px; background:var(--standby-glass-bg,rgba(255,255,255,.13))!important; border:0!important; backdrop-filter:blur(24px) saturate(150%); -webkit-backdrop-filter:blur(24px) saturate(150%); box-shadow:inset 0 1px 1px var(--standby-glass-highlight,rgba(255,255,255,.18)),0 16px 44px var(--standby-glass-shadow,rgba(0,0,0,.2)); }
-        :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal-title { margin-bottom:.5rem; font-size:1.15rem; font-weight:800; color:rgba(255,255,255,.7); }
+        :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal { z-index:42; right:calc(var(--safe-right) + 1.5rem); bottom:calc(var(--safe-bottom) + 2rem); width:min(440px,48vw); max-height:44vh; overflow:auto; padding:1.25rem 1.5rem; border-radius:20px; background:var(--standby-glass-bg,rgba(255,255,255,.13))!important; border:0!important; backdrop-filter:blur(24px) saturate(150%); -webkit-backdrop-filter:blur(24px) saturate(150%); box-shadow:inset 0 1px 1px var(--standby-glass-highlight,rgba(255,255,255,.18)),0 16px 44px var(--standby-glass-shadow,rgba(0,0,0,.2)); }
+        :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal-title { margin-bottom:.5rem; font-size:1.3rem; font-weight:800; color:rgba(255,255,255,.7); }
         :root[data-weather-design="simple"] #simple-meal-calories { margin-top:.5rem; font-size:1.15rem; font-weight:800; color:rgba(255,255,255,.7); }
-        :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal-items { font-size:clamp(.8rem,1.4vw,1rem); line-height:1.5; }
+        :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal-items { font-size:clamp(1rem,1.6vw,1.2rem); line-height:1.55; }
         :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal-items p + p { margin-top:.12rem; }
         :root[data-theme="light"][data-weather-design="simple"] #simple-weather-clock,
         :root[data-theme="light"][data-weather-design="simple"] #simple-weather-time,
@@ -664,7 +664,7 @@
         :root[data-theme="light"][data-weather-design="default"] #simple-weather-temperature { color:#263247!important; text-shadow:0 1px 4px rgba(255,255,255,.75)!important; }
         :root[data-theme="weather"][data-weather-design="default"] #simple-weather-temperature { color:var(--weather-dynamic-color)!important; text-shadow:0 2px 8px rgba(0,0,0,.72)!important; }
         :root[data-theme="light"][data-schedule-pills="true"] #simple-schedule-pills .simple-schedule-pill { color:#263247; background:rgba(255,255,255,.74); border-color:rgba(60,76,100,.18); }
-        @media(max-width:640px) { :root[data-weather-design="default"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal { right:calc(var(--safe-right) + 12px); bottom:calc(var(--safe-bottom) + 1.75rem); width:min(58vw,300px); padding:.75rem .9rem; } :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } }
+        @media(max-width:640px) { :root[data-weather-design="default"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-meal { right:calc(var(--safe-right) + 12px); bottom:calc(var(--safe-bottom) + 1.75rem); width:min(64vw,340px); padding:.9rem 1.05rem; } :root:not([data-theme="weather"])[data-weather-design="simple"] #simple-weather-temperature { left:calc(var(--safe-left) + 12px); bottom:calc(var(--safe-bottom) + 16px); } }
 
         #weather-modern-clock, #weather-modern-date { display:none; }
         :root[data-weather-design="modern"] .screen { transition:none!important; }
@@ -4694,9 +4694,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             ['top','right','bottom','left'].forEach(side => data[side]=document.getElementById(`margin-${side}`)?.value || '0');
             try { localStorage.setItem('dashboardSafeMargins', JSON.stringify(data)); } catch (error) {}
         }
+        let userManuallyExitedFullscreen=false,fullscreenWatchdogId=null,fullscreenRequestPending=false;
+        function isDocumentFullscreen(){return Boolean(document.fullscreenElement||document.webkitFullscreenElement)}
+        async function requestAutomaticFullscreen(){if(userManuallyExitedFullscreen||isDocumentFullscreen()||fullscreenRequestPending)return;const root=document.documentElement;const request=root.requestFullscreen||root.webkitRequestFullscreen;if(!request)return;fullscreenRequestPending=true;try{await request.call(root)}catch(error){/* 브라우저 정책상 사용자 입력이 필요한 경우 다음 1초 주기에 재시도 */}finally{fullscreenRequestPending=false}}
+        function startFullscreenWatchdog(){if(fullscreenWatchdogId!==null)clearInterval(fullscreenWatchdogId);requestAutomaticFullscreen();fullscreenWatchdogId=setInterval(requestAutomaticFullscreen,1000)}
         async function toggleFullscreen() {
             try {
-                if (document.fullscreenElement) await document.exitFullscreen();
+                if (isDocumentFullscreen()) { if(document.exitFullscreen) await document.exitFullscreen(); else if(document.webkitExitFullscreen) document.webkitExitFullscreen(); }
                 else if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
                 else if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen();
             } catch (error) { console.warn('전체 화면 전환이 허용되지 않는 브라우저입니다.', error); }
@@ -4704,7 +4708,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         function updateFullscreenButton() {
             const button=document.getElementById('fullscreen-btn');
             if (!button) return;
-            const active=!!document.fullscreenElement;
+            const active=isDocumentFullscreen();
             button.setAttribute('aria-label', active ? '전체 화면 종료' : '전체 화면으로 전환');
             button.title=active ? '전체 화면 종료' : '전체 화면';
             button.innerHTML=active
@@ -5112,8 +5116,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             }
 
             document.getElementById('settings-btn').addEventListener('click', () => { settingsModal.classList.remove('hidden'); settingsContainer.style.opacity = '0'; switchSettingsView('main-menu'); });
-            document.getElementById('fullscreen-btn').addEventListener('click', toggleFullscreen);
+            document.getElementById('fullscreen-btn').addEventListener('click', () => { if(isDocumentFullscreen()) userManuallyExitedFullscreen=true; else userManuallyExitedFullscreen=false; toggleFullscreen(); });
             document.addEventListener('fullscreenchange', updateFullscreenButton);
+            document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
             ['top','right','bottom','left'].forEach(side => document.getElementById(`margin-${side}`)?.addEventListener('input', saveSafeMargins));
             document.getElementById('fullscreen-on-start')?.addEventListener('change', event => localStorage.setItem('dashboardFullscreenOnStart', String(event.target.checked)));
             document.getElementById('show-school-logo')?.addEventListener('change', event => { localStorage.setItem('dashboardShowSchoolLogo', String(event.target.checked)); applySchoolPillSettings(); });
@@ -5351,7 +5356,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             toggleCardBlur(0, true);
             updatePipVisibility(0); // 처음 시작할 때 PiP 상태 동기화 및 렌더링(표시될 경우 API 초기화)
             try { startScreenLoop(); } catch (err) {}
-            if (localStorage.getItem('dashboardFullscreenOnStart') === 'true') setTimeout(toggleFullscreen, 500);
+            startFullscreenWatchdog();
             updateFullscreenButton();
             setTimeout(() => { try { checkBackgroundBrightnessAndApply(); } catch (e) {} }, 200);
         }
