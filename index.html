@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" href="./icon-192.png">
     <title>ADK Dash</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Nanum+Gothic:wght@400;700;800&family=Gowun+Dodum&family=Jua&family=Black+Han+Sans&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700;800&family=Oxanium:wght@400;500;600;700;800&family=Share+Tech+Mono&family=DM+Mono:wght@400;500&family=Roboto+Mono:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=Baloo+2:wght@400;500;600;700;800&family=Comfortaa:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&family=Audiowide&family=Michroma&family=Oswald:wght@400;500;600;700&family=Bebas+Neue&family=Teko:wght@400;500;600;700&family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Nanum+Gothic:wght@400;700;800&family=Gowun+Dodum&family=Jua&family=Black+Han+Sans&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700;800&family=Oxanium:wght@400;500;600;700;800&family=Share+Tech+Mono&family=DM+Mono:wght@400;500&family=Roboto+Mono:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=Baloo+2:wght@400;500;600;700;800&family=Comfortaa:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&family=Audiowide&family=Michroma&family=Oswald:wght@400;500;600;700&family=Bebas+Neue&family=Teko:wght@400;500;600;700&family=Anton&family=Modak&family=Monoton&family=Six+Caps&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
     <style>
         body {
@@ -1238,7 +1238,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">업데이트 설정 및 확인</h4>
                             <div class="software-version-hero update-version-hero">
                                 <div class="software-version-glow" aria-hidden="true"></div>
-                                <h2>ADK Dash <span id="update-version-hero-value">2.7.0</span></h2>
+                                <h2>ADK Dash <span id="update-version-hero-value">2.7.2</span></h2>
                                 <p id="update-status-text">최신 버전을 확인하는 중입니다...</p>
                             </div>
                             
@@ -1285,7 +1285,21 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
                                 <div>
-                                    <h5 class="font-bold text-blue-300 text-lg">v2.7.1</h5><ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1"><li>상단 일정 알림 표시를 기본 켜짐으로 변경</li><li>기본 시정을 1~7교시 및 오후 급식 시간으로 설정하고 초기화 시에도 기본값 적용</li><li>시정을 이름을 붙여 추가·복제·전환할 수 있도록 개선</li><li>저장된 선택이 없을 때 기본 테마와 날씨 화면 디자인을 날씨·심플로 설정</li><li>구름이 높이 경계나 화면 크기 변경 시 순간 이동하지 않도록 위치 이동을 보정</li><li>교시 시작·종료 pill과 학년별 급식 안내를 1분 표시, 효과음 없음으로 설정</li><li>기존 저장값에 급식 종료가 자정으로 저장된 경우 오후 1시 15분으로 바로잡음</li><li>시정 편집 화면에서 급식 시간을 4교시와 5교시 사이에 표시</li></ul></div><div class="pt-2 border-t border-white/10"><h5 class="font-bold text-blue-300 text-lg">v2.7.0</h5><ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1"><li>시스템·시계 글꼴 목록에 글꼴별 미리보기 적용</li><li>설정의 불필요한 설명과 여백을 줄이고 초기화 버튼 이름을 가운데 정렬</li><li>설정 탭 아이콘을 선명한 색상 배경과 흰색 도형으로 통일하고 라이트 테마 대비 개선</li><li>업데이트 확인 로딩 표시를 공통 애니메이션으로 통일</li><li>정보 화면에 설정된 학교 이름 표시</li><li>기본 디자인에서 시계 전용 설정과 홈의 시계 편집 아이콘 숨김</li><li>시계 레이아웃 미리보기 네 가지를 실제 날짜·시간 배치와 일치하도록 조정</li><li>시계 크기 슬라이더를 추가하고 부드러운 둥근 스타일 적용</li><li>알림을 상단에서 내려오며 블러와 투명도가 서서히 풀리도록 조정</li><li>알림 주체별 원형 아이콘과 우측 닫기 버튼 추가</li><li>설정 뒤로 가기·닫기 버튼의 외곽 테두리를 없애고 아이콘 스타일 통일</li><li>전체 화면에서 아이콘을 축소 표시로 전환</li><li>1·2교시 시간을 기준으로 수업·쉬는 시간을 계산해 이후 교시를 자동 입력하고 급식 시간대를 비움</li><li>교시 시작·종료와 급식실 안내 문구 개선</li><li>설정 화면을 팝업 대신 전체 화면으로 표시</li><li>좁은 화면에서도 상단 일정 알림 이름이 끊겨 보이지 않도록 정렬 개선</li></ul></div><div class="pt-2 border-t border-white/10"><h5 class="font-bold text-blue-300 text-lg">v2.6.9</h5>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.7.2</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>전체·상층·중층·하층 구름량을 각각 반영하고 강수 시 구름량을 고정하던 동작 수정</li>
+                                        <li>천구의 고도·거리와 층별 특성에 따라 구름 개수·길이·두께 및 내부 입자 밀도·폭 조절</li>
+                                        <li>강수 집계 시간과 강설 단위를 환산하고 강수량·날씨 코드·기온·습도·돌풍으로 비·눈 입자 표현 개선</li>
+                                        <li>개발자 옵션에서 층별 구름량·API 강수값과 맑음·층별 구름·이슬비·소나기·건설·습설 프리셋 테스트 지원</li>
+                                        <li>WMO 국제구름도감 기준으로 구름 아래쪽을 조밀하게, 위쪽을 비대칭 덩어리로 구성하고 격자·타원형 단순 표현 제거</li>
+                                        <li>날씨 코드에 따라 권운·고적운·적운·층운·난층운·발달한 대류성 구름 형태를 추정해 표현</li>
+                                        <li>엄격한 60Hz 프레임 건너뛰기를 제거하고 강수는 화면 갱신 주기에 동기화, 배경·천체 갱신 주기 분리</li>
+                                        <li>눈 결정 이미지 재사용, 구름 텍스처 크기·재생성 수 제한, 불필요한 임시 배열 생성 축소</li>
+                                        <li>기존 입자 충돌·반사·물방울·적설 로직 및 강수 입자 수 상한 유지</li>
+                                        <li>물방울 물리값을 유지하면서 동일한 크기·위치·투명도의 DOM 갱신 생략</li>
+                                        <li>오프라인 표시 초기화 시 함수 범위 오류가 발생하던 문제 수정</li>
+                                    </ul>
+                                </div><div class="pt-2 border-t border-white/10"><h5 class="font-bold text-blue-300 text-lg">v2.7.1</h5><ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1"><li>상단 일정 알림 표시를 기본 켜짐으로 변경</li><li>기본 시정을 1~7교시 및 오후 급식 시간으로 설정하고 초기화 시에도 기본값 적용</li><li>시정을 이름을 붙여 추가·복제·전환할 수 있도록 개선</li><li>저장된 선택이 없을 때 기본 테마와 날씨 화면 디자인을 날씨·심플로 설정</li><li>구름이 높이 경계나 화면 크기 변경 시 순간 이동하지 않도록 위치 이동을 보정</li><li>교시 시작·종료 pill과 학년별 급식 안내를 1분 표시, 효과음 없음으로 설정</li><li>기존 저장값에 급식 종료가 자정으로 저장된 경우 오후 1시 15분으로 바로잡음</li><li>시정 편집 화면에서 급식 시간을 4교시와 5교시 사이에 표시</li></ul></div><div class="pt-2 border-t border-white/10"><h5 class="font-bold text-blue-300 text-lg">v2.7.0</h5><ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1"><li>시스템·시계 글꼴 목록에 글꼴별 미리보기 적용</li><li>설정의 불필요한 설명과 여백을 줄이고 초기화 버튼 이름을 가운데 정렬</li><li>설정 탭 아이콘을 선명한 색상 배경과 흰색 도형으로 통일하고 라이트 테마 대비 개선</li><li>업데이트 확인 로딩 표시를 공통 애니메이션으로 통일</li><li>정보 화면에 설정된 학교 이름 표시</li><li>기본 디자인에서 시계 전용 설정과 홈의 시계 편집 아이콘 숨김</li><li>시계 레이아웃 미리보기 네 가지를 실제 날짜·시간 배치와 일치하도록 조정</li><li>시계 크기 슬라이더를 추가하고 부드러운 둥근 스타일 적용</li><li>알림을 상단에서 내려오며 블러와 투명도가 서서히 풀리도록 조정</li><li>알림 주체별 원형 아이콘과 우측 닫기 버튼 추가</li><li>설정 뒤로 가기·닫기 버튼의 외곽 테두리를 없애고 아이콘 스타일 통일</li><li>전체 화면에서 아이콘을 축소 표시로 전환</li><li>1·2교시 시간을 기준으로 수업·쉬는 시간을 계산해 이후 교시를 자동 입력하고 급식 시간대를 비움</li><li>교시 시작·종료와 급식실 안내 문구 개선</li><li>설정 화면을 팝업 대신 전체 화면으로 표시</li><li>좁은 화면에서도 상단 일정 알림 이름이 끊겨 보이지 않도록 정렬 개선</li></ul></div><div class="pt-2 border-t border-white/10"><h5 class="font-bold text-blue-300 text-lg">v2.6.9</h5>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
                                         <li>대구광역시 수성구 긴급 재난 문자를 5분 간격으로 조회해 새 메시지를 자동 표시</li>
                                         <li>개발자 옵션에서 가상 재난 문자 송출과 실제 API 즉시 조회 지원</li>
@@ -1429,7 +1443,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                     <button id="clock-layout-reset-btn" type="button" class="glass-button">현재 디자인 기본값으로 초기화</button>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-white/10">
-                                    <label class="block space-y-1 text-sm">시계 숫자 글꼴<select id="clock-font-select" class="glass-input w-full appearance-none"><option value="system">시스템 숫자</option><optgroup label="동글동글한 스타일"><option value="Baloo 2">Baloo 2 · 통통하고 둥근</option><option value="Fredoka">Fredoka · 부드럽고 귀여운</option><option value="Nunito">Nunito · 둥근 모던</option><option value="Comfortaa">Comfortaa · 원형 기하</option></optgroup><optgroup label="캡슐·알약형 스타일"><option value="Audiowide">Audiowide · 캡슐 디지털</option><option value="Oxanium">Oxanium · 라운드 테크</option><option value="Exo 2">Exo 2 · 둥근 기하</option><option value="Orbitron">Orbitron · SF 디지털</option></optgroup><optgroup label="세로로 길쭉한 스타일"><option value="Teko">Teko · 길쭉한 디지털</option><option value="Bebas Neue">Bebas Neue · 슬림 타이틀</option><option value="Oswald">Oswald · 응축형</option><option value="Barlow Condensed">Barlow Condensed · 세로 응축형</option><option value="Rajdhani">Rajdhani · 슬림 테크</option></optgroup><optgroup label="모노·계기판 스타일"><option value="Space Grotesk">Space Grotesk · 모던</option><option value="Michroma">Michroma · 기계적 기하</option><option value="Share Tech Mono">Share Tech Mono · 계기판</option><option value="DM Mono">DM Mono · 미니멀 모노</option><option value="Roboto Mono">Roboto Mono · 모노스페이스</option><option value="Anton">Anton · 굵은 디스플레이</option></optgroup></select></label>
+                                    <label class="block space-y-1 text-sm">시계 숫자 글꼴<select id="clock-font-select" class="glass-input w-full appearance-none"><option value="system">시스템 숫자</option><optgroup label="동글동글한 스타일"><option value="Modak">Modak · 두툼하고 둥근</option><option value="Baloo 2">Baloo 2 · 통통하고 둥근</option><option value="Fredoka">Fredoka · 부드럽고 귀여운</option><option value="Nunito">Nunito · 둥근 모던</option><option value="Comfortaa">Comfortaa · 원형 기하</option></optgroup><optgroup label="캡슐·알약형 스타일"><option value="Audiowide">Audiowide · 캡슐 디지털</option><option value="Oxanium">Oxanium · 라운드 테크</option><option value="Exo 2">Exo 2 · 둥근 기하</option><option value="Orbitron">Orbitron · SF 디지털</option></optgroup><optgroup label="세로로 길쭉한 스타일"><option value="Six Caps">Six Caps · 가늘고 길쭉한</option><option value="Teko">Teko · 길쭉한 디지털</option><option value="Bebas Neue">Bebas Neue · 슬림 타이틀</option><option value="Oswald">Oswald · 응축형</option><option value="Barlow Condensed">Barlow Condensed · 세로 응축형</option><option value="Rajdhani">Rajdhani · 슬림 테크</option></optgroup><optgroup label="모노·계기판 스타일"><option value="Space Grotesk">Space Grotesk · 모던</option><option value="Michroma">Michroma · 기계적 기하</option><option value="Share Tech Mono">Share Tech Mono · 계기판</option><option value="DM Mono">DM Mono · 미니멀 모노</option><option value="Roboto Mono">Roboto Mono · 모노스페이스</option><option value="Monoton">Monoton · 라인 디스플레이</option><option value="Anton">Anton · 굵은 디스플레이</option></optgroup></select></label>
+                                    <label class="block space-y-1 text-sm">시계 숫자 굵기<select id="clock-font-weight-select" class="glass-input w-full appearance-none"><option value="400">보통</option><option value="800">굵게</option></select></label>
                                     <label class="block space-y-1 text-sm">시계 시간 형식<select id="clock-time-format-select" class="glass-input w-full appearance-none"><option value="hm">시:분 · 12:34</option><option value="hms">시:분:초 · 12:34:56</option></select></label>
                                     <label class="block space-y-1 text-sm sm:col-span-2">날짜 표기<select id="clock-date-format-select" class="glass-input w-full appearance-none"><option value="ko">한국식 · 2026년 11월 16일</option><option value="us">미국식 · 11/16/2026</option></select></label>
                                     <label class="block space-y-1 text-sm">시계 색상<select id="clock-color-select" class="glass-input w-full appearance-none"><option value="auto">자동 · 배경에 맞춤</option><option value="white">화이트</option><option value="pastel-yellow">파스텔 옐로</option><option value="pastel-pink">파스텔 핑크</option><option value="pastel-blue">파스텔 블루</option><option value="pastel-mint">파스텔 민트</option><option value="pastel-lavender">파스텔 라벤더</option></select></label>
@@ -1801,12 +1816,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div id="info-version" class="info-tab-content">
                                 <div class="software-version-hero">
                                     <div class="software-version-glow" aria-hidden="true"></div>
-                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.0</span></h2>
+                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.2</span></h2>
                                     <p id="software-school-name">대륜고등학교</p>
                                 </div>
                                 <h5 class="software-info-title">소프트웨어 정보</h5>
                                 <div class="software-info-list">
-                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.1">2.7.1</p></div>
+                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.2">2.7.2</p></div>
                                     <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.7.0-1">Ko-Kr-Daeryun-hs-v.2.7.0-1</p></div>
                                     <div class="software-info-row"><span>기반</span><span>HTML5</span></div>
                                     <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
@@ -1857,7 +1872,16 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <h5 class="font-semibold">학사 일정 API 응답</h5><label class="block text-sm space-y-1">일정 JSON<textarea id="dev-schedule-json" class="glass-input w-full min-h-32 font-mono text-xs">[{"date":"2026.12.24","endDate":null,"event":"개발자 테스트 일정","dday":false},{"date":"2026.12.31","endDate":null,"event":"테스트 D-Day","dday":true}]</textarea></label><div class="flex flex-wrap gap-2"><button type="button" id="dev-apply-schedules" class="glass-button">가상 일정 적용</button><button type="button" id="dev-clear-schedules" class="glass-button">실제 API로 복원</button></div><p id="dev-schedule-status" class="text-xs text-white/60" aria-live="polite">date, event, 선택 항목 endDate와 dday를 사용합니다.</p>
                             </section>
                             <section class="glass-section p-4 space-y-3">
-                                <h5 class="font-semibold">날씨 배경</h5><div class="grid grid-cols-2 sm:grid-cols-3 gap-3"><label class="text-sm space-y-1">시간대<select id="dev-scene-time" class="glass-input w-full"><option value="dawn">새벽</option><option value="sunrise">일출</option><option value="day" selected>낮</option><option value="sunset">일몰</option><option value="night">밤</option></select></label><label class="text-sm space-y-1">강수<select id="dev-scene-kind" class="glass-input w-full"><option value="none">맑음</option><option value="rain">비</option><option value="snow">눈</option></select></label><label class="text-sm space-y-1">구름 양 %<input id="dev-scene-cloud" type="number" min="0" max="100" class="glass-input w-full" value="55"></label><label class="text-sm space-y-1">강수량 %<input id="dev-scene-amount" type="number" min="0" max="100" class="glass-input w-full" value="50"></label><label class="text-sm space-y-1">풍속 km/h<input id="dev-scene-wind-speed" type="number" min="0" max="400" class="glass-input w-full" value="8"></label><label class="text-sm space-y-1">풍향 °<input id="dev-scene-wind-direction" type="number" min="0" max="359" class="glass-input w-full" value="240"></label></div><div class="flex flex-wrap gap-2"><button type="button" id="dev-apply-scene" class="glass-button">날씨 배경 적용</button><button type="button" id="dev-clear-scene" class="glass-button">날씨 배경 복원</button></div><p id="dev-scene-status" class="text-xs text-white/60" aria-live="polite">시뮬레이션 값은 날씨 테마에서 보이며 실제 날씨 설정은 변경하지 않습니다.</p>
+                                <h5 class="font-semibold">날씨 배경</h5><div class="grid grid-cols-2 sm:grid-cols-3 gap-3"><label class="text-sm space-y-1">시간대<select id="dev-scene-time" class="glass-input w-full"><option value="dawn">새벽</option><option value="sunrise">일출</option><option value="day" selected>낮</option><option value="sunset">일몰</option><option value="night">밤</option></select></label><label class="text-sm space-y-1">강수<select id="dev-scene-kind" class="glass-input w-full"><option value="none">맑음</option><option value="rain">비</option><option value="snow">눈</option></select></label><label class="text-sm space-y-1">전체 구름량 %<input id="dev-scene-cloud" type="number" min="0" max="100" class="glass-input w-full" value="55"></label><label class="text-sm space-y-1">상층 구름량 %<input id="dev-scene-cloud-high" type="number" min="0" max="100" step="1" class="glass-input w-full" value="55"></label><label class="text-sm space-y-1">중층 구름량 %<input id="dev-scene-cloud-mid" type="number" min="0" max="100" step="1" class="glass-input w-full" value="55"></label><label class="text-sm space-y-1">하층 구름량 %<input id="dev-scene-cloud-low" type="number" min="0" max="100" step="1" class="glass-input w-full" value="55"></label><label class="text-sm space-y-1">강수 세기 %<input id="dev-scene-amount" type="number" min="0" max="100" class="glass-input w-full" value="50"></label><label class="text-sm space-y-1">풍속 km/h<input id="dev-scene-wind-speed" type="number" min="0" max="400" class="glass-input w-full" value="8"></label><label class="text-sm space-y-1">풍향 °<input id="dev-scene-wind-direction" type="number" min="0" max="359" class="glass-input w-full" value="240"></label></div>
+                                <div class="space-y-3 mt-3">
+                                    <label class="block text-sm space-y-1">시험 프리셋<select id="dev-scene-preset" class="glass-input w-full"><option value="custom">직접 조절</option><option value="clear">맑음 · 구름 0%</option><option value="high">상층 구름만</option><option value="mid">중층 구름만</option><option value="low">하층 구름만</option><option value="layered">층별 구름 혼합</option><option value="drizzle">약한 이슬비</option><option value="shower">강한 소나기·돌풍</option><option value="dry-snow">차갑고 작은 눈</option><option value="wet-snow">습하고 큰 눈</option></select></label>
+                                    <label class="flex items-center gap-2 text-sm"><input id="dev-scene-use-api" type="checkbox">API 강수값으로 입자 계산</label>
+                                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                        <label class="text-sm space-y-1">비 mm/h<input id="dev-scene-rain-rate" type="number" min="0" max="200" step=".05" class="glass-input w-full" value="2"></label><label class="text-sm space-y-1">소나기 mm/h<input id="dev-scene-showers-rate" type="number" min="0" max="200" step=".05" class="glass-input w-full" value="0"></label><label class="text-sm space-y-1">눈 cm/h<input id="dev-scene-snow-rate" type="number" min="0" max="100" step=".05" class="glass-input w-full" value="0"></label><label class="text-sm space-y-1">기온 °C<input id="dev-scene-temperature" type="number" min="-60" max="60" step=".5" class="glass-input w-full" value="8"></label><label class="text-sm space-y-1">습도 %<input id="dev-scene-humidity" type="number" min="0" max="100" step="1" class="glass-input w-full" value="80"></label><label class="text-sm space-y-1">돌풍 km/h<input id="dev-scene-gust" type="number" min="0" max="400" step="1" class="glass-input w-full" value="16"></label>
+                                        <label class="text-sm space-y-1">강수 코드<select id="dev-scene-code" class="glass-input w-full"><option value="-1">선택한 비·눈에 맞춤</option><option value="51">51 · 이슬비</option><option value="61">61 · 약한 비</option><option value="63">63 · 비</option><option value="65">65 · 강한 비</option><option value="81">81 · 소나기</option><option value="82">82 · 강한 소나기</option><option value="71">71 · 약한 눈</option><option value="73">73 · 눈</option><option value="75">75 · 강한 눈</option><option value="85">85 · 눈 소나기</option></select></label>
+                                    </div>
+                                    <p class="text-xs text-white/60">API 강수값 사용 시 비·소나기·눈의 시간당 양으로 강도를 계산합니다. 해제하면 강수 세기 %를 사용합니다. 프리셋 선택 후 날씨 배경 적용을 누르세요.</p>
+                                </div><div class="flex flex-wrap gap-2"><button type="button" id="dev-apply-scene" class="glass-button">날씨 배경 적용</button><button type="button" id="dev-clear-scene" class="glass-button">날씨 배경 복원</button></div><p id="dev-scene-status" class="text-xs text-white/60" aria-live="polite">시뮬레이션 값은 날씨 테마에서 보이며 실제 날씨 설정은 변경하지 않습니다.</p>
                             </section>
                             <div class="flex flex-wrap justify-between gap-2"><button type="button" id="dev-clear-all" class="glass-button">모든 시뮬레이션 초기화</button><button type="button" id="dev-disable-options" class="glass-button">개발자 옵션 잠그기</button></div>
                         </div>
@@ -2192,8 +2216,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         function makeClockEditor() {
             if(clockEditor) return;
             clockEditor=document.createElement('div'); clockEditor.id='clock-layout-editor'; clockEditor.hidden=true;
-            clockEditor.innerHTML='<div class="clock-editor-settings"><div class="clock-editor-layout-panel"><div class="clock-editor-panel-heading"><span>레이아웃</span></div><div class="clock-editor-layout-choices"><button type="button" data-clock-layout="date-top" aria-label="날짜 위" title="날짜 위"><span class="preview-date"></span><span class="preview-time"></span></button><button type="button" data-clock-layout="date-bottom" aria-label="날짜 아래" title="날짜 아래"><span class="preview-time"></span><span class="preview-date"></span></button><button type="button" data-clock-layout="date-left" aria-label="날짜 왼쪽" title="날짜 왼쪽"><span class="preview-date"></span><span class="preview-time"></span></button><button type="button" data-clock-layout="date-right" aria-label="날짜 오른쪽" title="날짜 오른쪽"><span class="preview-time"></span><span class="preview-date"></span></button></div></div><div class="clock-editor-font-panel"><div class="clock-editor-panel-heading"><span>폰트</span></div><div class="clock-editor-font-choices" data-clock-font-choices></div><label class="clock-editor-setting clock-editor-hidden-pref"><span>시계 숫자 글꼴</span><select data-clock-editor-pref="font"></select></label></div><label class="clock-editor-setting"><span>시간 형식</span><select data-clock-editor-pref="timeFormat"></select></label><label class="clock-editor-setting"><span>날짜 표기</span><select data-clock-editor-pref="dateFormat"></select></label><div class="clock-editor-color-panel"><div class="clock-editor-panel-heading"><span>색상</span></div><div class="clock-editor-color-choices" data-clock-color-choices></div><label class="clock-editor-setting clock-editor-hidden-pref"><span>시계 색상</span><select data-clock-editor-pref="color"></select></label></div><label class="clock-editor-setting"><span>투명도 <output data-clock-opacity-value>100%</output></span><input data-clock-editor-pref="opacity" type="range" min="20" max="100" step="5" value="100"></label></div><div class="clock-editor-box"><span class="clock-editor-handle" data-resize="n"></span><span class="clock-editor-handle" data-resize="s"></span><span class="clock-editor-handle" data-resize="e"></span><span class="clock-editor-handle" data-resize="w"></span><span class="clock-editor-handle" data-resize="nw"></span><span class="clock-editor-handle" data-resize="ne"></span><span class="clock-editor-handle" data-resize="sw"></span><span class="clock-editor-handle" data-resize="se"></span></div><div class="clock-editor-actions"><button type="button" data-action="cancel" title="취소" aria-label="취소"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button><button type="button" data-action="reset" title="기본값으로 초기화" aria-label="기본값으로 초기화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/></svg></button><button type="button" data-action="save" title="저장" aria-label="저장"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></button></div>';
-            const editorPreferences={font:clockFontSelect,timeFormat:clockTimeFormatSelect,dateFormat:clockDateFormatSelect,color:clockColorSelect};
+            clockEditor.innerHTML='<div class="clock-editor-settings"><div class="clock-editor-layout-panel"><div class="clock-editor-panel-heading"><span>레이아웃</span></div><div class="clock-editor-layout-choices"><button type="button" data-clock-layout="date-top" aria-label="날짜 위" title="날짜 위"><span class="preview-date"></span><span class="preview-time"></span></button><button type="button" data-clock-layout="date-bottom" aria-label="날짜 아래" title="날짜 아래"><span class="preview-time"></span><span class="preview-date"></span></button><button type="button" data-clock-layout="date-left" aria-label="날짜 왼쪽" title="날짜 왼쪽"><span class="preview-date"></span><span class="preview-time"></span></button><button type="button" data-clock-layout="date-right" aria-label="날짜 오른쪽" title="날짜 오른쪽"><span class="preview-time"></span><span class="preview-date"></span></button></div></div><div class="clock-editor-font-panel"><div class="clock-editor-panel-heading"><span>폰트</span></div><div class="clock-editor-font-choices" data-clock-font-choices></div><label class="clock-editor-setting clock-editor-hidden-pref"><span>시계 숫자 글꼴</span><select data-clock-editor-pref="font"></select></label></div><label class="clock-editor-setting"><span>숫자 굵기</span><select data-clock-editor-pref="fontWeight"></select></label><label class="clock-editor-setting"><span>시간 형식</span><select data-clock-editor-pref="timeFormat"></select></label><label class="clock-editor-setting"><span>날짜 표기</span><select data-clock-editor-pref="dateFormat"></select></label><div class="clock-editor-color-panel"><div class="clock-editor-panel-heading"><span>색상</span></div><div class="clock-editor-color-choices" data-clock-color-choices></div><label class="clock-editor-setting clock-editor-hidden-pref"><span>시계 색상</span><select data-clock-editor-pref="color"></select></label></div><label class="clock-editor-setting"><span>투명도 <output data-clock-opacity-value>100%</output></span><input data-clock-editor-pref="opacity" type="range" min="20" max="100" step="5" value="100"></label></div><div class="clock-editor-box"><span class="clock-editor-handle" data-resize="n"></span><span class="clock-editor-handle" data-resize="s"></span><span class="clock-editor-handle" data-resize="e"></span><span class="clock-editor-handle" data-resize="w"></span><span class="clock-editor-handle" data-resize="nw"></span><span class="clock-editor-handle" data-resize="ne"></span><span class="clock-editor-handle" data-resize="sw"></span><span class="clock-editor-handle" data-resize="se"></span></div><div class="clock-editor-actions"><button type="button" data-action="cancel" title="취소" aria-label="취소"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button><button type="button" data-action="reset" title="기본값으로 초기화" aria-label="기본값으로 초기화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/></svg></button><button type="button" data-action="save" title="저장" aria-label="저장"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></button></div>';
+            const editorPreferences={font:clockFontSelect,fontWeight:clockFontWeightSelect,timeFormat:clockTimeFormatSelect,dateFormat:clockDateFormatSelect,color:clockColorSelect};
             for(const [key,source] of Object.entries(editorPreferences)) {
                 const select=clockEditor.querySelector(`[data-clock-editor-pref="${key}"]`);
                 if(!source||!select)continue;
@@ -2210,7 +2234,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             clockEditor.querySelectorAll('[data-clock-layout]').forEach(button=>button.addEventListener('click',()=>{saveClockPreferences({layout:button.dataset.clockLayout});if(clockEditorRect&&clockEditorTarget)applyClockRect(clockEditorTarget,clockEditorRect,currentClockDesign());updateClockEditorChoices();}));
             const fontSelect=clockEditor.querySelector('[data-clock-editor-pref="font"]'),fontChoices=clockEditor.querySelector('[data-clock-font-choices]');
             if(fontSelect&&fontChoices){
-                [...fontSelect.options].forEach(option=>{if(!option.value)return;const button=document.createElement('button');button.type='button';button.className='clock-font-choice';button.dataset.value=option.value;button.setAttribute('aria-label',option.textContent.trim());button.title=option.textContent.trim();button.innerHTML='<span class="clock-font-choice-sample">12</span>';button.querySelector('.clock-font-choice-sample').style.fontFamily=option.value==='system'?'inherit':`"${option.value}",sans-serif`;button.addEventListener('click',()=>{fontSelect.value=option.value;fontSelect.dispatchEvent(new Event('change',{bubbles:true}));});fontChoices.appendChild(button);});
+                [...fontSelect.options].forEach(option=>{if(!option.value)return;const button=document.createElement('button');button.type='button';button.className='clock-font-choice';button.dataset.value=option.value;button.setAttribute('aria-label',option.textContent.trim());button.title=option.textContent.trim();button.innerHTML='<span class="clock-font-choice-sample">12</span>';button.querySelector('.clock-font-choice-sample').style.fontFamily=option.value==='system'?'inherit':`"${option.value}",sans-serif`;button.querySelector('.clock-font-choice-sample').style.fontWeight=readClockPreferences().fontWeight;button.addEventListener('click',()=>{fontSelect.value=option.value;fontSelect.dispatchEvent(new Event('change',{bubbles:true}));});fontChoices.appendChild(button);});
             }
             const colorSelect=clockEditor.querySelector('[data-clock-editor-pref="color"]'),colorChoices=clockEditor.querySelector('[data-clock-color-choices]'),colorSwatches={auto:'conic-gradient(#4f7df3 0 25%,#fff1a8 25% 50%,#fff 50% 75%,#a8dff5 75%)',white:'#ffffff','pastel-yellow':'#fff1a8','pastel-pink':'#f7b6bf','pastel-blue':'#a8dff5','pastel-mint':'#d5f4b9','pastel-lavender':'#d8c5f5'};
             if(colorSelect&&colorChoices){[...colorSelect.options].forEach(option=>{const button=document.createElement('button');button.type='button';button.className='clock-color-choice';button.dataset.value=option.value;button.setAttribute('aria-label',option.textContent.trim());button.title=option.textContent.trim();button.style.setProperty('--swatch-color',colorSwatches[option.value]||'#fff');button.innerHTML='<span class="clock-color-swatch"></span>';button.addEventListener('click',()=>{colorSelect.value=option.value;colorSelect.dispatchEvent(new Event('change',{bubbles:true}));});colorChoices.appendChild(button);});}
@@ -2284,12 +2308,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         document.getElementById('clock-quick-edit-btn')?.addEventListener('click',startClockLayoutEditor);
         document.getElementById('clock-layout-reset-btn')?.addEventListener('click',()=>{if(!['simple','modern'].includes(currentClockDesign()))return;const layouts=readClockLayouts();delete layouts[currentClockDesign()];try{localStorage.setItem(clockLayoutStorageKey,JSON.stringify(layouts));}catch{}applySavedClockLayout();});
         const clockPreferenceStorageKey='dashboardClockPreferencesV1';
-        const clockFontSelect=document.getElementById('clock-font-select'), clockTimeFormatSelect=document.getElementById('clock-time-format-select'), clockDateFormatSelect=document.getElementById('clock-date-format-select'), clockColorSelect=document.getElementById('clock-color-select'), clockOpacityRange=document.getElementById('clock-opacity-range');
-        const clockFontFamilies={Orbitron:"'Orbitron',sans-serif",Rajdhani:"'Rajdhani',sans-serif",'Space Grotesk':"'Space Grotesk',sans-serif",'Exo 2':"'Exo 2',sans-serif",Oxanium:"'Oxanium',sans-serif",'Share Tech Mono':"'Share Tech Mono',monospace",'DM Mono':"'DM Mono',monospace",'Roboto Mono':"'Roboto Mono',monospace",'Barlow Condensed':"'Barlow Condensed',sans-serif",'Baloo 2':"'Baloo 2',sans-serif",Comfortaa:"'Comfortaa',sans-serif",Fredoka:"'Fredoka',sans-serif",Nunito:"'Nunito',sans-serif",Audiowide:"'Audiowide',sans-serif",Michroma:"'Michroma',sans-serif",Oswald:"'Oswald',sans-serif",'Bebas Neue':"'Bebas Neue',sans-serif",Teko:"'Teko',sans-serif",Anton:"'Anton',sans-serif"};
+        const clockFontSelect=document.getElementById('clock-font-select'), clockFontWeightSelect=document.getElementById('clock-font-weight-select'), clockTimeFormatSelect=document.getElementById('clock-time-format-select'), clockDateFormatSelect=document.getElementById('clock-date-format-select'), clockColorSelect=document.getElementById('clock-color-select'), clockOpacityRange=document.getElementById('clock-opacity-range');
+        const clockFontFamilies={Orbitron:"'Orbitron',sans-serif",Rajdhani:"'Rajdhani',sans-serif",'Space Grotesk':"'Space Grotesk',sans-serif",'Exo 2':"'Exo 2',sans-serif",Oxanium:"'Oxanium',sans-serif",'Share Tech Mono':"'Share Tech Mono',monospace",'DM Mono':"'DM Mono',monospace",'Roboto Mono':"'Roboto Mono',monospace",'Barlow Condensed':"'Barlow Condensed',sans-serif",'Baloo 2':"'Baloo 2',sans-serif",Comfortaa:"'Comfortaa',sans-serif",Fredoka:"'Fredoka',sans-serif",Nunito:"'Nunito',sans-serif",Audiowide:"'Audiowide',sans-serif",Michroma:"'Michroma',sans-serif",Oswald:"'Oswald',sans-serif",'Bebas Neue':"'Bebas Neue',sans-serif",Teko:"'Teko',sans-serif",Anton:"'Anton',sans-serif",Modak:"'Modak',sans-serif",Monoton:"'Monoton',sans-serif",'Six Caps':"'Six Caps',sans-serif"};
         function readClockPreferences(design=currentClockDesign()) {
             let all={};try{const parsed=JSON.parse(localStorage.getItem(clockPreferenceStorageKey)||'{}');if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))all=parsed;}catch{}
             const stored=all[design]&&typeof all[design]==='object'?all[design]:{};
-            return {font:Object.hasOwn(clockFontFamilies,stored.font)?stored.font:'system',timeFormat:stored.timeFormat==='hms'?'hms':stored.timeFormat==='hm'?'hm':design==='simple'?'hm':'hms',dateFormat:stored.dateFormat==='us'?'us':'ko',color:['auto','white','pastel-yellow','pastel-pink','pastel-blue','pastel-mint','pastel-lavender'].includes(stored.color)?stored.color:'auto',opacity:Number.isFinite(Number(stored.opacity))?Math.max(20,Math.min(100,Number(stored.opacity))):100,layout:['date-top','date-bottom','date-left','date-right'].includes(stored.layout)?stored.layout:'date-top'};
+            return {font:Object.hasOwn(clockFontFamilies,stored.font)?stored.font:'system',fontWeight:stored.fontWeight==='400'?'400':'800',timeFormat:stored.timeFormat==='hms'?'hms':stored.timeFormat==='hm'?'hm':design==='simple'?'hm':'hms',dateFormat:stored.dateFormat==='us'?'us':'ko',color:['auto','white','pastel-yellow','pastel-pink','pastel-blue','pastel-mint','pastel-lavender'].includes(stored.color)?stored.color:'auto',opacity:Number.isFinite(Number(stored.opacity))?Math.max(20,Math.min(100,Number(stored.opacity))):100,layout:['date-top','date-bottom','date-left','date-right'].includes(stored.layout)?stored.layout:'date-top'};
         }
         function saveClockPreferences(patch) {
             const all=(()=>{try{const parsed=JSON.parse(localStorage.getItem(clockPreferenceStorageKey)||'{}');return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};}catch{return {};}})();
@@ -2299,11 +2323,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         function syncClockPreferenceControls() {
             const preferences=readClockPreferences();
             if(clockFontSelect)clockFontSelect.value=preferences.font;
+            if(clockFontWeightSelect)clockFontWeightSelect.value=preferences.fontWeight;
             if(clockTimeFormatSelect)clockTimeFormatSelect.value=preferences.timeFormat;
             if(clockDateFormatSelect)clockDateFormatSelect.value=preferences.dateFormat;
             if(clockColorSelect)clockColorSelect.value=preferences.color;
             if(clockOpacityRange)clockOpacityRange.value=preferences.opacity;
             const opacityValue=document.getElementById('clock-opacity-value');if(opacityValue)opacityValue.textContent=`${preferences.opacity}%`;
+            if(clockEditor)clockEditor.querySelectorAll('.clock-font-choice-sample').forEach(sample=>sample.style.fontWeight=preferences.fontWeight);
             if(clockEditor)clockEditor.querySelectorAll('[data-clock-editor-pref]').forEach(control=>{const key=control.dataset.clockEditorPref;if(preferences[key]!==undefined)control.value=preferences[key];if(key==='opacity'){const output=control.closest('label')?.querySelector('[data-clock-opacity-value]');if(output)output.textContent=`${preferences.opacity}%`;}});
         }
         function applyClockPreferences() {
@@ -2320,7 +2346,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                     const seconds=target.querySelector('#weather-modern-seconds');if(seconds)seconds.style.setProperty('display',preferences.timeFormat==='hms'?'inline':'none','important');
                 } else if(target.matches('#simple-weather-clock')) digits=[target.querySelector('#simple-weather-time')];
                 else digits=[...target.querySelectorAll('#current-time,.aux-time')];
-                digits.filter(Boolean).forEach(element=>{if(family)element.style.setProperty('font-family',family,'important');else element.style.removeProperty('font-family');});
+                digits.filter(Boolean).forEach(element=>{
+                    if(family)element.style.setProperty('font-family',family,'important');
+                    else element.style.removeProperty('font-family');
+                    element.style.setProperty('font-weight',preferences.fontWeight,'important');
+                });
             }
         }
         function formatClockDate(date,format=readClockPreferences().dateFormat,timeZone='Asia/Seoul') {
@@ -2329,6 +2359,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             return `${values.year}년 ${values.month}월 ${values.day}일`;
         }
         clockFontSelect?.addEventListener('change',event=>saveClockPreferences({font:event.target.value}));
+        clockFontWeightSelect?.addEventListener('change',event=>saveClockPreferences({fontWeight:event.target.value}));
         clockTimeFormatSelect?.addEventListener('change',event=>saveClockPreferences({timeFormat:event.target.value}));
         clockDateFormatSelect?.addEventListener('change',event=>saveClockPreferences({dateFormat:event.target.value}));
         clockColorSelect?.addEventListener('change',event=>saveClockPreferences({color:event.target.value}));
@@ -4011,10 +4042,40 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             });
             document.getElementById('dev-clear-schedules')?.addEventListener('click',()=>{developerScheduleOverride=null;fetchApiSchedules();document.getElementById('dev-schedule-status').textContent='실제 학사 일정 API 응답으로 복원했습니다.';});
 
+            const developerWeatherPresets={
+                clear:{cloud:0,high:0,mid:0,low:0,kind:'none'},
+                high:{cloud:80,high:80,mid:0,low:0,kind:'none'},
+                mid:{cloud:80,high:0,mid:80,low:0,kind:'none'},
+                low:{cloud:80,high:0,mid:0,low:80,kind:'none'},
+                layered:{cloud:90,high:70,mid:45,low:85,kind:'none'},
+                drizzle:{cloud:95,high:10,mid:35,low:95,kind:'rain',rain:.15,code:51,temperature:9,humidity:95,wind:4,gust:7},
+                shower:{cloud:95,high:75,mid:90,low:95,kind:'rain',showers:18,code:82,temperature:20,humidity:92,wind:32,gust:65},
+                'dry-snow':{cloud:90,high:40,mid:75,low:90,kind:'snow',snow:1,code:73,temperature:-12,humidity:65,wind:10,gust:15},
+                'wet-snow':{cloud:95,high:30,mid:70,low:95,kind:'snow',snow:1,code:73,temperature:0,humidity:98,wind:10,gust:15}
+            };
+            document.getElementById('dev-scene-preset')?.addEventListener('change',event=>{
+                const p=developerWeatherPresets[event.target.value]; if(!p)return;
+                const values={cloud:p.cloud,'cloud-high':p.high,'cloud-mid':p.mid,'cloud-low':p.low,kind:p.kind,
+                    'rain-rate':p.rain??0,'showers-rate':p.showers??0,'snow-rate':p.snow??0,temperature:p.temperature??8,
+                    humidity:p.humidity??80,gust:p.gust??16,'wind-speed':p.wind??8,code:p.code??-1,amount:50};
+                for(const [key,value] of Object.entries(values))document.getElementById('dev-scene-'+key).value=value;
+                document.getElementById('dev-scene-use-api').checked=true;
+                document.getElementById('dev-scene-status').textContent='프리셋을 불러왔습니다. 날씨 배경 적용을 누르면 표시됩니다.';
+            });
             document.getElementById('dev-apply-scene')?.addEventListener('click',()=>{
+                const value=(id,fallback,min,max)=>{const raw=document.getElementById('dev-scene-'+id).value;const n=raw.trim()===''?fallback:Number(raw);return Number.isFinite(n)?Math.max(min,Math.min(max,n)):fallback;};
                 const selectedKind=document.getElementById('dev-scene-kind').value;
-                window.__dashboardDeveloperSceneOverride={active:true,timePhase:document.getElementById('dev-scene-time').value,kind:selectedKind,amount:selectedKind==='none'?0:Math.max(1,Math.min(100,Number(document.getElementById('dev-scene-amount').value)||50)),cloud:Math.max(0,Math.min(100,Number(document.getElementById('dev-scene-cloud').value)||0)),windSpeed:Math.max(0,Math.min(400,Number(document.getElementById('dev-scene-wind-speed').value)||0)),windDir:Math.max(0,Math.min(359,Number(document.getElementById('dev-scene-wind-direction').value)||0))};
-                document.getElementById('dev-scene-status').textContent='시뮬레이션 적용 중 · 날씨 테마에서 표시됩니다.';
+                const useAPI=document.getElementById('dev-scene-use-api').checked;
+                const rain=value('rain-rate',0,0,200),showers=value('showers-rate',0,0,200),snow=value('snow-rate',0,0,100)*10/7;
+                const total=rain+showers+snow, selectedCode=value('code',-1,-1,99);
+                const precipitationData=useAPI?{rainRate:rain+showers,snowRate:snow,totalRate:total,showersRate:showers,
+                    temperature:value('temperature',8,-60,60),humidity:value('humidity',80,0,100),gust:value('gust',16,0,400),
+                    code:selectedCode<0?(selectedKind==='snow'?73:selectedKind==='rain'?63:0):selectedCode}:null;
+                const amount=selectedKind==='none'?0:useAPI?(total>0?Math.max(1,Math.min(100,100*(1-Math.exp(-Math.sqrt(total)/2.8)))):0):value('amount',50,0,100);
+                window.__dashboardDeveloperSceneOverride={active:true,timePhase:document.getElementById('dev-scene-time').value,kind:selectedKind,amount,
+                    cloud:value('cloud',55,0,100),cloudHigh:value('cloud-high',55,0,100),cloudMid:value('cloud-mid',55,0,100),cloudLow:value('cloud-low',55,0,100),
+                    windSpeed:value('wind-speed',8,0,400),windDir:value('wind-direction',240,0,359),precipitationData};
+                document.getElementById('dev-scene-status').textContent=useAPI?'시뮬레이션 적용 중 · 시간당 환산 강수 '+total.toFixed(2)+' mm/h · 강도 '+amount.toFixed(1)+'%':'시뮬레이션 적용 중 · 날씨 테마에서 표시됩니다.';
             });
             document.getElementById('dev-clear-scene')?.addEventListener('click',()=>{window.__dashboardDeveloperSceneOverride=null;document.getElementById('dev-scene-status').textContent='저장된 날씨 설정을 사용합니다.';});
             document.getElementById('dev-clear-all')?.addEventListener('click',resetDeveloperSimulations);
@@ -5363,7 +5424,6 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
         window.addEventListener('load', ()=>{
             initApp();
-            updateOfflineOverlay();
         });
     </script>
 
@@ -5381,6 +5441,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             if(!o) return;
             if(!navigator.onLine) o.classList.add('visible'); else o.classList.remove('visible');
         }
+        window.addEventListener('load', updateOfflineOverlay, {once:true});
         window.addEventListener('online', updateOfflineOverlay);
         window.addEventListener('offline', updateOfflineOverlay);
     })();
@@ -5597,7 +5658,28 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   'use strict';
   const $ = id => document.getElementById(id);
   const cloudLevelOrder = ['high','mid','low'];
-  const cloudBandRanges = {low:[.27,.40],mid:[.13,.26],high:[.02,.14]};
+  // All layers share the sky dome: altitude is distance, not a fixed screen stripe.
+  const cloudBandRanges = {low:[.015,.405],mid:[.015,.405],high:[.015,.405]};
+  const cloudLayerProfiles = {
+    high:{altitude:9,span:3.8,thickness:.13,puffs:12,rows:2,alpha:.48,drift:.42},
+    mid:{altitude:5,span:2.7,thickness:.25,puffs:16,rows:3,alpha:.72,drift:.66},
+    low:{altitude:1.5,span:1.05,thickness:.22,puffs:20,rows:3,alpha:.9,drift:1}
+  };
+  let cloudCoverageSignature='', precipitationProfileCache=null;
+  let lastBackdropAt=0,lastAtmosphereAt=0,lastCelestialAt=0,backdropSignature='',atmosphereSignature='';
+  let snowAtlas=null,snowAtlasKey='';
+  // Morphology references: WMO International Cloud Atlas, definitions of Cu/Ci/Ac/St/Ns/Cb.
+  // Layer cover and WMO weather codes imply an illustrative type; they do not observe cloud genera.
+  // https://cloudatlas.wmo.int/en/cloud-identification-guide.html
+  // https://cloudatlas.wmo.int/en/definition-cumulus-cu.html
+  // https://cloudatlas.wmo.int/en/nimbostratus-ns.html
+  let precipitationFadeStart=0;
+  const snowCrystalPath = new Path2D();
+  for(let arm=0;arm<6;arm++) {
+    const a=arm*Math.PI/3, ux=Math.cos(a), uy=Math.sin(a);
+    snowCrystalPath.moveTo(-ux*.18,-uy*.18); snowCrystalPath.lineTo(ux,uy);
+    for(const side of [-1,1]) { snowCrystalPath.moveTo(ux*.63,uy*.63); snowCrystalPath.lineTo(ux*.63-Math.cos(a+side*.78)*.3,uy*.63-Math.sin(a+side*.78)*.3); }
+  }
   const scene = $('weather-scene'), sky = $('weather-sky'), ground = $('weather-ground');
   const starCanvas = $('weather-stars'), celestialCanvas = $('weather-celestial'), cloudCanvas = $('weather-clouds'), mountainCanvas = $('weather-mountains'), grassCanvas = $('weather-grass'), effectCanvas = $('weather-precip');
   if (!scene || !sky || !ground || !starCanvas || !celestialCanvas || !cloudCanvas || !mountainCanvas || !grassCanvas || !effectCanvas) return;
@@ -5605,7 +5687,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   const state = {
     mode: 'live', kind: 'none', amount: 0, cloud: 20, rotationSpeed: 10, time: 'auto', timelineDuration: 120, timelineStartedAt: 0, reflectWeather: true, reflectTime: true, aurora: true, weatherBackup: null, sunrise: '06:00', sunset: '18:00',
     lat: 35.8714, lon: 128.6014, windSpeed: 8, windDir: 240, temperature: null, weatherTime: null, weatherFetchedAt: 0,
-    location: '대구', detail: '', isDay: null, cloudLow: 20, cloudMid: 20, cloudHigh: 20, radiation: null
+    location: '대구', detail: '', isDay: null, cloudLow: 20, cloudMid: 20, cloudHigh: 20, radiation: null, precipitationData: null
   };
   let width = 0, height = 0, dpr = 1, sunVisibleArea = 0, sunDiscCheckAt = 0, sunDiscCheckX = NaN, clouds = [], cloudLayers = {high:[],mid:[],low:[]}, stars = [], shootingStars = [], nextShootingStarAt = 0, starRotation = 0, lastStarRotationAt = 0, rain = [], splashes = [], flakes = [], beads = [], snowPatches = [], snowClumps = [], shelves = [], snowBeds = new Map(), lastShelfScan = 0, lastFrame = 0, lastGrassPhase = '', lastSkyPaint = 0, lastSkyValue = '', lastWeatherVisualSignature = '', weatherRequestId = 0, frameErrorNotified = false, starVisibility = 0, visualPrecipitation = 0, visualPrecipitationKind = 'none', precipitationFadeRemaining = 0;
   // A lower render cadence cuts repeated canvas and particle work while keeping motion time-based.
@@ -5664,6 +5746,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     state.reflectWeather=state.reflectWeather!==false;
     state.reflectTime=state.reflectTime!==false;
     state.aurora=state.aurora!==false;
+    const backupPrecipitationData=state.weatherBackup?.precipitationData;
     if(state.weatherBackup&&typeof state.weatherBackup==='object'&&!Array.isArray(state.weatherBackup)) {
       const backup=state.weatherBackup;
       state.weatherBackup={
@@ -5680,7 +5763,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         isDay:boundedNumber(backup.isDay,null,0,1)
       };
     } else state.weatherBackup=null;
-    if(state.kind!=='none') { state.amount=50; state.cloud=10; }
+    state.precipitationData=normalizePrecipitationData(state.precipitationData);
+    if(state.weatherBackup) state.weatherBackup.precipitationData=normalizePrecipitationData(backupPrecipitationData);
   }
   function applyAirDrag(p,dt,{gravity,terminal,windX=0,windY=0}) {
     const drag=gravity/(terminal*terminal), relativeX=p.vx-windX, relativeY=p.vy-windY;
@@ -5693,29 +5777,84 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     canvas.style.width = width + 'px'; canvas.style.height = height + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
+  function cloudProjection(cloud) {
+    const profile=cloudLayerProfiles[cloud.level], horizon=height*.42;
+    const elevation=clamp((horizon-cloud.baseY)/horizon,0,1)*Math.PI*.46;
+    // Intersection of a viewing ray and a cloud shell above the curved Earth (km).
+    const sin=Math.sin(elevation), radius=6371, altitude=profile.altitude;
+    const distance=(2*radius*altitude+altitude*altitude)/(Math.sqrt(radius*radius*sin*sin+2*radius*altitude+altitude*altitude)+radius*sin);
+    const focal=Math.min(width,height*1.8)*.78;
+    const scale=cloud.size*(.78+cloud.coverage*.4);
+    cloud.sx=clamp(focal*profile.span/distance*.5,9,Math.min(420,width*.35))*scale;
+    cloud.sy=clamp(focal*(profile.thickness+profile.span*sin*.15)/distance*.5,1.5,90)*scale;
+    cloud.motion=clamp(altitude/distance,.06,1)*profile.drift;
+  }
+  function cloudMorphology(level,weather) {
+    const override=window.__dashboardDeveloperSceneOverride;
+    const data=override?.active?override.precipitationData:state.mode==='live'&&state.time!=='timeline'?state.precipitationData:null;
+    const wet=weather.kind!=='none'&&weather.amount>0, code=data?.code??-1;
+    if(level==='high')return 'cirrus';
+    if(wet&&([80,81,82,85,86,95,96,99].includes(code)||data?.showersRate>0))return level==='low'?'congestus':'altostratus';
+    if(wet)return level==='low'&&[51,53,55,56,57].includes(code)?'stratus':'nimbostratus';
+    return level==='mid'?'altocumulus':'cumulus';
+  }
+  function cloudGeometry(cloud,lowPower,type=cloudMorphology(cloud.level,weatherVisualState())) {
+    const sx=cloud.sx,sy=cloud.sy;
+    let seed=cloud.seed;
+    const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
+    const puffs=[],sheet=['stratus','altostratus','nimbostratus'].includes(type);
+    cloud.morphology=type;
+    if(type==='cirrus') {
+      const strands=lowPower?4:7;
+      for(let j=0;j<strands;j++) {
+        const offset=(random()-.5)*.75,lean=(random()-.5)*.3;
+        for(let i=0;i<7;i++) {
+          const t=i/6,arch=Math.sin(t*Math.PI);
+          puffs.push({x:sx*(-1.02+t*1.9+offset*.3),y:sy*(offset+lean*t-arch*.35),
+            rx:sx*(.15+arch*.1),ry:sy*(.035+arch*.08)*( .7+random()*.5),light:.85});
+        }
+      }
+    } else {
+      // Broad continuous lower body. Jittered, tapered sampling has no equal-width rows.
+      const bottomCount=lowPower?12:Math.round(20+cloud.coverage*12);
+      for(let i=0;i<bottomCount;i++) {
+        const x=(random()*2-1),taper=Math.sqrt(Math.max(.05,1-x*x));
+        const ry=sy*(sheet?.13+random()*.15:.19+random()*.26)*taper;
+        const base=sy*(.62+(random()-.5)*(sheet?.28:.12));
+        puffs.push({x:x*sx*.95,y:base-ry,rx:sx*(.11+random()*.16)*taper,ry,light:.7});
+      }
+      // Upper mounds are fewer and cluster around asymmetric lobes, with narrower tops.
+      const lobes=sheet?4:type==='congestus'?5:3+Math.floor(random()*3);
+      const center=(random()-.5)*.35;
+      for(let j=0;j<lobes;j++) {
+        const x=(j/(lobes-1)-.5)*1.35+(random()-.5)*.22;
+        const taper=Math.sqrt(Math.max(.1,1-x*x));
+        const ry=sy*(sheet?.22+random()*.17:type==='congestus'?.75+random()*.65:.4+random()*.55)*taper;
+        const rx=sx*(sheet?.27+random()*.14:.14+random()*.12)*taper;
+        const y=sy*.46-ry;
+        puffs.push({x:(x+center)*sx,y,rx,ry,light:1});
+        if(!lowPower&&!sheet)for(let k=0;k<3;k++) {
+          const angle=Math.PI*(1.06+random()*.86);
+          puffs.push({x:(x+center)*sx+Math.cos(angle)*rx*.7,y:y+Math.sin(angle)*ry*.65,
+            rx:rx*(.32+random()*.3),ry:ry*(.3+random()*.35),light:1});
+        }
+      }
+      if(type==='nimbostratus')for(let i=0;i<(lowPower?4:9);i++) {
+        puffs.push({x:(random()*2-1)*sx*.9,y:sy*(.57+random()*.2),rx:sx*(.08+random()*.14),ry:sy*(.12+random()*.23),light:.6});
+      }
+    }
+    cloud.rows=[puffs];
+  }
   function buildClouds() {
-    const count = clamp(Math.round(width / 48), 28, 44);
-    clouds = Array.from({ length: count }, () => {
-      const selector=Math.random(), level=selector<.34?'high':selector<.67?'mid':'low';
-      const ranges={high:[.025,.12,28,58,5,10],mid:[.14,.25,36,72,7,14],low:[.28,.39,48,92,11,20]}[level];
-      const size=rand(.62,1.52), aspect=rand(.68,1.42);
-      const sx=rand(ranges[2],ranges[3])*size*aspect, sy=rand(ranges[4],ranges[5])*size/aspect;
-      const form=Math.random(), rowCount=form<.2?2:form>.82?4:3;
-      const rows=Array.from({length:rowCount},(_,row)=>{
-        const rowT=row/Math.max(1,rowCount-1), baseSpread=(form<.25?.72+rowT*.17:form>.75?.48+rowT*.43:.54+rowT*.36)*.82;
-        const puffCount=Math.max(6,Math.round(rand(8,16)*(row===rowCount-1?1.14:.88)*Math.pow(sx/50,.16)));
-        return Array.from({length:puffCount},(_,i)=>{
-          const t=(i/(puffCount-1))-.5, spread=baseSpread*rand(.94,1.06);
-          const puffScale=rand(.55,1.61)*(row===0?.96:row===rowCount-1?1.06:1);
-          const asymmetry=(form>.42&&form<.68)?(rowT-.35)*sx*.18:0;
-          return {x:t*sx*2*spread+asymmetry+rand(-sx*.045,sx*.045),y:sy*(.04+rowT*.72)+rand(-sy*.075,sy*.075),rx:sx*rand(.05,.135)*puffScale,ry:sy*rand(.22,.55)*puffScale,light:rand(.72,1.16)};
-        });
-      });
-      const baseY=rand(height*ranges[0],height*ranges[1]);
-      return {x:rand(-width*.08,width*1.08),y:baseY,baseY,sx,sy,speed:rand(.025,.11),phase:rand(0,7),seed:Math.random(),level,rows,opacity:0,targetOpacity:0};
-    });
-    cloudLayers={high:[],mid:[],low:[]};
-    for(const cloud of clouds) cloudLayers[cloud.level].push(cloud);
+    clouds=[]; cloudLayers={high:[],mid:[],low:[]}; cloudCoverageSignature='';
+    // Fixed, bounded pools avoid allocation churn when API coverage changes.
+    const count=18;
+    for(const level of cloudLevelOrder) for(let index=0;index<count;index++) {
+      const band=cloudBandRanges[level], baseY=height*(band[0]+(band[1]-band[0])*((index*.569840290998+.17+cloudLevelOrder.indexOf(level)*.13)%1));
+      const cloud={level,index,baseY,y:baseY,x:width*((index*.754877666247+cloudLevelOrder.indexOf(level)*.21)%1),
+        size:rand(.78,1.2),seed:(Math.random()*4294967295)>>>0,coverage:0,opacity:0,targetOpacity:0,sprite:null,geometryKey:''};
+      cloudProjection(cloud); clouds.push(cloud); cloudLayers[level].push(cloud);
+    }
   }
   function buildStars() {
     const centerX=width*.5, centerY=height*.42;
@@ -5731,7 +5870,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   function computeWeatherVisualState() {
     const developerOverride=window.__dashboardDeveloperSceneOverride;
     if(developerOverride?.active) return {kind:developerOverride.kind,amount:developerOverride.kind==='none'?0:developerOverride.amount};
-    if(state.time!=='timeline') return {kind:state.kind,amount:state.kind==='rain'||state.kind==='snow'?50:state.amount};
+    if(state.time!=='timeline') return {kind:state.kind,amount:state.amount};
     const rise=timeNumber(state.sunrise), set=timeNumber(state.sunset), dayLength=(set-rise+24)%24;
     if(dayLength<=0) return {kind:'none',amount:0};
     const dayProgress=((currentHour()-rise+24)%24)/dayLength;
@@ -5896,9 +6035,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     dpr = Math.min(window.devicePixelRatio || 1, 1.5); width = window.innerWidth; height = window.innerHeight;
     [[starCanvas, starCtx],[celestialCanvas, celestialCtx],[cloudCanvas, cloudCtx],[mountainCanvas, mountainCtx],[grassCanvas, grassCtx],[effectCanvas, effectCtx]].forEach(([c, ctx]) => setCanvasSize(c, ctx));
     document.querySelectorAll('.weather-water-lens').forEach(el=>el.remove()); weatherLensCount=0; nextSafeInsetsRefresh=0;
+    lastBackdropAt=0;lastAtmosphereAt=0;lastCelestialAt=0;backdropSignature='';atmosphereSignature='';
     buildClouds();
     if(previousWidth>0&&previousHeight>0&&previousClouds.length){
-      clouds.forEach((cloud,index)=>{const previous=previousClouds[index];if(!previous)return;cloud.level=previous.level;const band=cloudBandRanges[cloud.level],previousBand=cloudBandRanges[previous.level],ratio=clamp((previous.baseY/previousHeight-previousBand[0])/(previousBand[1]-previousBand[0]),0,1);cloud.baseY=height*(band[0]+ratio*(band[1]-band[0]));cloud.y=cloud.baseY;cloud.x=previous.x/previousWidth*width;cloud.opacity=previous.opacity;cloud.targetOpacity=previous.targetOpacity;cloud.verticalDirection=previous.verticalDirection||1});
+      clouds.forEach((cloud,index)=>{const previous=previousClouds[index];if(!previous)return;cloud.size=previous.size;cloud.seed=previous.seed;const band=cloudBandRanges[cloud.level],previousBand=cloudBandRanges[previous.level],ratio=clamp((previous.baseY/previousHeight-previousBand[0])/(previousBand[1]-previousBand[0]),0,1);cloud.baseY=height*(band[0]+ratio*(band[1]-band[0]));cloud.y=cloud.baseY;cloud.x=previous.x/previousWidth*width;cloud.opacity=previous.opacity;cloud.targetOpacity=previous.targetOpacity;cloudProjection(cloud)});
       cloudLayers={high:[],mid:[],low:[]};for(const cloud of clouds)cloudLayers[cloud.level].push(cloud);
     }
     buildStars(); shootingStars=[]; nextShootingStarAt=performance.now()+900; rain=[]; flakes=[]; drawMountains(); drawGrass(); shelves = []; beads = []; splashes = []; snowPatches = []; snowClumps = []; snowBeds.clear();
@@ -6109,6 +6249,19 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       starCtx.save(); starCtx.globalAlpha=alpha; starCtx.shadowColor='rgba(220,235,255,.8)'; starCtx.shadowBlur=5; starCtx.fillStyle='#fff'; starCtx.beginPath(); starCtx.arc(x,y,1.05,0,Math.PI*2); starCtx.fill(); starCtx.restore();
     }
   }
+  let cachedStarAtlas=null;
+  function getStarAtlas() {
+    if(cachedStarAtlas)return cachedStarAtlas;
+    const colors=['190,211,255','220,232,255','255,249,237','255,226,190','255,190,145'];
+    const canvas=document.createElement('canvas');canvas.width=colors.length*2*48;canvas.height=48;
+    const ctx=canvas.getContext('2d');ctx.scale(2,2);
+    for(let i=0;i<colors.length;i++)for(let halo=0;halo<2;halo++) {
+      const x=(i*2+halo)*24+12;
+      if(halo){ctx.fillStyle='rgba('+colors[i]+',.24)';ctx.beginPath();ctx.arc(x,12,8.1,0,Math.PI*2);ctx.fill();}
+      ctx.fillStyle='rgb('+colors[i]+')';ctx.beginPath();ctx.arc(x,12,3,0,Math.PI*2);ctx.fill();
+    }
+    return cachedStarAtlas={canvas,colors};
+  }
   function drawNight(now, cloudiness, visibility=1) {
     const phase=solarPhase(), dusk=phase==='bluehour', starGain=(dusk ? .38 : 1)*visibility;
     if (lastStarRotationAt) starRotation += (now-lastStarRotationAt)/90000*Math.PI*2*(state.rotationSpeed/100);
@@ -6127,6 +6280,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     const lowPower=document.body.classList.contains('low-performance-mode');
     // Keep the full star field on fast frames; shed distant points first when rendering is overloaded.
     const visibleStarCount=lowPower?Math.min(stars.length,1800):previousFrameCost>18?Math.min(stars.length,2800):previousFrameCost>10?Math.min(stars.length,4200):stars.length;
+    const starAtlas=getStarAtlas();
     for (let starIndex=0;starIndex<visibleStarCount;starIndex++) {
       const star=stars[starIndex];
       if(now>=star.nextChange) {
@@ -6139,95 +6293,120 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       const offsetX=star.x-vanishingX, offsetY=star.y-vanishingY;
       const x=vanishingX+offsetX*rotationCos-offsetY*rotationSin;
       const y=vanishingY+offsetX*rotationSin+offsetY*rotationCos;
+      if(x < -3 || x > width+3 || y < -3 || y > height+3)continue;
       const milky = Math.exp(-Math.pow((y / height - (.32 + x / width * .13)) / .1, 2));
       const alpha=clamp((star.base*1.35+twinkle*.95+milky*.15)*(1-cloudiness*.5)*starGain,0,1);
       const radius=star.r*(.95+twinkle*.6);
-      if(starIndex%13===0) { starCtx.fillStyle=`rgba(${star.color},${alpha*.24})`; starCtx.beginPath(); starCtx.arc(x,y,radius*2.7,0,Math.PI*2); starCtx.fill(); }
-      starCtx.fillStyle = `rgba(${star.color},${alpha})`;
-      starCtx.beginPath(); starCtx.arc(x,y,radius,0,Math.PI*2); starCtx.fill();
+      const column=starAtlas.colors.indexOf(star.color)*2+(starIndex%13===0?1:0);
+      starCtx.globalAlpha=alpha;
+      starCtx.drawImage(starAtlas.canvas,column*48,0,48,48,x-radius*4,y-radius*4,radius*8,radius*8);
     }
+    starCtx.globalAlpha=1;
+
     // Stars remain individual points; no constellation guide lines are drawn.
     drawShootingStars(now);
   }
   function createCloudSprite(cloud, phase, weather) {
-    const sprite=document.createElement('canvas'), sx=cloud.sx, sy=cloud.sy;
-    sprite.width=Math.max(1,Math.ceil(sx*4)); sprite.height=Math.max(1,Math.ceil(sy*2.6));
-    const ctx=sprite.getContext('2d'), originX=sx*2, originY=sy*.8;
-    const baseGray=weather.kind==='rain'?224:phase==='night'||phase==='bluehour'?190:248;
-    const color=weather.kind==='rain'?`${Math.round(baseGray*.74)},${Math.round(baseGray*.81)},${Math.round(baseGray*.9)}`:phase==='sunset'||phase==='sunrise'?`${baseGray},${Math.round(baseGray*.91)},${Math.round(baseGray*.82)}`:phase==='night'||phase==='bluehour'?`${Math.round(baseGray*.64)},${Math.round(baseGray*.76)},${Math.round(baseGray*.96)}`:`${baseGray},${Math.min(255,baseGray+2)},${Math.min(255,baseGray+5)}`;
-    const base=ctx.createRadialGradient(originX,originY+sy*.43,sy*.08,originX,originY+sy*.43,sx*1.02);
-    base.addColorStop(0,`rgba(${color},.095)`); base.addColorStop(.66,`rgba(${color},.045)`); base.addColorStop(1,`rgba(${color},0)`);
-    ctx.fillStyle=base; ctx.beginPath(); ctx.ellipse(originX,originY+sy*.43,sx*1.02,sy*.48,0,0,Math.PI*2); ctx.fill();
-    for(let row=0;row<cloud.rows.length;row++) for(const puff of cloud.rows[row]) {
-      const x=originX+puff.x, y=originY+puff.y, rx=puff.rx, ry=puff.ry;
-      const alpha=clamp((row===0?.94:row===1?.84:.68)*puff.light,0,.92);
-      if(row>0) { ctx.fillStyle=`rgba(${color},${alpha*.2})`; ctx.beginPath(); ctx.ellipse(x,y+ry*.28,rx*1.14,ry*.88,0,0,Math.PI*2); ctx.fill(); }
-      const gradient=ctx.createRadialGradient(x-rx*.2,y-ry*.24,ry*.015,x,y,Math.max(rx,ry));
-      gradient.addColorStop(0,`rgba(255,255,255,${alpha})`); gradient.addColorStop(.58,`rgba(255,255,255,${alpha*.96})`); gradient.addColorStop(.88,`rgba(${color},${alpha*.25})`); gradient.addColorStop(1,`rgba(${color},0)`);
-      ctx.fillStyle=gradient; ctx.beginPath(); ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2); ctx.fill();
+    const sprite=document.createElement('canvas'),sx=cloud.sx,sy=cloud.sy;
+    // Bound cached texture memory independently of viewport size, preserving the silhouette.
+    let left=Infinity,right=-Infinity,topEdge=Infinity,bottom=-Infinity;
+    for(const p of cloud.rows[0]){left=Math.min(left,p.x-p.rx);right=Math.max(right,p.x+p.rx);topEdge=Math.min(topEdge,p.y-p.ry);bottom=Math.max(bottom,p.y+p.ry);}
+    const padding=Math.max(3,sy*.1);left-=padding;right+=padding;topEdge-=padding;bottom+=padding;
+    const logicalWidth=right-left,logicalHeight=bottom-topEdge,scale=Math.min(1,768/logicalWidth,256/logicalHeight);
+    cloud.spriteBounds={left:left/sx,top:topEdge/sy,width:logicalWidth/sx,height:logicalHeight/sy};
+    sprite.width=Math.max(1,Math.ceil(logicalWidth*scale));sprite.height=Math.max(1,Math.ceil(logicalHeight*scale));
+    const ctx=sprite.getContext('2d');ctx.scale(scale,scale);ctx.translate(-left,-topEdge);
+    const night=phase==='night'||phase==='bluehour',warm=phase==='sunset'||phase==='sunrise';
+    const sheet=['stratus','altostratus','nimbostratus'].includes(cloud.morphology),wet=weather.kind!=='none';
+    const top=night?'#9aaabd':warm?'#f0cfb6':wet?'#cbd4df':'#f8fbff';
+    const base=night?'#465269':warm?'#9e8b90':wet?'#65778e':'#a9bbce';
+    // Unite the puffs into one body before shading: no repeated translucent rings or hard ellipse cuts.
+    ctx.filter='blur('+Math.max(.45,Math.min(2.3,sy*.035))+'px)';ctx.fillStyle='#fff';ctx.beginPath();
+    for(const puff of cloud.rows[0]) {ctx.moveTo(puff.x+puff.rx,puff.y);ctx.ellipse(puff.x,puff.y,puff.rx,puff.ry,0,0,Math.PI*2);}
+    ctx.fill();ctx.filter='none';ctx.globalCompositeOperation='source-in';
+    const shade=ctx.createLinearGradient(0,-sy*1.6,0,sy*.85);shade.addColorStop(0,top);shade.addColorStop(sheet?.42:.63,top);shade.addColorStop(1,base);
+    ctx.fillStyle=shade;ctx.fillRect(left,topEdge,logicalWidth,logicalHeight);
+    ctx.globalCompositeOperation='source-atop';
+    // Very soft internal relief stays inside the continuous cloud silhouette.
+    if(cloud.morphology!=='cirrus')for(const puff of cloud.rows[0])if(puff.light===1) {
+      ctx.save();ctx.translate(puff.x-puff.rx*.1,puff.y-puff.ry*.2);ctx.scale(puff.rx,puff.ry);
+      const glow=ctx.createRadialGradient(0,0,.05,0,0,1);glow.addColorStop(0,night?'rgba(225,236,250,.1)':'rgba(255,255,255,.22)');glow.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=glow;ctx.fillRect(-1,-1,2,2);ctx.restore();
     }
-    cloud.sprite=sprite; cloud.spriteSignature=`${phase}:${weather.kind}`;
+    ctx.globalCompositeOperation='source-over';cloud.sprite=sprite;cloud.spriteSignature=phase+':'+weather.kind;
   }
   function drawClouds(wind, cloudiness, dt) {
-    const visibleCount=Math.round(clouds.length*cloudiness);
-    for(const cloud of clouds) cloud.targetOpacity=0;
-    let selectedCount=0;
-    for(let layerIndex=0;selectedCount<visibleCount;layerIndex++) {
-      for(const level of cloudLevelOrder) {
-        const cloud=cloudLayers[level][layerIndex];
-        if(cloud&&selectedCount<visibleCount) { cloud.targetOpacity=1; selectedCount++; }
-      }
-    }
-    const fadeStep=Math.min(1,dt*.025);
     const phase=solarPhase(), weather=weatherVisualState(), lowPower=document.body.classList.contains('low-performance-mode');
-    const dawnShape=phase==='dawn'||phase==='sunrise', stretch=dawnShape?1.58:1, flatten=dawnShape?.76:1;
-    const simpleClouds=lowPower||(weather.amount>0&&weather.kind!=='none');
-    let cloudSpriteBuildBudget=2;
-    for (const cloud of clouds) {
-      const targetOpacity=cloud.targetOpacity;
-      cloud.opacity=clamp(cloud.opacity+clamp(targetOpacity-cloud.opacity,-fadeStep,fadeStep),0,1);
-      const lateral=Math.abs(cloud.x/Math.max(1,width)*2-1), perspective=.48+.72*lateral;
-      const horizontalVelocity=wind.x*(.12+.22*lateral)+Math.sign(wind.x || 1)*(.018+cloud.speed*lateral);
-      cloud.x += horizontalVelocity*dt;
-      const cloudBand=cloudBandRanges[cloud.level],bandMin=height*cloudBand[0],bandMax=height*cloudBand[1];
-      cloud.verticalDirection=cloud.verticalDirection||1;
-      cloud.baseY-=wind.y*(.018+.03*lateral)*dt*cloud.verticalDirection;
-      if(cloud.baseY<bandMin){cloud.baseY=bandMin+(bandMin-cloud.baseY);cloud.verticalDirection*=-1;}
-      if(cloud.baseY>bandMax){cloud.baseY=bandMax-(cloud.baseY-bandMax);cloud.verticalDirection*=-1;}
-      cloud.baseY=clamp(cloud.baseY,bandMin,bandMax);
-      if (horizontalVelocity > 0 && cloud.x - cloud.sx * 2 > width) cloud.x = -cloud.sx * 2;
-      else if (horizontalVelocity < 0 && cloud.x + cloud.sx * 2 < 0) cloud.x = width + cloud.sx * 2;
-      const cloudX=cloud.x, cloudY=cloud.baseY+Math.pow(1-lateral,1.7)*height*.018;
-      const sx=cloud.sx*perspective*stretch, sy=cloud.sy*perspective*flatten;
-
-
-      const illumination=.88+(state.skyBrightness??.7)*.12;
-      const opacity=clamp(.64*illumination*(cloud.level==='high'?.86:1)*cloud.opacity,0,.76);
-      if (opacity < .018) continue;
-      if(simpleClouds) {
-        const cloudFill=cloudCtx.createRadialGradient(cloudX,cloudY,sy*.05,cloudX,cloudY,sx*1.3);
-        cloudFill.addColorStop(0,`rgba(242,247,255,${opacity*.82})`); cloudFill.addColorStop(.62,`rgba(229,238,247,${opacity*.46})`); cloudFill.addColorStop(1,'rgba(229,238,247,0)');
-        cloudCtx.fillStyle=cloudFill; cloudCtx.beginPath(); cloudCtx.ellipse(cloudX,cloudY,sx*1.15,sy*.72,0,0,Math.PI*2); cloudCtx.fill();
-        continue;
+    const override=window.__dashboardDeveloperSceneOverride;
+    const total=clamp(cloudiness,0,1), high=override?.active?boundedNumber(override.cloudHigh,total*100,0,100)/100:state.cloudHigh/100,
+      mid=override?.active?boundedNumber(override.cloudMid,total*100,0,100)/100:state.cloudMid/100, low=override?.active?boundedNumber(override.cloudLow,total*100,0,100)/100:state.cloudLow/100;
+    const signature=total+':'+high+':'+mid+':'+low+':'+lowPower;
+    if(signature!==cloudCoverageSignature) {
+      cloudCoverageSignature=signature;
+      const values={high,mid,low};
+      for(const level of cloudLevelOrder) {
+        const layer=cloudLayers[level], coverage=clamp(values[level],0,1), active=coverage*layer.length;
+        for(let i=0;i<layer.length;i++) {
+          const cloud=layer[i]; cloud.targetOpacity=clamp(active-i,0,1);
+          cloud.coverage=Math.round(coverage*8)/8; cloudProjection(cloud);
+        }
       }
-      const desiredCloudSpriteSignature=`${phase}:${weather.kind}`;
-      if((!cloud.sprite||cloud.spriteSignature!==desiredCloudSpriteSignature)&&cloudSpriteBuildBudget>0) {
-        createCloudSprite(cloud,phase,weather);
-        cloudSpriteBuildBudget--;
-      }
-      if(!cloud.sprite) {
-        const cloudFill=cloudCtx.createRadialGradient(cloudX,cloudY,sy*.05,cloudX,cloudY,sx*1.3);
-        cloudFill.addColorStop(0,`rgba(242,247,255,${opacity*.82})`); cloudFill.addColorStop(.62,`rgba(229,238,247,${opacity*.46})`); cloudFill.addColorStop(1,'rgba(229,238,247,0)');
-        cloudCtx.fillStyle=cloudFill; cloudCtx.beginPath(); cloudCtx.ellipse(cloudX,cloudY,sx*1.15,sy*.72,0,0,Math.PI*2); cloudCtx.fill();
-        continue;
-      }
-      cloudCtx.globalAlpha=opacity;
-      cloudCtx.drawImage(cloud.sprite,cloudX-sx*2*perspective*stretch,cloudY-sy*.8*perspective*flatten,cloud.sprite.width*perspective*stretch,cloud.sprite.height*perspective*flatten);
-      cloudCtx.globalAlpha=1;
     }
-
+    let buildBudget=1;
+    const illumination=.88+(state.skyBrightness??.7)*.12;
+    for(const cloud of clouds) {
+      cloud.opacity+=(cloud.targetOpacity-cloud.opacity)*Math.min(1,dt/90);
+      if(cloud.opacity<.003&&cloud.targetOpacity===0) {cloud.opacity=0;continue;}
+      cloud.x+=wind.x*.52*cloud.motion*dt;
+      const radius=cloud.sx*2+3;
+      if(cloud.x-radius>width) cloud.x=-radius;
+      else if(cloud.x+radius<0) cloud.x=width+radius;
+      if(cloud.x+radius<0||cloud.x-radius>width) continue;
+      const type=cloudMorphology(cloud.level,weather),key=phase+':'+type+':'+lowPower+':'+cloud.coverage;
+      if(cloud.geometryKey!==key&&buildBudget>0) {
+        cloudGeometry(cloud,lowPower,type); createCloudSprite(cloud,phase,weather); cloud.geometryKey=key; buildBudget--;
+      }
+      if(!cloud.sprite) continue;
+      // Distant high clouds are thinner; total coverage modulates overlap opacity, not layer counts.
+      cloudCtx.globalAlpha=clamp(cloudLayerProfiles[cloud.level].alpha*illumination*cloud.opacity*(.8+total*.2),0,.95);
+      const bounds=cloud.spriteBounds;
+      cloudCtx.drawImage(cloud.sprite,cloud.x+bounds.left*cloud.sx,cloud.baseY+bounds.top*cloud.sy,bounds.width*cloud.sx,bounds.height*cloud.sy);
+    }
+    cloudCtx.globalAlpha=1;
   }
-  function spawnRain(count) { while (rain.length < count) { const depth=rand(.18,1); rain.push({ x:Math.random()*width, y:Math.random()*height, vx:0, vy:0, depth, len:rand(8,19)*(0.48+depth*.8), width:rand(.45,1.05)*(.45+depth*.8), terminal:rand(15,20)*(.55+depth*.55) }); } if (rain.length > count) rain.length = count; }
+  function normalizePrecipitationData(data) {
+    if(!data||typeof data!=='object') return null;
+    return {rainRate:boundedNumber(data.rainRate,0,0,4000),snowRate:boundedNumber(data.snowRate,0,0,4000),
+      totalRate:boundedNumber(data.totalRate,0,0,4000),showersRate:boundedNumber(data.showersRate,0,0,4000),
+      code:boundedNumber(data.code,-1,0,99),temperature:boundedNumber(data.temperature,null,-100,80),
+      humidity:boundedNumber(data.humidity,null,0,100),gust:boundedNumber(data.gust,null,0,400)};
+  }
+  function precipitationAmount(rate) { return rate>0?clamp(100*(1-Math.exp(-Math.sqrt(rate)/2.8)),1,100):0; }
+  function precipitationProfile(kind) {
+    const override=window.__dashboardDeveloperSceneOverride, live=state.mode==='live'&&state.time!=='timeline'&&!override?.active;
+    const data=override?.active?(override.precipitationData??null):live?state.precipitationData:null, amount=override?.active?override.amount:state.amount;
+    const key=kind+':'+live+':'+amount+':'+(override?.active?override.windSpeed:state.windSpeed);
+    if(precipitationProfileCache?.data===data&&precipitationProfileCache.key===key) return precipitationProfileCache.value;
+    const windSpeed=override?.active?override.windSpeed:state.windSpeed;
+    const rate=data?.totalRate??Math.pow(-2.8*Math.log(1-clamp(amount/100,0,.995)),2);
+    const drizzle=data&&[51,53,55,56,57].includes(data.code), convective=!!data&&(data.showersRate>0||data.code>=80);
+    // Open-Meteo supplies bulk precipitation, not particle diameters. These are bounded visual estimates.
+    const diameter=drizzle?clamp(.14+rate*.1,.12,.48):clamp(.45+Math.sqrt(rate)*.33+(convective?.25:0),.45,3.5);
+    const warm=data?.temperature!=null?clamp((data.temperature+10)/12,0,1):.65;
+    const wet=warm*(data?.humidity==null?.8:clamp(data.humidity/100,.2,1));
+    const value={diameter,rainSpeed:clamp(3.4+diameter*3,3.5,14),rainWidth:clamp(.45+diameter*.35,.45,1.7),
+      snowSize:.7+wet*.65,snowSpeed:.8+wet*.65,turbulence:1-wet*.4,
+      windGain:data?clamp(1+Math.max(0,(data.gust??windSpeed)-windSpeed)/100,1,1.8):1};
+    precipitationProfileCache={data,key,value}; return value;
+  }
+  function spawnRain(count,profile) {
+    while(rain.length<count) {
+      const depth=rand(.18,1), scale=.42+depth*.8;
+      rain.push({x:Math.random()*width,y:Math.random()*height,vx:0,vy:profile.rainSpeed*scale,depth,
+        len:rand(5,10)*scale,terminal:rand(.85,1.15)*scale});
+    }
+    if(rain.length>count)rain.length=count;
+  }
   function surfaceRadius(surface) {
     if(Number.isFinite(surface.radius)) return Math.min(surface.radius,surface.w*.5,surface.h*.5);
     let radius=0; try { radius=parseFloat(getComputedStyle(surface.element).borderTopLeftRadius)||0; } catch {}
@@ -6259,11 +6438,16 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   function updateLens(bead,radius) {
     if(bead.mass>=8 && !bead.lens && weatherLensCount<maxWaterLenses) { bead.lens=document.createElement('span'); bead.lens.className='weather-water-lens'; bead.lens.setAttribute('aria-hidden','true'); document.body.appendChild(bead.lens); weatherLensCount++; }
     if(!bead.lens) return;
-    const size=clamp(radius*2.45,5,16), opacity=clamp(.1+bead.mass/135,.11,.27);
-    bead.lens.style.width=`${size}px`; bead.lens.style.height=`${size}px`;
-    const scale=clamp(1.025+bead.mass*.0017,1.025,1.095);
-    bead.lens.style.transform=`translate3d(${bead.x-size/2}px,${bead.y+bead.flow-size/2}px,0) scale(${scale})`;
-    bead.lens.style.opacity=String(opacity);
+    // Rendering precision only; bead position, mass, collision and flow remain full precision.
+    const size=Math.round(clamp(radius*2.45,5,16)*8)/8,opacity=clamp(.1+bead.mass/135,.11,.27).toFixed(3);
+    const scale=clamp(1.025+bead.mass*.0017,1.025,1.095).toFixed(3);
+    const x=Math.round((bead.x-size/2)*4)/4,y=Math.round((bead.y+bead.flow-size/2)*4)/4;
+    const dimension=size+'px',transform='translate3d('+x+'px,'+y+'px,0) scale('+scale+')';
+    if(bead.lensRenderState?.element!==bead.lens)bead.lensRenderState={element:bead.lens};
+    const rendered=bead.lensRenderState;
+    if(rendered.dimension!==dimension){bead.lens.style.width=dimension;bead.lens.style.height=dimension;rendered.dimension=dimension;}
+    if(rendered.transform!==transform){bead.lens.style.transform=transform;rendered.transform=transform;}
+    if(rendered.opacity!==opacity){bead.lens.style.opacity=opacity;rendered.opacity=opacity;}
   }
   function spawnSplash(x,y,vx,vy,impactSpeed,strength,wind,surface) {
     const energy=clamp(impactSpeed/16,.35,1.35), count=clamp(Math.round(1+energy*2+strength),1,4);
@@ -6330,13 +6514,14 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   function drawRain(wind, strength, dt) {
     const lowPower=document.body.classList.contains('low-performance-mode');
     // Raise the drop count gradually: very light rain begins with only a few drops.
-    const count=Math.max(1,Math.round(width*(lowPower?.18:.35)*Math.pow(clamp(strength,0,1),1.6))); spawnRain(count);
+    const profile=precipitationProfile('rain');
+    const count=Math.min(lowPower?380:900,Math.max(1,Math.round(width*Math.min(height/900,1.5)*(lowPower?.18:.35)*Math.pow(clamp(strength,0,1),1.3)))); spawnRain(count,profile);
     effectCtx.lineCap = 'round';
     const streakGroups=Array.from({length:4},()=>new Path2D()), highlightGroups=Array.from({length:2},()=>new Path2D()), straightImpacts=new Map();
     for (const drop of rain) {
       const oldY = drop.y, oldX=drop.x;
       // Gravity accelerates each drop toward a terminal fall speed; wind adds horizontal drift.
-      applyAirDrag(drop,dt,{gravity:.42,terminal:drop.terminal,windX:wind.x*2.2});
+      applyAirDrag(drop,dt,{gravity:.42,terminal:drop.terminal*profile.rainSpeed,windX:wind.x*2.2*profile.windGain});
       drop.x += drop.vx*dt; drop.y += drop.vy*dt;
       if (drop.x < -10) drop.x += width + 20; else if (drop.x > width+10) drop.x -= width+20;
       const hit = landSurface(drop.x, drop.y), impactY=hit?surfaceTopAt(hit,drop.x):0;
@@ -6356,15 +6541,15 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         drop.y=-rand(4,height*.35); drop.x=Math.random()*width; drop.vy=0;
       }
       if (drop.y > height + 24) { drop.y=-rand(10,height*.4); drop.x=Math.random()*width; drop.vy=0; }
-      const streak=clamp(drop.vy*(.58+drop.depth*.2),3,drop.len+strength*12), drift=wind.x*drop.depth*1.45;
-      const group=Math.min(3,Math.floor(drop.depth*4)), tailX=drop.x-drift-streak*.16;
+      const streak=clamp(drop.vy*(.58+drop.depth*.2),1.2,drop.len*profile.rainWidth+strength*8), drift=drop.vx/Math.max(.1,drop.vy)*streak;
+      const group=Math.min(3,Math.floor(drop.depth*4)), tailX=drop.x-drift;
       streakGroups[group].moveTo(drop.x,drop.y); streakGroups[group].lineTo(tailX,drop.y-streak);
       if(group>=2) { const highlight=highlightGroups[group-2]; highlight.moveTo(drop.x,drop.y); highlight.lineTo(tailX,drop.y-streak*.62); }
     }
     // Stroke ordinary falling drops in a few depth groups instead of one canvas operation per drop.
     for(let group=0;group<streakGroups.length;group++) {
       const depth=(group+.5)/streakGroups.length, alpha=(.34+strength*.48)*(.46+depth*.54)*clamp(strength*2,0,1);
-      effectCtx.strokeStyle=`rgba(205,232,250,${alpha})`; effectCtx.lineWidth=(.45+depth*.6)*(.95+strength*.8); effectCtx.stroke(streakGroups[group]);
+      effectCtx.strokeStyle=`rgba(205,232,250,${alpha})`; effectCtx.lineWidth=(.4+depth*.6)*profile.rainWidth; effectCtx.stroke(streakGroups[group]);
     }
     for(let group=0;group<highlightGroups.length;group++) {
       const depth=(group+2.5)/4, alpha=(.34+strength*.48)*(.46+depth*.54)*.34*clamp(strength*2,0,1);
@@ -6407,18 +6592,34 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     }
     beads = beads.filter(b => { const keep=b.age<1000 && b.y<height+30; if(!keep) removeWaterLens(b); return keep; });
   }
+  function getSnowAtlas(profile) {
+    const key=profile.snowSize.toFixed(3);
+    if(snowAtlas&&snowAtlasKey===key)return snowAtlas;
+    const canvas=document.createElement('canvas'),tile=20,scale=2;
+    canvas.width=12*tile*scale;canvas.height=8*tile*scale;
+    const ctx=canvas.getContext('2d');ctx.scale(scale,scale);
+    for(let depthIndex=0;depthIndex<8;depthIndex++)for(let angleIndex=0;angleIndex<12;angleIndex++) {
+      const depth=(depthIndex+.5)/8,radius=(.48+depth*2.25)*profile.snowSize,reach=radius*(.72+depth*.22);
+      ctx.save();ctx.translate((angleIndex+.5)*tile,(depthIndex+.5)*tile);ctx.rotate(angleIndex*Math.PI/36);
+      if(radius<1.05){ctx.fillStyle='#f9fdff';ctx.beginPath();ctx.arc(0,0,radius,0,Math.PI*2);ctx.fill();}
+      else{ctx.scale(reach,reach);ctx.strokeStyle='rgba(248,252,255,.78)';ctx.lineWidth=Math.max(.35,radius*.18)/reach;ctx.lineCap='round';ctx.stroke(snowCrystalPath);ctx.fillStyle='rgba(255,255,255,.86)';ctx.beginPath();ctx.arc(0,0,Math.max(.35,radius*.15)/reach,0,Math.PI*2);ctx.fill();}
+      ctx.restore();
+    }
+    snowAtlas=canvas;snowAtlasKey=key;return canvas;
+  }
   function drawSnow(wind, strength, dt) {
     const lowPower=document.body.classList.contains('low-performance-mode');
     // Snow also starts sparsely and accumulates toward the selected intensity.
-    const targetCount=Math.max(1,Math.round(width*(lowPower?.22:.44)*Math.pow(clamp(strength,0,1),1.6)));
-    const count=Math.min(targetCount,1100); spawnFlakes(count);
+    const profile=precipitationProfile('snow'),atlas=getSnowAtlas(profile);
+    const targetCount=Math.max(1,Math.round(width*Math.min(height/900,1.5)*(lowPower?.22:.44)*Math.pow(clamp(strength,0,1),1.3)));
+    const count=Math.min(targetCount,lowPower?420:1000); spawnFlakes(count);
     const horizon = height + 4;
     for (const flake of flakes) {
       const oldY = flake.y; flake.phase += .01 * dt;
       const turbulence=Math.sin(flake.phase + flake.drift)*.12 + Math.sin(flake.phase*.37+flake.drift)*.065;
-      flake.vx += turbulence*(.08+flake.depth*.13)*dt;
+      flake.vx += turbulence*(.08+flake.depth*.13)*profile.turbulence*dt;
       // Snow reaches a low terminal speed and sways with small turbulent eddies.
-      applyAirDrag(flake,dt,{gravity:.045+flake.depth*.035,terminal:.72+flake.depth*1.5,windX:wind.x*(.3+flake.depth*.52)});
+      applyAirDrag(flake,dt,{gravity:.045+flake.depth*.035,terminal:(.72+flake.depth*1.5)*profile.snowSpeed,windX:wind.x*(.3+flake.depth*.52)*profile.windGain});
       flake.x += flake.vx*dt; flake.y += flake.vy*dt;
       const surface = landSurface(flake.x, flake.y), surfaceY=surface?surfaceTopAt(surface,flake.x):horizon;
       if ((surface && oldY < surfaceY && flake.y >= surfaceY) || (!surface && flake.y >= horizon)) {
@@ -6431,16 +6632,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         flake.y = -rand(4, height*.3); flake.x = Math.random()*width;
       }
       if (flake.y > height+6) { flake.y = -5; flake.x = Math.random()*width; }
-      const flakeAlpha=clamp((.68+strength*.25)*(.62+flake.depth*.38),.35,.96)*clamp(strength*2,0,1), radius=flake.r;
-      if(radius<1.05) { effectCtx.fillStyle=`rgba(249,253,255,${flakeAlpha})`; effectCtx.beginPath(); effectCtx.arc(flake.x,flake.y,radius,0,Math.PI*2); effectCtx.fill(); }
-      else {
-        effectCtx.save(); effectCtx.translate(flake.x,flake.y); effectCtx.rotate(flake.rotation+flake.phase*.025);
-        effectCtx.strokeStyle=`rgba(248,252,255,${flakeAlpha*.78})`; effectCtx.lineWidth=Math.max(.35,radius*.18); effectCtx.lineCap='round';
-        effectCtx.beginPath();
-        for(let arm=0;arm<6;arm++) { const angle=arm*Math.PI/3, ux=Math.cos(angle), uy=Math.sin(angle), reach=radius*(.72+flake.depth*.22); effectCtx.moveTo(-ux*reach*.18,-uy*reach*.18); effectCtx.lineTo(ux*reach,uy*reach); for(const side of [-1,1]) { const bx=ux*reach*.63, by=uy*reach*.63, branch=radius*.27, ba=angle+side*.78; effectCtx.moveTo(bx,by); effectCtx.lineTo(bx-Math.cos(ba)*branch,by-Math.sin(ba)*branch); } }
-        effectCtx.stroke(); effectCtx.fillStyle=`rgba(255,255,255,${flakeAlpha*.86})`; effectCtx.beginPath(); effectCtx.arc(0,0,Math.max(.35,radius*.15),0,Math.PI*2); effectCtx.fill(); effectCtx.restore();
-      }
+      const flakeAlpha=clamp((.68+strength*.25)*(.62+flake.depth*.38),.35,.96)*clamp(strength*2,0,1);
+      const depthIndex=Math.min(7,Math.floor(flake.depth*8)),angleIndex=Math.floor(((flake.rotation+flake.phase*.025)%(Math.PI/3))/(Math.PI/36));
+      effectCtx.globalAlpha=flakeAlpha;
+      effectCtx.drawImage(atlas,angleIndex*40,depthIndex*40,40,40,flake.x-10,flake.y-10,20,20);
     }
+    effectCtx.globalAlpha=1;
     for (const patch of snowPatches) {
       patch.age += dt;
       if (patch.edge) {
@@ -6539,12 +6736,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     window.setTimeout(()=>{snapshot.remove();precipitation?.remove();},duration+80);
   }
   function scheduleWeatherFrame(generation=weatherFrameGeneration) {
-    if(!weatherFrameRunning || generation!==weatherFrameGeneration || weatherFrameRequestId!==null || weatherFrameTimerId || document.hidden || document.documentElement.dataset.theme!=='weather') return;
-    const wait=nextFrameAt-performance.now();
-    if(wait>12) {
-      weatherFrameTimerId=window.setTimeout(()=>{ weatherFrameTimerId=0; scheduleWeatherFrame(generation); },Math.max(0,wait-8));
-      return;
-    }
+    if(!weatherFrameRunning||generation!==weatherFrameGeneration||weatherFrameRequestId!==null||document.hidden||document.documentElement.dataset.theme!=='weather')return;
     weatherFrameRequestId=window.requestAnimationFrame(now=>frame(now,generation));
   }
   function frame(now,generation=weatherFrameGeneration) {
@@ -6554,24 +6746,23 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     if(document.hidden) { weatherFrameRunning=false; lastFrame=now; nextFrameAt=now; return; }
     if(document.documentElement.dataset.theme!=='weather') { weatherFrameRunning=false; document.body.classList.remove('weather-light-ink','weather-dark-ink'); return; }
     if(width<1||height<1){scheduleWeatherFrame(generation);return;}
-    if(now<nextFrameAt) { scheduleWeatherFrame(generation); return; }
     const frameStartedAt=performance.now();
     let effectContextSaved=false;
-    const dt = clamp(lastFrame?(now-lastFrame)/16.67:1, .5, 3.1); lastFrame = now;
+    const dt = clamp(lastFrame?(now-lastFrame)/16.67:1, .1, 3.1); lastFrame = now;
     let precipitationFadeCompleted=false;
     try {
     frameVisualContext={hour:NaN,weather:null,phase:null};
     frameVisualContext.hour=computeCurrentHour();
     const requestedWeather=computeWeatherVisualState();
-    const requestedKind=requestedWeather.kind==='rain'||requestedWeather.kind==='snow'?requestedWeather.kind:'none';
+    const requestedKind=requestedWeather.amount>0&&(requestedWeather.kind==='rain'||requestedWeather.kind==='snow')?requestedWeather.kind:'none';
     if(requestedKind!=='none') {
       if(visualPrecipitationKind!==requestedKind) { if(visualPrecipitationKind!=='none') clearAccumulatedWeather(); visualPrecipitationKind=requestedKind; visualPrecipitation=0; }
-      visualPrecipitation+=(clamp(Number(requestedWeather.amount)||50,0,100)-visualPrecipitation)*Math.min(1,dt/24);
+      visualPrecipitation+=(boundedNumber(requestedWeather.amount,0,0,100)-visualPrecipitation)*Math.min(1,dt/24);
       precipitationFadeRemaining=0;
     } else if(visualPrecipitationKind!=='none') {
-      if(precipitationFadeRemaining<=0) precipitationFadeRemaining=12000;
+      if(precipitationFadeRemaining<=0) { precipitationFadeRemaining=12000; precipitationFadeStart=visualPrecipitation; }
       precipitationFadeRemaining=Math.max(0,precipitationFadeRemaining-dt*16.67);
-      visualPrecipitation=50*precipitationFadeRemaining/12000;
+      visualPrecipitation=precipitationFadeStart*precipitationFadeRemaining/12000;
       if(precipitationFadeRemaining===0) { precipitationFadeCompleted=true; clearAccumulatedWeather(); visualPrecipitationKind='none'; visualPrecipitation=0; }
     }
     const weather=visualPrecipitationKind!=='none'?{kind:visualPrecipitationKind,amount:visualPrecipitation}:{kind:'none',amount:0};
@@ -6581,8 +6772,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     // Avoid synchronous full-canvas snapshots during weather or time transitions; they can stall rendering on large displays.
     // The live scene already animates continuously, so keep it running without a captured crossfade frame.
     lastWeatherVisualSignature=visualSignature;
-    const phase = setSky(), wind = windVector(), precipitationBlend=clamp(visualPrecipitation/50,0,1), sceneOverride=window.__dashboardDeveloperSceneOverride, cloudAmount=sceneOverride?.active?sceneOverride.cloud:state.cloud, cloudiness=(weather.kind==='rain'||weather.kind==='snow') ? .1*precipitationBlend+clamp(cloudAmount/100,0,1)*(1-precipitationBlend) : clamp(cloudAmount/100,0,1);
-    updateGroundPalette(phase,weather,dt*16.67);
+    const phase=solarPhase(),wind=windVector(),sceneOverride=window.__dashboardDeveloperSceneOverride,cloudAmount=sceneOverride?.active?sceneOverride.cloud:state.cloud,cloudiness=clamp(cloudAmount/100,0,1);
+    const atmosphereKey=phase+':'+weather.kind+':'+state.time+':'+state.reflectTime;
+    if(now-lastAtmosphereAt>=100||atmosphereKey!==atmosphereSignature) {
+      setSky();updateGroundPalette(phase,weather,lastAtmosphereAt?now-lastAtmosphereAt:16.67);
+      lastAtmosphereAt=now;atmosphereSignature=atmosphereKey;
+    }
     const auroraPhase=['night','dawn','sunrise','sunset','bluehour'].includes(phase);
     scene.classList.toggle('aurora-enabled',state.aurora===true);
     scene.classList.toggle('aurora-visible',state.aurora===true&&auroraPhase);
@@ -6591,26 +6786,31 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     const targetStarVisibility=phase==='night'?1:phase==='bluehour'?.38:0;
     if(phase==='day') { starVisibility=0; shootingStars=[]; nextShootingStarAt=0; lastStarRotationAt=0; }
     else starVisibility += (targetStarVisibility-starVisibility)*Math.min(1,dt/180);
-    starCtx.clearRect(0,0,width,height); cloudCtx.clearRect(0,0,width,height);
-    if (starVisibility>.003) drawNight(now,cloudiness,starVisibility);
-    drawClouds(wind,cloudiness,dt);
-    drawCelestial();
+    const backgroundKey=phase+':'+weather.kind+':'+cloudiness+':'+(sceneOverride?.cloudHigh??state.cloudHigh)+':'+(sceneOverride?.cloudMid??state.cloudMid)+':'+(sceneOverride?.cloudLow??state.cloudLow);
+    // Slow scenery is independent of the full-rate precipitation pass. Elapsed time preserves motion.
+    const backdropInterval=document.body.classList.contains('low-performance-mode')?50:1000/30;
+    if(now-lastBackdropAt>=backdropInterval-.5||backgroundKey!==backdropSignature) {
+      const backdropDt=lastBackdropAt?clamp((now-lastBackdropAt)/16.67,.1,8):dt;
+      starCtx.clearRect(0,0,width,height);cloudCtx.clearRect(0,0,width,height);
+      if(starVisibility>.003)drawNight(now,cloudiness,starVisibility);
+      drawClouds(wind,cloudiness,backdropDt);lastBackdropAt=now;backdropSignature=backgroundKey;
+    }
+    if(now-lastCelestialAt>=100) {drawCelestial();lastCelestialAt=now;}
     const intensity = visualPrecipitation/100;
     if(visualPrecipitationKind!=='none' && intensity>0) {
       effectCtx.clearRect(0,0,width,height);
       const {left:safeLeft,right:safeRight,top:safeTop,bottom:safeBottom}=safeInsets(now);
       effectCtx.save(); effectContextSaved=true; effectCtx.beginPath(); effectCtx.rect(safeLeft,safeTop,Math.max(0,width-safeLeft-safeRight),Math.max(0,height-safeTop-safeBottom)); effectCtx.clip();
       try { scanSurfaces(now); } catch(error) { shelves=[]; clearAccumulatedWeather(); if(!frameErrorNotified) { console.warn('강수 표면 상태를 초기화하고 애니메이션을 계속합니다.',error); frameErrorNotified=true; } }
-      if (visualPrecipitationKind === 'rain') { flakes = []; snowPatches = []; snowClumps=[]; drawRain(wind,intensity,dt); }
-      else if (visualPrecipitationKind === 'snow') { rain = []; beads = []; splashes=[]; drawSnow(wind,intensity,dt); }
+      if (visualPrecipitationKind === 'rain') { flakes.length=0; snowPatches.length=0; snowClumps.length=0; drawRain(wind,intensity,dt); }
+      else if (visualPrecipitationKind === 'snow') { rain.length=0; beads.length=0; splashes.length=0; drawSnow(wind,intensity,dt); }
       effectCtx.restore(); effectContextSaved=false;
-    } else { rain = []; flakes = []; beads = []; splashes=[]; snowPatches = []; snowClumps=[]; }
+    } else { rain.length=0; flakes.length=0; beads.length=0; splashes.length=0; snowPatches.length=0; snowClumps.length=0; }
     } catch(error) { if(!frameErrorNotified) { console.warn('날씨 애니메이션 렌더링을 복구합니다.',error); frameErrorNotified=true; } }
     finally { if(effectContextSaved) { try { effectCtx.restore(); } catch(error) {} } frameVisualContext=null; }
     previousFrameCost=performance.now()-frameStartedAt;
-    // Let requestAnimationFrame run at the display's available refresh rate to keep precipitation smooth.
-    const frameInterval=1000/60;
-    nextFrameAt=now+frameInterval;
+    // Exactly one rAF is pending; precipitation can follow 60/120/144 Hz displays without skipped deadlines.
+    nextFrameAt=now;
     if(weatherFrameRunning && !document.hidden && document.documentElement.dataset.theme==='weather') scheduleWeatherFrame(generation);
     else weatherFrameRunning=false;
   }
@@ -6651,7 +6851,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     if ($('weather-time-reflect-toggle')) $('weather-time-reflect-toggle').checked=state.reflectTime;
     if ($('weather-aurora-toggle')) $('weather-aurora-toggle').checked=state.aurora;
     if ($('weather-rotation-value')) $('weather-rotation-value').textContent=state.rotationSpeed+'%';
-    const statusWeather=weatherVisualState(), statusCloud=(statusWeather.kind==='rain'||statusWeather.kind==='snow')?10:state.cloud;
+    const statusWeather=weatherVisualState(), statusCloud=state.cloud;
     if ($('weather-status')) $('weather-status').textContent=`${localStorage.getItem('dashboardSchoolName')||'대륜고등학교'} · ${statusWeather.kind==='rain'?'비':statusWeather.kind==='snow'?'눈':'맑음'} · 구름 ${statusCloud}%`;
     if ($('sun-times')) $('sun-times').textContent=`일출 ${state.sunrise} · 일몰 ${state.sunset}`;
     if ($('weather-detail')) $('weather-detail').textContent=state.detail||'Open-Meteo 공개 날씨 API를 사용합니다.';
@@ -6662,7 +6862,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     if (lat===null||lon===null) { if($('weather-detail')) $('weather-detail').textContent='위도(-90~90), 경도(-180~180)를 확인하세요.'; return; }
     state.lat=lat; state.lon=lon; if($('weather-detail')) $('weather-detail').textContent='날씨 정보를 가져오는 중…';
     try {
-      const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,precipitation,rain,showers,snowfall,cloud_cover,cloud_cover_low,cloud_cover_mid,cloud_cover_high,shortwave_radiation,weather_code,is_day,wind_speed_10m,wind_direction_10m&daily=sunrise,sunset&forecast_days=1&timezone=auto`;
+      const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_gusts_10m,precipitation,rain,showers,snowfall,cloud_cover,cloud_cover_low,cloud_cover_mid,cloud_cover_high,shortwave_radiation,weather_code,is_day,wind_speed_10m,wind_direction_10m&daily=sunrise,sunset&forecast_days=1&timezone=auto&temperature_unit=celsius&wind_speed_unit=kmh&precipitation_unit=mm`;
       const response=await fetch(url); if(!response.ok) throw new Error('HTTP '+response.status); if(requestId!==weatherRequestId||state.mode!==requestedMode) return;
       const data=await response.json(); if(requestId!==weatherRequestId||state.mode!==requestedMode) return; const c=data?.current, daily=data?.daily;
       const sunrise=clockFromApi(daily?.sunrise?.[0]), sunset=clockFromApi(daily?.sunset?.[0]);
@@ -6673,13 +6873,20 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       const cloudCover=boundedNumber(c.cloud_cover,state.cloud,0,100), cloudLow=boundedNumber(c.cloud_cover_low,cloudCover,0,100), cloudMid=boundedNumber(c.cloud_cover_mid,cloudCover,0,100), cloudHigh=boundedNumber(c.cloud_cover_high,cloudCover,0,100);
       const radiation=boundedNumber(c.shortwave_radiation,null,0,2000), windSpeed=boundedNumber(c.wind_speed_10m,8,0,400), windDirection=boundedNumber(c.wind_direction_10m,240,0,360)%360;
       const temperature=boundedNumber(c.temperature_2m,null,-100,80), isDay=boundedNumber(c.is_day,null,0,1);
-      const code=boundedNumber(c.weather_code,-1,0,99), snowMm=boundedNumber(c.snowfall,0,0,1000), rainMm=boundedNumber(c.rain,0,0,1000), showersMm=boundedNumber(c.showers,0,0,1000), totalMm=boundedNumber(c.precipitation,0,0,1000);
+      const code=boundedNumber(c.weather_code,-1,0,99), snowCm=boundedNumber(c.snowfall,0,0,1000), rainMm=boundedNumber(c.rain,0,0,1000), showersMm=boundedNumber(c.showers,0,0,1000), totalMm=boundedNumber(c.precipitation,0,0,1000);
       if(state.reflectWeather) {
         state.cloud=cloudCover; state.cloudLow=cloudLow; state.cloudMid=cloudMid; state.cloudHigh=cloudHigh; state.radiation=radiation; state.windSpeed=windSpeed; state.windDir=windDirection; state.temperature=temperature; state.isDay=isDay;
         const snowCodes=[71,73,75,77,85,86], wetCodes=[51,53,55,56,57,61,63,65,66,67,80,81,82,95,96,99];
-        const previousKind=state.kind; state.kind=(snowMm>0||snowCodes.includes(code))?'snow':(rainMm>0||showersMm>0||totalMm>0||wetCodes.includes(code))?'rain':'none';
+        // Current totals cover current.interval seconds; snowfall is cm, water equivalent is cm * 10 / 7.
+        const hourly=3600/boundedNumber(c.interval,900,60,86400), rainRate=(rainMm+showersMm)*hourly, snowRate=snowCm*10/7*hourly;
+        const measuredRate=Math.max(totalMm*hourly,rainRate+snowRate);
+        const previousKind=state.kind;
+        state.kind=snowRate>0||rainRate>0?(snowRate>rainRate?'snow':'rain'):snowCodes.includes(code)?'snow':(totalMm>0||wetCodes.includes(code))?'rain':'none';
+        // Codes provide a conservative fallback when amounts round to zero or are unavailable.
+        const fallbackRate=state.kind==='none'?0:({51:.08,53:.2,55:.4,56:.1,57:.3,61:.5,63:2.5,65:8,66:.5,67:3,71:.15,73:.6,75:1.5,77:.1,80:1,81:5,82:15,85:.4,86:1.5,95:3,96:4,99:8}[code]??.2);
+        state.precipitationData=normalizePrecipitationData({rainRate,snowRate,totalRate:measuredRate||fallbackRate,showersRate:showersMm*hourly,code,temperature,humidity:c.relative_humidity_2m,gust:c.wind_gusts_10m});
         if(previousKind!==state.kind && previousKind!=='none' && state.kind!=='none') clearAccumulatedWeather();
-        state.amount=state.kind==='none'?0:70; if(state.kind!=='none') state.cloud=10;
+        state.amount=state.kind==='none'?0:precipitationAmount(state.precipitationData.totalRate);
       }
       lastSkyValue=''; if(state.kind!=='none') { setSky(); drawGrass(); }
       state.location=localStorage.getItem('dashboardSchoolName')||'대륜고등학교';
@@ -6703,8 +6910,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       state.reflectWeather=e.target.checked;
       persist(); sync();
       if(!state.reflectWeather) {
-        state.weatherBackup={kind:state.kind,amount:state.amount,cloud:state.cloud,cloudLow:state.cloudLow,cloudMid:state.cloudMid,cloudHigh:state.cloudHigh,windSpeed:state.windSpeed,windDir:state.windDir,radiation:state.radiation,temperature:state.temperature,isDay:state.isDay};
-        state.kind='none'; state.amount=0; state.cloud=0; state.cloudLow=0; state.cloudMid=0; state.cloudHigh=0; state.windSpeed=8; state.windDir=240; state.radiation=null; state.temperature=null; state.isDay=null;
+        state.weatherBackup={kind:state.kind,amount:state.amount,cloud:state.cloud,cloudLow:state.cloudLow,cloudMid:state.cloudMid,cloudHigh:state.cloudHigh,windSpeed:state.windSpeed,windDir:state.windDir,radiation:state.radiation,temperature:state.temperature,isDay:state.isDay,precipitationData:state.precipitationData};
+        state.kind='none'; state.amount=0; state.cloud=0; state.cloudLow=0; state.cloudMid=0; state.cloudHigh=0; state.precipitationData=null; state.windSpeed=8; state.windDir=240; state.radiation=null; state.temperature=null; state.isDay=null;
         if(state.mode==='live') fetchWeather(); else { lastSkyValue=''; setSky(true); drawMountains(); drawGrass(); persist(); sync(); }
       } else if(state.mode==='live') fetchWeather(); else {
         if(state.weatherBackup) Object.assign(state,state.weatherBackup); state.weatherBackup=null;
@@ -6715,7 +6922,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     $('weather-aurora-toggle')?.addEventListener('change',e=>{ state.aurora=e.target.checked; scene.classList.toggle('aurora-enabled',state.aurora); persist(); sync(); });
     $('weather-kind')?.addEventListener('change',e=>{ weatherRequestId++;
       if(state.kind!==e.target.value && state.kind!=='none' && e.target.value!=='none') clearAccumulatedWeather(); state.mode='manual'; state.kind=e.target.value;
-      if(state.kind==='rain'||state.kind==='snow'){state.amount=50;state.cloud=10;}else state.amount=0;
+      state.precipitationData=null; if(state.kind==='rain'||state.kind==='snow'){state.amount=50;}else state.amount=0;
       if($('weather-mode')) $('weather-mode').value='manual';
       lastSkyValue=''; if(state.kind!=='none') { setSky(); drawGrass(); } persist(); sync();
     });
