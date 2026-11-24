@@ -3,13 +3,15 @@
 <head>
     <link rel="manifest" href="./manifest.json">
     <meta charset="UTF-8">
+<script src="./adk-assets/resource-list.js"></script>
+<script>window.ADK_OFFLINE_WEATHER_ICONS = window.ADKOfflineResources.weatherIcons;</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="./icon-512.png">
     <link rel="apple-touch-icon" href="./icon-192.png">
     <title>ADK Dash</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Nanum+Gothic:wght@400;700;800&family=Gowun+Dodum&family=Jua&family=Black+Han+Sans&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700;800&family=Oxanium:wght@400;500;600;700;800&family=Share+Tech+Mono&family=DM+Mono:wght@400;500&family=Roboto+Mono:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=Baloo+2:wght@400;500;600;700;800&family=Comfortaa:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&family=Audiowide&family=Michroma&family=Oswald:wght@400;500;600;700&family=Bebas+Neue&family=Teko:wght@400;500;600;700&family=Anton&family=Modak&family=Monoton&family=Six+Caps&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
+    <script id="adk-offline-tailwind" src="./adk-assets/tailwind.js"></script>
+    <link id="adk-offline-fonts" rel="stylesheet" href="./adk-assets/fonts.css">
+    
     <style>
         body {
             font-family: 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -55,28 +57,6 @@
             0% { transform: translate(0, 0) scale(0.8); opacity: 0.3; }
             50% { opacity: 0.8; }
             100% { transform: translate(15vw, 10vh) scale(1.2); opacity: 0.2; }
-        }
-
-        /* Offline overlay */
-        #offline-overlay {
-            position: fixed;
-            inset: 0;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 99999;
-            pointer-events: auto;
-        }
-        #offline-overlay.visible { display: flex; }
-        #offline-overlay .wifi-icon { width: 96px; height: 96px; fill: white; opacity: 0.95; }
-        #offline-overlay .offline-message {
-            position: absolute;
-            bottom: 6%;
-            width: 100%;
-            text-align: center;
-            color: rgba(255,255,255,0.95);
-            font-size: 0.95rem;
-            padding: 0 1rem;
         }
 
         .screen {
@@ -810,7 +790,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADK Dash</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind is bundled once above for offline use. -->
     </head>
 <style>
 #weather-scene{position:fixed;inset:0;z-index:0;isolation:isolate;pointer-events:none;overflow:hidden;--sky-top:#397bb6;--sky-mid:#b6d8e9;--sky-low:#f6d7a3;--weather-light:1}
@@ -1098,7 +1078,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             <div class="settings-layout flex gap-4">
                 <aside class="settings-sidebar w-56 p-3 space-y-3 glass-section" aria-label="설정 사이드바">
                     <div id="sidebar-profile" class="sidebar-profile flex items-center gap-3 p-2" data-view="profile" tabindex="0" role="button" aria-pressed="false">
-                        <img id="sidebar-logo" src="https://daeryun.dge.hs.kr/images/schl/web/daeryunh/common/logo.png" alt="학교 로고" class="w-14 h-14 rounded-full object-cover border border-white/10">
+                        <img id="sidebar-logo" src="./adk-assets/school-logo.png" alt="학교 로고" class="w-14 h-14 rounded-full object-cover border border-white/10">
                         <div>
                             <div id="sidebar-school-name" class="font-semibold">대륜고등학교</div>
                             <div class="text-xs text-gray-400">계정 / 시스템 정보</div>
@@ -1153,6 +1133,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div class="font-semibold">배경 / 로고</div>
                             <div class="text-xs text-gray-300">이미지 업로드</div>
                         </div>
+                    </div>
+                    <div class="sidebar-item p-3 rounded-lg cursor-pointer flex items-center gap-3" data-view="offline" tabindex="0" role="button" aria-pressed="false">
+                        <span class="settings-tab-icon w-10 h-10 rounded-xl flex items-center justify-center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span>
+                        <div class="text-sm"><div class="font-semibold">오프라인 구동</div><div class="text-xs text-gray-300">브라우저 캐싱 / ZIP 패키지</div></div>
                     </div>
                     <div class="sidebar-item p-3 rounded-lg cursor-pointer flex items-center gap-3" data-view="system" tabindex="0" role="button" aria-pressed="false">
                         <span class="settings-tab-icon w-10 h-10 rounded-xl flex items-center justify-center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4M7 8h4m-4 4h10"/></svg></span>
@@ -1238,7 +1222,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">업데이트 설정 및 확인</h4>
                             <div class="software-version-hero update-version-hero">
                                 <div class="software-version-glow" aria-hidden="true"></div>
-                                <h2>ADK Dash <span id="update-version-hero-value">2.7.2</span></h2>
+                                <h2>ADK Dash <span id="update-version-hero-value">2.7.3</span></h2>
                                 <p id="update-status-text">최신 버전을 확인하는 중입니다...</p>
                             </div>
                             
@@ -1285,20 +1269,28 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
                                 <div>
-                                    <h5 class="font-bold text-blue-300 text-lg">v2.7.2</h5>
-                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
-                                        <li>전체·상층·중층·하층 구름량을 각각 반영하고 강수 시 구름량을 고정하던 동작 수정</li>
-                                        <li>천구의 고도·거리와 층별 특성에 따라 구름 개수·길이·두께 및 내부 입자 밀도·폭 조절</li>
-                                        <li>강수 집계 시간과 강설 단위를 환산하고 강수량·날씨 코드·기온·습도·돌풍으로 비·눈 입자 표현 개선</li>
-                                        <li>개발자 옵션에서 층별 구름량·API 강수값과 맑음·층별 구름·이슬비·소나기·건설·습설 프리셋 테스트 지원</li>
-                                        <li>WMO 국제구름도감 기준으로 구름 아래쪽을 조밀하게, 위쪽을 비대칭 덩어리로 구성하고 격자·타원형 단순 표현 제거</li>
-                                        <li>날씨 코드에 따라 권운·고적운·적운·층운·난층운·발달한 대류성 구름 형태를 추정해 표현</li>
-                                        <li>엄격한 60Hz 프레임 건너뛰기를 제거하고 강수는 화면 갱신 주기에 동기화, 배경·천체 갱신 주기 분리</li>
-                                        <li>눈 결정 이미지 재사용, 구름 텍스처 크기·재생성 수 제한, 불필요한 임시 배열 생성 축소</li>
-                                        <li>기존 입자 충돌·반사·물방울·적설 로직 및 강수 입자 수 상한 유지</li>
-                                        <li>물방울 물리값을 유지하면서 동일한 크기·위치·투명도의 DOM 갱신 생략</li>
-                                        <li>오프라인 표시 초기화 시 함수 범위 오류가 발생하던 문제 수정</li>
-                                    </ul>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.7.3</h5><ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1"><li>설정에 오프라인 구동 메뉴를 추가하고 브라우저/PWA 캐싱과 ZIP 패키지 다운로드를 분리</li>
+<li>Tailwind와 Google Fonts 27종·Pretendard 전체 글꼴, 학교 기본 로고 및 날씨 아이콘 18개를 로컬 파일로 제공해 파일 직접 실행 시에도 오프라인 표시 지원</li>
+<li>HTTPS·localhost 환경에서 서비스 워커와 Cache API로 화면 및 정적 리소스를 저장하고 오프라인 재접속 지원, API 응답은 캐싱에서 제외</li>
+<li>오프라인 패키지를 ADK-Offline 폴더 하나에 HTML·앱 아이콘·manifest·서비스 워커·사용 안내를 담은 ZIP으로 다운로드</li>
+<li>화면을 가리던 오프라인 경고를 제거하고 기존 알림 경로에서 시스템 명의로 “오프라인 구동 중입니다. 외부 정보를 가져오지 못 할 수 있습니다.” 안내</li>
+<li>브라우저 캐시 사용 해제 및 삭제, 저장 진행 상태와 실패 원인 표시 지원</li>
+<li>대용량 폰트·이미지와 ZIP 생성 코드·패키지 데이터를 별도 파일로 분리하고 다운로드 데이터는 버튼을 누를 때만 불러오도록 개선</li>
+<li>파일 직접 실행 시 캐시 체크박스까지 비활성화되던 문제를 수정하고 사용 설정 저장과 실제 캐싱 지원 여부를 구분, 캐싱 실패 시 체크 상태 복원</li>
+<li>브라우저 캐시 삭제 버튼을 추가해 저장한 리소스와 서비스 워커를 삭제하고 캐시 사용 설정을 함께 해제</li>
+<li>업데이트 탭의 햄버거 메뉴에서 오프라인 캐시 업데이트 전용 화면으로 이동하고 서버 리소스 버전과 저장된 캐시를 비교, 새 버전 저장 후 전환 및 실패 시 기존 캐시 유지</li>
+<li>GitHub Pages 프로젝트 하위 경로와 index.html 배포를 지원하고 루트 주소·index.html 양쪽의 오프라인 재접속 및 PWA 시작 경로 처리</li>
+<li>PWA 표시 모드를 fullscreen으로 설정해 새로고침 후 앱 전체 화면을 유지하고, 전체 화면 상태 감지 및 사용자 입력을 통한 복원 처리 개선</li></ul></div><div class="pt-2 border-t border-white/10"><h5 class="font-bold text-blue-300 text-lg">v2.7.2</h5><ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1"><li>전체·상층·중층·하층 구름량을 각각 반영하고 강수 시 구름량을 고정하던 동작 수정</li>
+<li>천구의 고도·거리와 층별 특성에 따라 구름 개수·길이·두께 및 내부 입자 밀도·폭 조절</li>
+<li>강수 집계 시간과 강설 단위를 환산하고 강수량·날씨 코드·기온·습도·돌풍으로 비·눈 입자 표현 개선</li>
+<li>개발자 옵션에서 층별 구름량·API 강수값과 맑음·층별 구름·이슬비·소나기·건설·습설 프리셋 테스트 지원</li>
+<li>WMO 국제구름도감 기준으로 구름 아래쪽을 조밀하게, 위쪽을 비대칭 덩어리로 구성하고 격자·타원형 단순 표현 제거</li>
+<li>날씨 코드에 따라 권운·고적운·적운·층운·난층운·발달한 대류성 구름 형태를 추정해 표현</li>
+<li>엄격한 60Hz 프레임 건너뛰기를 제거하고 강수는 화면 갱신 주기에 동기화, 배경·천체 갱신 주기 분리</li>
+<li>눈 결정 이미지 재사용, 구름 텍스처 크기·재생성 수 제한, 불필요한 임시 배열 생성 축소</li>
+<li>기존 입자 충돌·반사·물방울·적설 로직 및 강수 입자 수 상한 유지</li>
+<li>물방울 물리값을 유지하면서 동일한 크기·위치·투명도의 DOM 갱신 생략</li>
+<li>오프라인 표시 초기화 시 함수 범위 오류가 발생하던 문제 수정</li></ul>
                                 </div><div class="pt-2 border-t border-white/10"><h5 class="font-bold text-blue-300 text-lg">v2.7.1</h5><ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1"><li>상단 일정 알림 표시를 기본 켜짐으로 변경</li><li>기본 시정을 1~7교시 및 오후 급식 시간으로 설정하고 초기화 시에도 기본값 적용</li><li>시정을 이름을 붙여 추가·복제·전환할 수 있도록 개선</li><li>저장된 선택이 없을 때 기본 테마와 날씨 화면 디자인을 날씨·심플로 설정</li><li>구름이 높이 경계나 화면 크기 변경 시 순간 이동하지 않도록 위치 이동을 보정</li><li>교시 시작·종료 pill과 학년별 급식 안내를 1분 표시, 효과음 없음으로 설정</li><li>기존 저장값에 급식 종료가 자정으로 저장된 경우 오후 1시 15분으로 바로잡음</li><li>시정 편집 화면에서 급식 시간을 4교시와 5교시 사이에 표시</li></ul></div><div class="pt-2 border-t border-white/10"><h5 class="font-bold text-blue-300 text-lg">v2.7.0</h5><ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1"><li>시스템·시계 글꼴 목록에 글꼴별 미리보기 적용</li><li>설정의 불필요한 설명과 여백을 줄이고 초기화 버튼 이름을 가운데 정렬</li><li>설정 탭 아이콘을 선명한 색상 배경과 흰색 도형으로 통일하고 라이트 테마 대비 개선</li><li>업데이트 확인 로딩 표시를 공통 애니메이션으로 통일</li><li>정보 화면에 설정된 학교 이름 표시</li><li>기본 디자인에서 시계 전용 설정과 홈의 시계 편집 아이콘 숨김</li><li>시계 레이아웃 미리보기 네 가지를 실제 날짜·시간 배치와 일치하도록 조정</li><li>시계 크기 슬라이더를 추가하고 부드러운 둥근 스타일 적용</li><li>알림을 상단에서 내려오며 블러와 투명도가 서서히 풀리도록 조정</li><li>알림 주체별 원형 아이콘과 우측 닫기 버튼 추가</li><li>설정 뒤로 가기·닫기 버튼의 외곽 테두리를 없애고 아이콘 스타일 통일</li><li>전체 화면에서 아이콘을 축소 표시로 전환</li><li>1·2교시 시간을 기준으로 수업·쉬는 시간을 계산해 이후 교시를 자동 입력하고 급식 시간대를 비움</li><li>교시 시작·종료와 급식실 안내 문구 개선</li><li>설정 화면을 팝업 대신 전체 화면으로 표시</li><li>좁은 화면에서도 상단 일정 알림 이름이 끊겨 보이지 않도록 정렬 개선</li></ul></div><div class="pt-2 border-t border-white/10"><h5 class="font-bold text-blue-300 text-lg">v2.6.9</h5>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
                                         <li>대구광역시 수성구 긴급 재난 문자를 5분 간격으로 조회해 새 메시지를 자동 표시</li>
@@ -1739,7 +1731,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </div><label class="block text-sm font-medium text-gray-200 mt-4">로고 이미지</label>
                             <div class="flex items-center gap-4">
                                 <div class="w-28 h-28 rounded-full overflow-hidden border border-white/10 flex items-center justify-center bg-white/3">
-                                    <img id="profile-logo-preview" src="https://daeryun.dge.hs.kr/images/schl/web/daeryunh/common/logo.png" alt="로고 미리보기" class="object-contain max-h-full max-w-full">
+                                    <img id="profile-logo-preview" src="./adk-assets/school-logo.png" alt="로고 미리보기" class="object-contain max-h-full max-w-full">
                                 </div>
                                 <div class="flex-1">
                                     <label for="profile-logo-input" class="glass-button cursor-pointer block text-center">로고 업로드</label>
@@ -1781,6 +1773,34 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <input type="file" id="bg-upload-modal-2" class="hidden" accept="image/*">
                         </div>
 
+                        <div id="cache-update-view" class="settings-view hidden space-y-4"><div id="offline-cache-update-panel" class="glass-card w-full p-4 space-y-3">
+                                <h5 class="font-semibold">오프라인 캐시 업데이트</h5>
+                                <p id="offline-cache-version" class="text-sm text-gray-300">저장된 캐시를 확인하고 있습니다.</p>
+                                <p id="offline-cache-latest-version" class="text-sm text-gray-300">서버의 최신 리소스 버전을 확인할 수 있습니다.</p>
+                                <button id="offline-cache-check-update-btn" class="glass-button w-full" type="button">캐시 최신 버전 확인</button>
+                                <button id="offline-cache-apply-update-btn" class="glass-button w-full" type="button" disabled>캐시 업데이트</button>
+                                <p id="offline-cache-update-status" class="text-sm text-gray-300" role="status" aria-live="polite">새 버전이 있으면 저장된 폰트·화면·다운로드 리소스를 함께 업데이트합니다.</p>
+                            </div>
+                            </div>
+                        <div id="offline-view" class="settings-view hidden space-y-4">
+                            <h4 class="text-xl font-semibold border-b border-white/30 pb-2">오프라인 구동 설정</h4>
+                            <div class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">브라우저 / PWA 캐싱</h5>
+                                <label class="glass-checkbox-label" for="offline-cache-toggle"><input id="offline-cache-toggle" class="glass-checkbox-input" type="checkbox" aria-describedby="offline-cache-environment"><span class="glass-checkbox-box" aria-hidden="true"></span><span>브라우저 오프라인 캐시 사용</span></label>
+                                <p id="offline-cache-environment" class="text-sm text-gray-300"></p>
+                                <p class="text-sm text-gray-300">화면, Tailwind, 전체 글꼴, 로고와 날씨 아이콘을 이 브라우저에 저장합니다. HTTPS 또는 localhost에서 사용할 수 있습니다.</p>
+                                <button id="offline-cache-btn" class="glass-button w-full" type="button">브라우저에 캐싱</button>
+                                <button id="offline-cache-clear-btn" class="glass-button w-full" type="button">브라우저 캐시 삭제</button>
+                            </div>
+                            <div class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">오프라인 ZIP 패키지</h5>
+                                <p class="text-sm text-gray-300">필요한 파일을 ADK-Offline 폴더 하나에 담아 내려받습니다. 압축 해제 후 HTML을 직접 열어도 전체 글꼴과 화면 기능을 사용할 수 있습니다.</p>
+                                <button id="offline-download-btn" class="glass-button w-full" type="button">오프라인 패키지 다운로드</button>
+                                <p class="text-xs text-gray-300">날씨·급식·학사 일정 등 API 정보와 업데이트, 온라인 미디어에는 인터넷 연결이 필요합니다. 개인 설정은 기존 백업 기능으로 옮길 수 있습니다.</p>
+                            </div>
+                            <p id="offline-cache-status" class="text-sm text-gray-300" role="status" aria-live="polite">로컬 리소스 준비 완료 · 브라우저 캐싱 또는 ZIP 다운로드를 선택하세요.</p>
+                        </div>
+
                         <div id="system-view" class="settings-view hidden space-y-4">
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2 mt-2">시스템 초기화</h4>
                             <div class="space-y-3">
@@ -1816,12 +1836,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div id="info-version" class="info-tab-content">
                                 <div class="software-version-hero">
                                     <div class="software-version-glow" aria-hidden="true"></div>
-                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.2</span></h2>
+                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.3</span></h2>
                                     <p id="software-school-name">대륜고등학교</p>
                                 </div>
                                 <h5 class="software-info-title">소프트웨어 정보</h5>
                                 <div class="software-info-list">
-                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.2">2.7.2</p></div>
+                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.3">2.7.3</p></div>
                                     <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.7.0-1">Ko-Kr-Daeryun-hs-v.2.7.0-1</p></div>
                                     <div class="software-info-row"><span>기반</span><span>HTML5</span></div>
                                     <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
@@ -2011,7 +2031,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     <div id="dynamic-bottom-bar" class="glass-card fixed bottom-5 left-1/2 -translate-x-1/2 py-3 px-6 flex items-center gap-4 z-20 group hover:bg-white/10 transition-all duration-500 ease-in-out hover:px-8 cursor-pointer shadow-lg" style="border-radius: 999px; min-width: max-content;">
         
         <div id="school-view" class="flex items-center gap-4 transition-all duration-300">
-            <img id="school-logo-img" src="https://daeryun.dge.hs.kr/images/schl/web/daeryunh/common/logo.png" alt="학교 로고" class="h-10 w-auto">
+            <img id="school-logo-img" src="./adk-assets/school-logo.png" alt="학교 로고" class="h-10 w-auto">
             <span id="school-name-bottom" class="text-white text-lg font-semibold">대륜고등학교</span>
             <button id="school-pill-broadcast-fallback" class="hidden" type="button" aria-label="긴급 방송 메뉴 열기">📢 방송</button>
         </div>
@@ -2587,7 +2607,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         let screenDurations = [...DEFAULT_DURATIONS];
         let slideTimeout = null;
         const TRANSITION_DURATION = 1000;
-        const DEFAULT_LOGO_URL = 'https://daeryun.dge.hs.kr/images/schl/web/daeryunh/common/logo.png';
+        const DEFAULT_LOGO_URL = './adk-assets/school-logo.png';
 
         const SCREENS = ['weather-screen', 'meal-screen', 'schedule-screen', 'custom-text-screen'];
         let currentScreenIndex = 0;
@@ -3441,7 +3461,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const safeDescription = description.replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
             const iconValue = data.weather && data.weather[0] ? String(data.weather[0].icon || '01d') : '01d';
             const icon = /^\d{2}[dn]$/.test(iconValue) ? iconValue : '01d';
-            const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+            const iconUrl = window.ADK_OFFLINE_WEATHER_ICONS[icon] || window.ADK_OFFLINE_WEATHER_ICONS['01d'];
             const conditionColor='#ffffff';
             const temperatureTextColor=temperatureColor(exactTemp), feelsTextColor=temperatureColor(exactFeels), humidityTextColor=interpolateWeatherColor(humidity,humidityColorStops), windTextColor=wind===null?conditionColor:interpolateWeatherColor(wind,windSpeedColorStops);
 
@@ -3838,13 +3858,17 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const infoViewEl = document.getElementById('info-view');
             const developerOptionsView = document.getElementById('developer-options-view');
             
-            [mainMenuView, displayView, customTextView, scheduleEditView, playView, backgroundView, profileViewEl, infoViewEl, developerOptionsView, systemView, updateView, releaseNotesView, pipView, document.getElementById('broadcasts-view')].forEach(view => view && view.classList.add('hidden'));
+            [mainMenuView, displayView, customTextView, scheduleEditView, playView, backgroundView, profileViewEl, infoViewEl, developerOptionsView, systemView, updateView, releaseNotesView, pipView, document.getElementById('broadcasts-view'), document.getElementById('offline-view'), document.getElementById('cache-update-view')].forEach(view => view && view.classList.add('hidden'));
             
             let titleText = '대시보드 설정';
             let showBackButton = false;
             let targetView = mainMenuView;
 
-            if (viewName === 'broadcasts') {
+            if (viewName === 'cache-update') {
+                titleText = '오프라인 캐시 업데이트'; showBackButton = true; targetView = document.getElementById('cache-update-view');
+            } else if (viewName === 'offline') {
+                titleText = '오프라인 구동 설정'; showBackButton = true; targetView = document.getElementById('offline-view');
+            } else if (viewName === 'broadcasts') {
                 titleText = '긴급·예약 방송 설정'; showBackButton = true; targetView = document.getElementById('broadcasts-view');
             } else if (viewName === 'display') {
                 titleText = '화면 표시 설정'; showBackButton = true; targetView = displayView;
@@ -4755,10 +4779,42 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             ['top','right','bottom','left'].forEach(side => data[side]=document.getElementById(`margin-${side}`)?.value || '0');
             try { localStorage.setItem('dashboardSafeMargins', JSON.stringify(data)); } catch (error) {}
         }
-        let userManuallyExitedFullscreen=false,fullscreenWatchdogId=null,fullscreenRequestPending=false;
+        let userManuallyExitedFullscreen=false,fullscreenWatchdogId=null,fullscreenRequestPending=false,fullscreenRestoreListenersInstalled=false;
         function isDocumentFullscreen(){return Boolean(document.fullscreenElement||document.webkitFullscreenElement)}
-        async function requestAutomaticFullscreen(){if(userManuallyExitedFullscreen||isDocumentFullscreen()||fullscreenRequestPending)return;const root=document.documentElement;const request=root.requestFullscreen||root.webkitRequestFullscreen;if(!request)return;fullscreenRequestPending=true;try{await request.call(root)}catch(error){/* 브라우저 정책상 사용자 입력이 필요한 경우 다음 1초 주기에 재시도 */}finally{fullscreenRequestPending=false}}
-        function startFullscreenWatchdog(){if(fullscreenWatchdogId!==null)clearInterval(fullscreenWatchdogId);requestAutomaticFullscreen();fullscreenWatchdogId=setInterval(requestAutomaticFullscreen,1000)}
+        function isPwaDisplayFullscreen(){return window.matchMedia('(display-mode: fullscreen)').matches}
+        function shouldRestoreFullscreen(){
+            try{return localStorage.getItem('dashboardFullscreenOnStart')!=='false'||sessionStorage.getItem('dashboardFullscreenWasActive')==='true'}catch(_){return true}
+        }
+        async function requestAutomaticFullscreen(){
+            if(userManuallyExitedFullscreen||!shouldRestoreFullscreen()||isDocumentFullscreen()||isPwaDisplayFullscreen()||fullscreenRequestPending)return;
+            // Fullscreen API calls after navigation need a fresh user gesture. Manifest fullscreen does not.
+            if(navigator.userActivation&&!navigator.userActivation.isActive)return;
+            const root=document.documentElement,request=root.requestFullscreen||root.webkitRequestFullscreen;if(!request)return;
+            fullscreenRequestPending=true;
+            try{await request.call(root)}catch(_){/* Retry on the next trusted gesture. */}finally{fullscreenRequestPending=false}
+        }
+        function startFullscreenWatchdog(){
+            if(fullscreenWatchdogId!==null){clearInterval(fullscreenWatchdogId);fullscreenWatchdogId=null}
+            if(!fullscreenRestoreListenersInstalled){
+                fullscreenRestoreListenersInstalled=true;
+                const restore=event=>{if(event.isTrusted&&!event.target?.closest?.('#fullscreen-btn'))requestAutomaticFullscreen()};
+                document.addEventListener('click',restore);
+                document.addEventListener('keydown',restore);
+                window.addEventListener('pageshow',()=>requestAutomaticFullscreen());
+                document.addEventListener('visibilitychange',()=>{if(!document.hidden)requestAutomaticFullscreen()});
+                const persist=()=>{if(isDocumentFullscreen()||isPwaDisplayFullscreen()){try{sessionStorage.setItem('dashboardFullscreenWasActive','true')}catch(_){}}};
+                let unloading=false,hadDocumentFullscreen=isDocumentFullscreen();
+                window.addEventListener('beforeunload',()=>{unloading=true;persist()});
+                window.addEventListener('pagehide',persist);
+                document.addEventListener('fullscreenchange',()=>{
+                    if(isDocumentFullscreen()){hadDocumentFullscreen=true;persist()}
+                    else if(hadDocumentFullscreen&&!unloading){userManuallyExitedFullscreen=true;try{sessionStorage.setItem('dashboardFullscreenWasActive','false')}catch(_){}}
+                });
+                window.matchMedia('(display-mode: fullscreen)').addEventListener?.('change',updateFullscreenButton);
+            }
+            requestAutomaticFullscreen();
+        }
+
         async function toggleFullscreen() {
             try {
                 if (isDocumentFullscreen()) { if(document.exitFullscreen) await document.exitFullscreen(); else if(document.webkitExitFullscreen) document.webkitExitFullscreen(); }
@@ -4769,9 +4825,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         function updateFullscreenButton() {
             const button=document.getElementById('fullscreen-btn');
             if (!button) return;
-            const active=isDocumentFullscreen();
+            const nativeFullscreen=isPwaDisplayFullscreen()&&!isDocumentFullscreen();
+            const active=isDocumentFullscreen()||nativeFullscreen;
+            button.disabled=nativeFullscreen;
             button.setAttribute('aria-label', active ? '전체 화면 종료' : '전체 화면으로 전환');
-            button.title=active ? '전체 화면 종료' : '전체 화면';
+            button.title=nativeFullscreen ? 'PWA 전체 화면 모드 · 앱 또는 브라우저 메뉴에서 변경' : active ? '전체 화면 종료' : '전체 화면';
             button.innerHTML=active
                 ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3v4a2 2 0 0 1-2 2H3M21 9h-4a2 2 0 0 1-2-2V3M15 21v-4a2 2 0 0 1 2-2h4M3 15h4a2 2 0 0 1 2 2v4"/></svg>'
                 : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/></svg>';
@@ -5177,7 +5235,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             }
 
             document.getElementById('settings-btn').addEventListener('click', () => { settingsModal.classList.remove('hidden'); settingsContainer.style.opacity = '0'; switchSettingsView('main-menu'); });
-            document.getElementById('fullscreen-btn').addEventListener('click', () => { if(isDocumentFullscreen()) userManuallyExitedFullscreen=true; else userManuallyExitedFullscreen=false; toggleFullscreen(); });
+            document.getElementById('fullscreen-btn').addEventListener('click', () => { if(isDocumentFullscreen()){userManuallyExitedFullscreen=true;try{sessionStorage.setItem('dashboardFullscreenWasActive','false')}catch(_){}}else userManuallyExitedFullscreen=false; toggleFullscreen(); });
             document.addEventListener('fullscreenchange', updateFullscreenButton);
             document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
             ['top','right','bottom','left'].forEach(side => document.getElementById(`margin-${side}`)?.addEventListener('input', saveSafeMargins));
@@ -5427,25 +5485,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         });
     </script>
 
-    <div id="offline-overlay" aria-hidden="true">
-        <svg class="wifi-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path fill="white" d="M12 18c.828 0 1.5.672 1.5 1.5S12.828 21 12 21s-1.5-.672-1.5-1.5S11.172 18 12 18zm5.07-2.36a9.008 9.008 0 00-10.14 0l1.43 1.43a7.01 7.01 0 018.72 0l1-1.01zM12 6C7.5 6 3.92 7.86 1.5 10.76l1.41 1.41C5.15 9.58 8.34 8 12 8s6.85 1.58 9.09 4.17L22.5 10.76C20.08 7.86 16.5 6 12 6z"/>
-        </svg>
-        <div class="offline-message">인터넷에 정상적으로 연결되지 않았습니다. 이 프로그램을 사용하기 위해서는 인터넷 연결이 필요합니다.</div>
-    </div>
 
-    <script>
-    (function(){
-        function updateOfflineOverlay(){
-            var o=document.getElementById('offline-overlay');
-            if(!o) return;
-            if(!navigator.onLine) o.classList.add('visible'); else o.classList.remove('visible');
-        }
-        window.addEventListener('load', updateOfflineOverlay, {once:true});
-        window.addEventListener('online', updateOfflineOverlay);
-        window.addEventListener('offline', updateOfflineOverlay);
-    })();
-    </script>
 
     <div id="custom-notification-pill" class="hidden" aria-hidden="true">
         <div class="glass-card px-5 py-2.5 rounded-full font-semibold flex items-center space-x-2.5 cursor-pointer hover:bg-white/10 transition-all duration-300" style="border-radius: 999px;">
@@ -5639,9 +5679,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         }
     };
 
-    window.addEventListener('offline', () => {
-        addCustomNotification('network', '네트워크 연결 끊김', '인터넷 연결이 해제되었습니다. 일부 실시간 정보가 동기화되지 않을 수 있습니다.');
-    });
+
     
     (()=>{
         const list=document.getElementById('custom-notification-container');
@@ -7405,3 +7443,6 @@ body.settings-open .screen{visibility:hidden!important;pointer-events:none!impor
 </style></body>
 </html>
 
+
+
+<script id="adk-offline-runtime" src="./adk-offline.js"></script>
