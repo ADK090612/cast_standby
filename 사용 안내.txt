@@ -1,0 +1,9 @@
+ADK 오프라인 패키지
+
+1. ZIP 전체를 압축 해제하고 ADK-Offline 폴더의 index.html을 여세요.
+2. index.html, adk-assets 폴더, adk-offline.js, adk-download.js, adk-package-data.js 등을 함께 보관하세요.
+3. 폰트, Tailwind, 로고, 날씨 아이콘은 로컬 파일로 제공되어 인터넷 없이 실행할 수 있습니다.
+4. 브라우저/PWA 캐싱은 HTTPS 또는 localhost에서 설정 > 오프라인 구동에서 켜세요.
+5. ZIP 다운로드 데이터는 버튼을 누를 때만 읽습니다. 압축 해제한 패키지에서도 다시 다운로드할 수 있습니다.
+6. API 정보·업데이트 등 외부 정보에는 인터넷 연결이 필요합니다. 개인 설정은 기존 백업 기능으로 옮기세요.
+7. GitHub Pages에는 ADK-Offline 폴더 안의 파일과 adk-assets 폴더를 같은 구조로 업로드하세요. index.html이 시작 파일입니다.
