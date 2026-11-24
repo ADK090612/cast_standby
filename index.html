@@ -791,7 +791,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADK Dash</title>
     <!-- Tailwind is bundled once above for offline use. -->
-    </head>
+    <style id="weather-diagnostics-style">
+#weather-render-diagnostics[hidden]{display:none!important}
+#weather-render-diagnostics{position:fixed;left:calc(var(--safe-left,0px) + 12px);bottom:calc(var(--safe-bottom,0px) + 12px);z-index:20000;width:min(370px,calc(100vw - 24px));max-height:70vh;box-sizing:border-box;padding:12px 14px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(14,19,27,.92);color:#e5eef7;box-shadow:0 4px 20px #0004;font:12px/1.4 ui-monospace,Consolas,monospace;pointer-events:auto}
+.weather-diagnostics-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+#weather-diagnostics-close{width:28px;height:28px;min-height:0;padding:0;border:0;border-radius:50%;background:#ffffff16;color:inherit;font:22px/1 system-ui;cursor:pointer}
+.weather-diagnostics-data{margin:0;max-height:340px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.45 ui-monospace,Consolas,monospace;text-align:left}
+#weather-render-diagnostics .weather-diagnostics-data{max-height:calc(70vh - 68px)}
+body:has(#settings-modal:not(.hidden)) #weather-render-diagnostics{display:none}
+</style>
+</head>
 <style>
 #weather-scene{position:fixed;inset:0;z-index:0;isolation:isolate;pointer-events:none;overflow:hidden;--sky-top:#397bb6;--sky-mid:#b6d8e9;--sky-low:#f6d7a3;--weather-light:1}
 :root[data-theme="weather"] #weather-precip{display:block}
@@ -1015,6 +1024,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
     <div id="weather-scene" aria-hidden="true"><div id="weather-sky"></div><div id="weather-aurora"><span class="aurora-sheet aurora-sheet-one"></span><span class="aurora-sheet aurora-sheet-two"></span><span class="aurora-sheet aurora-sheet-three"></span></div><canvas id="weather-stars"></canvas><canvas id="weather-celestial"></canvas><canvas id="weather-clouds"></canvas><canvas id="weather-mountains"></canvas><div id="weather-ground" aria-hidden="true"></div><canvas id="weather-grass"></canvas><div id="weather-twilight" aria-hidden="true"></div></div>
     <canvas id="weather-precip" aria-hidden="true"></canvas>
+    <!-- weather-diagnostics-overlay-start -->
+    <aside id="weather-render-diagnostics" hidden aria-label="구름·강수 진단">
+        <div class="weather-diagnostics-heading"><strong>구름·강수 진단</strong><button type="button" id="weather-diagnostics-close" aria-label="구름 진단 닫기">×</button></div>
+        <pre id="weather-render-diagnostics-output" class="weather-diagnostics-data"></pre>
+    </aside>
+    <!-- weather-diagnostics-overlay-end -->
 
     <div id="default-animated-bg">
         <div class="glow-circle glow-green"></div>
@@ -1222,7 +1237,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">업데이트 설정 및 확인</h4>
                             <div class="software-version-hero update-version-hero">
                                 <div class="software-version-glow" aria-hidden="true"></div>
-                                <h2>ADK Dash <span id="update-version-hero-value">2.7.3</span></h2>
+                                <h2>ADK Dash <span id="update-version-hero-value">2.7.4</span></h2>
                                 <p id="update-status-text">최신 버전을 확인하는 중입니다...</p>
                             </div>
                             
@@ -1268,7 +1283,26 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <span>📝</span> 릴리즈 노트
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
+                                <!-- release-v2.7.4-start -->
                                 <div>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.7.4</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>기상기관 자료와 실제 구름 사진을 참고해 권운·고적운·적운·층운·비구름의 형태와 가장자리 질감 개선</li>
+                                        <li>권운을 제외한 구름에 덩어리별 굴곡과 부드러운 음영을 적용하고, 적운·대류성 구름의 돌출감과 층운류의 낮고 넓은 입체감 개선</li>
+                                        <li>작은 구름 입자에 그라데이션을 적용해 표면의 미세한 굴곡과 밝기 변화 표현</li>
+                                        <li>태양 방향과 일출·일몰·야간 시간대에 맞춰 구름의 조명과 색감 개선</li>
+                                        <li>구름 형상과 조명 캐시를 분리하고 공용 그라데이션을 재사용해 동일 상태의 중복 생성 방지</li>
+                                        <li>저사양 모드와 먼 구름의 세부 표현을 줄이고 텍스처 크기·갱신 수를 제한해 연산 부하 완화</li>
+                                        <li>구름 입체 효과를 한층 부드럽게 완화하고 시간대·날씨 전환 시 약 1.8초에 걸쳐 구름 색상이 서서히 바뀌도록 개선</li>
+                                        <li>기존 구름의 형태를 유지하고 바람이 불어오는 방향에서 별도의 비구름이 유입된 뒤 약 5초 후 강수 효과가 시작되는 전환 연출 적용</li>
+                                        <li>빗방울 표시 길이와 두께를 약 12% 확대</li>
+                                        <li>잔디 렌더링을 별도 작업 스레드로 분리하고 중복 요청을 병합해 날씨·시간대 전환 시 화면 일시 정지 완화</li>
+                                        <li>구름 텍스처 생성도 별도 작업 스레드에서 한 번에 하나씩 처리하고 전환이 끝난 이미지 메모리를 해제해 화면 반응성과 메모리 사용 개선</li>
+                                        <li>개발자 옵션에 구름·강수 진단 표시를 추가해 강수 준비 시간, 구름 수·위치, 색상 전환, 작업 스레드 상태와 프레임 처리 시간을 실시간 확인</li>
+                                    </ul>
+                                </div>
+                                <!-- release-v2.7.4-end -->
+                                <div class="pt-2 border-t border-white/10">
                                     <h5 class="font-bold text-blue-300 text-lg">v2.7.3</h5><ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1"><li>설정에 오프라인 구동 메뉴를 추가하고 브라우저/PWA 캐싱과 ZIP 패키지 다운로드를 분리</li>
 <li>Tailwind와 Google Fonts 27종·Pretendard 전체 글꼴, 학교 기본 로고 및 날씨 아이콘 18개를 로컬 파일로 제공해 파일 직접 실행 시에도 오프라인 표시 지원</li>
 <li>HTTPS·localhost 환경에서 서비스 워커와 Cache API로 화면 및 정적 리소스를 저장하고 오프라인 재접속 지원, API 응답은 캐싱에서 제외</li>
@@ -1836,13 +1870,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div id="info-version" class="info-tab-content">
                                 <div class="software-version-hero">
                                     <div class="software-version-glow" aria-hidden="true"></div>
-                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.3</span></h2>
+                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.4</span></h2>
                                     <p id="software-school-name">대륜고등학교</p>
                                 </div>
                                 <h5 class="software-info-title">소프트웨어 정보</h5>
                                 <div class="software-info-list">
-                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.3">2.7.3</p></div>
-                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.7.0-1">Ko-Kr-Daeryun-hs-v.2.7.0-1</p></div>
+                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.4">2.7.4</p></div>
+                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.7.4-1">Ko-Kr-Daeryun-hs-v.2.7.4-1</p></div>
                                     <div class="software-info-row"><span>기반</span><span>HTML5</span></div>
                                     <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
                                     <div class="software-info-row"><span>실행 환경</span><span id="software-runtime-info">브라우저</span></div>
@@ -1856,6 +1890,14 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                         <div id="developer-options-view" class="settings-view hidden space-y-4 max-h-[70vh] overflow-y-auto pr-2">
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">개발자 옵션</h4>
                             <p class="text-xs text-white/60">테스트 값은 현재 페이지에서만 적용되며 실제 API 설정과 저장된 학교 정보를 바꾸지 않습니다.</p>
+                            <!-- weather-diagnostics-card-start -->
+                            <section class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">구름·강수 렌더링 진단</h5>
+                                <label class="flex items-center gap-2 text-sm"><input id="dev-weather-diagnostics-toggle" type="checkbox">구름·강수 진단 표시</label>
+                                <p class="text-xs text-white/60">구름 수·유입 위치, 강수 준비 시간, 색상 전환, 작업 스레드 상태와 프레임 처리 시간을 확인합니다. 설정을 닫으면 화면 왼쪽 아래에 표시됩니다. 끄면 데이터 수집도 중지됩니다.</p>
+                                <pre id="dev-weather-diagnostics-output" class="weather-diagnostics-data">진단 표시가 꺼져 있습니다.</pre>
+                            </section>
+                            <!-- weather-diagnostics-card-end -->
                             <section class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">업데이트 알림</h5>
                                 <div class="flex flex-wrap items-end gap-2"><label class="text-sm space-y-1">가상 최신 버전<input id="dev-update-version" class="glass-input w-full" value="99.0.0"></label><button type="button" id="dev-show-update" class="glass-button">높은 버전 알림 표시</button><button type="button" id="dev-hide-update" class="glass-button">알림 닫기</button></div>
@@ -5711,6 +5753,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   // https://cloudatlas.wmo.int/en/cloud-identification-guide.html
   // https://cloudatlas.wmo.int/en/definition-cumulus-cu.html
   // https://cloudatlas.wmo.int/en/nimbostratus-ns.html
+  // Photo/lighting references (reference only; no remote image dependency):
+  // https://www.noaa.gov/jetstream/clouds/ten-basic-clouds
+  // https://www.noaa.gov/jetstream/clouds/color-of-clouds
+  // https://weather.metoffice.gov.uk/learn-about/weather/types-of-weather/clouds/low-level-clouds
   let precipitationFadeStart=0;
   const snowCrystalPath = new Path2D();
   for(let arm=0;arm<6;arm++) {
@@ -5840,50 +5886,82 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     const sx=cloud.sx,sy=cloud.sy;
     let seed=cloud.seed;
     const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
+    let reliefSeed=cloud.seed^0x6a09e667;
+    const reliefRandom=()=>{reliefSeed=(Math.imul(reliefSeed,1664525)+1013904223)>>>0;return reliefSeed/4294967296;};
     const puffs=[],sheet=['stratus','altostratus','nimbostratus'].includes(type);
-    cloud.morphology=type;
+    const add=(x,y,rx,ry,depth=1,relief=1)=>puffs.push({x:x*sx,y:y*sy,rx:rx*sx,ry:ry*sy,depth,relief});
+    cloud.morphology=type;cloud.fibers=[];
     if(type==='cirrus') {
-      const strands=lowPower?4:7;
-      for(let j=0;j<strands;j++) {
-        const offset=(random()-.5)*.75,lean=(random()-.5)*.3;
-        for(let i=0;i<7;i++) {
-          const t=i/6,arch=Math.sin(t*Math.PI);
-          puffs.push({x:sx*(-1.02+t*1.9+offset*.3),y:sy*(offset+lean*t-arch*.35),
-            rx:sx*(.15+arch*.1),ry:sy*(.035+arch*.08)*( .7+random()*.5),light:.85});
-        }
+      // Wind-sheared ice filaments: shared curvature, unequal lengths and feathered tips.
+      const bend=(random()-.5)*.6,tilt=(random()-.5)*.7;
+      for(let j=0;j<(lowPower?20:45);j++) {
+        const band=random()-.5,start=-1+random()*.85,end=.1+random()*1.05;
+        const y=band*.75+(random()-.5)*.13;
+        const fiber={x1:start*sx,y1:(y+tilt*start)*sy,cx1:(start+.35)*sx,cy1:(y-.12+bend+random()*.15)*sy,
+          cx2:(end-.25)*sx,cy2:(y-.35+bend+band*.5)*sy,x2:end*sx,y2:(y+tilt*end+band*.5-.12)*sy,
+          width:sy*(.018+random()*.037),alpha:.08+random()*.24};
+        cloud.fibers.push(fiber);
+        for(const [x,y] of [[fiber.x1,fiber.y1],[fiber.cx1,fiber.cy1],[fiber.cx2,fiber.cy2],[fiber.x2,fiber.y2]])
+          puffs.push({x,y,rx:sx*.06,ry:Math.max(2,sy*.09),depth:.3});
       }
+    } else if(type==='altocumulus') {
+      // Broken, loosely aligned cloudlets, smaller than the low-level convective mounds.
+      const rows=lowPower?2:3,columns=lowPower?6:9;
+      for(let row=0;row<rows;row++)for(let col=0;col<columns;col++) {
+        if(random()<.15)continue;
+        const x=(col/(columns-1)-.5)*1.85+(random()-.5)*.13+row*.055;
+        const y=(row-(rows-1)*.5)*.42+Math.sin(x*3+cloud.seed)*.1+(random()-.5)*.1;
+        const rx=.07+random()*.075,ry=.12+random()*.16;
+        add(x,y,rx,ry,.7+random()*.25);
+        for(let k=0;k<(lowPower?2:5);k++) {
+          const angle=Math.PI*(.95+random()*1.1),size=.32+random()*.28;
+          add(x+Math.cos(angle)*rx*.8,y+Math.sin(angle)*ry*.7,rx*size,ry*(size+.05),.58+random()*.22);
+        }
+        add(x+rx*.08,y+ry*.12,rx*.55,ry*.6,.98+reliefRandom()*.12,cloudReliefAmount);
+      }
+    } else if(sheet) {
+      // A continuous, gently uneven veil; rain clouds retain ragged fragments below it.
+      for(let i=0;i<(lowPower?10:18);i++) {
+        const x=-.96+i/(lowPower?9:17)*1.92;
+        const taper=Math.sqrt(Math.max(.08,1-x*x));
+        add(x,.16+(random()-.5)*.15,(.21+random()*.13)*taper,(.32+random()*.19)*taper,.72+random()*.25);
+      }
+      if(type==='nimbostratus')for(let i=0;i<(lowPower?4:8);i++)
+        add((random()*2-1)*.9,.5+random()*.16,.08+random()*.13,.12+random()*.18,.5);
+      // Low, broad internal rolls keep sheet clouds layered rather than tower-shaped.
+      const rolls=lowPower?4:7;
+      for(let i=0;i<rolls;i++)
+        add(-.75+i/(rolls-1)*1.5+(reliefRandom()-.5)*.06,.1+reliefRandom()*.12,.15+reliefRandom()*.07,.15+reliefRandom()*.08,.92+reliefRandom()*.13,cloudReliefAmount);
     } else {
-      // Broad continuous lower body. Jittered, tapered sampling has no equal-width rows.
-      const bottomCount=lowPower?12:Math.round(20+cloud.coverage*12);
+      // Common condensation level gives a quiet, almost horizontal base.
+      const bottomCount=lowPower?11:17;
       for(let i=0;i<bottomCount;i++) {
-        const x=(random()*2-1),taper=Math.sqrt(Math.max(.05,1-x*x));
-        const ry=sy*(sheet?.13+random()*.15:.19+random()*.26)*taper;
-        const base=sy*(.62+(random()-.5)*(sheet?.28:.12));
-        puffs.push({x:x*sx*.95,y:base-ry,rx:sx*(.11+random()*.16)*taper,ry,light:.7});
+        const x=-.9+i/(bottomCount-1)*1.8+(random()-.5)*.06;
+        const taper=Math.sqrt(Math.max(.07,1-x*x)),ry=(.23+random()*.16)*taper;
+        add(x,.56-ry+(random()-.5)*.045,(.16+random()*.1)*taper,ry,.75+random()*.22);
       }
-      // Upper mounds are fewer and cluster around asymmetric lobes, with narrower tops.
-      const lobes=sheet?4:type==='congestus'?5:3+Math.floor(random()*3);
-      const center=(random()-.5)*.35;
+      const lobes=3+Math.floor(random()*3),lean=(random()-.5)*.18;
       for(let j=0;j<lobes;j++) {
-        const x=(j/(lobes-1)-.5)*1.35+(random()-.5)*.22;
-        const taper=Math.sqrt(Math.max(.1,1-x*x));
-        const ry=sy*(sheet?.22+random()*.17:type==='congestus'?.75+random()*.65:.4+random()*.55)*taper;
-        const rx=sx*(sheet?.27+random()*.14:.14+random()*.12)*taper;
-        const y=sy*.46-ry;
-        puffs.push({x:(x+center)*sx,y,rx,ry,light:1});
-        if(!lowPower&&!sheet)for(let k=0;k<3;k++) {
-          const angle=Math.PI*(1.06+random()*.86);
-          puffs.push({x:(x+center)*sx+Math.cos(angle)*rx*.7,y:y+Math.sin(angle)*ry*.65,
-            rx:rx*(.32+random()*.3),ry:ry*(.3+random()*.35),light:1});
+        const x=(j/(lobes-1)-.5)*1.4+(random()-.5)*.18;
+        const taper=Math.sqrt(Math.max(.15,1-x*x));
+        const ry=(type==='congestus'?.8+random()*.8:.42+random()*.46)*taper;
+        const rx=(.16+random()*.14)*taper,y=.4-ry;
+        add(x+lean,y,rx,ry,.92+random()*.18);
+        for(let k=0;k<(lowPower?2:7);k++) {
+          const angle=Math.PI*(1.02+random()*.96),size=.2+random()*.29;
+          add(x+lean+Math.cos(angle)*rx*.78,y+Math.sin(angle)*ry*.77,rx*size,ry*(size*.8+.08),.58+random()*.25);
         }
-      }
-      if(type==='nimbostratus')for(let i=0;i<(lowPower?4:9);i++) {
-        puffs.push({x:(random()*2-1)*sx*.9,y:sy*(.57+random()*.2),rx:sx*(.08+random()*.14),ry:sy*(.12+random()*.23),light:.6});
+        // Larger foreground billows stand proud of the main tower, inside its silhouette.
+        for(let k=0;k<(lowPower?2:5);k++) {
+          const bx=x+lean+(reliefRandom()-.5)*rx*.65,by=y+ry*(.08+reliefRandom()*.38);
+          add(bx,by,rx*(.3+reliefRandom()*.18),ry*(.27+reliefRandom()*.18),.98+reliefRandom()*.16,cloudReliefAmount);
+        }
       }
     }
     cloud.rows=[puffs];
   }
   function buildClouds() {
+    for(const cloud of clouds){releaseCloudTexture(cloud.sprite);releaseCloudTexture(cloud.previousSprite);}
     clouds=[]; cloudLayers={high:[],mid:[],low:[]}; cloudCoverageSignature='';
     // Fixed, bounded pools avoid allocation churn when API coverage changes.
     const count=18;
@@ -6025,11 +6103,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       lastGroundPalettePaint=now;
     }
   }
-  function drawGrass() {
+  function paintGrassTexture(grassCtx,width,height,weather,phase,lowPower,grassGeometryCache) {
     grassCtx.clearRect(0, 0, width, height);
-    const weather=weatherVisualState(), horizon = height * .42, rainWet = weather.kind === 'rain' && weather.amount > 0, snowCover = weather.kind === 'snow' && weather.amount > 0;
-    const phase=solarPhase(), nightScene=phase==='night'||phase==='bluehour', nightSnow=snowCover && nightScene;
-    const lowPower=document.body.classList.contains('low-performance-mode');
+    const horizon = height * .42, rainWet = weather.kind === 'rain' && weather.amount > 0, snowCover = weather.kind === 'snow' && weather.amount > 0;
+    const nightScene=phase==='night'||phase==='bluehour', nightSnow=snowCover && nightScene;
     const count = Math.min(lowPower?90000:150000, Math.round(width * height / 7.2));
     // Reuse the large, deterministic blade geometry when only sky colors or lighting change.
     const bands=8, shades=3, widths=2, geometryKey=`${Math.round(width)}:${Math.round(height)}:${count}`;
@@ -6046,7 +6123,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         const path=paths[(band*shades+shade)*widths+widthBand], droop=grassRand(-.2,.2);
         path.moveTo(x,y); path.lineTo(x+len*droop,y-len);
       }
-      grassGeometryCache={key:geometryKey,paths};
+      grassGeometryCache.key=geometryKey;grassGeometryCache.paths=paths;
     }
     const ranges=snowCover?(nightSnow?[[90,133],[112,153],[148,188]]:[[25,43],[40,67],[61,96]]):rainWet?[[12,25],[23,42],[34,59]]:nightScene?[[4,10],[9,20],[17,31]]:[[28,49],[52,88],[83,133]];
     for(let band=0;band<bands;band++) for(let shade=0;shade<shades;shade++) for(let widthBand=0;widthBand<widths;widthBand++) {
@@ -6068,6 +6145,53 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     vignette.addColorStop(0,'rgba(1,5,12,0)'); vignette.addColorStop(.68,'rgba(1,5,12,.08)'); vignette.addColorStop(1,'rgba(1,4,10,.5)');
     grassCtx.fillStyle=vignette; grassCtx.fillRect(0,0,width,height);
   }
+  let grassPaintWorker=null,grassWorkerBusy=false,grassWorkerDisabled=false,grassPaintPending=null,grassPaintRequestId=0,grassPaintKey='',grassWorkerURL='';
+  function fallbackGrassPaint() {
+    grassWorkerDisabled=true;grassWorkerBusy=false;
+    if(grassPaintWorker){grassPaintWorker.terminate();grassPaintWorker=null;}
+    if(grassWorkerURL){URL.revokeObjectURL(grassWorkerURL);grassWorkerURL='';}
+    const job=grassPaintPending;grassPaintPending=null;
+    if(job)paintGrassTexture(grassCtx,job.width,job.height,job.weather,job.phase,job.lowPower,grassGeometryCache);
+  }
+  function dispatchGrassPaint() {
+    if(grassWorkerBusy||!grassPaintPending||!grassPaintWorker)return;
+    grassWorkerBusy=true;
+    try{grassPaintWorker.postMessage(grassPaintPending);}catch(error){fallbackGrassPaint();}
+  }
+  function drawGrass() {
+    const weather=weatherVisualState(),phase=solarPhase(),lowPower=document.body.classList.contains('low-performance-mode');
+    const palette=phase==='night'||phase==='bluehour'?'night':'day';
+    const key=width+':'+height+':'+dpr+':'+palette+':'+(weather.amount>0?weather.kind:'none')+':'+lowPower;
+    if(key===grassPaintKey)return;
+    grassPaintKey=key;
+    const job={id:++grassPaintRequestId,width,height,dpr,weather:{kind:weather.kind,amount:weather.amount},phase,lowPower};
+    if(grassWorkerDisabled||typeof Worker!=='function'||typeof OffscreenCanvas!=='function') {
+      paintGrassTexture(grassCtx,width,height,weather,phase,lowPower,grassGeometryCache);return;
+    }
+    grassPaintPending=job;
+    if(!grassPaintWorker) {
+      // Use the exact existing painter off-thread; only the latest requested result is displayed.
+      const workerSource="'use strict';const grassCache={key:'',paths:null};const paint="+paintGrassTexture.toString()+";onmessage=event=>{const job=event.data;try{const canvas=new OffscreenCanvas(Math.round(job.width*job.dpr),Math.round(job.height*job.dpr));const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.setTransform(job.dpr,0,0,job.dpr,0,0);paint(ctx,job.width,job.height,job.weather,job.phase,job.lowPower,grassCache);const bitmap=canvas.transferToImageBitmap();postMessage({id:job.id,bitmap},[bitmap]);}catch(error){postMessage({id:job.id,error:String(error)});}};";
+      try {
+        grassWorkerURL=URL.createObjectURL(new Blob([workerSource],{type:'text/javascript'}));
+        grassPaintWorker=new Worker(grassWorkerURL);
+        grassPaintWorker.onmessage=event=>{
+          grassWorkerBusy=false;
+          if(grassWorkerURL){URL.revokeObjectURL(grassWorkerURL);grassWorkerURL='';}
+          const result=event.data;
+          if(result.error){fallbackGrassPaint();return;}
+          const bitmap=result.bitmap,latest=grassPaintPending;
+          if(latest&&result.id===latest.id&&bitmap.width===grassCanvas.width&&bitmap.height===grassCanvas.height) {
+            grassCtx.save();grassCtx.setTransform(1,0,0,1,0,0);grassCtx.clearRect(0,0,grassCanvas.width,grassCanvas.height);grassCtx.drawImage(bitmap,0,0);grassCtx.restore();
+            grassPaintPending=null;
+          }
+          bitmap.close();dispatchGrassPaint();
+        };
+        grassPaintWorker.onerror=()=>fallbackGrassPaint();
+      } catch(error){fallbackGrassPaint();return;}
+    }
+    dispatchGrassPaint();
+  }
   function resize() {
     const previousWidth=width,previousHeight=height,previousClouds=clouds;
     dpr = Math.min(window.devicePixelRatio || 1, 1.5); width = window.innerWidth; height = window.innerHeight;
@@ -6079,6 +6203,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       clouds.forEach((cloud,index)=>{const previous=previousClouds[index];if(!previous)return;cloud.size=previous.size;cloud.seed=previous.seed;const band=cloudBandRanges[cloud.level],previousBand=cloudBandRanges[previous.level],ratio=clamp((previous.baseY/previousHeight-previousBand[0])/(previousBand[1]-previousBand[0]),0,1);cloud.baseY=height*(band[0]+ratio*(band[1]-band[0]));cloud.y=cloud.baseY;cloud.x=previous.x/previousWidth*width;cloud.opacity=previous.opacity;cloud.targetOpacity=previous.targetOpacity;cloudProjection(cloud)});
       cloudLayers={high:[],mid:[],low:[]};for(const cloud of clouds)cloudLayers[cloud.level].push(cloud);
     }
+    grassPaintKey='';
     buildStars(); shootingStars=[]; nextShootingStarAt=performance.now()+900; rain=[]; flakes=[]; drawMountains(); drawGrass(); shelves = []; beads = []; splashes = []; snowPatches = []; snowClumps = []; snowBeds.clear();
   }
   function timeNumber(value) {
@@ -6344,73 +6469,353 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     // Stars remain individual points; no constellation guide lines are drawn.
     drawShootingStars(now);
   }
-  function createCloudSprite(cloud, phase, weather) {
+  function cloudBillowStamp(top,base,lightX) {
+    // Tiny shaded billows share one baked gradient. Bound the entire atlas to 16 KiB.
+    const cache=cloudBillowStamp.cache||(cloudBillowStamp.cache=new Map());
+    const key=top.join(',')+':'+base.join(',')+':'+lightX;
+    if(cache.has(key))return cache.get(key);
+    const stamp=document.createElement('canvas');stamp.width=32;stamp.height=32;
+    const ctx=stamp.getContext('2d');
+    const shadow=ctx.createRadialGradient(16-lightX*4,19,1,16,16,15);
+    shadow.addColorStop(0,`rgba(${base.join(',')},.24)`);shadow.addColorStop(.5,`rgba(${base.join(',')},.09)`);shadow.addColorStop(1,`rgba(${base.join(',')},0)`);
+    ctx.fillStyle=shadow;ctx.fillRect(0,0,32,32);
+    const glow=ctx.createRadialGradient(16+lightX*5,11,0,16,16,15);
+    glow.addColorStop(0,`rgba(${top.join(',')},.46)`);glow.addColorStop(.36,`rgba(${top.join(',')},.24)`);glow.addColorStop(.75,`rgba(${top.join(',')},.06)`);glow.addColorStop(1,`rgba(${top.join(',')},0)`);
+    ctx.fillStyle=glow;ctx.fillRect(0,0,32,32);
+    const pixels=ctx.getImageData(0,0,32,32).data;
+    if(cache.size>=4)cache.delete(cache.keys().next().value);
+    cache.set(key,pixels);return pixels;
+  }
+  // Blend the added relief halfway toward the original soft cloud shading.
+  const cloudReliefAmount=.5;
+  function cloudLighting(phase) {
+    // Use the existing sun trajectory; quantize changes to avoid rebuilding textures every frame.
+    const day=solarDayProgress(),night=phase==='night'||phase==='bluehour';
+    const lightX=night?.35:clamp(((day?.progress??.5)-.5)*1.7,-.85,.85);
+    return Math.round(lightX*4)/4;
+  }
+  function createCloudSprite(cloud, phase, weather, lightX=cloudLighting(phase)) {
     const sprite=document.createElement('canvas'),sx=cloud.sx,sy=cloud.sy;
-    // Bound cached texture memory independently of viewport size, preserving the silhouette.
     let left=Infinity,right=-Infinity,topEdge=Infinity,bottom=-Infinity;
     for(const p of cloud.rows[0]){left=Math.min(left,p.x-p.rx);right=Math.max(right,p.x+p.rx);topEdge=Math.min(topEdge,p.y-p.ry);bottom=Math.max(bottom,p.y+p.ry);}
     const padding=Math.max(3,sy*.1);left-=padding;right+=padding;topEdge-=padding;bottom+=padding;
-    const logicalWidth=right-left,logicalHeight=bottom-topEdge,scale=Math.min(1,768/logicalWidth,256/logicalHeight);
+    const logicalWidth=right-left,logicalHeight=bottom-topEdge;
+    const lowPower=document.body.classList.contains('low-performance-mode');
+    const scale=Math.min(1.5,lowPower?384/logicalWidth:640/logicalWidth,lowPower?128/logicalHeight:224/logicalHeight);
     cloud.spriteBounds={left:left/sx,top:topEdge/sy,width:logicalWidth/sx,height:logicalHeight/sy};
-    sprite.width=Math.max(1,Math.ceil(logicalWidth*scale));sprite.height=Math.max(1,Math.ceil(logicalHeight*scale));
-    const ctx=sprite.getContext('2d');ctx.scale(scale,scale);ctx.translate(-left,-topEdge);
-    const night=phase==='night'||phase==='bluehour',warm=phase==='sunset'||phase==='sunrise';
-    const sheet=['stratus','altostratus','nimbostratus'].includes(cloud.morphology),wet=weather.kind!=='none';
-    const top=night?'#9aaabd':warm?'#f0cfb6':wet?'#cbd4df':'#f8fbff';
-    const base=night?'#465269':warm?'#9e8b90':wet?'#65778e':'#a9bbce';
-    // Unite the puffs into one body before shading: no repeated translucent rings or hard ellipse cuts.
-    ctx.filter='blur('+Math.max(.45,Math.min(2.3,sy*.035))+'px)';ctx.fillStyle='#fff';ctx.beginPath();
-    for(const puff of cloud.rows[0]) {ctx.moveTo(puff.x+puff.rx,puff.y);ctx.ellipse(puff.x,puff.y,puff.rx,puff.ry,0,0,Math.PI*2);}
-    ctx.fill();ctx.filter='none';ctx.globalCompositeOperation='source-in';
-    const shade=ctx.createLinearGradient(0,-sy*1.6,0,sy*.85);shade.addColorStop(0,top);shade.addColorStop(sheet?.42:.63,top);shade.addColorStop(1,base);
-    ctx.fillStyle=shade;ctx.fillRect(left,topEdge,logicalWidth,logicalHeight);
-    ctx.globalCompositeOperation='source-atop';
-    // Very soft internal relief stays inside the continuous cloud silhouette.
-    if(cloud.morphology!=='cirrus')for(const puff of cloud.rows[0])if(puff.light===1) {
-      ctx.save();ctx.translate(puff.x-puff.rx*.1,puff.y-puff.ry*.2);ctx.scale(puff.rx,puff.ry);
-      const glow=ctx.createRadialGradient(0,0,.05,0,0,1);glow.addColorStop(0,night?'rgba(225,236,250,.1)':'rgba(255,255,255,.22)');glow.addColorStop(1,'rgba(255,255,255,0)');
-      ctx.fillStyle=glow;ctx.fillRect(-1,-1,2,2);ctx.restore();
+    sprite.width=Math.max(1,Math.floor(logicalWidth*scale));sprite.height=Math.max(1,Math.floor(logicalHeight*scale));
+    const ctx=sprite.getContext('2d'),night=phase==='night'||phase==='bluehour',warm=phase==='sunset'||phase==='sunrise'||phase==='dawn';
+    const sheet=['stratus','altostratus','nimbostratus'].includes(cloud.morphology),wet=weather.kind!=='none'&&weather.amount>0;
+    const convective=cloud.morphology==='cumulus'||cloud.morphology==='congestus';
+    const top=night?[126,145,172]:warm?[255,219,181]:wet?[208,218,229]:[255,254,249];
+    const base=night?[45,59,83]:warm?[119,111,137]:wet?[91,111,137]:[133,157,185];
+    if(cloud.morphology==='cirrus') {
+      ctx.scale(scale,scale);ctx.translate(-left,-topEdge);ctx.lineCap='round';
+      ctx.strokeStyle=`rgb(${top.join(',')})`;
+      for(const f of cloud.fibers) {
+        const point=t=>{const u=1-t;return [u*u*u*f.x1+3*u*u*t*f.cx1+3*u*t*t*f.cx2+t*t*t*f.x2,u*u*u*f.y1+3*u*u*t*f.cy1+3*u*t*t*f.cy2+t*t*t*f.y2];};
+        // A soft core and many tapering fibers produce a translucent, brush-like veil.
+        ctx.globalAlpha=f.alpha*.35;ctx.lineWidth=Math.max(.7,f.width*5);
+        ctx.filter='blur('+Math.max(.4,sy*.045)+'px)';ctx.beginPath();ctx.moveTo(f.x1,f.y1);ctx.bezierCurveTo(f.cx1,f.cy1,f.cx2,f.cy2,f.x2,f.y2);ctx.stroke();ctx.filter='none';
+        let previous=point(0);
+        for(let step=1;step<=18;step++) {
+          const t=step/18,next=point(t),taper=Math.pow(Math.sin(Math.PI*(t-1/36)),.8);
+          ctx.globalAlpha=f.alpha*taper;ctx.lineWidth=Math.max(.24,f.width*taper);
+          ctx.beginPath();ctx.moveTo(...previous);ctx.lineTo(...next);ctx.stroke();previous=next;
+        }
+      }
+    } else {
+      // Build a continuous optical-depth field, rather than drawing visible ellipse outlines.
+      const w=sprite.width,h=sprite.height,field=new Float32Array(w*h);
+      for(const p of cloud.rows[0]) {
+        const cx=(p.x-left)*scale,cy=(p.y-topEdge)*scale,rx=p.rx*scale,ry=p.ry*scale;
+        const influence=p.relief??1;
+        const x0=Math.max(0,Math.floor(cx-rx)),x1=Math.min(w-1,Math.ceil(cx+rx)),y0=Math.max(0,Math.floor(cy-ry)),y1=Math.min(h-1,Math.ceil(cy+ry));
+        for(let y=y0;y<=y1;y++) {
+          const dy=(y+.5-cy)/ry,span=1-dy*dy;if(span<=0)continue;
+          for(let x=x0;x<=x1;x++) {
+            const dx=(x+.5-cx)/rx,r=span-dx*dx;if(r<=0)continue;
+            const depth=Math.sqrt(r)*p.depth,index=y*w+x,a=field[index];
+            // Smooth maximum merges adjacent volumes without bright seams at overlaps.
+            const blend=Math.max(0,.32-Math.abs(a-depth))/.32;
+            const merged=Math.max(a,depth)+blend*blend*.08;
+            field[index]=a+(merged-a)*influence;
+          }
+        }
+      }
+      // Seeded, multi-scale density stays attached to the cloud as it drifts.
+      const grid=new Float32Array(64*64);let seed=cloud.seed^0x9e3779b9;
+      for(let i=0;i<grid.length;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;grid[i]=seed/4294967296;}
+      const noise=(x,y)=>{
+        const ix=Math.floor(x),iy=Math.floor(y);let fx=x-ix,fy=y-iy;fx=fx*fx*(3-2*fx);fy=fy*fy*(3-2*fy);
+        const a=grid[(iy&63)*64+(ix&63)],b=grid[(iy&63)*64+((ix+1)&63)],c=grid[((iy+1)&63)*64+(ix&63)],d=grid[((iy+1)&63)*64+((ix+1)&63)];
+        return (a+(b-a)*fx)*(1-fy)+(c+(d-c)*fx)*fy;
+      };
+      const image=ctx.createImageData(w,h),pixels=image.data;
+      const densityField=new Float32Array(w*h),texture=new Float32Array(w*h);
+      for(let y=0;y<h;y++)for(let x=0;x<w;x++) {
+        const i=y*w+x;if(field[i]<=0)continue;
+        const frequency=cloud.morphology==='altocumulus'?3.2:1.1;
+        const nx=x/(sy*scale)*frequency,ny=y/(sy*scale)*frequency*1.14;
+        const n=noise(nx,ny)*.52+noise(nx*2.1+13,ny*2.1+7)*.28+noise(nx*4.3,ny*4.3)*.14+noise(nx*9.1,ny*9.1)*.06;
+        texture[i]=n;
+        densityField[i]=Math.max(0,field[i]-.2+(n-.5)*(sheet?.34:.88));
+      }
+      const lightY=warm?-.32:-.85,lightZ=.62,lightLength=Math.hypot(lightX,lightY,lightZ);
+      const reliefStrength=convective?1:sheet?.42:.7;
+      const reliefGain=sy*scale*.19*reliefStrength*cloudReliefAmount;
+      const detailGain=sy*scale*(.14*(sheet?.22:.38)*(1-cloudReliefAmount)+(sheet?.018:.025)*cloudReliefAmount),shadowStep=Math.max(1,Math.round(sy*scale*.11));
+      const shadowX=Math.round(lightX*shadowStep),shadowY=Math.round(lightY*shadowStep);
+      // All coefficients are baked once per texture, without an extra render pass.
+      const toneAmbient=.42+(sheet?.04:0)*cloudReliefAmount,toneDiffuse=.58+(sheet?-.05:.02)*cloudReliefAmount;
+      const toneUnderside=sheet?.22-.02*cloudReliefAmount:.43-(convective?.09:.17)*cloudReliefAmount;
+      const toneShadow=(sheet?.18:.35)*cloudReliefAmount,toneNoise=sheet?.16:.48-(convective?.13:.18)*cloudReliefAmount;
+      for(let y=0;y<h;y++)for(let x=0;x<w;x++) {
+        const i=y*w+x,depth=field[i];if(depth<=0)continue;
+        const n=texture[i],density=densityField[i];
+        let alpha=clamp(density/(sheet?.38:.22),0,1);alpha=alpha*alpha*(3-2*alpha);if(alpha===0)continue;
+        const leftIndex=y*w+Math.max(0,x-1),rightIndex=y*w+Math.min(w-1,x+1),upIndex=Math.max(0,y-1)*w+x,downIndex=Math.min(h-1,y+1)*w+x;
+        const dx=(field[leftIndex]-field[rightIndex])*reliefGain+(densityField[leftIndex]-densityField[rightIndex])*detailGain;
+        const dy=(field[upIndex]-field[downIndex])*reliefGain+(densityField[upIndex]-densityField[downIndex])*detailGain;
+        const diffuse=clamp((dx*lightX+dy*lightY+lightZ)/(Math.hypot(dx,dy,1)*lightLength),0,1);
+        const localY=(topEdge+(y+.5)/scale)/sy;
+        const underside=clamp((localY+.12)/.78,0,1);
+        const castShadow=clamp((field[clamp(y+shadowY,0,h-1)*w+clamp(x+shadowX,0,w-1)]-depth-.035)*1.8,0,.22);
+        const tone=clamp(toneAmbient+diffuse*toneDiffuse-underside*toneUnderside-castShadow*toneShadow+(n-.5)*toneNoise,.08,1);
+        const offset=i*4;
+        pixels[offset]=base[0]+(top[0]-base[0])*tone;pixels[offset+1]=base[1]+(top[1]-base[1])*tone;pixels[offset+2]=base[2]+(top[2]-base[2])*tone;
+        pixels[offset+3]=alpha*255*(sheet?.9:1);
+      }
+      // Bake the micro-billows into this sprite once, never as per-frame particles.
+      // Distant clouds have too few pixels for useful relief; leave them on the fast path.
+      if(!sheet&&sy*scale>=9) {
+        const stamp=cloudBillowStamp(top,base,lightX),count=Math.min(lowPower?56:220,Math.floor(w*h/150));
+        const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
+        for(let k=0;k<count;k++) {
+          const x=random()*(w-1),y=random()*(h-1),index=Math.floor(y)*w+Math.floor(x);
+          if(pixels[index*4+3]<210||densityField[index]<.27)continue;
+          const localY=(topEdge+y/scale)/sy,upper=1-clamp((localY+.1)/.8,0,1);
+          if(upper<.15)continue;
+          const radius=clamp(sy*scale*(.028+random()*.035),1.1,4.2);
+          const strength=(night?.26:.5)*(.45+upper*.55);
+          // Blend the cached radial gradient directly into the existing pixel buffer.
+          // This avoids hundreds of canvas draw/composite calls and GPU readbacks.
+          const x0=Math.max(0,Math.floor(x-radius)),x1=Math.min(w-1,Math.ceil(x+radius)),y0=Math.max(0,Math.floor(y-radius)),y1=Math.min(h-1,Math.ceil(y+radius));
+          for(let py=y0;py<=y1;py++)for(let px=x0;px<=x1;px++) {
+            const dest=(py*w+px)*4;if(pixels[dest+3]<128)continue;
+            const u=clamp(Math.floor((px+.5-x+radius)/(radius*2)*32),0,31),v=clamp(Math.floor((py+.5-y+radius)/(radius*2)*32),0,31),src=(v*32+u)*4;
+            const alpha=stamp[src+3]/255*strength;
+            pixels[dest]+=(stamp[src]-pixels[dest])*alpha;pixels[dest+1]+=(stamp[src+1]-pixels[dest+1])*alpha;pixels[dest+2]+=(stamp[src+2]-pixels[dest+2])*alpha;
+          }
+        }
+      }
+      ctx.putImageData(image,0,0);
     }
-    ctx.globalCompositeOperation='source-over';cloud.sprite=sprite;cloud.spriteSignature=phase+':'+weather.kind;
+    cloud.sprite=sprite;
+  }
+  let cloudTextureWorker=null,cloudTexturePending=null,cloudTextureWorkerDisabled=false,cloudTextureURL='';
+  function releaseCloudTexture(texture){if(texture&&typeof texture.close==='function')texture.close();}
+  function commitCloudTexture(job,texture,bounds) {
+    const cloud=job.cloud;cloud.spriteBuilding=false;
+    const alive=cloud.storm?stormClouds.includes(cloud):clouds.includes(cloud);
+    if(!alive||cloud.sx!==job.sx||cloud.sy!==job.sy){releaseCloudTexture(texture);return;}
+    const previous=cloud.sprite,previousBounds=cloud.spriteBounds;
+    cloud.sprite=texture;cloud.spriteBounds=bounds;cloud.spritePhase=job.phase;cloud.spriteWeatherKind=job.kind;cloud.spriteLightX=job.lightX;
+    if(previous){cloud.previousSprite=previous;cloud.previousBounds=previousBounds;cloud.colorBlend=0;}
+    else {cloud.colorBlend=1;cloud.opacity=0;}
+  }
+  function fallbackCloudTexture() {
+    cloudTextureWorkerDisabled=true;
+    if(cloudTextureWorker){cloudTextureWorker.terminate();cloudTextureWorker=null;}
+    if(cloudTextureURL){URL.revokeObjectURL(cloudTextureURL);cloudTextureURL='';}
+    const job=cloudTexturePending;cloudTexturePending=null;
+    if(job){
+      const old=job.cloud.sprite,bounds=job.cloud.spriteBounds;
+      createCloudSprite(job.cloud,job.phase,{kind:job.kind,amount:job.amount},job.lightX);
+      const texture=job.cloud.sprite,nextBounds=job.cloud.spriteBounds;job.cloud.sprite=old;job.cloud.spriteBounds=bounds;
+      commitCloudTexture(job,texture,nextBounds);
+    }
+  }
+  function scheduleCloudTexture(cloud,phase,weather,lightX,lowPower) {
+    const job={cloud,phase,kind:weather.kind,amount:weather.amount,lightX,lowPower,sx:cloud.sx,sy:cloud.sy};
+    cloud.spriteBuilding=true;cloudTexturePending=job;
+    if(cloudTextureWorkerDisabled||typeof Worker!=='function'||typeof OffscreenCanvas!=='function'){fallbackCloudTexture();return;}
+    if(!cloudTextureWorker) {
+      // A single worker owns the same deterministic renderer and shared gradient cache.
+      const source="'use strict';const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));const cloudReliefAmount="+cloudReliefAmount+";let lowPower=false;const document={createElement:()=>{const canvas=new OffscreenCanvas(1,1);canvas.getContext('2d',{willReadFrequently:true});return canvas;},body:{classList:{contains:()=>lowPower}}};const cloudBillowStamp="+cloudBillowStamp.toString()+";const createCloudSprite="+createCloudSprite.toString()+";onmessage=event=>{const job=event.data;try{lowPower=job.lowPower;const cloud=job.cloud;createCloudSprite(cloud,job.phase,{kind:job.kind,amount:job.amount},job.lightX);const bitmap=cloud.sprite.transferToImageBitmap();postMessage({bitmap,bounds:cloud.spriteBounds},[bitmap]);}catch(error){postMessage({error:String(error)});}};";
+      try {
+        cloudTextureURL=URL.createObjectURL(new Blob([source],{type:'text/javascript'}));cloudTextureWorker=new Worker(cloudTextureURL);
+        cloudTextureWorker.onmessage=event=>{
+          if(cloudTextureURL){URL.revokeObjectURL(cloudTextureURL);cloudTextureURL='';}
+          if(event.data.error){fallbackCloudTexture();return;}
+          const pending=cloudTexturePending;cloudTexturePending=null;
+          if(pending)commitCloudTexture(pending,event.data.bitmap,event.data.bounds);else releaseCloudTexture(event.data.bitmap);
+        };
+        cloudTextureWorker.onerror=()=>fallbackCloudTexture();
+      }catch(error){fallbackCloudTexture();return;}
+    }
+    try{cloudTextureWorker.postMessage({phase,kind:job.kind,amount:job.amount,lightX,lowPower,cloud:{sx:cloud.sx,sy:cloud.sy,seed:cloud.seed,morphology:cloud.morphology,rows:cloud.rows,fibers:cloud.fibers}});}
+    catch(error){fallbackCloudTexture();}
+  }
+  // Animation-only lead-in: current weather data is not a precipitation forecast.
+  const cloudFront={kind:'none',amount:0,episode:0,clock:0,leadRemaining:0,nextSpawn:0,spawnIndex:0,output:{kind:'none',amount:0}};
+  const stormClouds=[];
+  let cloudSpriteBuildBudget=0;
+  function advanceCloudWeather(requested,dt,now=cloudFront.clock+Math.max(0,dt)*16.67) {
+    const elapsed=Math.max(0,now-cloudFront.clock);
+    cloudFront.clock=now;
+    const kind=requested.amount>0&&(requested.kind==='rain'||requested.kind==='snow')?requested.kind:'none';
+    const changed=kind!==cloudFront.kind;
+    if(changed) {
+      cloudFront.kind=kind;cloudFront.episode++;cloudFront.spawnIndex=0;cloudFront.nextSpawn=cloudFront.clock;
+      cloudFront.leadRemaining=kind==='rain'?5000:0;
+    }
+    cloudFront.amount=kind==='none'?0:boundedNumber(requested.amount,0,0,100);
+    if(!changed)cloudFront.leadRemaining=Math.max(0,cloudFront.leadRemaining-elapsed);
+    if(kind==='rain'&&cloudFront.leadRemaining===0&&!stormClouds.some(c=>c.episode===cloudFront.episode&&c.sprite&&c.opacity>.18))cloudFront.leadRemaining=16.67;
+    cloudFront.output.kind=kind;
+    cloudFront.output.amount=cloudFront.leadRemaining>0?0:cloudFront.amount;
+    return cloudFront.output;
+  }
+  function spawnStormCloud(wind) {
+    const index=cloudFront.spawnIndex++,flow=Math.hypot(wind.x,wind.y)||1;
+    const vertical=Math.abs(wind.x)<Math.abs(wind.y)*.3;
+    const cloud={level:'low',storm:true,episode:cloudFront.episode,birthType:cloudFront.kind==='rain'?'congestus':'nimbostratus',
+      index,baseY:height*(.09+.18*((index*.61803398875+.21)%1)),x:0,size:rand(.92,1.2),seed:(Math.random()*4294967295)>>>0,
+      coverage:clamp(cloudFront.amount/100,.45,1),opacity:0,targetOpacity:1,sprite:null,entryAge:0,
+      flowX:wind.x/flow,flowY:wind.y/flow,vertical,viewportWidth:width,viewportHeight:height};
+    cloudProjection(cloud);
+    if(vertical) {
+      cloud.x=width*(.15+.7*((index*.754877666+.31)%1));
+      cloud.baseY=wind.y>=0?-cloud.sy*.45:height*.42+cloud.sy*.35;
+    } else cloud.x=wind.x>=0?-cloud.sx*.65:width+cloud.sx*.65;
+    stormClouds.push(cloud);
+    cloudFront.nextSpawn=cloudFront.clock+1800;
+  }
+  function drawCloudSprite(cloud,type,phase,weather,lightX,lowPower,illumination,total,dt) {
+    if(cloud.previousSprite) {
+      cloud.colorBlend=Math.min(1,cloud.colorBlend+dt*16.67/1800);
+      if(cloud.colorBlend>=1){releaseCloudTexture(cloud.previousSprite);cloud.previousSprite=null;cloud.previousBounds=null;}
+    }
+    const geometryChanged=cloud.morphology!==type||cloud.geometryLowPower!==lowPower||cloud.geometryCoverage!==cloud.coverage||cloud.geometrySx!==cloud.sx||cloud.geometrySy!==cloud.sy;
+    const needsTexture=geometryChanged||cloud.spritePhase!==phase||cloud.spriteWeatherKind!==weather.kind||cloud.spriteLightX!==lightX;
+    // Finish an in-flight blend before adopting the latest requested palette. No snapshots or extra rAFs.
+    if(needsTexture&&!cloud.previousSprite&&!cloud.spriteBuilding&&!cloudTexturePending&&cloudSpriteBuildBudget>0) {
+      if(geometryChanged){
+        cloudGeometry(cloud,lowPower,type);cloud.geometryLowPower=lowPower;cloud.geometryCoverage=cloud.coverage;cloud.geometrySx=cloud.sx;cloud.geometrySy=cloud.sy;
+      }
+      scheduleCloudTexture(cloud,phase,weather,lightX,lowPower);cloudSpriteBuildBudget--;
+    }
+    if(!cloud.sprite)return;
+    const opacity=clamp(cloudLayerProfiles[cloud.level].alpha*illumination*cloud.opacity*(.8+total*.2),0,.95);
+    if(cloud.previousSprite) {
+      const t=cloud.colorBlend,b=cloud.previousBounds;
+      // Compensate source-over alpha so the cloud does not become transparent halfway through a blend.
+      cloudCtx.globalAlpha=opacity*(1-t)/Math.max(.05,1-opacity*t);
+      cloudCtx.drawImage(cloud.previousSprite,cloud.x+b.left*cloud.sx,cloud.baseY+b.top*cloud.sy,b.width*cloud.sx,b.height*cloud.sy);
+      cloudCtx.globalAlpha=opacity*t;
+    } else cloudCtx.globalAlpha=opacity;
+    const b=cloud.spriteBounds;
+    cloudCtx.drawImage(cloud.sprite,cloud.x+b.left*cloud.sx,cloud.baseY+b.top*cloud.sy,b.width*cloud.sx,b.height*cloud.sy);
   }
   function drawClouds(wind, cloudiness, dt) {
-    const phase=solarPhase(), weather=weatherVisualState(), lowPower=document.body.classList.contains('low-performance-mode');
+    const phase=solarPhase(),visibleWeather=weatherVisualState(),lowPower=document.body.classList.contains('low-performance-mode');
+    const weather=cloudFront.kind==='none'?visibleWeather:cloudFront;
+    const elapsedMs=cloudFront.lastDrawAt&&cloudFront.clock>cloudFront.lastDrawAt?Math.min(1000,cloudFront.clock-cloudFront.lastDrawAt):dt*16.67;
+    cloudFront.lastDrawAt=cloudFront.clock;
+    const paintDt=elapsedMs/16.67;
     const override=window.__dashboardDeveloperSceneOverride;
     const total=clamp(cloudiness,0,1), high=override?.active?boundedNumber(override.cloudHigh,total*100,0,100)/100:state.cloudHigh/100,
       mid=override?.active?boundedNumber(override.cloudMid,total*100,0,100)/100:state.cloudMid/100, low=override?.active?boundedNumber(override.cloudLow,total*100,0,100)/100:state.cloudLow/100;
-    const signature=total+':'+high+':'+mid+':'+low+':'+lowPower;
+    const signature=total+':'+high+':'+mid+':'+low+':'+lowPower+':'+cloudFront.kind;
     if(signature!==cloudCoverageSignature) {
       cloudCoverageSignature=signature;
       const values={high,mid,low};
       for(const level of cloudLevelOrder) {
-        const layer=cloudLayers[level], coverage=clamp(values[level],0,1), active=coverage*layer.length;
+        const layer=cloudLayers[level],coverage=clamp(values[level],0,1),active=coverage*layer.length*(cloudFront.kind!=='none'&&level!=='high'?.5:1);
         for(let i=0;i<layer.length;i++) {
-          const cloud=layer[i]; cloud.targetOpacity=clamp(active-i,0,1);
-          cloud.coverage=Math.round(coverage*8)/8; cloudProjection(cloud);
+          const cloud=layer[i];cloud.targetOpacity=clamp(active-i,0,1);
+          // Existing clouds retain their shape and projected size when the weather changes.
+          if(!cloud.sprite){cloud.coverage=Math.round(coverage*8)/8;cloudProjection(cloud);}
         }
       }
     }
-    let buildBudget=1;
-    const illumination=.88+(state.skyBrightness??.7)*.12;
+    let activeStorms=0;
+    for(const cloud of stormClouds)if(cloud.episode===cloudFront.episode)activeStorms++;
+    if(cloudFront.kind!=='none'&&activeStorms<(lowPower?4:6)&&stormClouds.length<8&&cloudFront.clock>=cloudFront.nextSpawn)spawnStormCloud(wind);
+    const frontNeedsSprite=cloudFront.kind!=='none'&&stormClouds.some(c=>c.episode===cloudFront.episode&&!c.sprite);
+    cloudSpriteBuildBudget=frontNeedsSprite?0:1;
+    const illumination=.88+(state.skyBrightness??.7)*.12,lightX=cloudLighting(phase);
     for(const cloud of clouds) {
-      cloud.opacity+=(cloud.targetOpacity-cloud.opacity)*Math.min(1,dt/90);
-      if(cloud.opacity<.003&&cloud.targetOpacity===0) {cloud.opacity=0;continue;}
+      cloud.opacity+=(cloud.targetOpacity-cloud.opacity)*(1-Math.exp(-elapsedMs/1500));
+      if(cloud.opacity<.003&&cloud.targetOpacity===0){cloud.opacity=0;releaseCloudTexture(cloud.previousSprite);cloud.previousSprite=null;cloud.previousBounds=null;continue;}
       cloud.x+=wind.x*.52*cloud.motion*dt;
       const radius=cloud.sx*2+3;
-      if(cloud.x-radius>width) cloud.x=-radius;
-      else if(cloud.x+radius<0) cloud.x=width+radius;
-      if(cloud.x+radius<0||cloud.x-radius>width) continue;
-      const type=cloudMorphology(cloud.level,weather),key=phase+':'+type+':'+lowPower+':'+cloud.coverage;
-      if(cloud.geometryKey!==key&&buildBudget>0) {
-        cloudGeometry(cloud,lowPower,type); createCloudSprite(cloud,phase,weather); cloud.geometryKey=key; buildBudget--;
+      if(cloud.x-radius>width)cloud.x=-radius;else if(cloud.x+radius<0)cloud.x=width+radius;
+      if(cloud.x+radius<0||cloud.x-radius>width)continue;
+      const type=cloud.birthType||(cloud.birthType=cloud.morphology||(cloud.level==='high'?'cirrus':cloud.level==='mid'?'altocumulus':'cumulus'));
+      drawCloudSprite(cloud,type,phase,weather,lightX,lowPower,illumination,total,paintDt);
+    }
+    if(frontNeedsSprite)cloudSpriteBuildBudget=1;
+    for(let i=stormClouds.length-1;i>=0;i--) {
+      const cloud=stormClouds[i];
+      if(cloud.viewportWidth!==width||cloud.viewportHeight!==height){
+        cloud.x*=width/cloud.viewportWidth;cloud.baseY*=height/cloud.viewportHeight;cloud.viewportWidth=width;cloud.viewportHeight=height;cloudProjection(cloud);
       }
-      if(!cloud.sprite) continue;
-      // Distant high clouds are thinner; total coverage modulates overlap opacity, not layer counts.
-      cloudCtx.globalAlpha=clamp(cloudLayerProfiles[cloud.level].alpha*illumination*cloud.opacity*(.8+total*.2),0,.95);
-      const bounds=cloud.spriteBounds;
-      cloudCtx.drawImage(cloud.sprite,cloud.x+bounds.left*cloud.sx,cloud.baseY+bounds.top*cloud.sy,bounds.width*cloud.sx,bounds.height*cloud.sy);
+      cloud.targetOpacity=cloudFront.kind!=='none'&&cloud.episode===cloudFront.episode?1:0;
+      cloud.opacity+=(cloud.targetOpacity-cloud.opacity)*(1-Math.exp(-elapsedMs/2000));
+      cloud.entryAge+=elapsedMs;
+      const entryGain=Math.max(0,1-cloud.entryAge/12000)*width/2400;
+      const speed=.52*cloud.motion*Math.hypot(wind.x,wind.y)+entryGain;
+      const flow=Math.hypot(wind.x,wind.y),dx=flow>.001?wind.x/flow:cloud.flowX,dy=flow>.001?wind.y/flow:cloud.flowY;
+      cloud.x+=dx*speed*dt;cloud.baseY+=dy*speed*dt*(cloud.vertical?.7:.12);
+      const radius=cloud.sx*1.7;
+      if((cloud.opacity<.003&&cloud.targetOpacity===0)||cloud.x+radius<0||cloud.x-radius>width||cloud.baseY+cloud.sy*3<0||cloud.baseY-cloud.sy*3>height*.45){
+        releaseCloudTexture(cloud.sprite);releaseCloudTexture(cloud.previousSprite);stormClouds.splice(i,1);continue;
+      }
+      drawCloudSprite(cloud,cloud.birthType,phase,weather,lightX,lowPower,illumination,total,paintDt);
     }
     cloudCtx.globalAlpha=1;
+  }
+  let weatherDiagnosticsEnabled=false,weatherDiagnosticsLastAt=0,weatherDiagnosticsFrames=0;
+  let weatherDiagnosticsCard=null,weatherDiagnosticsOverlay=null,weatherDiagnosticsFloating=null;
+  function updateWeatherDiagnostics(now,force=false) {
+    if(!weatherDiagnosticsEnabled)return;
+    weatherDiagnosticsFrames++;
+    if(!force&&now-weatherDiagnosticsLastAt<250)return;
+    let visibleClouds=0,blending=0,normalX=0;
+    const types={};
+    for(const cloud of clouds)if(cloud.sprite&&cloud.opacity>.01){
+      if(!visibleClouds)normalX=Math.round(cloud.x);
+      visibleClouds++;types[cloud.birthType||cloud.morphology]=true;if(cloud.previousSprite)blending++;
+    }
+    const elapsed=Math.max(1,now-weatherDiagnosticsLastAt);
+    const snapshot={phase:solarPhase(),source:window.__dashboardDeveloperSceneOverride?.active?'simulation':state.mode,
+      requested:cloudFront.kind,leadMs:Math.round(cloudFront.leadRemaining),visible:visualPrecipitationKind,rainAmount:+visualPrecipitation.toFixed(1),
+      rainParticles:rain.length,snowParticles:flakes.length,normalClouds:visibleClouds,storms:stormClouds.length,stormX:stormClouds.map(c=>Math.round(c.x)),
+      normalX,normalTypes:Object.keys(types),blending,
+      grassBackground:!!grassPaintWorker,grassBusy:grassWorkerBusy,grassFallback:grassWorkerDisabled,
+      cloudBackground:!!cloudTextureWorker,cloudBusy:!!cloudTexturePending,cloudFallback:cloudTextureWorkerDisabled,
+      fps:force?0:Math.round(weatherDiagnosticsFrames*1000/elapsed),costMs:+previousFrameCost.toFixed(2)};
+    const text=JSON.stringify(snapshot,null,2);
+    if(weatherDiagnosticsCard)weatherDiagnosticsCard.textContent=text;
+    if(weatherDiagnosticsFloating)weatherDiagnosticsFloating.textContent=text;
+    weatherDiagnosticsLastAt=now;weatherDiagnosticsFrames=0;
+  }
+  function setWeatherDiagnostics(enabled) {
+    weatherDiagnosticsEnabled=enabled===true;weatherDiagnosticsFrames=0;weatherDiagnosticsLastAt=performance.now();
+    const toggle=$('dev-weather-diagnostics-toggle');if(toggle)toggle.checked=weatherDiagnosticsEnabled;
+    if(weatherDiagnosticsOverlay)weatherDiagnosticsOverlay.hidden=!weatherDiagnosticsEnabled;
+    if(weatherDiagnosticsEnabled)updateWeatherDiagnostics(weatherDiagnosticsLastAt,true);
+    else if(weatherDiagnosticsCard)weatherDiagnosticsCard.textContent='진단 표시가 꺼져 있습니다.';
+  }
+  function setupWeatherDiagnostics() {
+    weatherDiagnosticsCard=$('dev-weather-diagnostics-output');weatherDiagnosticsOverlay=$('weather-render-diagnostics');weatherDiagnosticsFloating=$('weather-render-diagnostics-output');
+    $('dev-weather-diagnostics-toggle')?.addEventListener('change',event=>setWeatherDiagnostics(event.target.checked));
+    $('weather-diagnostics-close')?.addEventListener('click',()=>setWeatherDiagnostics(false));
+    $('dev-clear-all')?.addEventListener('click',()=>setWeatherDiagnostics(false));
+    $('dev-disable-options')?.addEventListener('click',()=>setWeatherDiagnostics(false));
+    setWeatherDiagnostics(false);
   }
   function normalizePrecipitationData(data) {
     if(!data||typeof data!=='object') return null;
@@ -6579,7 +6984,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         drop.y=-rand(4,height*.35); drop.x=Math.random()*width; drop.vy=0;
       }
       if (drop.y > height + 24) { drop.y=-rand(10,height*.4); drop.x=Math.random()*width; drop.vy=0; }
-      const streak=clamp(drop.vy*(.58+drop.depth*.2),1.2,drop.len*profile.rainWidth+strength*8), drift=drop.vx/Math.max(.1,drop.vy)*streak;
+      const streak=clamp(drop.vy*(.58+drop.depth*.2),1.2,drop.len*profile.rainWidth+strength*8)*1.12, drift=drop.vx/Math.max(.1,drop.vy)*streak;
       const group=Math.min(3,Math.floor(drop.depth*4)), tailX=drop.x-drift;
       streakGroups[group].moveTo(drop.x,drop.y); streakGroups[group].lineTo(tailX,drop.y-streak);
       if(group>=2) { const highlight=highlightGroups[group-2]; highlight.moveTo(drop.x,drop.y); highlight.lineTo(tailX,drop.y-streak*.62); }
@@ -6587,7 +6992,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     // Stroke ordinary falling drops in a few depth groups instead of one canvas operation per drop.
     for(let group=0;group<streakGroups.length;group++) {
       const depth=(group+.5)/streakGroups.length, alpha=(.34+strength*.48)*(.46+depth*.54)*clamp(strength*2,0,1);
-      effectCtx.strokeStyle=`rgba(205,232,250,${alpha})`; effectCtx.lineWidth=(.4+depth*.6)*profile.rainWidth; effectCtx.stroke(streakGroups[group]);
+      effectCtx.strokeStyle=`rgba(205,232,250,${alpha})`; effectCtx.lineWidth=(.4+depth*.6)*profile.rainWidth*1.12; effectCtx.stroke(streakGroups[group]);
     }
     for(let group=0;group<highlightGroups.length;group++) {
       const depth=(group+2.5)/4, alpha=(.34+strength*.48)*(.46+depth*.54)*.34*clamp(strength*2,0,1);
@@ -6791,7 +7196,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     try {
     frameVisualContext={hour:NaN,weather:null,phase:null};
     frameVisualContext.hour=computeCurrentHour();
-    const requestedWeather=computeWeatherVisualState();
+    const requestedWeather=advanceCloudWeather(computeWeatherVisualState(),dt,now);
     const requestedKind=requestedWeather.amount>0&&(requestedWeather.kind==='rain'||requestedWeather.kind==='snow')?requestedWeather.kind:'none';
     if(requestedKind!=='none') {
       if(visualPrecipitationKind!==requestedKind) { if(visualPrecipitationKind!=='none') clearAccumulatedWeather(); visualPrecipitationKind=requestedKind; visualPrecipitation=0; }
@@ -6847,6 +7252,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     } catch(error) { if(!frameErrorNotified) { console.warn('날씨 애니메이션 렌더링을 복구합니다.',error); frameErrorNotified=true; } }
     finally { if(effectContextSaved) { try { effectCtx.restore(); } catch(error) {} } frameVisualContext=null; }
     previousFrameCost=performance.now()-frameStartedAt;
+    if(weatherDiagnosticsEnabled)updateWeatherDiagnostics(now);
     // Exactly one rAF is pending; precipitation can follow 60/120/144 Hz displays without skipped deadlines.
     nextFrameAt=now;
     if(weatherFrameRunning && !document.hidden && document.documentElement.dataset.theme==='weather') scheduleWeatherFrame(generation);
@@ -6926,13 +7332,14 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         if(previousKind!==state.kind && previousKind!=='none' && state.kind!=='none') clearAccumulatedWeather();
         state.amount=state.kind==='none'?0:precipitationAmount(state.precipitationData.totalRate);
       }
-      lastSkyValue=''; if(state.kind!=='none') { setSky(); drawGrass(); }
+      lastSkyValue=''; /* The existing frame loop applies the weather once. */
       state.location=localStorage.getItem('dashboardSchoolName')||'대륜고등학교';
       state.detail=`${temperature===null?'--':temperature.toFixed(1)}°C · 구름 ${cloudCover}% · 강수 ${totalMm.toFixed(1)}mm · 풍속 ${windSpeed}km/h · 풍향 ${windDirection}°`;
       persist(); sync();
     } catch(error) { if(requestId!==weatherRequestId||state.mode!==requestedMode) return; if($('weather-detail')) $('weather-detail').textContent='날씨 정보를 가져오지 못했습니다. 네트워크를 확인하거나 수동 조절 모드를 사용하세요.'; console.warn('날씨 API 요청 실패',error); }
   }
   function init() {
+    setupWeatherDiagnostics();
     try { const saved=JSON.parse(localStorage.getItem('standbyWeather')||'{}'); if(saved&&typeof saved==='object'&&!Array.isArray(saved)) Object.assign(state,saved); } catch {}
     try { if(localStorage.getItem('standbyWeatherDefaultsV2')!=='1') { state.reflectWeather=true; state.reflectTime=true; state.aurora=true; localStorage.setItem('standbyWeatherDefaultsV2','1'); localStorage.setItem('standbyWeather',JSON.stringify(state)); } } catch {}
     normalizeWeatherState();
@@ -6962,7 +7369,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       if(state.kind!==e.target.value && state.kind!=='none' && e.target.value!=='none') clearAccumulatedWeather(); state.mode='manual'; state.kind=e.target.value;
       state.precipitationData=null; if(state.kind==='rain'||state.kind==='snow'){state.amount=50;}else state.amount=0;
       if($('weather-mode')) $('weather-mode').value='manual';
-      lastSkyValue=''; if(state.kind!=='none') { setSky(); drawGrass(); } persist(); sync();
+      lastSkyValue=''; /* The existing frame loop applies the weather once. */ persist(); sync();
     });
     $('weather-time')?.addEventListener('change',e=>{ weatherRequestId++; state.time=e.target.value; state.mode='manual'; state.timelineStartedAt=state.time==='timeline'?Date.now():0; if($('weather-mode')) $('weather-mode').value='manual'; lastSkyValue=''; setSky(true); drawMountains(); drawGrass(); persist(); sync(); });
     $('weather-timeline-duration')?.addEventListener('change',e=>{ state.timelineDuration=clamp(Number(e.target.value)||120,1,1440); e.target.value=state.timelineDuration; if(state.time==='timeline') state.timelineStartedAt=Date.now(); lastSkyValue=''; setSky(true); drawMountains(); drawGrass(); persist(); sync(); });
