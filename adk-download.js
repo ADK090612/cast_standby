@@ -15,7 +15,7 @@
         }).catch(error=>{loading=null;throw error});
         return loading;
     }
-    async function zip(files) {
+    async function zip(files,onProgress=()=>{}) {
         const parts = [], central = [];
         let offset = 0, centralSize = 0;
         const table = Uint32Array.from({length:256}, (_,n) => { let c=n; for(let k=0;k<8;k++) c=(c&1)?0xedb88320^(c>>>1):c>>>1; return c>>>0; });
@@ -39,24 +39,25 @@
             r.setUint32(0,0x02014b50,true); r.setUint16(4,20,true); r.setUint16(6,20,true); r.setUint16(8,0x800,true);r.setUint16(10,method,true);r.setUint16(14,0x21,true);
             r.setUint32(16,crc,true); r.setUint32(20,payload.length,true); r.setUint32(24,data.length,true); r.setUint16(28,name.length,true); r.setUint32(42,offset,true); record.set(name,46);
             parts.push(header,payload); central.push(record); offset+=header.length+payload.length; centralSize+=record.length;
+            onProgress(central.length,files.length);
         }
         const end = new Uint8Array(22), e = new DataView(end.buffer);
         e.setUint32(0,0x06054b50,true); e.setUint16(8,files.length,true); e.setUint16(10,files.length,true); e.setUint32(12,centralSize,true); e.setUint32(16,offset,true);
         return new Blob([...parts,...central,end], {type:'application/zip'});
     }
-    window.ADKOfflineDownload = async function(setStatus) {
-        setStatus('별도 패키지 데이터를 읽고 있습니다…');
+    window.ADKOfflineDownload = async function(setStatus,onProgress) {
+        setStatus('패키지 읽는 중');
         const encoded=await packageData();
         const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0));
         const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
         const archive=JSON.parse(await new Response(stream).text());
-        setStatus('오프라인 ZIP 패키지를 만들고 있습니다…');
+        setStatus('ZIP 생성 중');
         const files=archive.files.map(file=>({name:file.name,data:Uint8Array.from(atob(file.base64),c=>c.charCodeAt(0))}));
         // Recreate the lazy data file from its value so packages can be downloaded again offline.
         files.push({name:'adk-package-data.js',data:'window.ADKOfflinePackageData='+JSON.stringify(encoded)+';\n'});
-        const blob=await zip(files), url=URL.createObjectURL(blob), link=document.createElement('a');
+        const blob=await zip(files,onProgress), url=URL.createObjectURL(blob), link=document.createElement('a');
         link.href=url; link.download='ADK-Offline.zip'; document.body.append(link); link.click(); link.remove();
         setTimeout(()=>URL.revokeObjectURL(url),60000);
-        setStatus('ZIP 패키지 저장을 요청했습니다. 압축을 해제한 ADK-Offline 폴더 전체를 함께 보관하세요.');
+        setStatus('ZIP 다운로드 시작',{done:1,total:1});
     };
 })();

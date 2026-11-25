@@ -8,14 +8,30 @@
     const cacheButton = document.getElementById('offline-cache-btn');
     const zipButton = document.getElementById('offline-download-btn');
     const clearButton = document.getElementById('offline-cache-clear-btn');
-    const environment = document.getElementById('offline-cache-environment');
+    const progressPanels=[...document.querySelectorAll('[data-offline-progress]')];
     const canCache = /^https?:$/.test(location.protocol) && window.isSecureContext && 'caches' in window && 'serviceWorker' in navigator;
     const readPreference = () => { try { return localStorage.getItem(preferenceKey) === 'true'; } catch (_) { return false; } };
     const savePreference = value => {
         try { localStorage.setItem(preferenceKey, String(value)); }
         catch (_) { throw new Error('브라우저가 설정 저장을 차단했습니다. 사이트 저장 공간 권한을 확인하세요.'); }
     };
-    const setStatus = message => { status.textContent = message; if(cacheUpdateOperation)cacheUpdateStatus.textContent=message; };
+    let lastProgressAt=0,lastProgressLabel='';
+    function setStatus(message,progress=null) {
+        status.textContent=message;cacheUpdateStatus.textContent=message;
+        const percent=progress?.total>0?Math.min(100,Math.max(0,Math.round(progress.done/progress.total*100))):null;
+        for(const panel of progressPanels) {
+            panel.hidden=!message;
+            panel.querySelector('[data-offline-progress-value]').textContent=percent===null?'':percent+'%';
+            const track=panel.querySelector('[data-offline-progress-track]');track.hidden=percent===null;
+            if(percent!==null){track.setAttribute('aria-valuenow',String(percent));panel.querySelector('[data-offline-progress-fill]').style.width=percent+'%';}
+            else track.removeAttribute('aria-valuenow');
+        }
+    }
+    function setProgress(done,total,label) {
+        const now=performance.now();
+        if(done<total&&label===lastProgressLabel&&now-lastProgressAt<150)return;
+        lastProgressAt=now;lastProgressLabel=label;setStatus(label,{done,total});
+    }
     let busy = false;
 
     let downloadModule;
@@ -29,7 +45,7 @@
             }).catch(error=>{downloadModule=null;throw error});
             await downloadModule;
         }
-        await window.ADKOfflineDownload(setStatus);
+        await window.ADKOfflineDownload(setStatus,(done,total)=>setProgress(done,total,'ZIP 생성 중'));
     }
 
     function registerWorker() {
@@ -74,7 +90,7 @@
     }
     async function refreshCacheInfo(){
         cachedInfo=await readCacheInfo();
-        cacheVersionLabel.textContent=cachedInfo?'저장된 캐시: '+versionLabel(cachedInfo):'저장된 캐시가 없습니다.';
+        cacheVersionLabel.textContent=cachedInfo?versionLabel(cachedInfo):'없음';
         syncCacheUpdateControls();
     }
     function parseResourceList(text){
@@ -100,10 +116,10 @@
         latestResources=null;
         await refreshCacheInfo();
         const latest=await fetchLatestResources();
-        latestVersionLabel.textContent='서버의 최신 리소스: '+versionLabel(latest);
-        if(!cachedInfo)setStatus('저장된 캐시가 없습니다. 오프라인 구동 설정에서 먼저 브라우저에 캐싱하세요.');
-        else if(cachedInfo.revision===latest.revision)setStatus('저장된 브라우저 캐시가 최신 버전입니다.');
-        else{latestResources=latest;setStatus('새 리소스 버전이 있습니다. 캐시 업데이트로 최신 파일을 저장할 수 있습니다.');}
+        latestVersionLabel.textContent=versionLabel(latest);
+        if(!cachedInfo)setStatus('');
+        else if(cachedInfo.revision===latest.revision)setStatus('최신 버전입니다.');
+        else{latestResources=latest;setStatus('캐시 업데이트 가능');}
         syncCacheUpdateControls();
     }
     async function verifiedResponse(response,file){
@@ -127,12 +143,13 @@
         try{
             const resources=resourceSet.files.filter(file=>file.name!==resourceSet.pageName);
             let cursor=0,done=0;
+            setProgress(0,resources.length+2,'캐시 다운로드 중');
             const results=await Promise.allSettled(Array.from({length:4},async()=>{
                 while(cursor<resources.length){
                     const file=resources[cursor++],url=new URL(file.name,location.href);
                     const response=await fetch(url,{cache:'reload',signal:AbortSignal.timeout(60000)});
                     await cache.put(url,await verifiedResponse(response,file));
-                    if(++done%30===0)setStatus('리소스 캐싱 중… '+done+' / '+resources.length);
+                    setProgress(++done,resources.length+2,'캐시 다운로드 중');
                 }
             }));
             const failed=results.find(result=>result.status==='rejected');if(failed)throw failed.reason;
@@ -140,6 +157,7 @@
             for(const image of document.images)if(/^https?:/.test(image.src)&&new URL(image.src).origin!==location.origin)additional.add(image.src);
             for(const node of [document.body,...document.querySelectorAll('[style*="url("]')])for(const match of getComputedStyle(node).backgroundImage.matchAll(/url\(["']?(https?:[^"')]+)["']?\)/g))if(new URL(match[1]).origin!==location.origin)additional.add(match[1]);
             for(const url of additional){const response=await fetch(url,{mode:'no-cors',cache:'reload',signal:AbortSignal.timeout(30000)});if(!response.ok&&response.type!=='opaque')throw new Error('이미지 저장 실패: '+url);await cache.put(url,response)}
+            setStatus('캐시 확인 중',{done:resources.length,total:resources.length+2});
             const pageFile=resourceSet.files.find(file=>file.name===resourceSet.pageName);
             const htmlResponse=await verifiedResponse(await fetch(pageURL,{cache:'reload',signal:AbortSignal.timeout(30000)}),pageFile);
             const pageURLs=[...new Set([pageURL.href,new URL('./index.html',pageURL).href,new URL('./',pageURL).href])];
@@ -154,7 +172,7 @@
             for(const key of await caches.keys())if(key.startsWith(cacheName+':')&&key!==dataName)await caches.delete(key);
             await caches.delete('adk-standby-offline-v1:'+new URL('./',location.href).pathname);
             await refreshCacheInfo();
-            setStatus('브라우저 캐싱 완료 · 글꼴 '+resourceSet.fontCount+'개 · 버전 '+versionLabel(info));
+            setStatus('캐시 저장 완료',{done:1,total:1});
         }finally{if(!committed){await caches.delete(dataName);try{savePreference(wasEnabled)}catch(_){}}}
     }
     function runCacheUpdate(action,message){
@@ -166,7 +184,7 @@
     applyCacheUpdateButton.addEventListener('click',()=>runCacheUpdate(async()=>{
         if(!latestResources||!cachedInfo)throw new Error('최신 캐시 버전을 먼저 확인해 주세요.');
         await cacheInBrowser(latestResources);
-        setStatus('캐시 업데이트를 완료했습니다. 새로고침하면 최신 화면이 적용됩니다.');
+        setStatus('캐시 업데이트 완료',{done:1,total:1});
     },'새 버전의 캐시를 저장하고 있습니다…'));
     document.getElementById('manual-check-update-btn')?.addEventListener('click',()=>{if(canCache)runCacheUpdate(checkCacheUpdates,'최신 캐시 버전을 확인하고 있습니다…')});
     document.addEventListener('click',event=>{if(event.target.closest('[data-view="update"]')&&canCache)runCacheUpdate(checkCacheUpdates,'최신 캐시 버전을 확인하고 있습니다…')});
@@ -185,8 +203,7 @@
         },true);
     }
     if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setupCacheUpdateMenu,{once:true});else setupCacheUpdateMenu();
-    if(!canCache)cacheUpdateStatus.textContent='캐시 업데이트 확인은 HTTPS 또는 localhost에서 사용할 수 있습니다.';
-    refreshCacheInfo().catch(error=>{cacheUpdateStatus.textContent='캐시 정보를 읽지 못했습니다. '+error.message});
+    refreshCacheInfo().catch(error=>setStatus('캐시 정보를 읽지 못했습니다. '+error.message));
 
     async function clearBrowserCache(message) {
                 const registrations = await navigator.serviceWorker.getRegistrations();
@@ -196,7 +213,7 @@
                 }
                 for(const key of await caches.keys())if(key===cacheName||key.startsWith(cacheName+':'))await caches.delete(key); await caches.delete('adk-standby-offline-v1:'+new URL('./',location.href).pathname); savePreference(false);
                 latestResources=null; await refreshCacheInfo();
-                setStatus(message || '브라우저 오프라인 캐시를 해제했습니다. 이미 열린 탭에는 새로고침 후 적용됩니다.');
+                setStatus(message || '캐시 사용 해제');
     }
 
     async function perform(action, message) {
@@ -204,23 +221,15 @@
         busy=true; zipButton.disabled=true; cacheButton.disabled=true; clearButton.disabled=true; toggle.disabled=true; syncCacheUpdateControls(); setStatus(message);
         try { await action(); }
         catch (error) { setStatus('완료하지 못했습니다. ' + error.message); console.error('ADK offline:',error); }
-        finally { busy=false; zipButton.disabled=false; cacheButton.disabled=!canCache; clearButton.disabled=!canCache; toggle.disabled=false; toggle.checked=readPreference(); syncCacheUpdateControls(); }
+        finally { busy=false; zipButton.disabled=false; cacheButton.disabled=!canCache; clearButton.disabled=!canCache; toggle.disabled=!canCache; toggle.checked=readPreference(); syncCacheUpdateControls(); }
     }
-    cacheButton.disabled=!canCache; clearButton.disabled=!canCache; toggle.disabled=false; toggle.checked=readPreference();
-    environment.textContent=canCache
-        ? '현재 환경에서는 체크하면 브라우저 캐싱을 시작하고, 해제하면 저장된 캐시를 삭제합니다.'
-        : '현재 환경에서는 체크 상태만 저장됩니다. 실제 브라우저 캐싱은 HTTPS 또는 localhost에서 사용할 수 있습니다. 로컬 리소스와 ZIP 패키지는 지금도 오프라인으로 동작합니다.';
-    clearButton.addEventListener('click', () => perform(() => clearBrowserCache('브라우저 캐시를 삭제했습니다. 캐시 사용 설정도 껐습니다. 이미 열린 탭에는 새로고침 후 적용됩니다.'),'브라우저 캐시를 삭제하고 있습니다…'));
+    cacheButton.disabled=!canCache; clearButton.disabled=!canCache; toggle.disabled=!canCache; toggle.checked=readPreference();
+    toggle.title=canCache?'':'브라우저 캐싱은 HTTPS 또는 localhost에서 사용할 수 있습니다.';
+    clearButton.addEventListener('click', () => perform(() => clearBrowserCache('캐시 삭제 완료'),'캐시 삭제 중'));
     cacheButton.addEventListener('click', () => perform(cacheInBrowser,'브라우저 캐싱을 준비하고 있습니다…'));
     zipButton.addEventListener('click', () => perform(downloadPackage,'오프라인 ZIP 패키지를 만들고 있습니다…'));
     toggle.addEventListener('change', () => {
         if (!canCache) {
-            try {
-                savePreference(toggle.checked);
-                setStatus(toggle.checked
-                    ? '브라우저 캐시 사용 설정을 켰습니다. 현재 환경에서는 실제 캐싱을 수행하지 않습니다. HTML과 함께 제공된 로컬 리소스로 오프라인 구동합니다.'
-                    : '브라우저 캐시 사용 설정을 껐습니다. HTML과 함께 제공된 로컬 리소스와 ZIP 패키지는 계속 사용할 수 있습니다.');
-            } catch(error) { setStatus('설정을 저장하지 못했습니다. '+error.message); }
             toggle.checked=readPreference();
             return;
         }
@@ -230,12 +239,12 @@
             perform(() => clearBrowserCache(),'브라우저 캐싱을 해제하고 있습니다…');
         }
     });
-    if (!canCache) setStatus((readPreference()?'브라우저 캐시 사용 설정이 켜져 있습니다. ':'')+'현재는 브라우저 캐싱을 지원하지 않는 실행 환경입니다. 로컬 리소스로 오프라인 구동하며, 체크박스로 사용 설정을 저장할 수 있습니다.');
+    if(!canCache)setStatus('브라우저 캐싱 지원 안 됨');
     else if (readPreference()) perform(async () => {
         const registration=await registerWorker();
         await activeWorker(registration);
         const cache=await caches.open(cacheName), saved=await cache.match(new URL('./__adk_offline_status__',location.href));
-        if(saved) setStatus('브라우저 오프라인 캐시가 저장되어 있습니다.');
+        if(saved)setStatus('');
         else await cacheInBrowser();
     },'저장된 브라우저 캐시를 확인하고 있습니다…');
 

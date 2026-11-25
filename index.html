@@ -379,10 +379,14 @@
         #update-notification { border-radius: 22px; box-shadow: 0 12px 32px rgba(0,0,0,.24); }
         .update-notification-loader { display:inline-block; width:42px; height:42px; flex:0 0 18px; scale:.42; transform-origin:center; margin:0 -12px; }
         #update-notification-progress { width:100%; padding:1px 10px 4px; }
-        #update-notification-time { display:flex; align-items:center; justify-content:space-between; gap:8px; color:rgba(255,255,255,.9); font-size:10px; line-height:12px; white-space:nowrap; }
-        #update-notification-track { width:100%; height:3px; margin-top:3px; overflow:hidden; border-radius:999px; background:rgba(255,255,255,.24); }
-        #update-notification-fill { display:block; width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,#bfdbfe,#fff); box-shadow:0 0 6px rgba(255,255,255,.72); transition:width 1s linear; }
-        @media (prefers-reduced-motion: reduce) { #update-notification-fill { transition:none; } }
+        .operation-progress[hidden],.operation-progress-track[hidden] { display:none!important; }
+        .operation-progress-time { display:flex; align-items:center; justify-content:space-between; gap:8px; color:var(--progress-text,rgba(255,255,255,.9)); font-size:10px; line-height:12px; }
+        .operation-progress-time>:first-child { min-width:0; overflow-wrap:anywhere; }
+        .operation-progress-value { flex-shrink:0; font-variant-numeric:tabular-nums; white-space:nowrap; }
+        .operation-progress-track { width:100%; height:3px; margin-top:3px; overflow:hidden; border-radius:999px; background:var(--progress-track,rgba(255,255,255,.24)); }
+        .operation-progress-fill { display:block; width:0; height:100%; border-radius:inherit; background:var(--progress-fill,linear-gradient(90deg,#bfdbfe,#fff)); box-shadow:0 0 6px var(--progress-glow,rgba(255,255,255,.72)); transition:width .25s linear; }
+        #update-notification-fill { transition-duration:1s; }
+        @media (prefers-reduced-motion: reduce) { .operation-progress-fill { transition:none!important; } }
         .schedule-list-container > *, #meal-content > * { border-radius: 14px; }
         @media (prefers-reduced-motion: reduce) { .screen > div { animation: none; } }
         @media (max-width: 640px) {
@@ -540,7 +544,7 @@
         :root[data-theme="light"] .theme-choice[aria-pressed="true"] { color:#202b3d; background:rgba(255,255,255,.9); box-shadow:0 2px 8px rgba(28,39,57,.1); }
                 /* Unified glass range controls for screen timing */
         input[type="range"].glass-input { --range-progress:0%; appearance:none; -webkit-appearance:none; display:block; width:100%; height:30px; min-height:30px; padding:0 !important; margin:2px 0; border:0 !important; border-radius:999px; background:transparent !important; box-shadow:none !important; cursor:pointer; touch-action:pan-y; }
-        input[type="range"].glass-input::-webkit-slider-runnable-track { height:7px; border-radius:999px; background:linear-gradient(90deg,#45c893 0%,#4b87ff var(--range-progress),rgba(255,255,255,.16) var(--range-progress),rgba(255,255,255,.16) 100%); box-shadow:inset 0 1px 2px rgba(0,0,0,.2); }
+        input[type="range"].glass-input::-webkit-slider-runnable-track { height:7px; border-radius:999px; background:linear-gradient(90deg,#45c893 0%,#4b87ff var(--range-fill,0%),rgba(255,255,255,.16) var(--range-fill,0%),rgba(255,255,255,.16) 100%); box-shadow:inset 0 1px 2px rgba(0,0,0,.2); }
         input[type="range"].glass-input::-moz-range-track { height:7px; border-radius:999px; background:rgba(255,255,255,.16); box-shadow:inset 0 1px 2px rgba(0,0,0,.2); }
         input[type="range"].glass-input::-moz-range-progress { height:7px; border-radius:999px; background:linear-gradient(90deg,#45c893,#4b87ff); }
         input[type="range"].glass-input::-webkit-slider-thumb { appearance:none; -webkit-appearance:none; width:20px; height:20px; margin-top:-6.5px; border:1px solid rgba(255,255,255,.74); border-radius:50%; background:linear-gradient(135deg,rgba(52,211,153,.95),rgba(59,130,246,.95)); box-shadow:inset 0 1px 2px rgba(255,255,255,.42),0 2px 8px rgba(0,0,0,.3); transition:transform .16s ease,box-shadow .16s ease; }
@@ -548,7 +552,7 @@
         input[type="range"].glass-input:hover::-webkit-slider-thumb { transform:scale(1.08); box-shadow:0 0 0 4px rgba(96,165,250,.14),0 3px 10px rgba(0,0,0,.28); }
         input[type="range"].glass-input:focus-visible { outline:2px solid rgba(110,231,183,.78) !important; outline-offset:4px; border-radius:999px; }
         input[type="range"].glass-input:focus-visible::-moz-range-thumb { box-shadow:0 0 0 4px rgba(96,165,250,.2),0 3px 10px rgba(0,0,0,.28); }
-        :root[data-theme="light"] input[type="range"].glass-input::-webkit-slider-runnable-track { background:linear-gradient(90deg,#61b9a0 0%,#5c82c0 var(--range-progress),rgba(45,60,82,.15) var(--range-progress),rgba(45,60,82,.15) 100%); box-shadow:inset 0 1px 2px rgba(28,39,57,.1); }
+        :root[data-theme="light"] input[type="range"].glass-input::-webkit-slider-runnable-track { background:linear-gradient(90deg,#61b9a0 0%,#5c82c0 var(--range-fill,0%),rgba(45,60,82,.15) var(--range-fill,0%),rgba(45,60,82,.15) 100%); box-shadow:inset 0 1px 2px rgba(28,39,57,.1); }
         :root[data-theme="light"] input[type="range"].glass-input::-moz-range-track { background:rgba(45,60,82,.15); box-shadow:inset 0 1px 2px rgba(28,39,57,.1); }
         :root[data-theme="light"] input[type="range"].glass-input::-moz-range-progress { background:linear-gradient(90deg,#61b9a0,#5c82c0); }
         :root[data-theme="light"] input[type="range"].glass-input::-webkit-slider-thumb { border-color:rgba(255,255,255,.92); background:linear-gradient(135deg,#8dcfbd,#7e9dc9); box-shadow:inset 0 1px 2px rgba(255,255,255,.75),0 2px 7px rgba(28,39,57,.22); }
@@ -1002,7 +1006,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 <span class="font-semibold text-sm whitespace-nowrap">업데이트 준비 중...</span>
                 <span class="region-loader-dots update-notification-loader" aria-hidden="true"><span class="region-loader-dot"></span><span class="region-loader-dot"></span><span class="region-loader-dot"></span><span class="region-loader-dot"></span></span>
             </div>
-            <div id="update-notification-progress" class="hidden shrink-0" role="status" aria-live="polite"><div id="update-notification-time"><span>강제 업데이트까지 남은 시간</span><span id="update-notification-remaining">60:00</span></div><div id="update-notification-track"><span id="update-notification-fill"></span></div></div>
+            <div id="update-notification-progress" class="operation-progress hidden shrink-0" role="status" aria-live="polite"><div id="update-notification-time" class="operation-progress-time"><span>강제 업데이트까지 남은 시간</span><span id="update-notification-remaining" class="operation-progress-value">60:00</span></div><div id="update-notification-track" class="operation-progress-track"><span id="update-notification-fill" class="operation-progress-fill"></span></div></div>
             <div class="flex justify-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 w-full">
                 <button id="go-to-update-btn" class="flex-1 bg-white/20 hover:bg-white/30 text-white text-xs py-1.5 px-2 rounded-full transition-colors whitespace-nowrap">업데이트로 이동</button>
                 <button id="remind-later-btn" class="flex-1 bg-black/20 hover:bg-black/30 text-white text-xs py-1.5 px-2 rounded-full transition-colors whitespace-nowrap">나중에 다시 알림</button>
@@ -1243,7 +1247,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">업데이트 설정 및 확인</h4>
                             <div class="software-version-hero update-version-hero">
                                 <div class="software-version-glow" aria-hidden="true"></div>
-                                <h2>ADK Dash <span id="update-version-hero-value">2.7.6</span></h2>
+                                <h2>ADK Dash <span id="update-version-hero-value">2.7.7</span></h2>
                                 <p id="update-status-text">최신 버전을 확인하는 중입니다...</p>
                             </div>
                             
@@ -1265,7 +1269,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
                             <div class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold text-white">자동 업데이트</h5>
-                                <label class="glass-checkbox-label"><input id="auto-update-toggle" type="checkbox" class="glass-checkbox-input"><span class="glass-checkbox-box"></span><span class="text-sm">자동 업데이트 켜기 (30분마다 확인, 업데이트 발견 후 1시간 뒤 새로고침)</span></label>
+                                <label class="glass-checkbox-label"><input id="auto-update-toggle" type="checkbox" class="glass-checkbox-input"><span class="glass-checkbox-box"></span><span class="text-sm">자동 업데이트 켜기</span></label>
                             </div>
                             <div class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold text-white">알림 설정</h5>
@@ -1276,7 +1280,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                         <option value="1">1일 동안 알림 끄기</option>
                                         <option value="3">3일 동안 알림 끄기</option>
                                         <option value="7">1주일 동안 알림 끄기</option>
-                                        <option value="-1">알림 계속 끄기 (수동 확인만 가능)</option>
+                                        <option value="-1">알림 계속 끄기</option>
                                     </select>
                                 </div>
                                 <button id="save-update-settings-btn" class="glass-button w-full mt-2">알림 설정 저장</button>
@@ -1289,6 +1293,27 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <span>📝</span> 릴리즈 노트
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
+                                <!-- release-v2.7.7-start -->
+                                <div>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.7.7</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>오프라인 구동·캐시 업데이트·카드 편집의 반복 설명을 정리하고 작업 중 상태와 오류만 간결하게 표시</li>
+                                        <li>캐시 다운로드와 ZIP 생성 상태를 강제 업데이트 남은 시간 표시와 같은 상태 행·진행 막대 UI로 통일하고 실제 진행률 표시</li>
+                                        <li>업데이트 메뉴의 릴리즈 노트·캐시 업데이트 버튼 간격과 캐시 버전 카드의 여백·테두리·테마 스타일 통일</li>
+                                        <li>설정·시계·박스의 모든 슬라이더를 입력·초기화·코드에 의한 값 변경과 동기화하고 손잡이 중앙에 맞게 채움 길이 보정</li>
+                                        <li>시계·박스 편집 상단 선택 줄을 없애고 하단 X·되돌리기·저장 버튼과 함께 원형 + 버튼 제공</li>
+                                        <li>카드와 시계를 화면에서 직접 눌러 선택하도록 개선하고 날짜 배치 아이콘과 실제 상하좌우 배치를 일치시킴</li>
+                                        <li>카드 편집의 입력·선택 메뉴·색상·체크박스를 설정 UI와 통일하고 해제 상태에서도 선택 테두리 표시</li>
+                                        <li>색상 선택을 공통 채도·밝기·색조·HEX·RGB 편집창으로 통일하고 키보드·터치 조절 지원</li>
+                                        <li>시계·박스 편집 패널에 테마에 맞는 스크롤바를 표시하고 작은 화면에서 긴 내용에 접근하도록 개선</li>
+                                        <li>알림 타임라인 드래그 손잡이를 편집 창 이동 pill과 통일하고 순서 이동·삭제 버튼을 원형 테두리로 변경</li>
+                                        <li>날짜·일정 내용 등 한 줄 입력칸과 선택 메뉴를 pill 모양으로 통일</li>
+                                        <li>브라우저 캐싱 미지원 환경에서는 체크박스와 캐시 버튼을 함께 비활성화하고 저장된 설정의 변경 방지</li>
+                                        <li>작은 화면의 설정 폭·사이드바·내용 스크롤과 라이트 테마 대비를 개선하고 메시지 글자 크기 선택 항목의 잘못된 문구 수정</li>
+                                        <li>브라우저 캐시 무결성 정보와 오프라인 ZIP 패키지에 v2.7.7 변경사항 반영</li>
+                                    </ul>
+                                </div>
+                                <!-- release-v2.7.7-end -->
                                 <!-- release-v2.7.6-start -->
                                 <div>
                                     <h5 class="font-bold text-blue-300 text-lg">v2.7.6</h5>
@@ -1596,7 +1621,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                     <div class="flex items-center justify-between gap-4 mt-3"><div><h5 class="font-semibold">상단 일정 알림</h5></div><label class="glass-checkbox-label"><input type="checkbox" id="schedule-pills-toggle" class="glass-checkbox-input" aria-label="상단 일정 알림 표시"><span class="glass-checkbox-box"></span><span class="text-sm">표시</span></label></div>
                                 </section>
                                 <section class="weather-settings-panel glass-section p-4 space-y-4" aria-labelledby="weather-scene-title">
-                                    <div><h4 id="weather-scene-title" class="font-semibold">실시간 날씨 배경</h4><p class="text-sm text-white/60 mt-1"></p></div>
+                                    <div><h4 id="weather-scene-title" class="font-semibold">실시간 날씨 배경</h4></div>
                                     <div class="flex flex-wrap gap-x-5 gap-y-2">
                                       <label class="glass-checkbox-label"><input type="checkbox" id="weather-reflect-toggle" class="glass-checkbox-input" checked><span class="glass-checkbox-box"></span><span class="text-sm">날씨 반영</span></label>
                                       <label class="glass-checkbox-label"><input type="checkbox" id="weather-time-reflect-toggle" class="glass-checkbox-input" checked><span class="glass-checkbox-box"></span><span class="text-sm">시간대 반영</span></label>
@@ -1711,7 +1736,6 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                     <input type="text" id="yt-music-url-input" class="glass-input flex-1" placeholder="YouTube 영상 링크를 입력하세요..." autocomplete="off">
                                     <button id="add-yt-music-btn" class="glass-button bg-blue-500/30 hover:bg-blue-500/50 shadow-md">항목 추가</button>
                                 </div>
-                                <p class="text-xs text-gray-400 mt-1"></p>
 
                                 <div class="border-t border-white/10 pt-4 mt-4">
                                     <h5 class="text-lg font-semibold text-white mb-3">현재 플레이리스트</h5>
@@ -1723,7 +1747,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                     <label class="glass-checkbox-label">
                                         <input type="checkbox" id="show-music-bar-toggle" class="glass-checkbox-input" checked /> 
                                         <span class="glass-checkbox-box"></span>
-                                        <span class="text-sm text-gray-200">음악 재생 시 하단바에 재생 정보 표시 (끄면 학교 로고 표시)</span>
+                                        <span class="text-sm text-gray-200">음악 재생 정보 표시</span>
                                     </label>
                                 </div>
                             </div>
@@ -1740,25 +1764,25 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <div>
                                     <label for="text-size-select" class="block text-sm font-medium text-gray-200">글자 크기</label>
                                     <select id="text-size-select" class="glass-input w-full appearance-none">
-                                        <option value="text-2xl">작게 (2XL)</option>
-                                        <option value="text-3xl">보통 (3XL)</option>
-                                        <option value="text-4xl" selected>크게 (4XL)</option>
-                                        <option value="text-5xl">매문을 통해 개별 D-Day 설정이 가능합니다.</p>
-                                        <option value="text-6xl">최대 크게 (6XL)</option>
+                                        <option value="text-2xl">작게</option>
+                                        <option value="text-3xl">보통</option>
+                                        <option value="text-4xl" selected>크게</option>
+                                        <option value="text-5xl">매우 크게</option>
+                                        <option value="text-6xl">최대 크게</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label for="font-weight-select" class="block text-sm font-medium text-gray-200">글자 굵기</label>
                                     <select id="font-weight-select" class="glass-input w-full appearance-none">
-                                        <option value="font-light" selected>얇게 (Light)</option>
-                                        <option value="font-normal">보통 (Normal)</option>
-                                        <option value="font-semibold">굵게 (SemiBold)</option>
-                                        <option value="font-bold">매우 굵게 (Bold)</option>
-                                        <option value="font-extrabold">최대 굵게 (ExtraBold)</option>
+                                        <option value="font-light" selected>얇게</option>
+                                        <option value="font-normal">보통</option>
+                                        <option value="font-semibold">굵게</option>
+                                        <option value="font-bold">매우 굵게</option>
+                                        <option value="font-extrabold">최대 굵게</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="font-family-select" class="block text-sm font-medium text-gray-200">글꼴 (폰트)</label>
+                                    <label for="font-family-select" class="block text-sm font-medium text-gray-200">글꼴</label>
                                     <select id="font-family-select" class="glass-input w-full appearance-none">
                                         <option value="font-family-system">기본 시스템 글꼴</option>
                                         <option value="font-family-pretendard">Pretendard</option>
@@ -1805,7 +1829,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <input id="profile-school-name-input" type="text" class="glass-input w-full" maxlength="60" placeholder="학교 이름을 입력하세요">
 
                             <div class="relative mt-2">
-                                <label for="profile-school-search-input" class="block text-sm font-medium text-gray-200 mb-1">학교 검색으로 교육청 코드 자동 입력</label>
+                                    <label for="profile-school-search-input" class="block text-sm font-medium text-gray-200 mb-1">학교 검색</label>
                                 <div class="flex gap-2">
                                     <input id="profile-school-search-input" type="search" class="glass-input flex-1 min-w-0" maxlength="80" placeholder="학교명 검색 (예: 대륜고등학교)" autocomplete="off">
                                     <button id="profile-school-search-btn" type="button" class="glass-button shrink-0 px-4">검색</button>
@@ -1856,32 +1880,27 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <input type="file" id="bg-upload-modal-2" class="hidden" accept="image/*">
                         </div>
 
-                        <div id="cache-update-view" class="settings-view hidden space-y-4"><div id="offline-cache-update-panel" class="glass-card w-full p-4 space-y-3">
-                                <h5 class="font-semibold">오프라인 캐시 업데이트</h5>
-                                <p id="offline-cache-version" class="text-sm text-gray-300">저장된 캐시를 확인하고 있습니다.</p>
-                                <p id="offline-cache-latest-version" class="text-sm text-gray-300">서버의 최신 리소스 버전을 확인할 수 있습니다.</p>
+                        <div id="cache-update-view" class="settings-view hidden space-y-4"><div id="offline-cache-update-panel" class="glass-section p-4 space-y-3">
+                                <h5 class="font-semibold">캐시 버전</h5>
+                                <div class="offline-version-row"><span>저장된 버전</span><span id="offline-cache-version">없음</span></div>
+                                <div class="offline-version-row"><span>최신 버전</span><span id="offline-cache-latest-version">—</span></div>
                                 <button id="offline-cache-check-update-btn" class="glass-button w-full" type="button">캐시 최신 버전 확인</button>
                                 <button id="offline-cache-apply-update-btn" class="glass-button w-full" type="button" disabled>캐시 업데이트</button>
-                                <p id="offline-cache-update-status" class="text-sm text-gray-300" role="status" aria-live="polite">새 버전이 있으면 저장된 폰트·화면·다운로드 리소스를 함께 업데이트합니다.</p>
+                                <div class="operation-progress offline-progress" data-offline-progress hidden><div class="operation-progress-time"><span id="offline-cache-update-status" role="status" aria-live="polite"></span><span class="operation-progress-value" data-offline-progress-value></span></div><div class="operation-progress-track" data-offline-progress-track role="progressbar" aria-label="캐시 작업 진행률" aria-valuemin="0" aria-valuemax="100" hidden><span class="operation-progress-fill" data-offline-progress-fill></span></div></div>
                             </div>
                             </div>
                         <div id="offline-view" class="settings-view hidden space-y-4">
-                            <h4 class="text-xl font-semibold border-b border-white/30 pb-2">오프라인 구동 설정</h4>
                             <div class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">브라우저 / PWA 캐싱</h5>
-                                <label class="glass-checkbox-label" for="offline-cache-toggle"><input id="offline-cache-toggle" class="glass-checkbox-input" type="checkbox" aria-describedby="offline-cache-environment"><span class="glass-checkbox-box" aria-hidden="true"></span><span>브라우저 오프라인 캐시 사용</span></label>
-                                <p id="offline-cache-environment" class="text-sm text-gray-300"></p>
-                                <p class="text-sm text-gray-300">화면, Tailwind, 전체 글꼴, 로고와 날씨 아이콘을 이 브라우저에 저장합니다. HTTPS 또는 localhost에서 사용할 수 있습니다.</p>
+                                <label class="glass-checkbox-label" for="offline-cache-toggle"><input id="offline-cache-toggle" class="glass-checkbox-input" type="checkbox"><span class="glass-checkbox-box" aria-hidden="true"></span><span>브라우저 오프라인 캐시 사용</span></label>
                                 <button id="offline-cache-btn" class="glass-button w-full" type="button">브라우저에 캐싱</button>
                                 <button id="offline-cache-clear-btn" class="glass-button w-full" type="button">브라우저 캐시 삭제</button>
                             </div>
                             <div class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">오프라인 ZIP 패키지</h5>
-                                <p class="text-sm text-gray-300">필요한 파일을 ADK-Offline 폴더 하나에 담아 내려받습니다. 압축 해제 후 HTML을 직접 열어도 전체 글꼴과 화면 기능을 사용할 수 있습니다.</p>
                                 <button id="offline-download-btn" class="glass-button w-full" type="button">오프라인 패키지 다운로드</button>
-                                <p class="text-xs text-gray-300">날씨·급식·학사 일정 등 API 정보와 업데이트, 온라인 미디어에는 인터넷 연결이 필요합니다. 개인 설정은 기존 백업 기능으로 옮길 수 있습니다.</p>
                             </div>
-                            <p id="offline-cache-status" class="text-sm text-gray-300" role="status" aria-live="polite">로컬 리소스 준비 완료 · 브라우저 캐싱 또는 ZIP 다운로드를 선택하세요.</p>
+                            <div class="operation-progress offline-progress" data-offline-progress hidden><div class="operation-progress-time"><span id="offline-cache-status" role="status" aria-live="polite"></span><span class="operation-progress-value" data-offline-progress-value></span></div><div class="operation-progress-track" data-offline-progress-track role="progressbar" aria-label="오프라인 작업 진행률" aria-valuemin="0" aria-valuemax="100" hidden><span class="operation-progress-fill" data-offline-progress-fill></span></div></div>
                         </div>
 
                         <div id="system-view" class="settings-view hidden space-y-4">
@@ -1919,13 +1938,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div id="info-version" class="info-tab-content">
                                 <div class="software-version-hero">
                                     <div class="software-version-glow" aria-hidden="true"></div>
-                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.6</span></h2>
+                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.7</span></h2>
                                     <p id="software-school-name">대륜고등학교</p>
                                 </div>
                                 <h5 class="software-info-title">소프트웨어 정보</h5>
                                 <div class="software-info-list">
-                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.6">2.7.6</p></div>
-                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.7.6-1">Ko-Kr-Daeryun-hs-v.2.7.6-1</p></div>
+                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.7">2.7.7</p></div>
+                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.7.7-1">Ko-Kr-Daeryun-hs-v.2.7.7-1</p></div>
                                     <div class="software-info-row"><span>기반</span><span>HTML5</span></div>
                                     <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
                                     <div class="software-info-row"><span>실행 환경</span><span id="software-runtime-info">브라우저</span></div>
@@ -2305,7 +2324,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             element.classList.remove('clock-layout-applied');
             ['position','left','top','right','bottom','width','height','max-width','margin','transform','z-index','box-sizing','flex-direction','align-items','justify-content','gap'].forEach(name=>element.style.removeProperty(name));
             if(!element.classList.contains('aux-clock')) element.style.removeProperty('display');
-            element.querySelectorAll('#weather-modern-time,#weather-modern-seconds,#weather-modern-date,#simple-weather-time,#simple-weather-date,#current-time,#current-date,.aux-time,.aux-date').forEach(child=>['position','inset','left','top','right','bottom','width','margin','font-size','text-align','transform'].forEach(name=>child.style.removeProperty(name)));
+            element.querySelectorAll('.weather-modern-clock-face,#weather-modern-time,#weather-modern-seconds,#weather-modern-date,#simple-weather-time,#simple-weather-date,#current-time,#current-date,.aux-time,.aux-date').forEach(child=>['position','inset','left','top','right','bottom','width','margin','font-size','text-align','transform','align-self','flex'].forEach(name=>child.style.removeProperty(name)));
         }
         function applyClockRect(element,rect,design=currentClockDesign()) {
             if(element?.classList.contains('info-card')){applyInfoCardRect(rect);return;}
@@ -2313,7 +2332,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const width=Math.max(100,Math.min(window.innerWidth,rect.width)), height=Math.max(48,Math.min(window.innerHeight,rect.height));
             const left=Math.max(0,Math.min(window.innerWidth-width,rect.left)), top=Math.max(0,Math.min(window.innerHeight-height,rect.top));
             const clockLayout=readClockPreferences(design).layout, horizontal=clockLayout==='date-left'||clockLayout==='date-right';
-            const clockFont=Math.max(14,Math.min(horizontal?height*.58:height*.76,width/(horizontal?3.2:(design==='simple'?3.15:5.6))));
+            const clockFont=Math.max(14,Math.min(horizontal?height*.8:height*.76,width/(horizontal?6.4:(design==='simple'?3.15:5.6))));
             const direction=clockLayout==='date-top'?'column-reverse':clockLayout==='date-left'?'row-reverse':clockLayout==='date-right'?'row':'column';
             element.classList.add('clock-layout-applied');
             for(const [name,value] of Object.entries({position:'fixed',left:`${left}px`,top:`${top}px`,right:'auto',bottom:'auto',width:`${width}px`,height:`${height}px`,maxWidth:'none',margin:'0',transform:'none',zIndex:'49',boxSizing:'border-box',flexDirection:direction,alignItems:'center',justifyContent:'center',gap:horizontal?`${Math.max(5,clockFont*.16)}px`:'0'})) element.style.setProperty(name.replace(/[A-Z]/g,m=>'-'+m.toLowerCase()),value,'important');
@@ -2322,6 +2341,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             times.filter(Boolean).forEach((child,index)=>{ child.style.setProperty('font-size',`${index===1?clockFont*.34:clockFont}px`,'important'); child.style.setProperty('position','static','important'); child.style.setProperty('width','auto','important'); child.style.setProperty('transform','none','important'); });
             const dates=element.matches('#weather-modern-clock')?[element.querySelector('#weather-modern-date')]:element.matches('#simple-weather-clock')?[element.querySelector('#simple-weather-date')]:[...element.querySelectorAll('#current-date,.aux-date')];
             dates.filter(Boolean).forEach(child=>{ child.style.setProperty('position','static','important'); child.style.setProperty('inset','auto','important'); child.style.setProperty('width','auto','important'); child.style.setProperty('margin',horizontal?'0':`${Math.max(1,clockFont*.08)}px 0 0`,'important'); child.style.setProperty('font-size',`${Math.max(10,clockFont*.23)}px`,'important'); child.style.setProperty('text-align','center','important'); });
+            const face=element.querySelector('.weather-modern-clock-face');if(face)face.style.setProperty('transform','none','important');
+            [...times,...dates].filter(child=>child&&child.parentElement===element).forEach(child=>{child.style.setProperty('align-self','center','important');child.style.setProperty('flex','0 0 auto','important');});
         }
         function applySavedClockLayout() {
             const design=currentClockDesign(), layout=readClockLayouts()[design];
@@ -2417,20 +2438,18 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         }
         function syncInfoCardSelection(){
             if(!clockEditor||clockEditor.hidden)return;
-            const card=selectedInfoCard(),select=clockEditor.querySelector('[data-info-card-select]');
-            select.replaceChildren(new Option('카드 선택',''));
-            currentInfoCards().forEach((item,index)=>select.add(new Option('카드 '+(index+1)+' · '+(item.text.replace(/\s+/g,' ').slice(0,18)||'이미지'),item.id)));
-            select.value=card?.id||'';
+            const card=selectedInfoCard();
             clockEditor.classList.toggle('info-card-editing',!!card);clockEditor.querySelector('[data-info-card-panel]').hidden=!card;
-            clockEditor.querySelector('[data-info-clock-select]').setAttribute('aria-pressed',String(!card));
             if(card){
                 for(const key of ['text','width','fontSize','color','background','fontWeight','align'])clockEditor.querySelector('[data-info-card-pref="'+key+'"]').value=card[key];
                 const linkInput=clockEditor.querySelector('[data-info-qr-link]');if(linkInput.dataset.cardId!==card.id){linkInput.value=card.qrLink||'';linkInput.dataset.cardId=card.id;clockEditor.querySelector('[data-info-qr-status]').textContent='';}
                 clockEditor.querySelector('[data-info-image-size]').textContent=card.imageWidth+' × '+card.imageHeight;
                 clockEditor.querySelector('[data-info-auto-color]').checked=card.autoColor;
+                for(const key of ['color','background'])clockEditor.querySelector('[data-info-color-value="'+key+'"]').value=card[key].toUpperCase();
                 const radius=parseFloat(getComputedStyle(infoCardNodes.get(card.id)).borderTopLeftRadius)||0;const radiusInput=clockEditor.querySelector('[data-info-card-pref="radius"]');radiusInput.max=Math.min(clockEditorRect.width,clockEditorRect.height)/2;radiusInput.value=radius;clockEditor.querySelector('[data-info-card-radius-value]').value=Math.round(radius)+'px';
                 clockEditor.querySelector('[data-info-card-width-value]').value=Math.round(card.width)+'px';clockEditor.querySelector('[data-info-card-font-value]').value=card.fontSize+'px';
             }
+            clockEditor.querySelectorAll('input[type="range"]').forEach(updateRangeSliderFill);
         }
         function refreshSelectedInfoCard(){
             renderInfoCards();
@@ -2557,7 +2576,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 card.image=result.image;card.imageWidth=result.width;card.imageHeight=result.height;card.qrLink=link;
                 refreshSelectedInfoCard();syncInfoCardSelection();
                 if(selectedInfoCardId===card.id)input.value=link;
-                report(reused?'저장된 QR 이미지를 재사용했습니다. 저장 버튼을 누르면 유지됩니다.':'QR 코드를 적용했습니다. 저장 버튼을 누르면 유지됩니다.');
+                report(reused?'QR 이미지 적용 완료':'QR 코드 생성 완료');
             }catch(error){report(error instanceof RangeError?'링크가 너무 깁니다. 더 짧은 링크를 사용하세요.':error.message||'QR 코드를 만들지 못했습니다.');}
             finally{if(token===infoCardUploadToken)infoCardLoading=false;}
         }
@@ -2571,26 +2590,23 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const panel=clockEditor.querySelector('.clock-editor-settings');
             clockEditorBox.insertAdjacentHTML('beforeend','<span class="info-card-radius-handle" data-info-radius role="slider" tabindex="0" aria-label="모서리 R값 조절" aria-valuemin="0" title="좌우로 드래그해 모서리 R값 조절"></span>');
             clockEditorBox.querySelector('[data-info-radius]').addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;const card=selectedInfoCard();if(!card)return;event.preventDefault();const radius=parseFloat(getComputedStyle(infoCardNodes.get(card.id)).borderTopLeftRadius)||0;card.radius=Math.max(0,Math.min(Math.min(clockEditorRect.width,clockEditorRect.height)/2,radius+(event.key==='ArrowRight'?1:-1)*(event.shiftKey?10:1)));refreshSelectedInfoCard();syncInfoCardSelection();});
-            panel.insertAdjacentHTML('afterbegin','<div class="clock-editor-targets"><button type="button" data-info-clock-select aria-pressed="true">시계</button><select data-info-card-select data-native-select aria-label="편집할 카드"></select><button type="button" data-info-card-add>+ 카드 추가</button></div>');
+            clockEditor.querySelector('.clock-editor-actions').insertAdjacentHTML('afterbegin','<button type="button" data-info-card-add title="카드 추가" aria-label="카드 추가"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>');
             panel.insertAdjacentHTML('beforeend',`<div data-info-card-panel hidden>
                 <div class="info-card-field">이미지<div class="info-card-editor-row"><button type="button" data-info-upload-trigger>이미지 선택</button><span data-info-image-size></span></div><input data-info-card-file type="file" accept="image/*" hidden></div>
                 <div class="info-card-editor-row"><button type="button" data-info-card-default>기본 QR 이미지</button><button type="button" data-info-card-anchor>기온 위로 이동</button></div>
                 <label class="info-card-field">링크로 QR 코드 만들기<input data-info-qr-link type="url" placeholder="https://example.com" autocomplete="off" spellcheck="false" enterkeyhint="go"></label>
                 <div class="info-card-editor-row"><button type="button" data-info-qr-generate>QR 코드 생성</button></div>
-                <p class="info-card-editor-hint">링크를 붙여넣으면 QR 이미지로 바로 적용됩니다. 직접 입력한 뒤 Enter 또는 생성 버튼을 눌러도 됩니다.</p><p data-info-qr-status role="status" aria-live="polite"></p>
+                <p data-info-qr-status role="status" aria-live="polite"></p>
                 <label class="info-card-field">아래 텍스트<textarea data-info-card-pref="text" rows="3" placeholder="카드에 표시할 텍스트"></textarea></label>
                 <label class="info-card-field">카드 크기 <output data-info-card-width-value></output><input data-info-card-pref="width" type="range" min="100" max="600" step="1"></label>
                 <label class="info-card-field">모서리 R <output data-info-card-radius-value></output><input data-info-card-pref="radius" type="range" min="0" max="300" step="1"></label><button type="button" data-info-radius-auto>R값을 이미지 여백에 맞춤</button>
                 <label class="info-card-field">글자 크기 <output data-info-card-font-value></output><input data-info-card-pref="fontSize" type="range" min="10" max="48" step="1"></label>
-                <div class="info-card-editor-grid"><label class="info-card-field">글자 색<input data-info-card-pref="color" type="color"></label><label class="info-card-field">박스 색<input data-info-card-pref="background" type="color"></label>
-                <label class="info-card-field">글자 굵기<select data-info-card-pref="fontWeight" data-native-select><option value="400">보통</option><option value="600">약간 굵게</option><option value="700">굵게</option><option value="800">매우 굵게</option></select></label>
-                <label class="info-card-field">글자 정렬<select data-info-card-pref="align" data-native-select><option value="left">왼쪽</option><option value="center">가운데</option><option value="right">오른쪽</option></select></label></div>
-                <label class="info-card-auto-color"><input data-info-auto-color type="checkbox" checked>박스 색에 맞춰 글자 색 자동 선택</label>
-                <p class="info-card-editor-hint">카드를 드래그해 이동하고 가장자리를 드래그해 크기를 바꿀 수 있습니다. 이미지 비율을 유지하며 긴 글은 줄바꿈되어 아래로 늘어납니다.</p>
+                <div class="info-card-editor-grid"><label class="info-card-field">글자 색<span class="settings-color-control"><input data-info-card-pref="color" type="color"><output data-info-color-value="color"></output></span></label><label class="info-card-field">박스 색<span class="settings-color-control"><input data-info-card-pref="background" type="color"><output data-info-color-value="background"></output></span></label>
+                <label class="info-card-field">글자 굵기<select data-info-card-pref="fontWeight"><option value="400">보통</option><option value="600">약간 굵게</option><option value="700">굵게</option><option value="800">매우 굵게</option></select></label>
+                <label class="info-card-field">글자 정렬<select data-info-card-pref="align"><option value="left">왼쪽</option><option value="center">가운데</option><option value="right">오른쪽</option></select></label></div>
+                <label class="info-card-auto-color glass-checkbox-label"><input data-info-auto-color class="glass-checkbox-input" type="checkbox" checked><span class="glass-checkbox-box" aria-hidden="true"></span><span>박스 색에 맞춰 글자 색 자동 선택</span></label>
                 <button type="button" data-info-card-remove>선택한 카드 삭제</button><p data-info-card-status role="status" aria-live="polite"></p>
             </div>`);
-            clockEditor.querySelector('[data-info-clock-select]').addEventListener('click',()=>selectInfoCard(null));
-            clockEditor.querySelector('[data-info-card-select]').addEventListener('change',event=>selectInfoCard(event.target.value));
             clockEditor.querySelector('[data-info-card-add]').addEventListener('click',()=>{const card=makeInfoCard();infoCardDraft.push(card);renderInfoCards();selectInfoCard(card.id);});
             clockEditor.querySelector('[data-info-radius-auto]').addEventListener('click',()=>{const card=selectedInfoCard();if(card){card.radius=null;refreshSelectedInfoCard();syncInfoCardSelection();}});
             clockEditor.querySelector('[data-info-auto-color]').addEventListener('change',event=>{const card=selectedInfoCard();if(card){card.autoColor=event.target.checked;refreshSelectedInfoCard();syncInfoCardSelection();}});
@@ -2616,7 +2632,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                     canvas.getContext('2d').drawImage(image,0,0,canvas.width,canvas.height);
                     let data=canvas.toDataURL('image/png');if(data.length>500000)data=canvas.toDataURL('image/webp',.98);
                     card.image=data;card.imageWidth=canvas.width;card.imageHeight=canvas.height;card.qrLink='';if(selectedInfoCardId===card.id){clockEditor.querySelector('[data-info-qr-link]').value='';clockEditor.querySelector('[data-info-qr-status]').textContent='';}
-                    refreshSelectedInfoCard();syncInfoCardSelection();status.textContent='이미지를 적용했습니다. 저장 버튼을 누르면 유지됩니다.';
+                    refreshSelectedInfoCard();syncInfoCardSelection();status.textContent='이미지 적용 완료';
                 }catch{if(token===infoCardUploadToken)status.textContent='이미지를 읽지 못했습니다. PNG, JPEG, WebP 등의 이미지 파일을 선택하세요.';}
                 finally{URL.revokeObjectURL(url);if(token===infoCardUploadToken)infoCardLoading=false;}
             });
@@ -2696,12 +2712,20 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const stop=event=>{if(event&&clockEditorBox.hasPointerCapture(event.pointerId))clockEditorBox.releasePointerCapture(event.pointerId);clockEditorMode=null;clockEditorStart=null;};
             clockEditorBox.addEventListener('pointerup',stop);clockEditorBox.addEventListener('pointercancel',stop);
             document.addEventListener('keydown',event=>{if(event.key==='Escape'&&clockEditor&&!clockEditor.hidden)finish(false);});
-            document.addEventListener('pointerdown',event=>{if(clockEditor&&!clockEditor.hidden&&!clockEditor.contains(event.target)&&!event.target.closest('.info-card'))finish(true);},true);
+            document.addEventListener('pointerdown',event=>{
+                if(clockEditor&&!clockEditor.hidden&&!clockEditor.contains(event.target)&&!event.target.closest('.info-card')&&!clockTargets().some(target=>target.contains(event.target)))finish(true);
+            },true);
+            document.addEventListener('pointerdown',event=>{
+                if(clockEditor.hidden||event.button!==0||!clockTargets().some(target=>target.contains(event.target)))return;
+                if(selectedInfoCardId)selectInfoCard(null);
+                clockEditorMode='move';clockEditorStart={x:event.clientX,y:event.clientY,rect:{...clockEditorRect}};
+                clockEditorBox.setPointerCapture(event.pointerId);event.preventDefault();
+            });
             window.addEventListener('resize',()=>{if(clockEditor&&!clockEditor.hidden&&clockEditorRect){clockEditorRect.left=Math.max(0,Math.min(window.innerWidth-clockEditorRect.width,clockEditorRect.left));clockEditorRect.top=Math.max(0,Math.min(window.innerHeight-clockEditorRect.height,clockEditorRect.top));paintBox();positionClockEditorControls();}else applySavedClockLayout();});
         }
         function setupClockEditorPanelDrag() {
             const handle=document.createElement('button');
-            handle.type='button';handle.className='clock-editor-drag-pill';
+            handle.type='button';handle.className='clock-editor-drag-pill drag-pill';
             handle.setAttribute('aria-label','편집 창 이동');handle.title='드래그해 편집 창 이동 · 방향키로 이동 · Home으로 자동 배치';
             clockEditor.appendChild(handle);
             let drag=null;
@@ -2794,9 +2818,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             if(clockDateFormatSelect)clockDateFormatSelect.value=preferences.dateFormat;
             if(clockColorSelect)clockColorSelect.value=preferences.color;
             if(clockOpacityRange)clockOpacityRange.value=preferences.opacity;
+            updateRangeSliderFill(clockOpacityRange);
             const opacityValue=document.getElementById('clock-opacity-value');if(opacityValue)opacityValue.textContent=`${preferences.opacity}%`;
             if(clockEditor)clockEditor.querySelectorAll('.clock-font-choice-sample').forEach(sample=>sample.style.fontWeight=preferences.fontWeight);
             if(clockEditor)clockEditor.querySelectorAll('[data-clock-editor-pref]').forEach(control=>{const key=control.dataset.clockEditorPref;if(preferences[key]!==undefined)control.value=preferences[key];if(key==='opacity'){const output=control.closest('label')?.querySelector('[data-clock-opacity-value]');if(output)output.textContent=`${preferences.opacity}%`;}});
+            if(clockEditor)clockEditor.querySelectorAll('input[type="range"]').forEach(updateRangeSliderFill);
         }
         function applyClockPreferences() {
             const preferences=readClockPreferences(), family=clockFontFamilies[preferences.font]||'';
@@ -3554,7 +3580,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             if(lunchPanel&&lunchPanel.parentElement===list)list.parentElement.insertBefore(lunchPanel,list.nextSibling);
             list.innerHTML=bellSchedule.periods.map(p=>'<article class="bell-period-card" data-period-number="'+p.number+'"><div class="bell-period-main"><h5 class="font-semibold">'+p.number+'교시</h5><label class="block space-y-1 text-xs">시작 시간<input type="time" data-period-time="start" class="glass-input w-full" value="'+broadcastEscape(p.start)+'"></label><label class="block space-y-1 text-xs">종료 시간<input type="time" data-period-time="end" class="glass-input w-full" value="'+broadcastEscape(p.end)+'"></label></div><details><summary>시작·종료 메시지와 표시 모양</summary><div class="bell-event-editors">'+bellEventEditor(p.startEvent,'startEvent','시작')+bellEventEditor(p.endEvent,'endEvent','종료')+'</div></details></article>').join('');
             const fourthPeriod=list.querySelector('[data-period-number="4"]'),lunchInsertPoint=fourthPeriod||list.lastElementChild;if(lunchPanel&&lunchInsertPoint)lunchInsertPoint.after(lunchPanel);
-            grades.innerHTML=bellSchedule.grades.map(g=>'<article class="bell-grade-card" data-grade-number="'+g.grade+'"><h6 class="font-semibold">'+g.grade+'학년</h6><label class="block space-y-1 text-xs">급식 이동 시간<input type="time" data-grade-time class="glass-input w-full" value="'+broadcastEscape(g.time)+'"></label><div class="min-w-0 text-xs text-white/60">급식 시간 안에 설정</div><details><summary>급식 메시지·표시 모양</summary>'+bellEventEditor(g.event,'gradeEvent','급식 이동')+'</details></article>').join('');
+            grades.innerHTML=bellSchedule.grades.map(g=>'<article class="bell-grade-card" data-grade-number="'+g.grade+'"><h6 class="font-semibold">'+g.grade+'학년</h6><label class="block space-y-1 text-xs">급식 이동 시간<input type="time" data-grade-time class="glass-input w-full" value="'+broadcastEscape(g.time)+'"></label><details><summary>급식 메시지·표시 모양</summary>'+bellEventEditor(g.event,'gradeEvent','급식 이동')+'</details></article>').join('');
             updateBellDurationVisibility();updateBellScheduleStatus();
         }
         function readBellEvent(editor,old){const out={...old};if(!editor)return out;editor.querySelectorAll('[data-bell-field]').forEach(input=>{const k=input.dataset.bellField;out[k]=input.type==='checkbox'?input.checked:k==='displayMinutes'?Math.max(1,Math.min(1440,Number(input.value)||1)):input.value});out.pillColor=broadcastColor(out.pillColor,'#2563eb');out.textColor=broadcastColor(out.textColor,'#ffffff');out.soundType=normalizeBroadcastSoundType(out.soundType);if(!BROADCAST_FONT_CLASSES.includes(out.fontClass))out.fontClass='font-family-notosanskr';return out}
@@ -3608,8 +3634,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             list.innerHTML=entries.length?broadcastTimelineOrder.map((id,i)=>{
                 const entry=by.get(id);if(!entry)return '';
                 const editButton=id.startsWith('message:')?'<button type="button" class="timeline-edit-btn" data-timeline-edit aria-label="메시지 편집">편집</button>':'';
-                return '<article class="broadcast-timeline-item" draggable="true" data-timeline-id="'+broadcastEscape(id)+'"><span class="timeline-grip" aria-hidden="true">⠿</span><div class="min-w-0"><strong class="block text-sm truncate">'+broadcastEscape(entry.name)+'</strong><span class="timeline-meta">'+broadcastEscape(entry.meta)+'</span></div><div class="broadcast-timeline-actions">'+editButton+'<button class="timeline-order-btn" type="button" data-timeline-move="-1" aria-label="위로 이동" '+(i===0?'disabled':'')+'>↑</button><button class="timeline-order-btn" type="button" data-timeline-move="1" aria-label="아래로 이동" '+(i===broadcastTimelineOrder.length-1?'disabled':'')+'>↓</button><button type="button" class="timeline-delete-btn" data-timeline-delete aria-label="타임라인 항목 삭제" title="삭제">×</button></div></article>'
-            }).join(''):'<p class="text-sm text-white/55">알림을 등록하면 타임라인이 표시됩니다.</p>';
+                return '<article class="broadcast-timeline-item" draggable="true" data-timeline-id="'+broadcastEscape(id)+'"><span class="timeline-grip drag-pill" aria-hidden="true" title="드래그해 순서 변경"></span><div class="min-w-0"><strong class="block text-sm truncate">'+broadcastEscape(entry.name)+'</strong><span class="timeline-meta">'+broadcastEscape(entry.meta)+'</span></div><div class="broadcast-timeline-actions">'+editButton+'<button class="timeline-order-btn" type="button" data-timeline-move="-1" aria-label="위로 이동" '+(i===0?'disabled':'')+'>↑</button><button class="timeline-order-btn" type="button" data-timeline-move="1" aria-label="아래로 이동" '+(i===broadcastTimelineOrder.length-1?'disabled':'')+'>↓</button><button type="button" class="timeline-delete-btn" data-timeline-delete aria-label="타임라인 항목 삭제" title="삭제">×</button></div></article>'
+            }).join(''):'<p class="text-sm text-white/55">등록된 알림 없음</p>';
             updateBroadcastMenu()
         }
         function timelineRank(id){const i=broadcastTimelineOrder.indexOf(id);return i<0?9999:i}
@@ -4357,6 +4383,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             settingsTitle.textContent = titleText;
             backSettingsBtn.classList.toggle('hidden', !showBackButton);
             targetView.classList.remove('hidden');
+            targetView.querySelectorAll('input[type="range"]').forEach(updateRangeSliderFill);
 
             document.querySelectorAll('[data-view]').forEach(item => {
                 const v = item.dataset.view;
@@ -5521,11 +5548,21 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         }
 
         function updateRangeSliderFill(slider) {
-            if (!slider) return;
+            if(!slider||slider.type!=='range')return;
+            if(!slider.__rangeFillBound) {
+                slider.__rangeFillBound=true;
+                for(const key of ['value','valueAsNumber','min','max']) {
+                    const descriptor=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,key);
+                    if(descriptor?.get&&descriptor.set)Object.defineProperty(slider,key,{configurable:true,get(){return descriptor.get.call(this);},set(value){descriptor.set.call(this,value);updateRangeSliderFill(this);}});
+                }
+            }
             const min=Number(slider.min || 0), max=Number(slider.max || 100), value=Number(slider.value || 0);
             const progress=max>min ? Math.max(0,Math.min(100,((value-min)/(max-min))*100)) : 0;
             slider.style.setProperty('--range-progress', `${progress}%`);
+            slider.style.setProperty('--range-fill',`calc(${progress}% + ${11-progress*.22}px)`);
         }
+        for(const type of ['input','change'])document.addEventListener(type,event=>{if(event.target.matches('input[type="range"]'))updateRangeSliderFill(event.target);});
+        new MutationObserver(records=>{for(const record of records)if(record.target.matches('input[type="range"]'))updateRangeSliderFill(record.target);}).observe(document.documentElement,{subtree:true,attributes:true,attributeFilter:['min','max','value']});
         function syncDurationSliderFills() {
             document.querySelectorAll('input[type="range"]').forEach(updateRangeSliderFill);
         }
@@ -5710,7 +5747,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             applyStandbyTheme(document.documentElement.dataset.theme || 'dark');
             applySystemFont(localStorage.getItem('dashboardSystemFont') || 'font-system');
             if (systemFontFamilySelect) systemFontFamilySelect.addEventListener('change', event => applySystemFont(event.target.value, true));
-            document.querySelectorAll('input[type="range"]').forEach(slider => { updateRangeSliderFill(slider); slider.addEventListener('input', () => updateRangeSliderFill(slider)); });
+            syncDurationSliderFills();
             closeSettingsBtn.addEventListener('click', () => settingsModal.classList.add('hidden'));
             backSettingsBtn.addEventListener('click', () => switchSettingsView('main-menu'));
 
@@ -8167,7 +8204,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 #settings-modal .glass-checkbox-label{color:var(--settings-text)!important}
 #settings-modal .glass-checkbox-box{border:1px solid var(--settings-muted)!important;border-radius:50%!important;background:var(--settings-track)!important;box-shadow:none!important;backdrop-filter:none!important}
 #settings-modal .glass-checkbox-input:checked+.glass-checkbox-box{border-color:var(--settings-accent)!important;background:var(--settings-accent)!important;box-shadow:none!important}
-#settings-modal input[type="range"].glass-input::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-progress),var(--settings-track) var(--range-progress),var(--settings-track) 100%)!important;box-shadow:none!important}
+#settings-modal input[type="range"].glass-input::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-fill,0%),var(--settings-track) var(--range-fill,0%),var(--settings-track) 100%)!important;box-shadow:none!important}
 #settings-modal input[type="range"].glass-input::-moz-range-track{background:var(--settings-track)!important;box-shadow:none!important}#settings-modal input[type="range"].glass-input::-moz-range-progress{background:var(--settings-accent)!important}
 #settings-modal input[type="range"].glass-input::-webkit-slider-thumb,#settings-modal input[type="range"].glass-input::-moz-range-thumb{border:2px solid var(--settings-bg)!important;background:var(--settings-accent)!important;box-shadow:0 0 0 1px var(--settings-accent)!important}
 :root[data-theme="weather"] #settings-modal [class*="text-white"],:root[data-theme="weather"] #settings-modal .text-gray-100,:root[data-theme="weather"] #settings-modal .text-gray-200,:root[data-theme="weather"] #settings-modal .text-gray-300,:root[data-theme="weather"] #settings-modal .text-gray-400{color:var(--settings-text)!important}
@@ -8244,7 +8281,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 #settings-modal #view-release-notes-btn{background:var(--settings-card-2)!important;color:var(--settings-text)!important}
 #settings-modal #reset-all-btn{border-color:#d66!important;background:#fff1f0!important;color:#b42318!important}
 #settings-modal input[type="range"],#clock-layout-editor input[type="range"]{appearance:none;-webkit-appearance:none;height:28px;min-height:28px;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;cursor:pointer;touch-action:pan-y}
-#settings-modal input[type="range"]::-webkit-slider-runnable-track,#clock-layout-editor input[type="range"]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-progress,50%),var(--settings-track) var(--range-progress,50%),var(--settings-track) 100%);box-shadow:none}
+#settings-modal input[type="range"]::-webkit-slider-runnable-track,#clock-layout-editor input[type="range"]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-fill,0%),var(--settings-track) var(--range-fill,0%),var(--settings-track) 100%);box-shadow:none}
 #settings-modal input[type="range"]::-moz-range-track,#clock-layout-editor input[type="range"]::-moz-range-track{height:6px;border-radius:999px;background:var(--settings-track)}
 #settings-modal input[type="range"]::-moz-range-progress,#clock-layout-editor input[type="range"]::-moz-range-progress{height:6px;border-radius:999px;background:var(--settings-accent)}
 #settings-modal input[type="range"]::-webkit-slider-thumb,#clock-layout-editor input[type="range"]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:22px;height:22px;margin-top:-8px;border:3px solid var(--settings-card)!important;border-radius:50%;background:var(--settings-accent)!important;box-shadow:0 0 0 1px var(--settings-accent)!important}
@@ -8265,7 +8302,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 #clock-layout-editor .clock-editor-actions button:hover{background:var(--settings-card-2)!important;transform:translateY(-1px)}
 #clock-layout-editor .clock-editor-layout-choices [aria-pressed="true"],#clock-layout-editor .clock-color-choice[aria-pressed="true"],#clock-layout-editor .clock-font-choice[aria-pressed="true"]{border-color:var(--settings-accent)!important;box-shadow:0 0 0 2px color-mix(in srgb,var(--settings-accent) 30%,transparent)!important}
 @media(max-width:640px){.software-version-hero{min-height:170px}.software-info-list{padding:0 16px}.update-settings-popup{position:fixed;top:calc(var(--safe-top) + 64px);right:calc(var(--safe-right) + 16px)}}
-#settings-modal input[type="range"].glass-input::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-progress,50%),var(--settings-track) var(--range-progress,50%),var(--settings-track) 100%)!important}
+#settings-modal input[type="range"].glass-input::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-fill,0%),var(--settings-track) var(--range-fill,0%),var(--settings-track) 100%)!important}
 #settings-modal input[type="range"].glass-input::-moz-range-track{background:var(--settings-track)!important}
 #settings-modal input[type="range"].glass-input::-moz-range-progress{background:var(--settings-accent)!important}
 #settings-modal input[type="range"].glass-input::-webkit-slider-thumb{border:3px solid var(--settings-card)!important;background:var(--settings-accent)!important;box-shadow:0 0 0 1px var(--settings-accent)!important}
@@ -8301,7 +8338,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 #clock-layout-editor .clock-editor-setting .app-select-host{display:block;width:100%;min-width:0}
 #clock-layout-editor .clock-editor-setting .app-select-trigger{width:100%;min-height:44px;box-sizing:border-box;border-radius:999px}
 #clock-layout-editor .clock-editor-setting:last-child input[type="range"]{appearance:none;-webkit-appearance:none;width:100%;height:28px;min-height:28px;padding:0;border:0;background:transparent;accent-color:var(--settings-accent);cursor:pointer;touch-action:pan-y}
-#clock-layout-editor .clock-editor-setting:last-child input[type="range"]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-progress,100%),var(--settings-track) var(--range-progress,100%),var(--settings-track) 100%)}
+#clock-layout-editor .clock-editor-setting:last-child input[type="range"]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(90deg,var(--settings-accent) 0%,var(--settings-accent) var(--range-fill,0%),var(--settings-track) var(--range-fill,0%),var(--settings-track) 100%)}
 #clock-layout-editor .clock-editor-setting:last-child input[type="range"]::-moz-range-track{height:6px;border-radius:999px;background:var(--settings-track)}
 #clock-layout-editor .clock-editor-setting:last-child input[type="range"]::-moz-range-progress{height:6px;border-radius:999px;background:var(--settings-accent)}
 #clock-layout-editor .clock-editor-setting:last-child input[type="range"]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:22px;height:22px;margin-top:-8px;border:3px solid var(--settings-card);border-radius:50%;background:var(--settings-accent);box-shadow:0 0 0 1px var(--settings-accent)}
@@ -8653,6 +8690,145 @@ body.clock-layout-editing .info-card{pointer-events:auto;cursor:move;touch-actio
 #clock-layout-editor .clock-editor-drag-pill:focus-visible{outline:2px solid var(--settings-accent,#70c4df);outline-offset:3px}
 #clock-layout-editor .clock-editor-drag-pill.is-dragging{cursor:grabbing}
 </style>
+<style id="settings-control-consistency">
+#update-view .update-settings-popup{display:flex;flex-direction:column;gap:var(--settings-space-3,14px);padding:16px}
+#update-view .update-settings-popup>.glass-section{flex:none;margin:0!important}
+#update-view .update-settings-popup>.glass-button{flex:none;margin:0!important;min-height:48px}
+#settings-modal .offline-version-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:8px 0;color:var(--settings-text)}
+#settings-modal .offline-version-row>:last-child{color:var(--settings-muted);font-variant-numeric:tabular-nums}
+#settings-modal .offline-progress{--progress-text:var(--settings-text);--progress-track:var(--settings-track);--progress-fill:linear-gradient(90deg,var(--settings-accent),var(--settings-text));--progress-glow:transparent;padding:12px 14px;border:1px solid var(--settings-border);border-radius:16px;background:var(--settings-card-2)}
+#settings-modal .offline-progress .operation-progress-time{font-size:12px;line-height:16px}
+#settings-modal .glass-button:disabled{opacity:.45;cursor:default;transform:none!important}
+#settings-modal .glass-checkbox-label:has(.glass-checkbox-input:disabled){opacity:.45;cursor:default}
+#settings-modal input[type="range"]::-webkit-slider-thumb,#clock-layout-editor input[type="range"]::-webkit-slider-thumb{box-sizing:border-box!important;width:22px!important;height:22px!important;margin-top:-8px!important}
+#settings-modal input[type="range"]::-moz-range-thumb,#clock-layout-editor input[type="range"]::-moz-range-thumb{box-sizing:border-box!important;width:22px!important;height:22px!important}
+#clock-layout-editor .clock-editor-settings{--settings-control-height:44px;--settings-control-radius:16px;--settings-font-body:14px}
+#clock-layout-editor .info-card-field{font-size:var(--settings-font-body);line-height:1.45;font-weight:500}
+#clock-layout-editor [data-info-card-panel]{gap:14px}
+#clock-layout-editor [data-info-card-panel] button:not(.app-select-option),#clock-layout-editor .info-card-field textarea,#clock-layout-editor .info-card-field input[type="url"],#clock-layout-editor .info-card-field .app-select-trigger{box-sizing:border-box;min-height:var(--settings-control-height);border:1px solid var(--settings-border)!important;color:var(--settings-text)!important;background:var(--settings-card-2)!important;font-family:inherit;font-size:var(--settings-font-body);font-weight:500;line-height:1.35;box-shadow:none}
+#clock-layout-editor .info-card-field textarea,#clock-layout-editor .info-card-field input[type="url"],#clock-layout-editor .info-card-field .app-select-trigger{padding:10px 13px!important;border-radius:var(--settings-control-radius)!important}
+#clock-layout-editor [data-info-qr-generate]{background:var(--settings-accent)!important;color:var(--settings-bg)!important}
+#clock-layout-editor .settings-color-control{display:flex;align-items:center;gap:10px;box-sizing:border-box;min-height:44px;min-width:0;padding:7px 10px;border:1px solid var(--settings-border);border-radius:16px;background:var(--settings-card-2)}
+#clock-layout-editor .settings-color-control input[type="color"]{flex:0 0 36px;box-sizing:border-box;width:36px;height:28px;padding:0;border:0;border-radius:8px;background:transparent;cursor:pointer}
+.settings-color-control input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
+.settings-color-control input[type="color"]::-webkit-color-swatch{border:0;border-radius:8px}
+.settings-color-control input[type="color"]::-moz-color-swatch{border:0;border-radius:8px}
+#clock-layout-editor .settings-color-control output{min-width:0;color:var(--settings-text);font:12px/1.3 ui-monospace,monospace}
+#clock-layout-editor .glass-checkbox-label{color:var(--settings-text)!important;font-size:14px;line-height:1.45}
+#clock-layout-editor .glass-checkbox-box{flex:0 0 22px;width:22px;height:22px;border:1px solid var(--settings-muted)!important;border-radius:50%;background:var(--settings-track);box-shadow:none;backdrop-filter:none}
+#clock-layout-editor .glass-checkbox-input:checked+.glass-checkbox-box{border:2px solid #91c8df!important;background:transparent!important;box-shadow:0 0 0 1px rgba(145,200,223,.12)!important}
+#clock-layout-editor .glass-checkbox-input:checked+.glass-checkbox-box::after{width:12px;height:12px;opacity:1;transform:none;border-radius:50%;background:#91c8df!important;background-image:none!important}
+body.clock-layout-editing #simple-weather-clock,body.clock-layout-editing #weather-modern-clock{pointer-events:auto;cursor:move;touch-action:none}
+.drag-pill{display:flex;align-items:center;justify-content:center;padding:0;border:0;border-radius:999px;color:var(--settings-text,#f5f8f9);background:var(--settings-card-2,#202c32);box-shadow:0 3px 12px #0003;cursor:grab;user-select:none;-webkit-user-select:none}
+.drag-pill::before{content:'';display:block;border-radius:999px;background:currentColor;opacity:.65;pointer-events:none}
+.drag-pill:hover::before,.drag-pill:focus-visible::before{opacity:1}
+.drag-pill:focus-visible{outline:2px solid var(--settings-accent,#70c4df);outline-offset:3px}
+#settings-modal .broadcast-timeline-item{grid-template-columns:28px minmax(0,1fr) auto}
+#settings-modal .bell-grade-card{grid-template-columns:minmax(5rem,.5fr) minmax(0,1fr)}
+#settings-modal .broadcast-timeline-item .timeline-grip{width:28px;height:48px;color:var(--settings-text);background:var(--settings-card-2);box-shadow:0 3px 12px #0003}
+#settings-modal .timeline-grip::before{width:6px;height:26px}
+#settings-modal .broadcast-timeline-actions .timeline-order-btn,#settings-modal .broadcast-timeline-actions .timeline-delete-btn{box-sizing:border-box;flex:0 0 34px;width:34px;height:34px;min-width:34px;min-height:34px;padding:0!important;aspect-ratio:1;border:1px solid var(--settings-border)!important;border-radius:50%!important;color:var(--settings-text);background:var(--settings-card-2);font-size:18px!important;line-height:1!important}
+#clock-layout-editor .clock-editor-layout-choices button{display:grid;grid-template-areas:"date" "time";grid-template-columns:38px;grid-template-rows:5px 22px;align-content:center;justify-content:center;gap:4px}
+#clock-layout-editor .clock-editor-layout-choices .preview-date{grid-area:date;justify-self:center;align-self:center}
+#clock-layout-editor .clock-editor-layout-choices .preview-time{grid-area:time;justify-self:center;align-self:center}
+#clock-layout-editor .clock-editor-layout-choices button[data-clock-layout="date-bottom"]{grid-template-areas:"time" "date";grid-template-rows:22px 5px}
+#clock-layout-editor .clock-editor-layout-choices button[data-clock-layout="date-left"]{grid-template-areas:"date time";grid-template-columns:20px 38px;grid-template-rows:22px}
+#clock-layout-editor .clock-editor-layout-choices button[data-clock-layout="date-right"]{grid-template-areas:"time date";grid-template-columns:38px 20px;grid-template-rows:22px}
+@media(max-width:640px){#clock-layout-editor .clock-editor-settings{--settings-font-body:13px;--settings-control-height:42px}#clock-layout-editor .info-card-editor-grid{gap:10px}#clock-layout-editor .settings-color-control{padding:6px;gap:6px}#clock-layout-editor .settings-color-control input[type="color"]{flex-basis:28px;width:28px}#clock-layout-editor .settings-color-control output{font-size:11px}}
+#settings-modal,#clock-layout-editor .clock-editor-settings{--settings-control-radius:999px}
+#settings-modal .settings-view .app-select-trigger,#clock-layout-editor .info-card-field .app-select-trigger,#clock-layout-editor .settings-color-control{border-radius:999px!important}
+#settings-modal .settings-view textarea,#clock-layout-editor .info-card-field textarea{border-radius:22px!important}
+#clock-layout-editor .clock-editor-settings{overflow-y:auto!important;overscroll-behavior:contain!important;scrollbar-width:auto!important;scrollbar-color:var(--settings-muted) var(--settings-card-2)!important;scrollbar-gutter:stable}
+#clock-layout-editor .clock-editor-settings::-webkit-scrollbar{display:block!important;width:14px!important;height:14px!important}
+#clock-layout-editor .clock-editor-settings::-webkit-scrollbar-track{background:var(--settings-card-2)!important;border-radius:999px!important;margin:8px!important}
+#clock-layout-editor .clock-editor-settings::-webkit-scrollbar-thumb{background:var(--settings-muted)!important;border:4px solid var(--settings-card-2)!important;border-radius:999px!important;background-clip:padding-box!important}
+#clock-layout-editor .clock-editor-settings::-webkit-scrollbar-thumb:hover{background:var(--settings-text)!important}
+#clock-layout-editor .clock-editor-drag-pill,#settings-modal .timeline-grip.drag-pill{background:var(--settings-card-2);color:var(--settings-text);box-shadow:0 3px 12px #0003}
+#settings-modal{min-width:0!important;transition:background-color .2s,color .2s}
+#settings-modal #settings-powered-by{color:var(--settings-muted)!important}
+#settings-modal #settings-content-wrapper,#settings-modal .settings-layout,#settings-modal .settings-details{min-width:0!important;max-width:100%;box-sizing:border-box}
+body.bg-darken #settings-modal::before,body.bg-darken #settings-modal .glass-section::before{display:none!important}
+@media(max-width:720px){#settings-modal .settings-layout{flex-direction:column!important;width:100%!important}#settings-modal .settings-sidebar{display:flex!important;flex-direction:row!important;align-items:center;flex:0 0 auto!important;width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box}#settings-modal .settings-sidebar .sidebar-item,#settings-modal #sidebar-profile{flex:0 0 180px!important;min-width:180px!important;max-width:180px;box-sizing:border-box;margin-top:0!important}#settings-modal #sidebar-profile img{flex:0 0 44px;width:44px;height:44px}#settings-modal .settings-details{flex:1 1 auto!important;width:100%!important;height:0!important;max-width:100%!important}#settings-modal .settings-details>.glass-section{min-width:0!important;max-width:100%!important}#settings-modal input:not([type="checkbox"]):not([type="radio"]),#settings-modal .settings-view .glass-button{min-width:0;max-width:100%}}
+</style>
+<style id="settings-color-picker-style">
+#settings-modal .app-color-native,#clock-layout-editor .app-color-native{display:none!important}
+#settings-modal .settings-color-control,#clock-layout-editor .settings-color-control{display:block;padding:0;border:0;background:transparent;min-height:44px}
+#settings-modal .settings-color-trigger,#clock-layout-editor [data-info-card-panel] .settings-color-trigger{display:flex;align-items:center;gap:10px;box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:8px 12px!important;border:1px solid var(--settings-border)!important;border-radius:999px!important;background:var(--settings-card-2)!important;color:var(--settings-text)!important;cursor:pointer}
+.settings-color-swatch{display:block;flex:0 0 26px;width:26px;height:26px;box-sizing:border-box;border:1px solid var(--settings-border);border-radius:50%}
+.settings-color-trigger output{font:12px/1.3 ui-monospace,monospace!important;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.settings-color-picker{position:fixed;z-index:2147483647;box-sizing:border-box;width:min(300px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;padding:14px;border:1px solid var(--settings-border);border-radius:24px;background:var(--settings-card);color:var(--settings-text);box-shadow:0 16px 44px #0005;font:14px/1.4 'Noto Sans KR',sans-serif;pointer-events:auto;touch-action:auto;scrollbar-width:thin;scrollbar-color:var(--settings-muted) var(--settings-card-2)}
+.settings-color-picker[hidden]{display:none!important}
+.color-picker-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+#settings-modal .settings-color-picker [data-color-close],#clock-layout-editor .settings-color-picker [data-color-close]{display:grid;place-items:center;width:32px;height:32px;min-width:32px;min-height:32px;padding:0;border:1px solid var(--settings-border);border-radius:50%;background:var(--settings-card-2);color:var(--settings-text);font-size:20px;cursor:pointer}
+.color-picker-field{position:relative;box-sizing:border-box;width:100%;height:136px;border:1px solid var(--settings-border);border-radius:16px;background:linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,transparent),hsl(var(--picker-hue,0) 100% 50%);cursor:crosshair;touch-action:none}
+.color-picker-field [data-color-point]{position:absolute;width:14px;height:14px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #0008;transform:translate(-50%,-50%);pointer-events:none}
+.color-picker-label{display:flex;flex-direction:column;gap:5px;margin-top:10px;font-size:12px!important;font-weight:500}
+.color-picker-rgb{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.color-picker-rgb label{display:flex;flex-direction:column;gap:5px;font-size:12px!important}
+#settings-modal .settings-color-picker input:not([type="range"]),#clock-layout-editor .settings-color-picker input:not([type="range"]){box-sizing:border-box;width:100%;min-width:0;min-height:40px;padding:8px 12px!important;border:1px solid var(--settings-border)!important;border-radius:999px!important;background:var(--settings-card-2)!important;color:var(--settings-text)!important;font-family:inherit;font-size:14px;line-height:1.3}
+.settings-color-picker input[type="range"]{display:block;width:100%;margin:0}
+#settings-modal .settings-color-picker input[data-color-hue]::-webkit-slider-runnable-track,#clock-layout-editor .settings-color-picker input[data-color-hue]::-webkit-slider-runnable-track{background:linear-gradient(90deg,red,#ff0,#0f0,#0ff,#00f,#f0f,red)!important}
+#settings-modal .settings-color-picker input[data-color-hue]::-moz-range-track,#clock-layout-editor .settings-color-picker input[data-color-hue]::-moz-range-track{background:linear-gradient(90deg,red,#ff0,#0f0,#0ff,#00f,#f0f,red)!important}
+.settings-color-picker input[data-color-hue]::-moz-range-progress{background:transparent!important}
+.settings-color-picker :focus-visible{outline:2px solid var(--settings-accent);outline-offset:3px}
+</style>
+<script id="settings-color-adapter">
+(()=>{
+    const valueDescriptor=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value');
+    const popup=document.createElement('div');popup.className='settings-color-picker';popup.hidden=true;popup.setAttribute('role','dialog');popup.setAttribute('aria-label','색상 선택');
+    popup.innerHTML='<div class="color-picker-heading"><strong>색상 선택</strong><button type="button" data-color-close aria-label="색상 선택 닫기">×</button></div><div class="color-picker-field" data-color-field role="slider" tabindex="0" aria-label="채도와 밝기" aria-valuemin="0" aria-valuemax="100"><span data-color-point></span></div><label class="color-picker-label">색조<input data-color-hue type="range" min="0" max="359" step="1" value="0" aria-label="색조"></label><label class="color-picker-label">HEX<input data-color-hex type="text" maxlength="7" spellcheck="false" autocomplete="off" aria-label="HEX 색상"></label><div class="color-picker-rgb"><label>R<input data-color-rgb="0" type="number" min="0" max="255" aria-label="빨강"></label><label>G<input data-color-rgb="1" type="number" min="0" max="255" aria-label="초록"></label><label>B<input data-color-rgb="2" type="number" min="0" max="255" aria-label="파랑"></label></div>';
+    const field=popup.querySelector('[data-color-field]'),point=popup.querySelector('[data-color-point]'),hue=popup.querySelector('[data-color-hue]'),hex=popup.querySelector('[data-color-hex]'),rgb=[...popup.querySelectorAll('[data-color-rgb]')];
+    let current=null,h=0,s=0,v=1,dragging=null;
+    const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
+    const channels=value=>[1,3,5].map(index=>parseInt(value.slice(index,index+2),16));
+    const fromRgb=values=>{
+        const [r,g,b]=values.map(value=>value/255),max=Math.max(r,g,b),min=Math.min(r,g,b),delta=max-min;
+        v=max;s=max?delta/max:0;
+        if(delta)h=((max===r?(g-b)/delta+(g<b?6:0):max===g?(b-r)/delta+2:(r-g)/delta+4)*60)%360;
+    };
+    const toRgb=()=>{const c=v*s,x=c*(1-Math.abs((h/60)%2-1)),m=v-c,parts=h<60?[c,x,0]:h<120?[x,c,0]:h<180?[0,c,x]:h<240?[0,x,c]:h<300?[x,0,c]:[c,0,x];return parts.map(value=>Math.round((value+m)*255));};
+    const colorHex=values=>'#'+values.map(value=>value.toString(16).padStart(2,'0')).join('');
+    function sync(input){const control=input.__colorControl;if(!control)return;control.swatch.style.backgroundColor=input.value;control.output.value=input.value.toUpperCase();}
+    function paint(){
+        const values=toRgb(),value=colorHex(values);field.style.setProperty('--picker-hue',String(h));point.style.left=s*100+'%';point.style.top=(1-v)*100+'%';field.setAttribute('aria-valuetext',value.toUpperCase());
+        hue.value=String(h);updateRangeSliderFill(hue);hex.value=value.toUpperCase();rgb.forEach((input,index)=>input.value=String(values[index]));
+    }
+    function commit(){if(!current)return;current.value=colorHex(toRgb());current.dispatchEvent(new Event('input',{bubbles:true}));current.dispatchEvent(new Event('change',{bubbles:true}));paint();}
+    function close(){popup.hidden=true;current=null;dragging=null;}
+    function place(){if(!current)return;const bounds=current.__colorControl.button.getBoundingClientRect(),width=popup.offsetWidth,height=popup.offsetHeight,left=clamp(bounds.left,12,Math.max(12,innerWidth-width-12)),top=bounds.bottom+8+height<=innerHeight-12?bounds.bottom+8:Math.max(12,bounds.top-height-8);Object.assign(popup.style,{left:left+'px',top:top+'px'});}
+    function open(input){
+        if(current===input&&!popup.hidden){close();return;}
+        current=input;(input.closest('#clock-layout-editor')||document.getElementById('settings-modal')).append(popup);popup.hidden=false;
+        fromRgb(channels(input.value));paint();place();field.focus({preventScroll:true});
+    }
+    function enhance(input){
+        if(input.__colorControl)return;
+        let control=input.closest('.settings-color-control');if(!control){control=document.createElement('span');control.className='settings-color-control';input.before(control);control.append(input);}
+        const button=document.createElement('button');button.type='button';button.className='settings-color-trigger';button.setAttribute('aria-haspopup','dialog');button.setAttribute('aria-label',(input.closest('label')?.firstChild?.textContent?.trim()||'색상')+' 선택');
+        const swatch=document.createElement('span');swatch.className='settings-color-swatch';swatch.setAttribute('aria-hidden','true');
+        const output=control.querySelector('output')||document.createElement('output');button.append(swatch,output);control.append(button);input.classList.add('app-color-native');input.tabIndex=-1;input.setAttribute('aria-hidden','true');
+        input.__colorControl={button,swatch,output};
+        Object.defineProperty(input,'value',{configurable:true,get(){return valueDescriptor.get.call(this);},set(value){valueDescriptor.set.call(this,value);sync(this);}});
+        button.addEventListener('click',event=>{event.preventDefault();open(input);});
+        input.closest('label')?.addEventListener('click',event=>{event.preventDefault();if(!event.target.closest('button'))open(input);});
+        input.addEventListener('input',()=>sync(input));input.addEventListener('change',()=>sync(input));sync(input);
+    }
+    const pointerColor=event=>{const bounds=field.getBoundingClientRect();s=clamp((event.clientX-bounds.left)/bounds.width,0,1);v=1-clamp((event.clientY-bounds.top)/bounds.height,0,1);commit();};
+    field.addEventListener('pointerdown',event=>{if(event.button!==0)return;dragging=event.pointerId;field.setPointerCapture(event.pointerId);pointerColor(event);event.preventDefault();});
+    field.addEventListener('pointermove',event=>{if(dragging===event.pointerId)pointerColor(event);});
+    for(const type of ['pointerup','pointercancel','lostpointercapture'])field.addEventListener(type,()=>{dragging=null;});
+    field.addEventListener('keydown',event=>{const step=event.shiftKey?.1:.01;if(event.key==='ArrowLeft')s=clamp(s-step,0,1);else if(event.key==='ArrowRight')s=clamp(s+step,0,1);else if(event.key==='ArrowUp')v=clamp(v+step,0,1);else if(event.key==='ArrowDown')v=clamp(v-step,0,1);else return;event.preventDefault();commit();});
+    hue.addEventListener('input',()=>{h=Number(hue.value);commit();});
+    hex.addEventListener('input',()=>{const value=hex.value.startsWith('#')?hex.value:'#'+hex.value;if(/^#[a-f\d]{6}$/i.test(value)){fromRgb(channels(value));commit();}});
+    rgb.forEach(input=>input.addEventListener('input',()=>{if(rgb.some(input=>input.value===''))return;fromRgb(rgb.map(input=>clamp(Number(input.value)||0,0,255)));commit();}));
+    popup.querySelector('[data-color-close]').addEventListener('click',()=>{const button=current?.__colorControl.button;close();button?.focus();});
+    document.addEventListener('pointerdown',event=>{if(current&&!popup.contains(event.target)&&!current.__colorControl.button.contains(event.target))close();},true);
+    document.addEventListener('keydown',event=>{if(current&&event.key==='Escape'){event.preventDefault();event.stopImmediatePropagation();const button=current.__colorControl.button;close();button.focus();}},true);
+    window.addEventListener('resize',close);document.addEventListener('scroll',event=>{if(current&&event.target instanceof Element&&event.target.contains(current)&&!popup.contains(event.target))close();},true);
+    function scan(root){if(root.matches?.('input[type="color"]'))enhance(root);root.querySelectorAll?.('input[type="color"]').forEach(enhance);}
+    scan(document);new MutationObserver(records=>{for(const record of records)for(const node of record.addedNodes)if(node.nodeType===1)scan(node);}).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
 </body>
 </html>
 
