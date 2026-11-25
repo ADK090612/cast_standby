@@ -827,6 +827,9 @@ body:has(#settings-modal:not(.hidden)) #weather-render-diagnostics{display:none}
 #weather-grass{z-index:8}
 #weather-twilight{position:absolute;inset:0;z-index:9;pointer-events:none;opacity:var(--twilight-glow,0);transition:opacity 1.2s ease-in-out;mix-blend-mode:screen;background:radial-gradient(ellipse 34% 18% at var(--twilight-x,50%) var(--twilight-y,44%),rgba(var(--twilight-warmth,255,191,143),.3),rgba(224,130,150,.12) 43%,transparent 100%),radial-gradient(ellipse 72% 28% at var(--twilight-x,50%) var(--twilight-y,44%),rgba(255,218,169,.13),transparent 74%);filter:blur(10px)}
 #weather-precip{position:fixed;inset:0;width:100%;height:100%;z-index:46;pointer-events:none}
+#weather-pill-precip{position:fixed;inset:0;width:100%;height:100%;z-index:71;pointer-events:none}
+:root:not([data-theme="weather"]) #weather-pill-precip{display:none}
+body.low-performance-mode #weather-pill-precip{opacity:.82}
 .weather-water-lens{position:fixed;left:0;top:0;z-index:47;display:block;border-radius:50%;pointer-events:none;transform-origin:center;background:radial-gradient(ellipse at 34% 27%,rgba(255,255,255,.14) 0%,rgba(222,244,255,.045) 19%,rgba(145,203,235,.014) 54%,rgba(255,255,255,.004) 73%,transparent 78%);border:1px solid rgba(232,248,255,.14);box-shadow:inset 0 1px 2px rgba(255,255,255,.18),inset 0 -1px 2px rgba(111,176,211,.08),0 0 3px rgba(208,239,255,.05);-webkit-backdrop-filter:blur(.35px) saturate(1.06) url('#glass-refraction');backdrop-filter:blur(.35px) saturate(1.06) url('#glass-refraction');will-change:transform,opacity}
 :root:not([data-theme="weather"]) .weather-water-lens{display:none}
 body.low-performance-mode .weather-water-lens{-webkit-backdrop-filter:blur(.7px) saturate(1.2);backdrop-filter:blur(.7px) saturate(1.2)}
@@ -1024,6 +1027,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
     <div id="weather-scene" aria-hidden="true"><div id="weather-sky"></div><div id="weather-aurora"><span class="aurora-sheet aurora-sheet-one"></span><span class="aurora-sheet aurora-sheet-two"></span><span class="aurora-sheet aurora-sheet-three"></span></div><canvas id="weather-stars"></canvas><canvas id="weather-celestial"></canvas><canvas id="weather-clouds"></canvas><canvas id="weather-mountains"></canvas><div id="weather-ground" aria-hidden="true"></div><canvas id="weather-grass"></canvas><div id="weather-twilight" aria-hidden="true"></div></div>
     <canvas id="weather-precip" aria-hidden="true"></canvas>
+    <canvas id="weather-pill-precip" aria-hidden="true"></canvas>
     <!-- weather-diagnostics-overlay-start -->
     <aside id="weather-render-diagnostics" hidden aria-label="구름·강수 진단">
         <div class="weather-diagnostics-heading"><strong>구름·강수 진단</strong><button type="button" id="weather-diagnostics-close" aria-label="구름 진단 닫기">×</button></div>
@@ -5768,6 +5772,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   const starCanvas = $('weather-stars'), celestialCanvas = $('weather-celestial'), cloudCanvas = $('weather-clouds'), mountainCanvas = $('weather-mountains'), grassCanvas = $('weather-grass'), effectCanvas = $('weather-precip');
   if (!scene || !sky || !ground || !starCanvas || !celestialCanvas || !cloudCanvas || !mountainCanvas || !grassCanvas || !effectCanvas) return;
   const starCtx = starCanvas.getContext('2d'), celestialCtx = celestialCanvas.getContext('2d'), cloudCtx = cloudCanvas.getContext('2d'), mountainCtx = mountainCanvas.getContext('2d'), grassCtx = grassCanvas.getContext('2d'), effectCtx = effectCanvas.getContext('2d');
+  const pillCanvas = $('weather-pill-precip'), pillCtx = pillCanvas.getContext('2d'), bottomPillId = 'dynamic-bottom-bar';
   const state = {
     mode: 'live', kind: 'none', amount: 0, cloud: 20, rotationSpeed: 10, time: 'auto', timelineDuration: 120, timelineStartedAt: 0, reflectWeather: true, reflectTime: true, aurora: true, weatherBackup: null, sunrise: '06:00', sunset: '18:00',
     lat: 35.8714, lon: 128.6014, windSpeed: 8, windDir: 240, temperature: null, weatherTime: null, weatherFetchedAt: 0,
@@ -6195,7 +6200,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   function resize() {
     const previousWidth=width,previousHeight=height,previousClouds=clouds;
     dpr = Math.min(window.devicePixelRatio || 1, 1.5); width = window.innerWidth; height = window.innerHeight;
-    [[starCanvas, starCtx],[celestialCanvas, celestialCtx],[cloudCanvas, cloudCtx],[mountainCanvas, mountainCtx],[grassCanvas, grassCtx],[effectCanvas, effectCtx]].forEach(([c, ctx]) => setCanvasSize(c, ctx));
+    [[starCanvas, starCtx],[celestialCanvas, celestialCtx],[cloudCanvas, cloudCtx],[mountainCanvas, mountainCtx],[grassCanvas, grassCtx],[effectCanvas, effectCtx],[pillCanvas, pillCtx]].forEach(([c, ctx]) => setCanvasSize(c, ctx));
     document.querySelectorAll('.weather-water-lens').forEach(el=>el.remove()); weatherLensCount=0; nextSafeInsetsRefresh=0;
     lastBackdropAt=0;lastAtmosphereAt=0;lastCelestialAt=0;backdropSignature='';atmosphereSignature='';
     buildClouds();
@@ -6360,11 +6365,49 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
   }
   // Wind direction follows meteorological convention: the value points to the direction wind comes from.
   function windVector() { const override=window.__dashboardDeveloperSceneOverride, speed=override?.active?override.windSpeed:state.windSpeed, direction=override?.active?override.windDir:state.windDir, a = (direction + 180) * Math.PI / 180, s = clamp(speed / 16, .08, 1.25); return { x: Math.sin(a) * s, y: Math.cos(a) * s }; }
+  function surfaceEffectContext(key) { return key===bottomPillId?pillCtx:effectCtx; }
+  function scanBottomPill() {
+    const element=$(bottomPillId), previous=shelves.find(s=>s.id===bottomPillId);
+    const style=element?getComputedStyle(element):null, rect=element?.getBoundingClientRect();
+    const visible=rect&&rect.width>0&&rect.height>0&&rect.bottom>0&&rect.top<height&&style.display!=='none'&&style.visibility!=='hidden'&&Number(style.opacity)>.03;
+    if(!visible) {
+      shelves=shelves.filter(s=>s.id!==bottomPillId); snowBeds.delete(bottomPillId);
+      snowPatches=snowPatches.filter(p=>p.surfaceKey!==bottomPillId); snowClumps=snowClumps.filter(c=>c.source!==bottomPillId);
+      splashes=splashes.filter(s=>s.surfaceKey!==bottomPillId);
+      beads=beads.filter(b=>{if(b.surfaceKey!==bottomPillId)return true;removeWaterLens(b);return false;});
+      return;
+    }
+    const surface={x:rect.left,y:rect.top,w:rect.width,h:rect.height,id:bottomPillId,element,radius:parseFloat(style.borderTopLeftRadius)||0};
+    if(previous) {
+      // Keep attached deposits on the pill as hover, music and broadcasts change its size.
+      const mapX=x=>surface.x+(x-previous.x)*surface.w/previous.w;
+      for(const bead of beads) if(bead.surfaceKey===bottomPillId&&bead.edgeMode!=='falling') {
+        const x=mapX(bead.x); bead.y+=surfaceTopAt(surface,x)-surfaceTopAt(previous,bead.x); bead.x=x; bead.targetX=mapX(bead.targetX);
+      }
+      for(const patch of snowPatches) if(patch.surfaceKey===bottomPillId&&patch.edge) {
+        const x=mapX(patch.x); patch.y+=surfaceTopAt(surface,x)-surfaceTopAt(previous,patch.x); patch.x=x; patch.edge=surface;
+      }
+      const bed=snowBeds.get(bottomPillId);
+      if(bed) {
+        const n=Math.max(1,Math.ceil(surface.w/8));
+        if(n!==bed.depth.length) {
+          const depth=new Float32Array(n),cooldown=new Float32Array(n);
+          for(let i=0;i<n;i++) { const from=Math.min(bed.depth.length-1,Math.floor(i/n*bed.depth.length)); depth[i]=bed.depth[from]; cooldown[i]=bed.cooldown[from]; }
+          bed.depth=depth;bed.cooldown=cooldown;
+        }
+        Object.assign(bed,{x:surface.x,y:surface.y,w:surface.w,surface});
+      }
+      shelves[shelves.indexOf(previous)]=surface;
+    } else shelves.push(surface);
+  }
   function scanSurfaces(now) {
+    scanBottomPill();
     if (now - lastShelfScan < 600) return; lastShelfScan = now;
+    const pill=shelves.find(s=>s.id===bottomPillId);
     if(document.documentElement.dataset.theme==='weather'&&document.documentElement.dataset.weatherDesign==='simple') {
       const card=document.getElementById('simple-meal');
       if(card&&card.offsetWidth&&card.offsetHeight&&getComputedStyle(card).display!=='none') { const r=card.getBoundingClientRect(),style=getComputedStyle(card); shelves=[{x:r.left,y:r.top,w:r.width,h:r.height,id:card.id,element:card,radius:parseFloat(style.borderTopLeftRadius)||0}]; } else shelves=[];
+      if(pill) shelves.push(pill);
       const activeKeys=new Set(shelves.map(surfaceKey));
       for(const [key] of snowBeds) if(!activeKeys.has(key)) snowBeds.delete(key);
       snowPatches=snowPatches.filter(patch=>!patch.surfaceKey||activeKeys.has(patch.surfaceKey));
@@ -6384,7 +6427,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     const centralCard=simpleMeal&&simpleMeal.offsetWidth&&simpleMeal.offsetHeight?simpleMeal:regularCentralCard;
     const primarySurfaces=[];
     if(centralCard) { const r=centralCard.getBoundingClientRect(); if(r.y>-120&&r.y<height&&r.width>28) { const style=getComputedStyle(centralCard); primarySurfaces.push({x:r.left,y:r.top,w:r.width,h:r.height,id:centralCard.id||centralCard.className,element:centralCard,radius:parseFloat(style.borderTopLeftRadius)||0}); } }
-    shelves = primarySurfaces;
+    shelves = pill?[...primarySurfaces,pill]:primarySurfaces;
     const activeKeys=new Set(shelves.map(surfaceKey));
     for(const [key] of snowBeds) if(!activeKeys.has(key)) snowBeds.delete(key);
     snowPatches=snowPatches.filter(patch=>!patch.surfaceKey||activeKeys.has(patch.surfaceKey));
@@ -6879,7 +6922,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     bead.lens.remove(); bead.lens=null; weatherLensCount=Math.max(0,weatherLensCount-1);
   }
   function updateLens(bead,radius) {
-    if(bead.mass>=8 && !bead.lens && weatherLensCount<maxWaterLenses) { bead.lens=document.createElement('span'); bead.lens.className='weather-water-lens'; bead.lens.setAttribute('aria-hidden','true'); document.body.appendChild(bead.lens); weatherLensCount++; }
+    if(bead.mass>=8 && !bead.lens && weatherLensCount<maxWaterLenses) { bead.lens=document.createElement('span'); bead.lens.className='weather-water-lens'; if(bead.surfaceKey===bottomPillId)bead.lens.style.zIndex='72'; bead.lens.setAttribute('aria-hidden','true'); document.body.appendChild(bead.lens); weatherLensCount++; }
     if(!bead.lens) return;
     // Rendering precision only; bead position, mass, collision and flow remain full precision.
     const size=Math.round(clamp(radius*2.45,5,16)*8)/8,opacity=clamp(.1+bead.mass/135,.11,.27).toFixed(3);
@@ -6900,17 +6943,25 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     for(let i=0;i<count && splashes.length<150;i++) {
       const angle=rand(-spread,spread);
       const rx=reflected.x*Math.cos(angle)-reflected.y*Math.sin(angle), ry=reflected.x*Math.sin(angle)+reflected.y*Math.cos(angle);
-      splashes.push({x:x+rand(-1,1),y:y-rand(0,.8),vx:rx*rand(.55,.9)+tangent.x*rand(-.8,.8),vy:Math.min(-.18,ry*rand(.55,.9))+rand(-.22,.14),r:rand(.45,1.05),life:rand(16,34)});
+      splashes.push({surfaceKey:surfaceKey(surface),x:x+rand(-1,1),y:y-rand(0,.8),vx:rx*rand(.55,.9)+tangent.x*rand(-.8,.8),vy:Math.min(-.18,ry*rand(.55,.9))+rand(-.22,.14),r:rand(.45,1.05),life:rand(16,34)});
     }
-    if(splashes.length<150 && impactSpeed>7 && Math.random()<.2+strength*.22) splashes.push({x,y:y-1,vx:reflected.x,vy:Math.min(-.25,reflected.y),r:rand(.8,1.35),life:rand(22,40)});
+    if(splashes.length<150 && impactSpeed>7 && Math.random()<.2+strength*.22) splashes.push({surfaceKey:surfaceKey(surface),x,y:y-1,vx:reflected.x,vy:Math.min(-.25,reflected.y),r:rand(.8,1.35),life:rand(22,40)});
   }
   function spawnFlakes(count) { while (flakes.length < count) { const depth=Math.pow(Math.random(),.72); flakes.push({ x:Math.random()*width, y:Math.random()*height, depth, r:.48+depth*2.25, vx:rand(-.12,.12), vy:rand(.24,.72)+depth*.55, drift:rand(0,7), phase:rand(0,7), rotation:rand(0,Math.PI) }); } if (flakes.length > count) flakes.length = count; }
-  function landSurface(x, y) { return shelves.find(s => x >= s.x && x <= s.x+s.w && y >= surfaceTopAt(s,x)-2 && y <= s.y+s.h); }
-  function surfaceKey(surface) { return `${surface.id}:${Math.round(surface.x)}:${Math.round(surface.y)}:${Math.round(surface.w)}`; }
+  function landSurface(x, y, oldY) {
+    // With a second surface, select the first top crossed during this step, including curved ends.
+    let hit,nearestY=Infinity;
+    for(const surface of shelves) if(x>=surface.x&&x<=surface.x+surface.w) {
+      const top=surfaceTopAt(surface,x);
+      if(oldY<top&&y>=top&&top<nearestY) { hit=surface; nearestY=top; }
+    }
+    return hit;
+  }
+  function surfaceKey(surface) { if(surface.id===bottomPillId)return bottomPillId; return `${surface.id}:${Math.round(surface.x)}:${Math.round(surface.y)}:${Math.round(surface.w)}`; }
   function clearAccumulatedWeather() {
     beads.forEach(removeWaterLens); beads=[]; splashes=[]; rain=[]; flakes=[]; snowPatches=[]; snowClumps=[]; snowBeds.clear();
     document.querySelectorAll('[data-weather-precipitation-fade]').forEach(el=>el.remove());
-    effectCtx.clearRect(0,0,width,height);
+    effectCtx.clearRect(0,0,width,height); pillCtx.clearRect(0,0,width,height);
   }
   function addBead(x, y, surface) {
     const key=surfaceKey(surface), nearest = beads.find(b => b.surfaceKey === key && Math.abs(b.x-x) < 18 && Math.abs(b.y-y) < 7 && b.age < 520);
@@ -6967,7 +7018,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       applyAirDrag(drop,dt,{gravity:.42,terminal:drop.terminal*profile.rainSpeed,windX:wind.x*2.2*profile.windGain});
       drop.x += drop.vx*dt; drop.y += drop.vy*dt;
       if (drop.x < -10) drop.x += width + 20; else if (drop.x > width+10) drop.x -= width+20;
-      const hit = landSurface(drop.x, drop.y), impactY=hit?surfaceTopAt(hit,drop.x):0;
+      const hit = landSurface(drop.x, drop.y, oldY), impactY=hit?surfaceTopAt(hit,drop.x):0;
       if (hit && oldY < impactY && drop.y >= impactY) {
         const impactSpeed=Math.hypot(drop.vx,drop.vy), radius=surfaceRadius(hit);
         const curved=radius>1&&(drop.x<hit.x+radius||drop.x>hit.x+hit.w-radius);
@@ -7004,11 +7055,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       spawnSplash(x,y,vx,vy,speed,strength+Math.min(.35,Math.log2(batch.count)*.08),wind,batch.surface);
     }
     for(const spray of splashes) {
+      const effectCtx=surfaceEffectContext(spray.surfaceKey);
       spray.life-=dt; applyAirDrag(spray,dt,{gravity:.11,terminal:5.5,windX:wind.x*.55}); spray.x+=spray.vx*dt; spray.y+=spray.vy*dt;
       effectCtx.fillStyle=`rgba(217,239,252,${clamp(spray.life/18,.12,.82)})`; effectCtx.beginPath(); effectCtx.arc(spray.x,spray.y,spray.r,0,Math.PI*2); effectCtx.fill();
     }
     splashes=splashes.filter(s=>s.life>0 && s.y<height+4);
     for (const bead of beads) {
+      const effectCtx=surfaceEffectContext(bead.surfaceKey);
       bead.age += dt;
       if(strength<.499 && !bead.drip) { bead.mass=Math.max(0,bead.mass-.012*dt); bead.targetMass=Math.max(0,(bead.targetMass??bead.mass)-.012*dt); if(bead.mass<=.05) bead.age=1000; }
       const targetMass=bead.targetMass??bead.mass; bead.mass+=(targetMass-bead.mass)*Math.min(1,.12*dt); bead.x+=(bead.targetX-bead.x)*Math.min(1,.18*dt);
@@ -7064,7 +7117,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       // Snow reaches a low terminal speed and sways with small turbulent eddies.
       applyAirDrag(flake,dt,{gravity:.045+flake.depth*.035,terminal:(.72+flake.depth*1.5)*profile.snowSpeed,windX:wind.x*(.3+flake.depth*.52)*profile.windGain});
       flake.x += flake.vx*dt; flake.y += flake.vy*dt;
-      const surface = landSurface(flake.x, flake.y), surfaceY=surface?surfaceTopAt(surface,flake.x):horizon;
+      const surface = landSurface(flake.x, flake.y, oldY), surfaceY=surface?surfaceTopAt(surface,flake.x):horizon;
       if ((surface && oldY < surfaceY && flake.y >= surfaceY) || (!surface && flake.y >= horizon)) {
         if (surface) {
           const key=surfaceKey(surface);
@@ -7082,6 +7135,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     }
     effectCtx.globalAlpha=1;
     for (const patch of snowPatches) {
+      const effectCtx=surfaceEffectContext(patch.surfaceKey);
       patch.age += dt;
       if (patch.edge) {
         const edge=patch.edge, radius=surfaceRadius(edge), left=edge.x+radius, right=edge.x+edge.w-radius;
@@ -7106,6 +7160,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     snowPatches = snowPatches.filter(s => s.y < height+20 && s.age < 8000);
     // Snow accumulates only on visible screen elements and slowly slides from their edges.
     for(const bed of snowBeds.values()) {
+      const effectCtx=surfaceEffectContext(bed.key);
       // Loose powder settles down shallow slopes and joins nearby deposits into a soft drift.
       for(let i=0;i<bed.depth.length;i++) if(strength<.499) bed.depth[i]=Math.max(0,bed.depth[i]-.006*dt);
       for(let i=1;i<bed.depth.length-1;i++) {
@@ -7134,9 +7189,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       effectCtx.globalAlpha=1;
     }
     for(const clump of snowClumps) {
+      const effectCtx=surfaceEffectContext(clump.source);
       const oldY=clump.y; clump.age+=dt; applyAirDrag(clump,dt,{gravity:.12,terminal:6.8,windX:wind.x*.3});
       clump.x+=clump.vx*dt; clump.y+=clump.vy*dt; clump.rotation+=clump.spin*dt;
-      const landing=shelves.find(s=>surfaceKey(s)!==clump.source && s.y>oldY+1 && clump.x>=s.x-2 && clump.x<=s.x+s.w+2 && oldY<s.y && clump.y>=s.y);
+      const landing=shelves.find(s=>{
+        const top=s.id===bottomPillId?surfaceTopAt(s,clump.x):s.y;
+        return surfaceKey(s)!==clump.source && top>oldY+1 && clump.x>=s.x-2 && clump.x<=s.x+s.w+2 && oldY<top && clump.y>=top;
+      });
       if(landing) {
         const key=surfaceKey(landing); let bed=snowBeds.get(key);
         if(!bed) { const n=Math.max(1,Math.ceil(landing.w/8)); bed={key,x:landing.x,y:landing.y,w:landing.w,surface:landing,depth:new Float32Array(n),cooldown:new Float32Array(n)}; snowBeds.set(key,bed); }
@@ -7241,16 +7300,17 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     if(now-lastCelestialAt>=100) {drawCelestial();lastCelestialAt=now;}
     const intensity = visualPrecipitation/100;
     if(visualPrecipitationKind!=='none' && intensity>0) {
-      effectCtx.clearRect(0,0,width,height);
+      effectCtx.clearRect(0,0,width,height); pillCtx.clearRect(0,0,width,height);
       const {left:safeLeft,right:safeRight,top:safeTop,bottom:safeBottom}=safeInsets(now);
-      effectCtx.save(); effectContextSaved=true; effectCtx.beginPath(); effectCtx.rect(safeLeft,safeTop,Math.max(0,width-safeLeft-safeRight),Math.max(0,height-safeTop-safeBottom)); effectCtx.clip();
+      effectCtx.save(); pillCtx.save(); effectContextSaved=true;
+      for(const ctx of [effectCtx,pillCtx]) { ctx.beginPath(); ctx.rect(safeLeft,safeTop,Math.max(0,width-safeLeft-safeRight),Math.max(0,height-safeTop-safeBottom)); ctx.clip(); }
       try { scanSurfaces(now); } catch(error) { shelves=[]; clearAccumulatedWeather(); if(!frameErrorNotified) { console.warn('강수 표면 상태를 초기화하고 애니메이션을 계속합니다.',error); frameErrorNotified=true; } }
       if (visualPrecipitationKind === 'rain') { flakes.length=0; snowPatches.length=0; snowClumps.length=0; drawRain(wind,intensity,dt); }
       else if (visualPrecipitationKind === 'snow') { rain.length=0; beads.length=0; splashes.length=0; drawSnow(wind,intensity,dt); }
-      effectCtx.restore(); effectContextSaved=false;
+      effectCtx.restore(); pillCtx.restore(); effectContextSaved=false;
     } else { rain.length=0; flakes.length=0; beads.length=0; splashes.length=0; snowPatches.length=0; snowClumps.length=0; }
     } catch(error) { if(!frameErrorNotified) { console.warn('날씨 애니메이션 렌더링을 복구합니다.',error); frameErrorNotified=true; } }
-    finally { if(effectContextSaved) { try { effectCtx.restore(); } catch(error) {} } frameVisualContext=null; }
+    finally { if(effectContextSaved) { try { effectCtx.restore(); pillCtx.restore(); } catch(error) {} } frameVisualContext=null; }
     previousFrameCost=performance.now()-frameStartedAt;
     if(weatherDiagnosticsEnabled)updateWeatherDiagnostics(now);
     // Exactly one rAF is pending; precipitation can follow 60/120/144 Hz displays without skipped deadlines.
