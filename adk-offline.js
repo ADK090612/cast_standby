@@ -2,19 +2,12 @@
     'use strict';
     const bundle = window.ADKOfflineResources;
     const cacheName = 'adk-standby-offline-v2:' + new URL('./', location.href).pathname;
-    const preferenceKey = 'dashboardOfflineCacheEnabled';
     const status = document.getElementById('offline-cache-status');
-    const toggle = document.getElementById('offline-cache-toggle');
     const cacheButton = document.getElementById('offline-cache-btn');
     const zipButton = document.getElementById('offline-download-btn');
     const clearButton = document.getElementById('offline-cache-clear-btn');
     const progressPanels=[...document.querySelectorAll('[data-offline-progress]')];
     const canCache = /^https?:$/.test(location.protocol) && window.isSecureContext && 'caches' in window && 'serviceWorker' in navigator;
-    const readPreference = () => { try { return localStorage.getItem(preferenceKey) === 'true'; } catch (_) { return false; } };
-    const savePreference = value => {
-        try { localStorage.setItem(preferenceKey, String(value)); }
-        catch (_) { throw new Error('브라우저가 설정 저장을 차단했습니다. 사이트 저장 공간 권한을 확인하세요.'); }
-    };
     let lastProgressAt=0,lastProgressLabel='';
     function setStatus(message,progress=null) {
         status.textContent=message;cacheUpdateStatus.textContent=message;
@@ -32,7 +25,22 @@
         if(done<total&&label===lastProgressLabel&&now-lastProgressAt<150)return;
         lastProgressAt=now;lastProgressLabel=label;setStatus(label,{done,total});
     }
-    let busy = false;
+    let busy=false,resetting=false,operationController=null,operationPromise=null,resetPromise=null;
+    const resetKey='dashboardOfflineReset:'+new URL('./',location.href).pathname;
+    function requestSignal(milliseconds){return operationController?AbortSignal.any([operationController.signal,AbortSignal.timeout(milliseconds)]):AbortSignal.timeout(milliseconds);}
+    window.addEventListener('storage',event=>{if(event.key===resetKey||event.key===null)operationController?.abort();});
+    function syncOperationControls(){
+        const blocked=busy||resetting;
+        zipButton.disabled=blocked;cacheButton.disabled=blocked||!canCache;clearButton.disabled=blocked||!canCache;syncCacheUpdateControls();
+    }
+    function notifyOffline(message,reveal=false){
+        if(!message||typeof addCustomNotification!=='function')return;
+        let item=appNotifications.find(item=>item.offlineCache===true);
+        if(item){item.message=message;isPillHidden=false;}
+        else{addCustomNotification('general','오프라인',message);item=appNotifications.find(item=>item.title==='오프라인'&&item.message===message);if(item)item.offlineCache=true;}
+        updateNotificationUI();
+        if(reveal||document.getElementById('custom-notification-container')?.classList.contains('open')){showAllNotifications();document.getElementById('notification-toggle')?.setAttribute('aria-expanded','true');}
+    }
 
     let downloadModule;
     async function downloadPackage() {
@@ -67,7 +75,7 @@
             check();
         });
     }
-    let latestResources=null,cachedInfo=null,cacheUpdateOperation=false;
+    let latestResources=null,cachedInfo=null;
     const checkCacheUpdateButton=document.getElementById('offline-cache-check-update-btn');
     const applyCacheUpdateButton=document.getElementById('offline-cache-apply-update-btn');
     const cacheUpdateStatus=document.getElementById('offline-cache-update-status');
@@ -75,16 +83,16 @@
     const latestVersionLabel=document.getElementById('offline-cache-latest-version');
     function versionLabel(info){return info?.revision?(info.appVersion||'리소스'):'이전 형식'}
     function syncCacheUpdateControls(){
-        checkCacheUpdateButton.disabled=busy||!canCache;
-        applyCacheUpdateButton.disabled=busy||!canCache||!latestResources||!cachedInfo;
+        checkCacheUpdateButton.disabled=busy||resetting||!canCache;
+        applyCacheUpdateButton.disabled=busy||resetting||!canCache||!latestResources||!cachedInfo;
     }
     async function readCacheInfo(){
         if(!canCache)return null;
         const keys=await caches.keys();
         for(const key of [cacheName,'adk-standby-offline-v1:'+new URL('./',location.href).pathname]){
             if(!keys.includes(key))continue;
-            const response=await(await caches.open(key)).match(new URL('./__adk_offline_status__',location.href));
-            if(response)return response.json();
+            const response=await caches.match(new URL('./__adk_offline_status__',location.href),{cacheName:key});
+            if(response){const info=await response.json();return {...info,cacheName:info.cacheName||key};}
         }
         return null;
     }
@@ -108,7 +116,7 @@
     }
     async function fetchLatestResources(){
         const url=new URL('./adk-assets/resource-list.js',location.href);url.searchParams.set('check',Date.now());
-        const response=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(15000)});
+        const response=await fetch(url,{cache:'no-store',signal:requestSignal(15000)});
         if(!response.ok)throw new Error('최신 캐시 버전을 확인하지 못했습니다. (HTTP '+response.status+')');
         return parseResourceList(await response.text());
     }
@@ -117,7 +125,7 @@
         await refreshCacheInfo();
         const latest=await fetchLatestResources();
         latestVersionLabel.textContent=versionLabel(latest);
-        if(!cachedInfo)setStatus('');
+        if(!cachedInfo)setStatus('저장된 캐시 없음');
         else if(cachedInfo.revision===latest.revision)setStatus('최신 버전입니다.');
         else{latestResources=latest;setStatus('캐시 업데이트 가능');}
         syncCacheUpdateControls();
@@ -134,12 +142,25 @@
     }
     async function cacheInBrowser(resourceSet=bundle){
         if(!canCache)throw new Error('브라우저 캐싱은 HTTPS 또는 localhost에서 사용할 수 있습니다.');
+        return withOfflineCacheLock(()=>writeBrowserCache(resourceSet),operationController?.signal);
+    }
+    async function writeBrowserCache(resourceSet){
+        const signal=operationController?.signal;signal?.throwIfAborted();
+        const saved=await readCacheInfo(),names=await caches.keys();
+        const source=saved&&names.includes(saved.cacheName)?await caches.open(saved.cacheName):null;
+        if(source&&saved.revision===resourceSet.revision){
+            const urls=new Set((await source.keys()).map(request=>request.url));
+            if(resourceSet.files.every(file=>urls.has(new URL(file.name,location.href).href))&&urls.has(saved.pageURL)){
+                const scope=new URL('./',location.href).href,script=new URL('./sw.js',location.href).href;
+                if(!(await navigator.serviceWorker.getRegistrations()).some(registration=>registration.scope===scope&&registration.active?.scriptURL===script))await activeWorker(await registerWorker());
+                signal?.throwIfAborted();latestResources=null;await refreshCacheInfo();setStatus('이미 캐싱되어 있습니다.',{done:1,total:1});return;
+            }
+        }
         const registration=await registerWorker();await activeWorker(registration);
         const dataName=cacheName+':'+resourceSet.revision+':'+Date.now();
         const cache=await caches.open(dataName);
         const pageURL=new URL(location.href);pageURL.hash='';pageURL.search='';
         let committed=false;
-        const wasEnabled=readPreference();
         try{
             const resources=resourceSet.files.filter(file=>file.name!==resourceSet.pageName);
             let cursor=0,done=0;
@@ -147,8 +168,13 @@
             const results=await Promise.allSettled(Array.from({length:4},async()=>{
                 while(cursor<resources.length){
                     const file=resources[cursor++],url=new URL(file.name,location.href);
-                    const response=await fetch(url,{cache:'reload',signal:AbortSignal.timeout(60000)});
-                    await cache.put(url,await verifiedResponse(response,file));
+                    let response=null;
+                    if(source&&(file.sha256||saved.revision===resourceSet.revision)){
+                        const previous=await source.match(url);
+                        if(previous)try{response=await verifiedResponse(previous,file);}catch{}
+                    }
+                    if(!response)response=await verifiedResponse(await fetch(url,{cache:'reload',signal:requestSignal(60000)}),file);
+                    signal?.throwIfAborted();await cache.put(url,response);
                     setProgress(++done,resources.length+2,'캐시 다운로드 중');
                 }
             }));
@@ -156,29 +182,29 @@
             const additional=new Set();
             for(const image of document.images)if(/^https?:/.test(image.src)&&new URL(image.src).origin!==location.origin)additional.add(image.src);
             for(const node of [document.body,...document.querySelectorAll('[style*="url("]')])for(const match of getComputedStyle(node).backgroundImage.matchAll(/url\(["']?(https?:[^"')]+)["']?\)/g))if(new URL(match[1]).origin!==location.origin)additional.add(match[1]);
-            for(const url of additional){const response=await fetch(url,{mode:'no-cors',cache:'reload',signal:AbortSignal.timeout(30000)});if(!response.ok&&response.type!=='opaque')throw new Error('이미지 저장 실패: '+url);await cache.put(url,response)}
+            for(const url of additional){const response=(source&&await source.match(url))||await fetch(url,{mode:'no-cors',cache:'reload',signal:requestSignal(30000)});if(!response.ok&&response.type!=='opaque')throw new Error('이미지 저장 실패: '+url);signal?.throwIfAborted();await cache.put(url,response)}
             setStatus('캐시 확인 중',{done:resources.length,total:resources.length+2});
             const pageFile=resourceSet.files.find(file=>file.name===resourceSet.pageName);
-            const htmlResponse=await verifiedResponse(await fetch(pageURL,{cache:'reload',signal:AbortSignal.timeout(30000)}),pageFile);
+            let htmlResponse=null;
+            if(source){const previous=await source.match(pageURL);if(previous)try{htmlResponse=await verifiedResponse(previous,pageFile);}catch{}}
+            if(!htmlResponse)htmlResponse=await verifiedResponse(await fetch(pageURL,{cache:'reload',signal:requestSignal(30000)}),pageFile);
             const pageURLs=[...new Set([pageURL.href,new URL('./index.html',pageURL).href,new URL('./',pageURL).href])];
             for(const url of pageURLs)await cache.put(url,htmlResponse.clone());
             const current=await fetchLatestResources();
             if(current.revision!==resourceSet.revision)throw new Error('저장 중 리소스 버전이 변경되었습니다. 최신 버전을 다시 확인해 주세요.');
             const info={pageURL:pageURL.href,pageURLs,cacheName:dataName,savedAt:new Date().toISOString(),fonts:resourceSet.fontCount,revision:resourceSet.revision,appVersion:resourceSet.appVersion};
             const control=await caches.open(cacheName);
-            savePreference(true);
+            signal?.throwIfAborted();
             await control.put(new URL('./__adk_offline_status__',location.href),new Response(JSON.stringify(info),{headers:{'Content-Type':'application/json'}}));
-            committed=true;toggle.checked=true;latestResources=null;
+            committed=true;latestResources=null;
             for(const key of await caches.keys())if(key.startsWith(cacheName+':')&&key!==dataName)await caches.delete(key);
             await caches.delete('adk-standby-offline-v1:'+new URL('./',location.href).pathname);
             await refreshCacheInfo();
             setStatus('캐시 저장 완료',{done:1,total:1});
-        }finally{if(!committed){await caches.delete(dataName);try{savePreference(wasEnabled)}catch(_){}}}
+        }finally{if(!committed)await caches.delete(dataName);}
     }
-    function runCacheUpdate(action,message){
-        if(busy)return;
-        cacheUpdateOperation=true;
-        return perform(action,message).finally(()=>{cacheUpdateOperation=false;syncCacheUpdateControls()});
+    function runCacheUpdate(action,message,notify=true){
+        return perform(action,message,notify);
     }
     checkCacheUpdateButton.addEventListener('click',()=>runCacheUpdate(checkCacheUpdates,'최신 캐시 버전을 확인하고 있습니다…'));
     applyCacheUpdateButton.addEventListener('click',()=>runCacheUpdate(async()=>{
@@ -187,7 +213,7 @@
         setStatus('캐시 업데이트 완료',{done:1,total:1});
     },'새 버전의 캐시를 저장하고 있습니다…'));
     document.getElementById('manual-check-update-btn')?.addEventListener('click',()=>{if(canCache)runCacheUpdate(checkCacheUpdates,'최신 캐시 버전을 확인하고 있습니다…')});
-    document.addEventListener('click',event=>{if(event.target.closest('[data-view="update"]')&&canCache)runCacheUpdate(checkCacheUpdates,'최신 캐시 버전을 확인하고 있습니다…')});
+    document.addEventListener('click',event=>{if(event.target.closest('[data-view="update"]')&&canCache)runCacheUpdate(checkCacheUpdates,'최신 캐시 버전을 확인하고 있습니다…',false)});
     function setupCacheUpdateMenu(){
         const popup=document.querySelector('#update-view .update-settings-popup');
         if(!popup||document.getElementById('offline-cache-update-menu-btn'))return;
@@ -203,50 +229,33 @@
         },true);
     }
     if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setupCacheUpdateMenu,{once:true});else setupCacheUpdateMenu();
-    refreshCacheInfo().catch(error=>setStatus('캐시 정보를 읽지 못했습니다. '+error.message));
+    refreshCacheInfo().catch(error=>{const message='캐시 정보를 읽지 못했습니다. '+error.message;setStatus(message);notifyOffline(message);});
 
     async function clearBrowserCache(message) {
-                const registrations = await navigator.serviceWorker.getRegistrations();
-                for (const registration of registrations) {
-                    const worker=registration.active||registration.waiting||registration.installing;
-                    if (worker?.scriptURL === new URL('./sw.js',location.href).href && registration.scope === new URL('./',location.href).href) await registration.unregister();
-                }
-                for(const key of await caches.keys())if(key===cacheName||key.startsWith(cacheName+':'))await caches.delete(key); await caches.delete('adk-standby-offline-v1:'+new URL('./',location.href).pathname); savePreference(false);
-                latestResources=null; await refreshCacheInfo();
-                setStatus(message || '캐시 사용 해제');
+        await clearOfflineBrowserStorage();latestResources=null;await refreshCacheInfo();setStatus(message||'오프라인 데이터 삭제 완료');
     }
-
-    async function perform(action, message) {
-        if (busy) return;
-        busy=true; zipButton.disabled=true; cacheButton.disabled=true; clearButton.disabled=true; toggle.disabled=true; syncCacheUpdateControls(); setStatus(message);
-        try { await action(); }
-        catch (error) { setStatus('완료하지 못했습니다. ' + error.message); console.error('ADK offline:',error); }
-        finally { busy=false; zipButton.disabled=false; cacheButton.disabled=!canCache; clearButton.disabled=!canCache; toggle.disabled=!canCache; toggle.checked=readPreference(); syncCacheUpdateControls(); }
+    function perform(action,message,notify=true) {
+        if(busy||resetting)return Promise.resolve();
+        busy=true;operationController=new AbortController();const controller=operationController;syncOperationControls();setStatus(message);
+        if(notify)notifyOffline(message);
+        operationPromise=(async()=>{
+            try{await action();if(notify&&!controller.signal.aborted)notifyOffline(status.textContent,true);}
+            catch(error){if(!controller.signal.aborted){setStatus('완료하지 못했습니다. '+error.message);if(notify)notifyOffline(status.textContent,true);console.error('ADK offline:',error);}else if(!resetting){setStatus('캐싱이 취소되었습니다.');if(notify)notifyOffline(status.textContent,true);}}
+            finally{busy=false;operationController=null;syncOperationControls();}
+        })();
+        return operationPromise;
     }
-    cacheButton.disabled=!canCache; clearButton.disabled=!canCache; toggle.disabled=!canCache; toggle.checked=readPreference();
-    toggle.title=canCache?'':'브라우저 캐싱은 HTTPS 또는 localhost에서 사용할 수 있습니다.';
+    window.ADKOfflineCache={clear(){
+        if(resetPromise)return resetPromise;
+        resetting=true;operationController?.abort();syncOperationControls();
+        resetPromise=(async()=>{if(operationPromise)await operationPromise;await clearBrowserCache();notifyOffline('오프라인 데이터 삭제 완료');})().finally(()=>{resetting=false;resetPromise=null;syncOperationControls();});
+        return resetPromise;
+    }};
+    syncOperationControls();
     clearButton.addEventListener('click', () => perform(() => clearBrowserCache('캐시 삭제 완료'),'캐시 삭제 중'));
     cacheButton.addEventListener('click', () => perform(cacheInBrowser,'브라우저 캐싱을 준비하고 있습니다…'));
     zipButton.addEventListener('click', () => perform(downloadPackage,'오프라인 ZIP 패키지를 만들고 있습니다…'));
-    toggle.addEventListener('change', () => {
-        if (!canCache) {
-            toggle.checked=readPreference();
-            return;
-        }
-        if (toggle.checked) {
-            perform(cacheInBrowser,'브라우저 캐싱을 준비하고 있습니다…');
-        } else {
-            perform(() => clearBrowserCache(),'브라우저 캐싱을 해제하고 있습니다…');
-        }
-    });
     if(!canCache)setStatus('브라우저 캐싱 지원 안 됨');
-    else if (readPreference()) perform(async () => {
-        const registration=await registerWorker();
-        await activeWorker(registration);
-        const cache=await caches.open(cacheName), saved=await cache.match(new URL('./__adk_offline_status__',location.href));
-        if(saved)setStatus('');
-        else await cacheInBrowser();
-    },'저장된 브라우저 캐시를 확인하고 있습니다…');
 
     const offlineMessage = '오프라인 구동 중입니다. 외부 정보를 가져오지 못 할 수 있습니다.';
     let wasOffline = false;

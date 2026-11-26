@@ -12,18 +12,21 @@ self.addEventListener('fetch', event => {
     event.respondWith((async()=>{
         // Explicit refreshes from the cache manager must reach the server.
         if(request.cache==='reload'||request.cache==='no-store')return fetch(request);
-        const control=await caches.open(CACHE_NAME);
-        const current=await control.match(STATUS_URL);
+        // Reading an uninstalled package must not recreate caches after a reset.
+        const names=await caches.keys();
+        if(!names.includes(CACHE_NAME)&&!names.includes(OLD_CACHE))return fetch(request);
+        const controlName=names.includes(CACHE_NAME)?CACHE_NAME:OLD_CACHE;
+        const current=await caches.match(STATUS_URL,{cacheName:controlName});
         const active=current?await current.json():null;
-        const cache=active?.cacheName?await caches.open(active.cacheName):control;
+        const activeName=active?.cacheName&&names.includes(active.cacheName)?active.cacheName:controlName;
         if(request.mode==='navigate'){
-            let source=cache,saved=active;
-            if(!saved&&(await caches.keys()).includes(OLD_CACHE)){source=await caches.open(OLD_CACHE);const metadata=await source.match(STATUS_URL);saved=metadata?await metadata.json():null}
+            let sourceName=activeName,saved=active;
+            if(!saved&&names.includes(OLD_CACHE)){sourceName=OLD_CACHE;const metadata=await caches.match(STATUS_URL,{cacheName:sourceName});saved=metadata?await metadata.json():null}
             if(!saved||!(saved.pageURLs||[saved.pageURL]).includes(url.origin+url.pathname))return fetch(request);
-            return networkOrCache(request,()=>source.match(saved.pageURL));
+            return networkOrCache(request,()=>caches.match(saved.pageURL,{cacheName:sourceName}));
         }
-        if(['script','style','manifest'].includes(request.destination))return networkOrCache(request,()=>cache.match(request));
-        return(await cache.match(request))||fetch(request);
+        if(['script','style','manifest'].includes(request.destination))return networkOrCache(request,()=>caches.match(request,{cacheName:activeName}));
+        return(await caches.match(request,{cacheName:activeName}))||fetch(request);
     })());
 });
 async function networkOrCache(request,cached){

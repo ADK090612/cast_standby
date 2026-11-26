@@ -1247,7 +1247,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">업데이트 설정 및 확인</h4>
                             <div class="software-version-hero update-version-hero">
                                 <div class="software-version-glow" aria-hidden="true"></div>
-                                <h2>ADK Dash <span id="update-version-hero-value">2.7.7</span></h2>
+                                <h2>ADK Dash <span id="update-version-hero-value">2.7.8</span></h2>
                                 <p id="update-status-text">최신 버전을 확인하는 중입니다...</p>
                             </div>
                             
@@ -1293,6 +1293,20 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <span>📝</span> 릴리즈 노트
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
+                                <!-- release-v2.7.8-start -->
+                                <div>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.7.8</h5>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>오프라인 캐시 체크박스와 자동 설치를 없애고 ‘브라우저에 캐싱’ 버튼을 눌렀을 때만 다운로드하도록 변경</li>
+                                        <li>같은 버전의 완전한 캐시는 중복 다운로드하지 않고, 누락되거나 변경된 파일만 받아 저장하도록 개선</li>
+                                        <li>여러 창의 동시 캐싱을 조정하고 다운로드 오류 시 기존 캐시 유지</li>
+                                        <li>전체 초기화 시 진행 중인 캐싱을 취소하고 브라우저의 오프라인 데이터와 서비스 워커도 삭제</li>
+                                        <li>캐싱·업데이트 확인·삭제·ZIP 생성의 시작과 완료·오류를 공통 알림에 표시하고 진행 알림이 중복되지 않도록 개선</li>
+                                        <li>박스별 이미지 테두리 굵기·색상·모서리 R 편집을 추가하고 기존 박스의 기본값과 모양 유지</li>
+                                        <li>브라우저 캐시 무결성 정보와 오프라인 ZIP 패키지에 v2.7.8 변경사항 반영</li>
+                                    </ul>
+                                </div>
+                                <!-- release-v2.7.8-end -->
                                 <!-- release-v2.7.7-start -->
                                 <div>
                                     <h5 class="font-bold text-blue-300 text-lg">v2.7.7</h5>
@@ -1893,7 +1907,6 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                         <div id="offline-view" class="settings-view hidden space-y-4">
                             <div class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">브라우저 / PWA 캐싱</h5>
-                                <label class="glass-checkbox-label" for="offline-cache-toggle"><input id="offline-cache-toggle" class="glass-checkbox-input" type="checkbox"><span class="glass-checkbox-box" aria-hidden="true"></span><span>브라우저 오프라인 캐시 사용</span></label>
                                 <button id="offline-cache-btn" class="glass-button w-full" type="button">브라우저에 캐싱</button>
                                 <button id="offline-cache-clear-btn" class="glass-button w-full" type="button">브라우저 캐시 삭제</button>
                             </div>
@@ -1939,13 +1952,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div id="info-version" class="info-tab-content">
                                 <div class="software-version-hero">
                                     <div class="software-version-glow" aria-hidden="true"></div>
-                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.7</span></h2>
+                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.8</span></h2>
                                     <p id="software-school-name">대륜고등학교</p>
                                 </div>
                                 <h5 class="software-info-title">소프트웨어 정보</h5>
                                 <div class="software-info-list">
-                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.7">2.7.7</p></div>
-                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.7.7-1">Ko-Kr-Daeryun-hs-v.2.7.7-1</p></div>
+                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.8">2.7.8</p></div>
+                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.7.8-1">Ko-Kr-Daeryun-hs-v.2.7.8-1</p></div>
                                     <div class="software-info-row"><span>기반</span><span>HTML5</span></div>
                                     <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
                                     <div class="software-info-row"><span>실행 환경</span><span id="software-runtime-info">브라우저</span></div>
@@ -2307,6 +2320,24 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         const updateIllustrationMarkup = updateIllustration ? updateIllustration.innerHTML : '';
         const systemFontFamilySelect = document.getElementById('system-font-family-select');
 
+        async function withOfflineCacheLock(action,signal) {
+            const name='adk-offline:'+new URL('./',location.href).pathname;
+            return /^https?:$/.test(location.protocol)&&window.isSecureContext&&navigator.locks?.request?navigator.locks.request(name,signal?{signal}:{},action):action();
+        }
+        async function clearOfflineBrowserStorage() {
+            const directory=new URL('./',location.href),resetKey='dashboardOfflineReset:'+directory.pathname;
+            try{localStorage.setItem(resetKey,globalThis.crypto?.randomUUID?.()||String(Date.now()));}catch{}
+            await withOfflineCacheLock(async()=>{
+                if(/^https?:$/.test(location.protocol)&&window.isSecureContext) {
+                    if('serviceWorker' in navigator)for(const registration of await navigator.serviceWorker.getRegistrations()) {
+                        const worker=registration.active||registration.waiting||registration.installing;
+                        if(worker?.scriptURL===new URL('sw.js',directory).href&&registration.scope===directory.href)await registration.unregister();
+                    }
+                    if('caches' in window)for(const key of await caches.keys())if(['adk-standby-offline-v1:','adk-standby-offline-v2:'].some(prefix=>key===prefix+directory.pathname||key.startsWith(prefix+directory.pathname+':')))await caches.delete(key);
+                }
+                try{localStorage.removeItem('dashboardOfflineCacheEnabled');}catch{}
+            });
+        }
         const clockLayoutStorageKey = 'dashboardClockLayoutsV1';
         let clockEditor = null, clockEditorBox = null, clockEditorTarget = null, clockEditorMode = null, clockEditorStart = null, clockEditorRect = null, lastAppliedClockDesign = '', clockEditorPanelPosition = null;
         function currentClockDesign() {
@@ -2355,7 +2386,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             }
         }
         const infoCardsStorageKey='dashboardInfoCardsV1',defaultInfoCardImage='./adk-assets/info-qr.png',defaultInfoCardLink='https://adk090612.github.io/ADK_Dash_Mobile/';
-        const makeInfoCard=()=>({id:'card-'+(globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+Math.random().toString(36).slice(2)),image:defaultInfoCardImage,imageWidth:200,imageHeight:200,text:'더 많은 정보 보기',width:160,position:null,fontSize:14,color:'#ffffff',background:'#808080',fontWeight:'700',align:'center',autoColor:false,radius:null,qrLink:defaultInfoCardLink});
+        const makeInfoCard=()=>({id:'card-'+(globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+Math.random().toString(36).slice(2)),image:defaultInfoCardImage,imageWidth:200,imageHeight:200,text:'더 많은 정보 보기',width:160,position:null,fontSize:14,color:'#ffffff',background:'#808080',fontWeight:'700',align:'center',autoColor:false,radius:null,qrLink:defaultInfoCardLink,imageBorderWidth:null,imageBorderColor:'#ffffff',imageRadius:8});
         function readInfoCards(){
             const fallback=()=>[{...makeInfoCard(),id:'default-qr'}];
             try{
@@ -2371,7 +2402,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                         text:typeof card.text==='string'?card.text:base.text,width:Number.isFinite(card.width)?Math.max(100,Math.min(600,card.width)):160,
                         position:card.position&&[card.position.x,card.position.y].every(Number.isFinite)?{x:Math.max(0,Math.min(1,card.position.x)),y:Math.max(0,Math.min(1,card.position.y))}:null,
                         fontSize:Number.isFinite(card.fontSize)?Math.max(10,Math.min(48,card.fontSize)):14,color:hex(card.color)?card.color:base.color,background:hex(card.background)?card.background:base.background,
-                        fontWeight:['400','600','700','800'].includes(card.fontWeight)?card.fontWeight:'700',align:['left','center','right'].includes(card.align)?card.align:'center',autoColor:typeof card.autoColor==='boolean'?card.autoColor:base.autoColor,radius:Number.isFinite(card.radius)?Math.max(0,Math.min(300,card.radius)):null};
+                        fontWeight:['400','600','700','800'].includes(card.fontWeight)?card.fontWeight:'700',align:['left','center','right'].includes(card.align)?card.align:'center',autoColor:typeof card.autoColor==='boolean'?card.autoColor:base.autoColor,radius:Number.isFinite(card.radius)?Math.max(0,Math.min(300,card.radius)):null,
+                        imageBorderWidth:Number.isFinite(card.imageBorderWidth)?Math.max(0,Math.min(24,card.imageBorderWidth)):null,imageBorderColor:hex(card.imageBorderColor)?card.imageBorderColor:base.imageBorderColor,imageRadius:Number.isFinite(card.imageRadius)?Math.max(0,Math.min(80,card.imageRadius)):8};
                 });
             }catch{return fallback();}
         }
@@ -2409,9 +2441,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 if(infoCardLayer.children[index]!==node)infoCardLayer.insertBefore(node,infoCardLayer.children[index]||null);
                 const width=Math.max(80,Math.min(card.width,innerWidth-insets.left-insets.right));
                 node.style.width=width+'px';node.style.setProperty('--info-card-padding',Math.max(8,Math.round(width*.05))+'px');
-                // A solid white quiet zone surrounds every image; it stays separate from the card color.
-                // DENSO WAVE: https://www.qrcode.com/en/howto/code.html (at least four QR modules).
-                node.style.setProperty('--info-card-quiet',Math.max(6,Math.round(width*.09)/2)+'px');
+                // Generated QR images retain their own four-module white quiet zone inside this decorative frame.
+                const imageBorder=card.imageBorderWidth??Math.max(6,Math.round(width*.09)/2);
+                node.style.setProperty('--info-card-image-border-width',imageBorder+'px');node.style.setProperty('--info-card-image-border-color',card.imageBorderColor);node.style.setProperty('--info-card-image-radius',card.imageRadius+'px');
                 if(card.autoColor)card.color=contrastingInfoCardColor(card.background);
                 node.style.backgroundColor=card.background;node.style.borderRadius=(card.radius??(Math.max(8,Math.round(width*.05))+Math.max(6,Math.round(width*.09)/2)))+'px';
                 const image=node.querySelector('img'),text=node.querySelector('.info-card-text');
@@ -2442,11 +2474,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const card=selectedInfoCard();
             clockEditor.classList.toggle('info-card-editing',!!card);clockEditor.querySelector('[data-info-card-panel]').hidden=!card;
             if(card){
-                for(const key of ['text','width','fontSize','color','background','fontWeight','align'])clockEditor.querySelector('[data-info-card-pref="'+key+'"]').value=card[key];
+                for(const key of ['text','width','fontSize','color','background','fontWeight','align','imageBorderColor','imageRadius'])clockEditor.querySelector('[data-info-card-pref="'+key+'"]').value=card[key];
                 const linkInput=clockEditor.querySelector('[data-info-qr-link]');if(linkInput.dataset.cardId!==card.id){linkInput.value=card.qrLink||'';linkInput.dataset.cardId=card.id;clockEditor.querySelector('[data-info-qr-status]').textContent='';}
                 clockEditor.querySelector('[data-info-image-size]').textContent=card.imageWidth+' × '+card.imageHeight;
                 clockEditor.querySelector('[data-info-auto-color]').checked=card.autoColor;
-                for(const key of ['color','background'])clockEditor.querySelector('[data-info-color-value="'+key+'"]').value=card[key].toUpperCase();
+                for(const key of ['color','background','imageBorderColor'])clockEditor.querySelector('[data-info-color-value="'+key+'"]').value=card[key].toUpperCase();
+                const imageBorder=parseFloat(getComputedStyle(infoCardNodes.get(card.id).querySelector('.info-card-image')).paddingTop)||0;
+                clockEditor.querySelector('[data-info-card-pref="imageBorderWidth"]').value=imageBorder;clockEditor.querySelector('[data-info-border-width-value]').value=imageBorder+'px';clockEditor.querySelector('[data-info-image-radius-value]').value=card.imageRadius+'px';
                 const radius=parseFloat(getComputedStyle(infoCardNodes.get(card.id)).borderTopLeftRadius)||0;const radiusInput=clockEditor.querySelector('[data-info-card-pref="radius"]');radiusInput.max=Math.min(clockEditorRect.width,clockEditorRect.height)/2;radiusInput.value=radius;clockEditor.querySelector('[data-info-card-radius-value]').value=Math.round(radius)+'px';
                 clockEditor.querySelector('[data-info-card-width-value]').value=Math.round(card.width)+'px';clockEditor.querySelector('[data-info-card-font-value]').value=card.fontSize+'px';
             }
@@ -2595,6 +2629,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             panel.insertAdjacentHTML('beforeend',`<div data-info-card-panel hidden>
                 <div class="info-card-field">이미지<div class="info-card-editor-row"><button type="button" data-info-upload-trigger>이미지 선택</button><span data-info-image-size></span></div><input data-info-card-file type="file" accept="image/*" hidden></div>
                 <div class="info-card-editor-row"><button type="button" data-info-card-default>기본 QR 이미지</button><button type="button" data-info-card-anchor>기온 위로 이동</button></div>
+                <h6 class="info-card-field">이미지 테두리</h6><label class="info-card-field">굵기 <output data-info-border-width-value></output><input data-info-card-pref="imageBorderWidth" type="range" min="0" max="24" step="0.5"></label>
+                <div class="info-card-editor-grid"><label class="info-card-field">테두리 색<span class="settings-color-control"><input data-info-card-pref="imageBorderColor" type="color"><output data-info-color-value="imageBorderColor"></output></span></label><label class="info-card-field">모서리 R <output data-info-image-radius-value></output><input data-info-card-pref="imageRadius" type="range" min="0" max="80" step="1"></label></div>
                 <label class="info-card-field">링크로 QR 코드 만들기<input data-info-qr-link type="url" placeholder="https://example.com" autocomplete="off" spellcheck="false" enterkeyhint="go"></label>
                 <div class="info-card-editor-row"><button type="button" data-info-qr-generate>QR 코드 생성</button></div>
                 <p data-info-qr-status role="status" aria-live="polite"></p>
@@ -2616,7 +2652,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             clockEditor.querySelector('[data-info-card-anchor]').addEventListener('click',()=>{const card=selectedInfoCard();if(card){card.position=null;refreshSelectedInfoCard();}});
             clockEditor.querySelector('[data-info-card-panel]').addEventListener('input',event=>{
                 const key=event.target.dataset.infoCardPref,card=selectedInfoCard();if(!key||!card)return;
-                card[key]=['width','fontSize','radius'].includes(key)?Number(event.target.value):event.target.value;
+                card[key]=['width','fontSize','radius','imageBorderWidth','imageRadius'].includes(key)?Number(event.target.value):event.target.value;
                 if(key==='color')card.autoColor=false;
                 refreshSelectedInfoCard();
                 if(key!=='text')syncInfoCardSelection();
@@ -5883,10 +5919,14 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
             const resetAllBtn = document.getElementById('reset-all-btn');
             if (resetAllBtn) {
-                resetAllBtn.addEventListener('click', () => {
-                    if (confirm("모든 설정을 초기화하시겠습니까? 이 작업은 되돌릴 수 없습니다.")) {
-                        localStorage.clear();
-                        location.reload();
+                resetAllBtn.addEventListener('click', async () => {
+                    if(resetAllBtn.disabled||!confirm('모든 설정과 브라우저에 저장된 오프라인 데이터를 초기화하시겠습니까? 이 작업은 되돌릴 수 없습니다.'))return;
+                    resetAllBtn.disabled=true;
+                    try {
+                        if(window.ADKOfflineCache?.clear)await window.ADKOfflineCache.clear();else await clearOfflineBrowserStorage();
+                        localStorage.clear();location.reload();
+                    } catch(error) {
+                        resetAllBtn.disabled=false;alert('초기화하지 못했습니다. '+error.message);
                     }
                 });
             }
@@ -8638,7 +8678,7 @@ body.settings-open .screen{visibility:hidden!important;pointer-events:none!impor
 </style><style id="info-image-text-cards">
 #info-card-layer{position:fixed;inset:0;z-index:49;pointer-events:none}
 .info-card{position:fixed;box-sizing:border-box;padding:var(--info-card-padding,10px);background:#fff;color:#172033;border:0;box-shadow:0 5px 20px #0002;overflow:hidden;opacity:1;backdrop-filter:none;pointer-events:none}
-.info-card-image{box-sizing:border-box;width:100%;padding:var(--info-card-quiet,9px);background:#fff;border-radius:8px;overflow:hidden}
+.info-card-image{box-sizing:border-box;width:100%;padding:var(--info-card-image-border-width,9px);background:var(--info-card-image-border-color,#fff);border-radius:var(--info-card-image-radius,8px);overflow:hidden}
 .info-card-image img{display:block;width:100%;height:auto;object-fit:contain;background:#fff;image-rendering:pixelated}
 #info-card-layer,#info-card-layer *{text-shadow:none!important;}
 #info-card-layer .info-card-text{text-shadow:none!important;filter:none!important;margin-top:6px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;line-height:1.45;min-width:0}
