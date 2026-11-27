@@ -19,6 +19,9 @@ for(const file of resources.files) {
   contents.set(file.name,bytes);
   file.sha256=hash(bytes);
 }
+const version=contents.get('index.html')?.toString('utf8').match(/id="app-version-text"[^>]*data-version="([^"]+)"/)?.[1];
+if(!version)throw Error('Current app version was not found');
+resources.appVersion=version;
 resources.revision=hash(JSON.stringify(resources.files.filter(file=>file.sha256).map(({name,sha256})=>({name,sha256}))));
 const list=Buffer.from('window.ADKOfflineResources='+JSON.stringify(resources)+';\r\n');
 contents.set(listName,list);

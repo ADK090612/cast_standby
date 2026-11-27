@@ -33,13 +33,17 @@
         const blocked=busy||resetting;
         zipButton.disabled=blocked;cacheButton.disabled=blocked||!canCache;clearButton.disabled=blocked||!canCache;syncCacheUpdateControls();
     }
-    function notifyOffline(message,reveal=false){
+    function notifyOffline(message){
         if(!message||typeof addCustomNotification!=='function')return;
         let item=appNotifications.find(item=>item.offlineCache===true);
-        if(item){item.message=message;isPillHidden=false;}
-        else{addCustomNotification('general','오프라인',message);item=appNotifications.find(item=>item.title==='오프라인'&&item.message===message);if(item)item.offlineCache=true;}
-        updateNotificationUI();
-        if(reveal||document.getElementById('custom-notification-container')?.classList.contains('open')){showAllNotifications();document.getElementById('notification-toggle')?.setAttribute('aria-expanded','true');}
+        const settingsView=typeof currentSettingsView!=='undefined'&&currentSettingsView==='cache-update'?'cache-update':'offline';
+        if(item){
+            const changed=item.message!==message;item.message=message;item.settingsView=settingsView;
+            updateNotificationUI();if(changed)showNotificationPill(item);
+        }else{
+            item=addCustomNotification('general','오프라인',message,undefined,settingsView);
+            if(item)item.offlineCache=true;
+        }
     }
 
     let downloadModule;
@@ -239,8 +243,8 @@
         busy=true;operationController=new AbortController();const controller=operationController;syncOperationControls();setStatus(message);
         if(notify)notifyOffline(message);
         operationPromise=(async()=>{
-            try{await action();if(notify&&!controller.signal.aborted)notifyOffline(status.textContent,true);}
-            catch(error){if(!controller.signal.aborted){setStatus('완료하지 못했습니다. '+error.message);if(notify)notifyOffline(status.textContent,true);console.error('ADK offline:',error);}else if(!resetting){setStatus('캐싱이 취소되었습니다.');if(notify)notifyOffline(status.textContent,true);}}
+            try{await action();if(notify&&!controller.signal.aborted)notifyOffline(status.textContent);}
+            catch(error){if(!controller.signal.aborted){setStatus('완료하지 못했습니다. '+error.message);if(notify)notifyOffline(status.textContent);console.error('ADK offline:',error);}else if(!resetting){setStatus('캐싱이 취소되었습니다.');if(notify)notifyOffline(status.textContent);}}
             finally{busy=false;operationController=null;syncOperationControls();}
         })();
         return operationPromise;
@@ -262,9 +266,7 @@
     function updateNetworkNotification() {
         if (!navigator.onLine) {
             if (!wasOffline) {
-                addCustomNotification('general','시스템',offlineMessage);
-                showAllNotifications();
-                document.getElementById('notification-toggle')?.setAttribute('aria-expanded','true');
+                addCustomNotification('network','시스템',offlineMessage,undefined,'offline');
             }
             wasOffline=true;
         } else {

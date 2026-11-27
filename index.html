@@ -1056,15 +1056,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         <button id="fullscreen-btn" class="edit-btn" type="button" aria-label="전체 화면으로 전환" title="전체 화면">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/></svg>
         </button>
-        <button id="settings-btn" class="edit-btn settings-entry-btn" type="button" aria-label="설정" title="설정">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"/><path d="m19.4 15 .1.1a1.7 1.7 0 1 1-2.4 2.4L17 17.4a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 1 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 1 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 1 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 1 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 1 1 3.4 0v.2A1.7 1.7 0 0 0 17 3.4l.1-.1a1.7 1.7 0 1 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 1 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg>
-            <span>설정</span>
-        </button>
+
     </div>
 
     <div id="notification-control" class="notification-control">
-        <button id="notification-toggle" class="edit-btn" type="button" aria-label="알림 목록 열기" aria-expanded="false" aria-controls="custom-notification-container" onclick="toggleNotificationList()">
-            <svg class="notification-bell" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
+        <button id="notification-toggle" class="drag-pill" title="클릭하거나 아래로 당겨 알림 열기" type="button" aria-label="알림 목록 열기" aria-expanded="false" aria-controls="custom-notification-container" onclick="toggleNotificationList()">
             <span id="notification-badge" class="notification-badge" aria-live="polite">0</span>
         </button>
     </div>
@@ -1247,7 +1243,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <h4 class="text-xl font-semibold border-b border-white/30 pb-2">업데이트 설정 및 확인</h4>
                             <div class="software-version-hero update-version-hero">
                                 <div class="software-version-glow" aria-hidden="true"></div>
-                                <h2>ADK Dash <span id="update-version-hero-value">2.7.8</span></h2>
+                                <h2>ADK Dash <span id="update-version-hero-value">2.8.0</span></h2>
                                 <p id="update-status-text">최신 버전을 확인하는 중입니다...</p>
                             </div>
                             
@@ -1293,6 +1289,31 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <span>📝</span> 릴리즈 노트
                             </h4>
                             <div class="glass-section p-4 max-h-[50vh] overflow-y-auto space-y-6">
+                                <!-- release-v2.8.0-start -->
+                                <div>
+                                    <h5 class="font-bold text-blue-300 text-lg">v2.8.0</h5>
+                                    <p class="text-xs text-gray-400 mt-1">2026.11.27 · 빌드 Ko-Kr-Daeryun-hs-v.2.8.0-4</p>
+                                    <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>One UI 공식 디자인 가이드와 One UI 9 공개 빠른 설정 이미지를 참고한 빠른 설정 패널 추가</li>
+                                        <li>알림(¼)과 빠른 설정(¾) 손잡이의 동일한 280×64px 영역에서 클릭·내림 제스처로 열기, 빠른 설정 우측 상단 아이콘으로 전체 설정 이동</li>
+                                        <li>날씨·시간대 반영, 오로라, 일정 알림, 저사양 모드, 학교 표시, 천구 회전, 알림 음량 등을 기존 설정과 양방향 연결</li>
+                                        <li>테마는 라이트·다크·날씨 순서, 화면 스타일은 심플·모던·기본 순서로 전환하고 재실행 후에도 선택 유지</li>
+                                        <li>빠른 설정의 배경 농도를 70%로 낮추고 버튼·강조색·슬라이더를 기존 설정 테마와 통일, 알림과 같은 0.8초 열기·0.42초 닫기 애니메이션 적용, 열기 완료 후 닫기가 즉시 사라지던 재생 위치 재사용 오류 수정 및 재열기 안정화</li>
+                                        <li>신규 알림 미리보기도 0.8초 등장·3초 후 0.42초 퇴장 적용, 퇴장 중 새 알림 교체와 좌우 밀기 삭제 안정화</li>
+                                        <li>알림 확인 시 읽음 처리하여 손잡이를 기본색으로 복원하고 이후 미확인 알림이 생기면 강조색 표시</li>
+                                        <li>화면 여백 비율을 알림·빠른 설정의 위치와 크기 및 손잡이 제스처 영역에 반영하고 설정 변경 즉시 재배치</li>
+                                        <li>라이트 모드의 시계 편집 글꼴·레이아웃 미리보기를 검은색으로 표시</li>
+                                        <li>동일 앱 버전의 새 빌드도 업데이트로 감지하고 기존 설치·알림·미루기·1시간 자동 적용 흐름을 사용, 이전 빌드로의 역업데이트 방지</li>
+                                        <li>편집·전체 화면 버튼을 우측 끝에 배치하고 알림 유무는 별도 점 대신 손잡이 안쪽 막대의 주황색으로 표시</li>
+                                        <li>새 알림은 미리보기 pill로 3초간 표시하고, 클릭해 전체 목록과 관련 설정으로 이동하도록 개선</li>
+                                        <li>알림 손잡이 입력 영역을 가로·세로 2배로 확대하고 숨김 상태에서 아래로 쓸어 열기 및 위로 쓸어 닫기 지원</li>
+                                        <li>새 알림 미리보기와 목록의 알림을 좌우로 밀어 삭제하고 세로 스크롤·짧은 클릭과 구분</li>
+                                        <li>빠른 설정은 상시 타이머 없이 동작하고 드래그 갱신을 프레임 단위로 묶으며 흐림을 패널 영역에만 한정하고 저사양 모드에서는 흐림 해제</li>
+                                        <li>눈 종료 후 밤 전환 시 하늘에 빛이 누적되는 오류, 지면 색 전환 및 수동 날씨 자동 갱신 문제 수정</li>
+                                        <li>캐시 무결성 정보와 오프라인 ZIP 패키지를 이번 버전으로 갱신</li>
+                                    </ul>
+                                </div>
+                                <!-- release-v2.8.0-end -->
                                 <!-- release-v2.7.8-start -->
                                 <div>
                                     <h5 class="font-bold text-blue-300 text-lg">v2.7.8</h5>
@@ -1541,7 +1562,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                         </div>
 
                         <div id="display-view" class="settings-view hidden space-y-4">
-                            <h4 class="text-xl font-semibold border-b border-white/30 pb-2">화면 표시 영역</h4>
+                            <h4 class="text-xl font-semibold border-b border-white/30 pb-2">화면 영역</h4>
                             
                             <div class="glass-section p-4 space-y-4">
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1953,13 +1974,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div id="info-version" class="info-tab-content">
                                 <div class="software-version-hero">
                                     <div class="software-version-glow" aria-hidden="true"></div>
-                                    <h2>ADK Dash <span id="software-version-hero-value">2.7.8</span></h2>
+                                    <h2>ADK Dash <span id="software-version-hero-value">2.8.0</span></h2>
                                     <p id="software-school-name">대륜고등학교</p>
                                 </div>
                                 <h5 class="software-info-title">소프트웨어 정보</h5>
                                 <div class="software-info-list">
-                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.7.8">2.7.8</p></div>
-                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.7.8-1">Ko-Kr-Daeryun-hs-v.2.7.8-1</p></div>
+                                    <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.8.0">2.8.0</p></div>
+                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.8.0-4">Ko-Kr-Daeryun-hs-v.2.8.0-4</p></div>
                                     <div class="software-info-row"><span>기반</span><span>HTML5</span></div>
                                     <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
                                     <div class="software-info-row"><span>실행 환경</span><span id="software-runtime-info">브라우저</span></div>
@@ -2304,8 +2325,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             document.querySelectorAll('[data-theme-choice]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === selectedTheme)));
             try { localStorage.setItem('adkTheme', selectedTheme); } catch (error) { console.warn('테마 설정을 저장하지 못했습니다.', error); }
         }
-        try { const savedTheme=localStorage.getItem('adkTheme');document.documentElement.dataset.theme=['light','weather'].includes(savedTheme)?savedTheme:'weather'; } catch (error) { document.documentElement.dataset.theme = 'weather'; }
-        try { const savedDesign=localStorage.getItem('adkWeatherDesign'); document.documentElement.dataset.weatherDesign=['modern','simple'].includes(savedDesign)?savedDesign:'simple'; } catch (error) { document.documentElement.dataset.weatherDesign = 'simple'; }
+        try { const savedTheme=localStorage.getItem('adkTheme');document.documentElement.dataset.theme=['light','dark','weather'].includes(savedTheme)?savedTheme:'weather'; } catch (error) { document.documentElement.dataset.theme = 'weather'; }
+        try { const savedDesign=localStorage.getItem('adkWeatherDesign'); document.documentElement.dataset.weatherDesign=['default','modern','simple'].includes(savedDesign)?savedDesign:'simple'; } catch (error) { document.documentElement.dataset.weatherDesign = 'simple'; }
 
         // 공통 변수 / DOM 캐싱
         const updateNotification = document.getElementById('update-notification');
@@ -2911,6 +2932,26 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         let autoUpdateDueAt = 0;
         let scheduledUpdateVersion = '';
 
+        function readReleaseMetadata(markup) {
+            const attribute=(id,name)=>{
+                const tag=String(markup).match(new RegExp('<[^>]*\\sid\\s*=\\s*["\']'+id+'["\'][^>]*>','i'))?.[0]||'';
+                return tag.match(new RegExp('\\s'+name+'\\s*=\\s*["\']([^"\']+)["\']','i'))?.[1]?.trim()||'';
+            };
+            return {version:attribute('app-version-text','data-version'),build:attribute('app-build-number','data-build')};
+        }
+        function releaseUpdateAvailable(local,remote) {
+            if(!/^\d+(?:\.\d+)*$/.test(remote.version)||!/^\d+(?:\.\d+)*$/.test(local.version))return false;
+            const current=local.version.split('.').map(Number),latest=remote.version.split('.').map(Number);
+            for(let i=0;i<Math.max(current.length,latest.length);i++){
+                const difference=(latest[i]||0)-(current[i]||0);if(difference)return difference>0;
+            }
+            if(!remote.build||remote.build===local.build)return false;
+            const currentBuild=String(local.build||'').match(/^(.*?)(\d+)$/),latestBuild=remote.build.match(/^(.*?)(\d+)$/);
+            if(currentBuild&&latestBuild&&currentBuild[1]===latestBuild[1])return Number(latestBuild[2])>Number(currentBuild[2]);
+            return true;
+        }
+        function releaseLabel(version,build='') {return `v${version}${build?' · 빌드 '+build:''}`;}
+
         function isAutoUpdateEnabled() { return localStorage.getItem('dashboardAutoUpdateEnabled') !== 'false'; }
         function updateAutoUpdateCountdown() {
             if (!autoUpdateDueAt) return;
@@ -2941,10 +2982,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             clearAutoUpdateCountdown();
             scheduledUpdateVersion = '';
         }
-        function scheduleAutoUpdate(version) {
-            if (!isAutoUpdateEnabled() || !version || scheduledUpdateVersion === version) return;
+        function scheduleAutoUpdate(version,build='') {
+            const identity=version+'|'+build,label=releaseLabel(version,build);
+            if (!isAutoUpdateEnabled() || !version || scheduledUpdateVersion === identity) return;
             cancelScheduledAutoUpdate();
-            scheduledUpdateVersion = version;
+            scheduledUpdateVersion = identity;
             autoUpdateDueAt = Date.now() + AUTO_UPDATE_DELAY;
             updateAutoUpdateCountdown();
             autoUpdateCountdownId = setInterval(updateAutoUpdateCountdown, 1000);
@@ -2957,7 +2999,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 updateNotification?.classList.remove('hidden');
                 updateNotification?.classList.add('flex');
                 const statusText = document.getElementById('update-status-text');
-                if (statusText) statusText.textContent = `v${version} 업데이트를 적용하기 위해 새로고침합니다.`;
+                if (statusText) statusText.textContent = `${label} 업데이트를 적용하기 위해 새로고침합니다.`;
                 setTimeout(() => { if (isAutoUpdateEnabled()) window.location.reload(); }, 2500);
             }, AUTO_UPDATE_DELAY);
         }
@@ -2984,50 +3026,37 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 if (!remoteRes.ok) throw new Error('Remote fetch failed');
                 const remoteHtml = await remoteRes.text();
 
-                const versionRegex = /<p[^>]*id="app-version-text"[^>]*data-version="([^"]+)"[^>]*>/;
-                const remoteMatch = remoteHtml.match(versionRegex);
-                
-                const localVersionEl = document.getElementById('app-version-text');
-                const localVersion = localVersionEl ? localVersionEl.getAttribute('data-version') : "0.0.0";
-                const remoteVersion = remoteMatch ? remoteMatch[1] : null;
-
-                let isUpdateAvailable = false;
-
-                if (remoteVersion && remoteVersion !== localVersion) {
-                    const localParts = localVersion.split('.').map(Number);
-                    const remoteParts = remoteVersion.split('.').map(Number);
-
-                    for (let i = 0; i < Math.max(localParts.length, remoteParts.length); i++) {
-                        const l = localParts[i] || 0;
-                        const r = remoteParts[i] || 0;
-                        if (r > l) { isUpdateAvailable = true; break; }
-                        if (r < l) { break; }
-                    }
-                }
+                const local={version:document.getElementById('app-version-text')?.getAttribute('data-version')||'0.0.0',build:document.getElementById('app-build-number')?.getAttribute('data-build')||''};
+                const remote=readReleaseMetadata(remoteHtml);
+                const remoteVersion=remote.version,remoteBuild=remote.build;
+                const localLabel=releaseLabel(local.version,local.build),remoteLabel=releaseLabel(remoteVersion,remoteBuild);
+                const isUpdateAvailable=releaseUpdateAvailable(local,remote);
 
                 if (isUpdateAvailable) {
                     const statusText = document.getElementById('update-status-text');
-                    if(statusText) statusText.innerHTML = `<span class="text-blue-300 font-bold text-xl">새로운 업데이트(v${remoteVersion})가 발견되었습니다!</span>`;
+                    if(statusText) statusText.textContent = `새로운 업데이트(${remoteLabel})가 발견되었습니다!`;
                     
                     const installBtn = document.getElementById('install-update-btn');
                     if(installBtn) installBtn.classList.remove('hidden');
 
-                    if (isAutoUpdateEnabled()) scheduleAutoUpdate(remoteVersion);
+                    if (isAutoUpdateEnabled()) scheduleAutoUpdate(remoteVersion,remoteBuild);
                     const headerText = updateNotificationHeader?.querySelector('.font-semibold');
                     if (headerText) headerText.textContent = '업데이트 준비 중...';
-                    if (updateNotificationHeader) updateNotificationHeader.title = isAutoUpdateEnabled() ? `v${remoteVersion} 업데이트가 있습니다. 1시간 뒤 자동 새로고침됩니다.` : `v${remoteVersion} 업데이트가 있습니다.`;
+                    if (updateNotificationHeader) updateNotificationHeader.title = isAutoUpdateEnabled() ? `${remoteLabel} 업데이트가 있습니다. 1시간 뒤 자동 새로고침됩니다.` : `${remoteLabel} 업데이트가 있습니다.`;
                     const updateStatus = document.getElementById('update-status-text');
-                    if (updateStatus && isAutoUpdateEnabled()) updateStatus.textContent = `새로운 업데이트(v${remoteVersion})가 있습니다. 설치하지 않으면 1시간 뒤 자동으로 새로고침됩니다.`;
+                    if (updateStatus && isAutoUpdateEnabled()) updateStatus.textContent = `새로운 업데이트(${remoteLabel})가 있습니다. 설치하지 않으면 1시간 뒤 자동으로 새로고침됩니다.`;
                     if (!manual) {
                         updateNotification.classList.remove('hidden');
                         updateNotification.classList.add('flex');
                     } else {
-                        alert(isAutoUpdateEnabled() ? `새로운 업데이트(v${remoteVersion})가 발견되었습니다. 설치하지 않으면 1시간 뒤 자동으로 새로고침됩니다.` : `새로운 업데이트(v${remoteVersion})가 발견되었습니다. 설치 버튼을 눌러주세요.`);
+                        alert(isAutoUpdateEnabled() ? `새로운 업데이트(${remoteLabel})가 발견되었습니다. 설치하지 않으면 1시간 뒤 자동으로 새로고침됩니다.` : `새로운 업데이트(${remoteLabel})가 발견되었습니다. 설치 버튼을 눌러주세요.`);
                     }
                 } else {
                     const statusText = document.getElementById('update-status-text');
-                    if(statusText) statusText.textContent = `현재 최신 버전(v${localVersion})을 사용 중입니다.`;
-                    if (manual) alert(`현재 최신 버전(v${localVersion})을 사용 중입니다.`);
+                    cancelScheduledAutoUpdate();document.getElementById('install-update-btn')?.classList.add('hidden');
+                    updateNotification?.classList.add('hidden');updateNotification?.classList.remove('flex');
+                    if(statusText) statusText.textContent = `현재 최신 버전(${localLabel})을 사용 중입니다.`;
+                    if (manual) alert(`현재 최신 버전(${localLabel})을 사용 중입니다.`);
                 }
             } catch (error) {
                 console.error("업데이트 확인 실패:", error);
@@ -4355,19 +4384,16 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
         const SETTINGS_ZONE_RATIO = 0.20;
         function updateSettingsButtonProximity(e) {
-            const notificationControl = document.getElementById('notification-control');
-            if (!settingsModal.classList.contains('hidden')) {
-                settingsContainer.style.opacity = '0';
-                notificationControl?.classList.remove('visible');
-                return;
-            }
-            const area = document.querySelector('.screen')?.getBoundingClientRect();
-            const rect = area && area.width > 0 && area.height > 0 ? area : { left:0, right:window.innerWidth, top:0, width:window.innerWidth, height:window.innerHeight };
-            const x = e.clientX, y = e.clientY;
-            const inTopRight = x > rect.right - rect.width * SETTINGS_ZONE_RATIO && y < rect.top + rect.height * SETTINGS_ZONE_RATIO;
-            const inTopLeft = x < rect.left + rect.width * SETTINGS_ZONE_RATIO && y < rect.top + rect.height * SETTINGS_ZONE_RATIO;
-            settingsContainer.style.opacity = inTopRight ? '1' : '0';
-            notificationControl?.classList.toggle('visible', inTopLeft);
+            const control=document.getElementById('notification-control'),handle=document.getElementById('notification-toggle');
+            const area=document.querySelector('.screen')?.getBoundingClientRect();
+            const rect=area&&area.width>0&&area.height>0?area:{left:0,right:innerWidth,top:0,width:innerWidth,height:innerHeight};
+            const x=e.clientX,y=e.clientY;
+            const inTopLeft=x<rect.left+rect.width*SETTINGS_ZONE_RATIO&&y<rect.top+rect.height*SETTINGS_ZONE_RATIO;
+            notificationPointerPosition={x,y,inTopLeft};
+            updateNotificationHandleVisibility();
+            if(!settingsModal.classList.contains('hidden')){settingsContainer.style.opacity='0';return;}
+            const inTopRight=x>rect.right-rect.width*SETTINGS_ZONE_RATIO&&y<rect.top+rect.height*SETTINGS_ZONE_RATIO;
+            settingsContainer.style.opacity=inTopRight?'1':'0';
         }
         function switchSettingsView(viewName) {
             currentSettingsView = viewName;
@@ -4389,7 +4415,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             } else if (viewName === 'broadcasts') {
                 titleText = '긴급·예약 방송 설정'; showBackButton = true; targetView = document.getElementById('broadcasts-view');
             } else if (viewName === 'display') {
-                titleText = '화면 표시 설정'; showBackButton = true; targetView = displayView;
+                titleText = '화면 영역 설정'; showBackButton = true; targetView = displayView;
             } else if (viewName === 'custom-text') {
                 titleText = '커스텀 메시지 설정'; showBackButton = true; targetView = customTextView;
             } else if (viewName === 'schedule-edit') {
@@ -4517,7 +4543,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 const localVersion=document.getElementById('app-version-text')?.dataset.version||'0.0.0';
                 const current=localVersion.split('.').map(Number), candidate=version.split('.').map(Number);
                 const isHigher=version.split('.').every(part=>/^\d+$/.test(part))&&candidate.some((part,index)=>part>(current[index]||0)&&candidate.slice(0,index).every((value,prior)=>value===(current[prior]||0)));
-                if(!isHigher) { document.getElementById('dev-update-status').textContent=`v${version}은 현재 버전 v${localVersion}보다 높은 버전이 아닙니다.`; return; }
+                if(!isHigher) { document.getElementById('dev-update-status').textContent=`v${version}은 현재 버전 ${localLabel}보다 높은 버전이 아닙니다.`; return; }
                 if(developerUpdateNotificationWasVisible===null) developerUpdateNotificationWasVisible=!updateNotification?.classList.contains('hidden');
                 if(developerUpdateTitleBefore===null) developerUpdateTitleBefore=updateNotificationHeader?.title||'';
                 const header=updateNotificationHeader?.querySelector('.font-semibold');
@@ -5293,6 +5319,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const bottom=Number(document.getElementById('margin-bottom')?.value || 0);
             const horizon=top+((100-top-bottom)*0.42);
             document.documentElement.style.setProperty('--weather-modern-horizon', horizon + 'vh');
+            window.dispatchEvent(new Event('standby-safe-margins-change'));
         }
         function saveSafeMargins() {
             applySafeMargins();
@@ -6022,166 +6049,315 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
 
 
-    <div id="custom-notification-pill" class="hidden" aria-hidden="true">
-        <div class="glass-card px-5 py-2.5 rounded-full font-semibold flex items-center space-x-2.5 cursor-pointer hover:bg-white/10 transition-all duration-300" style="border-radius: 999px;">
-            <span class="flex h-2 w-2 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-200"></span>
-            </span>
-            <span class="text-sm tracking-wide text-white">알림</span>
-            <span id="custom-notif-count" class="bg-white/20 text-xs px-2 py-0.5 rounded-full font-bold border border-white/30 text-white">0</span>
-        </div>
-        
-        <div class="absolute top-full left-1/2 -translate-x-1/2 pt-2 hidden group-hover:block w-48 z-[10000]">
-            <div class="glass-section p-1.5 flex space-x-1.5 rounded-xl shadow-2xl">
-                <button onclick="hideNotificationPill()" class="text-xs text-gray-200 hover:text-white bg-white/10 hover:bg-white/20 px-2.5 py-2 rounded-lg transition-all font-medium flex-1">숨김</button>
-                <button onclick="showAllNotifications()" class="text-xs text-white glass-button px-2.5 py-2 rounded-lg transition-all font-bold flex-1 whitespace-nowrap !p-2">모든 알림 보기</button>
-            </div>
-        </div>
-    </div>
+    <button id="custom-notification-pill" class="hidden" type="button" hidden aria-label="전체 알림 열기" aria-controls="custom-notification-container" aria-live="polite">
+        <svg class="notification-preview-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-8 12h4"/></svg>
+        <span class="notification-preview-title"></span><span class="notification-preview-message"></span>
+    </button>
 
     <div id="custom-notification-container" class="notification-list" role="region" aria-label="알림 목록" aria-live="polite"></div>
 
     <script>
     let appNotifications = [];
-    let isPillHidden = false;
+    let isPillHidden = true;
     let notificationCloseTimer = null;
+    let notificationPillTimer = null;
+    let notificationPillCloseTimer = null;
+    let notificationIdleTimer = null;
+    let notificationPillId = null;
+    let notificationHandleDrag = null;
+    let notificationSurfacePositionFrame = 0;
+    let notificationSuppressClick = false;
+    let notificationPointerPosition = {x:-1000,y:-1000,inTopLeft:false};
 
-    function closeNotificationList() {
+    function updateNotificationHandleVisibility() {
+        const control=document.getElementById('notification-control'),handle=document.getElementById('notification-toggle'),rect=handle.getBoundingClientRect();
+        const {x,y,inTopLeft}=notificationPointerPosition;
+        const open=notificationListIsOpen(),pad=open?40:102;
+        const near=x>=rect.left-pad&&x<=rect.right+pad&&y>=Math.max(0,rect.top-32)&&y<=rect.bottom+(open?48:32);
+        control.classList.toggle('visible',inTopLeft||near||handle.matches(':focus-visible')||!!notificationHandleDrag||notificationListIsOpen());
+    }
+
+    function notificationListIsOpen() {
         const list=document.getElementById('custom-notification-container');
-        if(!list||!list.classList.contains('open'))return;
+        return list.classList.contains('open')&&!list.classList.contains('closing');
+    }
+
+    function syncNotificationToggle(open) {
+        const toggle=document.getElementById('notification-toggle');
+        toggle.setAttribute('aria-expanded',String(open));
+        toggle.setAttribute('aria-label',open?'알림 목록 닫기':'알림 목록 열기');
+    }
+
+    function resetNotificationIdleTimer() {
+        window.clearTimeout(notificationIdleTimer);
+        notificationIdleTimer=null;
+        if(notificationListIsOpen()&&!notificationHandleDrag&&!notificationSwipeDrag)notificationIdleTimer=window.setTimeout(closeNotificationList,3000);
+    }
+
+    function closeNotificationList(immediate=false) {
+        const list=document.getElementById('custom-notification-container');
+        window.clearTimeout(notificationIdleTimer);notificationIdleTimer=null;
+        window.clearTimeout(notificationCloseTimer);notificationCloseTimer=null;
+        syncNotificationToggle(false);
+        if(immediate) { list.classList.remove('open','closing');positionNotificationSurfaces();return; }
+        if(!list.classList.contains('open'))return;
         list.classList.add('closing');
-        if(notificationCloseTimer)window.clearTimeout(notificationCloseTimer);
+        positionNotificationSurfaces();
         notificationCloseTimer=window.setTimeout(()=>{
-            list.classList.remove('open','closing');
-            notificationCloseTimer=null;
+            list.classList.remove('open','closing');notificationCloseTimer=null;updateNotificationHandleVisibility();
         },420);
     }
 
     function toggleNotificationList() {
-        const list = document.getElementById('custom-notification-container');
-        const toggle = document.getElementById('notification-toggle');
-        if (!list || !toggle) return;
-        const opening = !list.classList.contains('open')||list.classList.contains('closing');
-        if (opening) {
-            if(notificationCloseTimer)window.clearTimeout(notificationCloseTimer);
-            notificationCloseTimer=null;
-            list.classList.remove('closing');
-            showAllNotifications();
-        } else closeNotificationList();
-        toggle.setAttribute('aria-expanded', String(opening));
-        toggle.setAttribute('aria-label', opening ? '알림 목록 닫기' : '알림 목록 열기');
+        if(notificationSuppressClick){notificationSuppressClick=false;return;}
+        if(notificationListIsOpen())closeNotificationList();
+        else showAllNotifications();
     }
-    document.addEventListener('click', event => {
-        const list = document.getElementById('custom-notification-container');
-        const toggle = document.getElementById('notification-toggle');
-        if (list && list.classList.contains('open') && !list.contains(event.target) && !toggle.contains(event.target)) {
-            closeNotificationList();
-            toggle.setAttribute('aria-expanded', 'false');
-            toggle.setAttribute('aria-label', '알림 목록 열기');
-        }
-    });
-    function addCustomNotification(type, title, message, githubUrl = 'https://github.com/adk090612/cast_standby') {
-        if (appNotifications.some(n => n.message === message)) return;
 
-        const id = 'notif-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
-        appNotifications.push({ id, type, title, message, githubUrl });
-        
-        isPillHidden = false; 
-        updateNotificationUI();
+    function displaySurfaceInsets() {
+        const style=getComputedStyle(document.documentElement);
+        const inset=side=>{
+            const raw=style.getPropertyValue('--safe-'+side).trim(),value=parseFloat(raw)||0;
+            return Math.max(0,value*(raw.endsWith('vw')?innerWidth/100:raw.endsWith('vh')?innerHeight/100:1));
+        };
+        return {left:inset('left'),right:inset('right'),top:inset('top'),bottom:inset('bottom')};
+    }
+
+    function positionSurfaceHandleHitArea(control,center,top,open,insets,side) {
+        const width=open?152:280,height=open?40:64,visualLeft=center-38;
+        let left=center-width/2,right=center+width/2,upper=top-(open?10:12),bottom=upper+height;
+        if(insets.left>0)left=Math.max(left,insets.left);
+        if(insets.right>0)right=Math.min(right,innerWidth-insets.right);
+        if(insets.top>0)upper=Math.max(upper,insets.top);
+        if(insets.bottom>0)bottom=Math.min(bottom,innerHeight-insets.bottom);
+        // Separate the two closed gesture zones on narrow display areas.
+        if(!open){const middle=insets.left+(innerWidth-insets.left-insets.right)/2;if(side==='left')right=Math.min(right,middle);else left=Math.max(left,middle);}
+        control.style.setProperty('--surface-hit-left',(left-visualLeft)+'px');
+        control.style.setProperty('--surface-hit-top',(upper-top)+'px');
+        control.style.setProperty('--surface-hit-width',Math.max(0,right-left)+'px');
+        control.style.setProperty('--surface-hit-height',Math.max(0,bottom-upper)+'px');
+    }
+
+    function scheduleNotificationSurfaces() {
+        if(notificationSurfacePositionFrame)return;
+        notificationSurfacePositionFrame=requestAnimationFrame(()=>{notificationSurfacePositionFrame=0;positionNotificationSurfaces();});
+    }
+
+    function positionNotificationSurfaces() {
+        const insets=displaySurfaceInsets(),inset=side=>insets[side];
+        const left=inset('left'),right=inset('right'),available=Math.max(0,innerWidth-left-right);
+        const margin=Math.min(16,available/4),maxWidth=Math.max(0,Math.min(520,available-margin*2));
+        for(const element of [document.getElementById('custom-notification-pill'),document.getElementById('custom-notification-container')]) {
+            element.style.setProperty('--notification-max-width',maxWidth+'px');
+            const half=element.getBoundingClientRect().width/2;
+            const center=Math.max(left+margin+half,Math.min(left+available*.25,innerWidth-right-margin-half));
+            element.style.setProperty('--notification-center',center+'px');
+        }
+        const control=document.getElementById('notification-control'),handle=document.getElementById('notification-toggle');
+        const handleHeight=handle.getBoundingClientRect().height,half=handle.getBoundingClientRect().width/2;
+        const center=Math.max(left+margin+half,Math.min(left+available*.25,innerWidth-right-margin-half));
+        control.style.setProperty('--notification-handle-center',center+'px');
+        const restingTop=inset('top')+4,list=document.getElementById('custom-notification-container');
+        let top=restingTop;
+        if(notificationListIsOpen()) {
+            const clear=list.querySelector('.notification-clear-all'),rect=(clear||list).getBoundingClientRect();
+            const expandedTop=Math.min(innerHeight-inset('bottom')-handleHeight-8,clear?rect.top+(rect.height-handleHeight)/2:rect.bottom+12);
+            top=notificationHandleDrag&&(notificationHandleDrag.opened||notificationHandleDrag.wasOpen)?Math.max(restingTop,Math.min(expandedTop,notificationHandleDrag.top+notificationHandleDrag.deltaY)):expandedTop;
+        }
+        top=Math.max(restingTop,top);control.style.setProperty('--notification-handle-top',top+'px');
+        positionSurfaceHandleHitArea(control,center,top,notificationListIsOpen(),insets,'left');
+        updateNotificationHandleVisibility();
+    }
+
+    function bringNotificationsToFront() {
+        const control=document.getElementById('notification-control'),focused=document.activeElement;
+        document.body.appendChild(document.getElementById('custom-notification-container'));
+        if(!notificationHandleDrag){document.body.appendChild(control);if(control.contains(focused))focused.focus({preventScroll:true});}
+        // The descending preview takes input ahead of the enlarged, invisible handle target.
+        document.body.appendChild(document.getElementById('custom-notification-pill'));
+    }
+
+    function hideNotificationPill(immediate=false) {
+        const pill=document.getElementById('custom-notification-pill');
+        if(typeof cancelNotificationSwipe==='function'&&notificationSwipeDrag?.element===pill)cancelNotificationSwipe();
+        window.clearTimeout(notificationPillTimer);notificationPillTimer=null;
+        if(!immediate&&pill.classList.contains('notification-preview-closing'))return;
+        window.clearTimeout(notificationPillCloseTimer);notificationPillCloseTimer=null;
+        const closingId=notificationPillId;
+        isPillHidden=true;pill.inert=true;pill.setAttribute('aria-hidden','true');
+        const finish=()=>{
+            notificationPillCloseTimer=null;if(notificationPillId!==closingId)return;
+            notificationPillId=null;pill.hidden=true;pill.classList.add('hidden');
+            pill.classList.remove('notification-preview-entering','notification-preview-closing');
+        };
+        if(immediate||pill.hidden||document.body.classList.contains('low-performance-mode')||matchMedia('(prefers-reduced-motion: reduce)').matches){finish();return;}
+        pill.classList.remove('notification-preview-entering');pill.classList.add('notification-preview-closing');
+        notificationPillCloseTimer=window.setTimeout(finish,420);
+    }
+
+    function showNotificationPill(notification) {
+        if(!notification||!appNotifications.some(item=>item.id===notification.id))return;
+        if(notificationListIsOpen()){notification.read=true;updateNotificationUI();return;}
+        closeNotificationList(true);
+        const pill=document.getElementById('custom-notification-pill');
+        if(typeof cancelNotificationSwipe==='function'&&notificationSwipeDrag?.element===pill)cancelNotificationSwipe();
+        window.clearTimeout(notificationPillTimer);window.clearTimeout(notificationPillCloseTimer);notificationPillCloseTimer=null;
+        notificationPillId=notification.id;isPillHidden=false;
+        pill.classList.remove('notification-preview-entering','notification-preview-closing','notification-swiping','notification-swipe-dismiss-left','notification-swipe-dismiss-right');delete pill.dataset.dismissing;pill.style.removeProperty('translate');pill.style.removeProperty('opacity');
+        pill.querySelector('.notification-preview-title').textContent=notification.title;
+        pill.querySelector('.notification-preview-message').textContent=notification.message;
+        pill.setAttribute('aria-label',notification.title+' · '+notification.message+' · 전체 알림 열기');
+        pill.hidden=false;pill.inert=false;pill.setAttribute('aria-hidden','false');pill.classList.remove('hidden');
+        // Restart the entrance once per new alert, including replacement during an exit.
+        void pill.offsetWidth;pill.classList.add('notification-preview-entering');
+        bringNotificationsToFront();positionNotificationSurfaces();
+        notificationPillTimer=window.setTimeout(hideNotificationPill,3000);
+    }
+
+    function addCustomNotification(type,title,message,githubUrl='https://github.com/adk090612/cast_standby',settingsView=null) {
+        const duplicate=appNotifications.find(item=>item.type===type&&item.title===title&&item.message===message);
+        if(duplicate)return duplicate;
+        const notification={id:'notif-'+Date.now()+'-'+Math.random().toString(36).slice(2,11),type,title:String(title),message:String(message),githubUrl,settingsView,read:notificationListIsOpen()};
+        appNotifications.push(notification);
+        updateNotificationUI();if(!notificationListIsOpen())showNotificationPill(notification);
+        return notification;
     }
 
     function updateNotificationUI() {
-        const pill = document.getElementById('custom-notification-pill');
-        const countEl = document.getElementById('custom-notif-count');
-        const badge = document.getElementById('notification-badge');
-        if (badge) {
-            badge.textContent = String(appNotifications.length);
-            badge.classList.toggle('has-notifications', appNotifications.length > 0);
-        }
-        if (appNotifications.length === 0 || isPillHidden) {
-            pill.classList.add('hidden');
-            return;
-        }
-        countEl.innerText = appNotifications.length;
-        pill.classList.remove('hidden');
+        const badge=document.getElementById('notification-badge');
+        const unread=appNotifications.filter(item=>!item.read).length;
+        badge.textContent=String(unread);
+        badge.classList.toggle('has-notifications',unread>0);
+        badge.setAttribute('aria-label','새 알림 '+unread+'개');
+        document.getElementById('notification-toggle').classList.toggle('has-notifications',unread>0);
+        if(!appNotifications.some(item=>item.id===notificationPillId))hideNotificationPill(true);
+        if(notificationListIsOpen()){renderNotificationList();resetNotificationIdleTimer();}
     }
 
-    function hideNotificationPill() {
-        isPillHidden = true;
-        document.getElementById('custom-notification-pill').classList.add('hidden');
-        const list = document.getElementById('custom-notification-container');
-        list.innerHTML = '';
-        list.classList.remove('open');
-        const toggle = document.getElementById('notification-toggle');
-        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    function notificationSettingsTarget(notification) {
+        if(notification.settingsView)return notification.settingsView;
+        if(notification.offlineCache||notification.title.includes('오프라인'))return 'offline';
+        return {update:'update',pip:'pip',meal:'profile',network:'profile',general:'main-menu'}[notification.type]||'main-menu';
+    }
+
+    function openNotificationSettings(id) {
+        const notification=appNotifications.find(item=>item.id===id);
+        if(!notification)return;
+        notification.read=true;updateNotificationUI();
+        hideNotificationPill(true);closeNotificationList(true);
+        document.getElementById('settings-btn').click();
+        switchSettingsView(notificationSettingsTarget(notification));
+    }
+
+    function renderNotificationList() {
+        const container=document.getElementById('custom-notification-container');
+        container.replaceChildren();
+        if(!appNotifications.length) {
+            const empty=document.createElement('div');
+            empty.className='glass-card notification-card notification-empty';
+            empty.textContent='새 알림이 없습니다.';container.appendChild(empty);
+        } else {
+            const icons={update:'<path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/>',pip:'<rect x="3" y="4" width="18" height="16" rx="3"/><rect x="12" y="11" width="6" height="5" rx="1"/>',meal:'<path d="M3 10h18l-2 9H5l-2-9Z"/><path d="M7 6c0-1 1-1 1-2m4 2c0-1 1-1 1-2m4 2c0-1 1-1 1-2"/>',network:'<path d="M3 9a14 14 0 0 1 18 0M6.5 12.5a9 9 0 0 1 11 0M10 16a4 4 0 0 1 4 0M12 20h.01"/>',general:'<path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-8 12h4"/>'};
+            for(const notification of [...appNotifications].reverse()) {
+                const card=document.createElement('div');
+                card.id='card-'+notification.id;card.className='glass-card notification-card';
+                card.tabIndex=0;card.setAttribute('role','button');
+                card.setAttribute('aria-label',notification.title+' · '+notification.message+' · 관련 설정 열기');
+                const header=document.createElement('div');header.className='notification-card-header';
+                const source=document.createElement('div');source.className='notification-card-source';
+                const icon=document.createElement('span');icon.className='notification-source-icon';icon.setAttribute('aria-hidden','true');
+                icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+(icons[notification.type]||icons.general)+'</svg>';
+                const title=document.createElement('span');title.className='notification-source-title';title.textContent=notification.title;
+                source.append(icon,title);
+                const dismiss=document.createElement('button');dismiss.type='button';dismiss.className='notification-close-button';dismiss.setAttribute('aria-label','알림 닫기');dismiss.title='알림 닫기';
+                dismiss.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';
+                dismiss.addEventListener('click',event=>{event.stopPropagation();dismissNotification(notification.id);});
+                header.append(source,dismiss);
+                const message=document.createElement('p');message.textContent=notification.message;
+                card.append(header,message);
+                card.addEventListener('click',()=>openNotificationSettings(notification.id));
+                card.addEventListener('keydown',event=>{if(event.target===card&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openNotificationSettings(notification.id);}});
+                container.appendChild(card);
+            }
+            const actions=document.createElement('div');actions.className='notification-pill-actions';
+            const clear=document.createElement('button');clear.type='button';clear.className='notification-clear-all';clear.textContent='모두 지우기';clear.addEventListener('click',clearAllNotifications);
+            actions.appendChild(clear);container.appendChild(actions);
+        }
+        positionNotificationSurfaces();
     }
 
     function showAllNotifications() {
-        const container = document.getElementById('custom-notification-container');
-        if(notificationCloseTimer)window.clearTimeout(notificationCloseTimer);
-        notificationCloseTimer=null;
-        container.classList.remove('closing');
-        container.classList.add('open');
-        container.innerHTML = ''; 
-        
-        if (appNotifications.length === 0) { const emptyState=document.createElement('div'); emptyState.className='glass-card notification-card p-4 text-sm'; emptyState.textContent='새 알림이 없습니다.'; container.appendChild(emptyState); return; }
-        appNotifications.forEach((notif, index) => {
-            const card = document.createElement('div');
-            card.className = `glass-card notification-card p-4 flex flex-col space-y-2.5 pointer-events-auto w-80 relative overflow-hidden`;
-            card.id = `card-${notif.id}`;
-
-            const sourceIcons={update:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>',pip:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><rect x="12" y="11" width="6" height="5" rx="1"/></svg>',meal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18l-2 9H5l-2-9Z"/><path d="M7 6c0-1 1-1 1-2m4 2c0-1 1-1 1-2m4 2c0-1 1-1 1-2"/></svg>',network:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9a14 14 0 0 1 18 0M6.5 12.5a9 9 0 0 1 11 0M10 16a4 4 0 0 1 4 0"/><path d="M12 20h.01"/></svg>',general:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-8 12h4"/></svg>'};
-            const sourceIcon=sourceIcons[notif.type]||sourceIcons.general;
-            let actionButtonsHTML = '';
-            if (notif.type === 'update') {
-                actionButtonsHTML = `
-                    <div class="flex space-x-2 mt-1.5">
-                        <a href="${notif.githubUrl}" target="_blank" class="glass-button text-center text-xs px-2.5 py-1.5 flex-1 !p-1.5 hover:bg-white/20">GitHub로 이동</a>
-                        <button onclick="downloadCurrentHTML()" class="glass-button text-xs px-2.5 py-1.5 flex-1 !p-1.5 hover:bg-white/20">새 HTML 다운로드</button>
-                    </div>
-                `;
-            }
-
-            card.innerHTML = `
-                <div class="notification-card-header z-10 relative"><div class="notification-card-source"><span class="notification-source-icon" aria-hidden="true">${sourceIcon}</span><span class="notification-source-title">${notif.title}</span></div><button type="button" onclick="dismissNotification('${notif.id}')" class="notification-close-button" aria-label="알림 닫기" title="알림 닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
-                <p class="text-xs text-gray-200 leading-relaxed break-all z-10 relative">${notif.message}</p>
-                ${actionButtonsHTML}
-            `;
-            
-            container.appendChild(card);
-            });
-        const actions=document.createElement('div');
-        actions.className='notification-pill-actions';
-        const clearButton=document.createElement('button');
-        clearButton.type='button';
-        clearButton.className='notification-clear-all';
-        clearButton.textContent='모두 지우기';
-        clearButton.addEventListener('click',clearAllNotifications);
-        actions.appendChild(clearButton);
-        container.appendChild(actions);
+        if(typeof closeQuickSettings==='function')closeQuickSettings(false,true);
+        hideNotificationPill(true);
+        window.clearTimeout(notificationCloseTimer);notificationCloseTimer=null;
+        const container=document.getElementById('custom-notification-container');
+        container.classList.remove('closing');container.classList.add('open');
+        for(const notification of appNotifications)notification.read=true;
+        syncNotificationToggle(true);bringNotificationsToFront();updateNotificationUI();
     }
 
     function clearAllNotifications() {
         const container=document.getElementById('custom-notification-container');
-        if(!container||container.dataset.clearing==='true')return;
+        if(container.dataset.clearing==='true')return;
         const cards=[...container.querySelectorAll('.notification-card[id^="card-"]')].reverse();
-        const finish=()=>{appNotifications=[];isPillHidden=false;updateNotificationUI();container.dataset.clearing='false';showAllNotifications()};
-        if(!cards.length){finish();return}
+        const removed=new Set(appNotifications.map(item=>item.id));
         container.dataset.clearing='true';
-        cards.forEach((card,index)=>{card.style.setProperty('--dismiss-delay',`${index*85}ms`);card.classList.add('notification-dismiss-right')});
-        window.setTimeout(finish,420+(cards.length-1)*85);
+        cards.forEach((card,index)=>{card.style.setProperty('--dismiss-delay',index*85+'ms');card.classList.add('notification-dismiss-right');});
+        window.setTimeout(()=>{appNotifications=appNotifications.filter(item=>!removed.has(item.id));container.dataset.clearing='false';updateNotificationUI();},420+Math.max(0,cards.length-1)*85);
+        resetNotificationIdleTimer();
     }
 
-    function dismissNotification(id) {
-        const container=document.getElementById('custom-notification-container');
-        if(container?.dataset.clearing==='true')return;
-        const card = document.getElementById(`card-${id}`);
-        if(!card||card.dataset.dismissing==='true')return;
-        card.dataset.dismissing='true';
-        card.classList.add('notification-dismiss-right');
-        window.setTimeout(()=>{appNotifications=appNotifications.filter(n=>n.id!==id);updateNotificationUI();card.remove()},420);
+    function dismissNotification(id,direction=0) {
+        const container=document.getElementById('custom-notification-container'),pill=document.getElementById('custom-notification-pill');
+        const preview=notificationPillId===id&&!pill.hidden,card=preview?pill:document.getElementById('card-'+id);
+        if(container.dataset.clearing==='true'||!card||card.dataset.dismissing==='true')return;
+        card.dataset.dismissing='true';card.classList.add(direction<0?'notification-swipe-dismiss-left':direction>0?'notification-swipe-dismiss-right':'notification-dismiss-right');
+        window.setTimeout(()=>{if(preview&&notificationPillId===id)hideNotificationPill(true);appNotifications=appNotifications.filter(item=>item.id!==id);updateNotificationUI();},direction?260:420);
+        resetNotificationIdleTimer();
     }
+
+    (()=>{
+        const handle=document.getElementById('notification-toggle'),list=document.getElementById('custom-notification-container'),pill=document.getElementById('custom-notification-pill');
+        pill.addEventListener('click',showAllNotifications);
+        handle.addEventListener('pointerdown',event=>{
+            if(event.button!==0||notificationHandleDrag)return;
+            notificationSuppressClick=false;
+            notificationHandleDrag={id:event.pointerId,x:event.clientX,y:event.clientY,top:handle.getBoundingClientRect().top,deltaY:0,opened:false,wasOpen:notificationListIsOpen()};
+            handle.setPointerCapture(event.pointerId);handle.classList.add('is-dragging');
+        });
+        window.addEventListener('pointermove',event=>{
+            const drag=notificationHandleDrag;if(!drag||drag.id!==event.pointerId)return;
+            if(event.pointerType==='mouse'&&event.buttons===0){stop(event);return;}
+            drag.deltaY=event.clientY-drag.y;
+            if(!drag.wasOpen&&!drag.opened&&event.clientY-drag.y>=16&&Math.abs(event.clientX-drag.x)<80){drag.opened=true;showAllNotifications();}
+            if(drag.opened||drag.wasOpen){positionNotificationSurfaces();resetNotificationIdleTimer();}
+        });
+        const stop=event=>{
+            const drag=notificationHandleDrag;if(!drag||drag.id!==event.pointerId)return;
+            const swipeUp=drag.wasOpen&&drag.deltaY<=-16&&event.type==='pointerup';
+            notificationSuppressClick=(drag.opened||swipeUp||(drag.wasOpen&&Math.abs(drag.deltaY)>=16))&&event.type==='pointerup';
+            notificationHandleDrag=null;handle.classList.remove('is-dragging');
+            if(handle.hasPointerCapture(event.pointerId))handle.releasePointerCapture(event.pointerId);
+            if(drag.opened)bringNotificationsToFront();
+            if(swipeUp)closeNotificationList();else positionNotificationSurfaces();
+            window.setTimeout(()=>{notificationSuppressClick=false;},0);
+            resetNotificationIdleTimer();
+        };
+        for(const type of ['pointerup','pointercancel'])window.addEventListener(type,stop);
+        window.addEventListener('blur',()=>{if(notificationHandleDrag)stop({pointerId:notificationHandleDrag.id,type:'pointercancel'});});
+        document.addEventListener('click',event=>{
+            if(notificationSuppressClick){notificationSuppressClick=false;return;}
+            if(notificationListIsOpen()&&!list.contains(event.target)&&!handle.contains(event.target)&&!pill.contains(event.target))closeNotificationList();
+        });
+        handle.addEventListener('keydown',event=>{
+            if(event.key==='Enter'||event.key===' '){event.preventDefault();notificationSuppressClick=false;toggleNotificationList();}
+        });
+        document.addEventListener('keydown',event=>{if(event.key==='Escape'&&notificationListIsOpen()){event.preventDefault();event.stopImmediatePropagation();closeNotificationList();handle.focus();}},true);
+        for(const element of [handle,list])for(const type of ['pointerdown','pointermove','keydown','wheel','focusin'])element.addEventListener(type,resetNotificationIdleTimer,{passive:true});
+        window.addEventListener('resize',scheduleNotificationSurfaces,{passive:true});
+        window.addEventListener('standby-safe-margins-change',scheduleNotificationSurfaces);
+        window.addEventListener('load',positionNotificationSurfaces,{once:true});
+    })();
 
     function downloadCurrentHTML() {
         try {
@@ -8574,6 +8750,8 @@ input[type="checkbox"]:not(.glass-checkbox-input):focus-visible{outline:2px soli
 .settings-container #settings-btn span{display:block;line-height:1!important}
 /* Notification pills descend from above while their blur and fade gently clear. */
 @keyframes notificationDescendClear{0%{opacity:0;transform:translateY(-26px);filter:blur(14px)}55%{opacity:.68;filter:blur(5px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}
+/* A distinct exit name starts a fresh animation after the entrance has finished. */
+@keyframes notificationAscendBlur{0%{opacity:0;transform:translateY(-26px);filter:blur(14px)}55%{opacity:.68;filter:blur(5px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}
 .notification-list.open .notification-card{animation:notificationDescendClear .8s cubic-bezier(.2,.75,.25,1) both}
 .notification-list.open .notification-card:nth-child(2){animation-delay:.08s}.notification-list.open .notification-card:nth-child(3){animation-delay:.16s}.notification-list.open .notification-card:nth-child(4){animation-delay:.24s}.notification-list.open .notification-card:nth-child(5){animation-delay:.32s}
 .notification-card-header{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;flex:1 1 auto!important;min-width:0!important}
@@ -8718,7 +8896,7 @@ body.settings-open .screen{visibility:hidden!important;pointer-events:none!impor
 @keyframes notificationBackdropOut{from{opacity:1}to{opacity:0}}
 .notification-list.open:not(.closing):before{animation:notificationBackdropIn .8s ease both}
 .notification-list.open.closing:before{animation:notificationBackdropOut .42s ease both!important}
-.notification-list.open.closing .notification-card{animation:notificationDescendClear .42s ease reverse both!important;pointer-events:none!important}
+.notification-list.open.closing .notification-card{animation:notificationAscendBlur .42s ease reverse both!important;pointer-events:none!important}
 
 .notification-card.notification-dismiss-right{animation:notificationDismissRight .42s cubic-bezier(.35,0,.8,.3) var(--dismiss-delay,0ms) both!important;pointer-events:none!important}
 @media(prefers-reduced-motion:reduce){.notification-card:hover{animation:none!important}.notification-card.notification-dismiss-right{animation:notificationDismissRight .01ms linear var(--dismiss-delay,0ms) both!important}.notification-list.open:not(.closing):before{animation:notificationBackdropIn .01ms linear both}.notification-list.open.closing:before,.notification-list.open.closing .notification-card{animation-duration:.01ms!important}}
@@ -8917,6 +9095,383 @@ body.bg-darken #settings-modal::before,body.bg-darken #settings-modal .glass-sec
     function scan(root){if(root.matches?.('input[type="color"]'))enhance(root);root.querySelectorAll?.('input[type="color"]').forEach(enhance);}
     scan(document);new MutationObserver(records=>{for(const record of records)for(const node of record.addedNodes)if(node.nodeType===1)scan(node);}).observe(document.body,{childList:true,subtree:true});
 })();
+</script>
+<style id="notification-preview-and-handle">
+/* Notification entry stays reachable above home, settings, and editing surfaces. */
+#notification-control{top:var(--notification-handle-top,calc(var(--safe-top,0px) + 4px))!important;left:var(--notification-handle-center,25%)!important;transform:translateX(-50%);z-index:2147483647!important;transition:top .25s cubic-bezier(.2,.75,.25,1),opacity .3s ease}
+#notification-toggle{width:76px!important;height:20px!important;min-width:76px!important;min-height:20px!important;flex-basis:76px!important;aspect-ratio:auto!important;display:flex!important;padding:0!important;border:0!important;border-radius:999px!important;touch-action:none;cursor:grab;background:var(--settings-card-2,#202c32)!important;box-shadow:0 3px 12px #0003}
+#notification-toggle::before{width:44px;height:5px;content:'';border-radius:999px;background:currentColor;opacity:.65;pointer-events:none}
+/* Both closed handles use a 280 x 64 target; expanded handles keep clear of panel actions. */
+#notification-toggle{position:relative}
+#notification-toggle::after{content:'';position:absolute;inset:auto;left:var(--surface-hit-left,-38px);top:var(--surface-hit-top,-10px);width:var(--surface-hit-width,152px);height:var(--surface-hit-height,40px);pointer-events:auto}
+:root[data-theme="light"] #clock-layout-editor :is(.clock-font-choice-sample,.preview-time,.preview-date){color:#000!important;text-shadow:none!important}
+#notification-control{pointer-events:auto}
+#notification-control:has(.is-dragging){transition:none!important}
+#notification-toggle.is-dragging{cursor:grabbing}
+#notification-toggle:hover::before,#notification-toggle:focus-visible::before{opacity:1}
+#notification-toggle:focus-visible{outline:2px solid var(--settings-accent,#70c4df)!important;outline-offset:3px}
+#notification-control:has(:focus-visible),#notification-control:has(.is-dragging),body:has(#custom-notification-container.open:not(.closing)) #notification-control{opacity:1;pointer-events:auto}
+#notification-badge.has-notifications{top:2px;right:4px;min-width:6px;width:6px;height:6px;padding:0;font-size:0;pointer-events:none}
+#custom-notification-pill{position:fixed;top:calc(var(--safe-top,0px) + 48px);left:var(--notification-center,25%);transform:translateX(-50%);z-index:2147483647;display:flex!important;align-items:center;gap:9px;width:max-content;max-width:var(--notification-max-width,calc(100vw - 32px));box-sizing:border-box;min-height:44px;padding:10px 16px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(31,36,42,.88);color:#fff;box-shadow:0 8px 24px #0003;backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);text-align:left;cursor:pointer}
+#custom-notification-pill[hidden],#custom-notification-pill.hidden{display:none!important}
+.notification-preview-icon{width:20px;height:20px;flex:0 0 20px}
+.notification-preview-title{flex:0 1 auto;max-width:35%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:750}
+.notification-preview-message{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
+#custom-notification-container.notification-list{top:calc(var(--safe-top,0px) + 48px)!important;left:var(--notification-center,25%)!important;z-index:2147483647!important;transform:translateX(-50%);width:max-content!important;max-width:var(--notification-max-width,calc(100vw - 32px))!important;max-height:calc(100dvh - var(--safe-top,0px) - var(--safe-bottom,0px) - 64px)!important;padding:4px!important;box-sizing:border-box;overflow:auto!important;overscroll-behavior:contain;align-items:center!important;scrollbar-width:thin!important;isolation:isolate;border-radius:24px}
+#custom-notification-container.notification-list.open::before{content:none!important}
+#custom-notification-container .notification-card{max-width:var(--notification-max-width,calc(100vw - 32px))!important;flex-shrink:0;box-sizing:border-box;cursor:pointer}
+#custom-notification-container .notification-card>p{min-width:0;max-width:none!important;white-space:normal;overflow-wrap:anywhere!important}
+#custom-notification-container .notification-card .notification-source-title{max-width:130px}
+#custom-notification-container .notification-card .notification-card-source{flex-shrink:1!important;min-width:0}
+#custom-notification-container .notification-card:focus-visible{outline:2px solid var(--settings-accent,#70c4df)!important;outline-offset:-3px}
+#custom-notification-container .notification-empty{cursor:default;font-size:14px;color:#fff!important;text-align:center}
+#custom-notification-container:has(.notification-pill-actions){min-width:min(400px,var(--notification-max-width))!important}
+#custom-notification-container .notification-pill-actions{position:sticky;bottom:0;z-index:2;display:flex;align-self:stretch!important;justify-content:flex-end;min-height:34px;padding-right:2px;padding-bottom:2px;flex-shrink:0;width:100%!important}
+#custom-notification-pill.notification-preview-entering{animation:notificationPreviewIn .8s cubic-bezier(.2,.75,.25,1) both}
+#custom-notification-pill.notification-preview-closing{animation:notificationPreviewOut .42s ease reverse both;pointer-events:none}
+@keyframes notificationPreviewIn{0%{opacity:0;translate:0 -26px;filter:blur(14px)}55%{opacity:.68;filter:blur(5px)}100%{opacity:1;translate:0 0;filter:blur(0)}}
+@keyframes notificationPreviewOut{0%{opacity:0;translate:0 -26px;filter:blur(14px)}55%{opacity:.68;filter:blur(5px)}100%{opacity:1;translate:0 0;filter:blur(0)}}
+body.low-performance-mode #custom-notification-pill{animation:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+@media(max-width:640px){#custom-notification-container .notification-card{gap:8px!important;padding:10px 13px!important}#custom-notification-container .notification-card .notification-source-title{max-width:85px}#custom-notification-container .notification-card p{font-size:13px!important}#custom-notification-container .notification-source-icon{width:26px!important;height:26px!important;min-width:26px!important;flex-basis:26px!important}}
+@media(prefers-reduced-motion:reduce){#custom-notification-pill{animation:none!important}#notification-control{transition:none}}
+</style>
+    <div id="quick-settings-control" class="quick-settings-control">
+        <button id="quick-settings-toggle" class="drag-pill" type="button" aria-label="빠른 설정 열기" aria-expanded="false" aria-controls="quick-settings-panel" title="클릭하거나 아래로 당겨 빠른 설정 열기"></button>
+    </div>
+    <section id="quick-settings-panel" hidden aria-labelledby="quick-settings-title">
+        <header class="quick-settings-header">
+            <div><p id="quick-settings-date"></p><h2 id="quick-settings-title">빠른 설정</h2></div>
+            <div id="quick-settings-gear-slot">        <button id="settings-btn" class="edit-btn quick-settings-gear" type="button" aria-label="설정" title="설정">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"/><path d="m19.4 15 .1.1a1.7 1.7 0 1 1-2.4 2.4L17 17.4a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 1 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 1 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 1 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 1 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 1 1 3.4 0v.2A1.7 1.7 0 0 0 17 3.4l.1-.1a1.7 1.7 0 1 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 1 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg>
+
+        </button></div>
+        </header>
+        <div class="quick-settings-primary">
+            <button type="button" class="quick-setting-tile quick-setting-large" data-quick-toggle="weather-reflect-toggle" aria-pressed="false"><span class="quick-setting-icon" data-quick-icon="cloud" aria-hidden="true"></span><span><strong>날씨 반영</strong><small data-quick-state></small></span></button>
+            <button type="button" class="quick-setting-tile quick-setting-large" data-quick-toggle="weather-time-reflect-toggle" aria-pressed="false"><span class="quick-setting-icon" data-quick-icon="clock" aria-hidden="true"></span><span><strong>시간대 반영</strong><small data-quick-state></small></span></button>
+        </div>
+        <div class="quick-settings-toggle-grid" aria-label="자주 쓰는 설정">
+            <button type="button" class="quick-setting-tile" data-quick-toggle="weather-aurora-toggle" aria-pressed="false"><span class="quick-setting-icon" data-quick-icon="aurora" aria-hidden="true"></span><strong>오로라</strong></button>
+            <button type="button" class="quick-setting-tile" data-quick-toggle="schedule-pills-toggle" aria-pressed="false"><span class="quick-setting-icon" data-quick-icon="calendar" aria-hidden="true"></span><strong>일정 알림</strong></button>
+            <button type="button" class="quick-setting-tile" data-quick-toggle="low-performance-mode" aria-pressed="false"><span class="quick-setting-icon" data-quick-icon="leaf" aria-hidden="true"></span><strong>저사양 모드</strong></button>
+            <button type="button" class="quick-setting-tile" data-quick-toggle="show-school-logo" aria-pressed="false"><span class="quick-setting-icon" data-quick-icon="school" aria-hidden="true"></span><strong>학교 로고</strong></button>
+            <button type="button" class="quick-setting-tile" data-quick-toggle="show-school-name" aria-pressed="false"><span class="quick-setting-icon" data-quick-icon="name" aria-hidden="true"></span><strong>학교 이름</strong></button>
+            <button type="button" class="quick-setting-tile" data-quick-toggle="fullscreen-on-start" aria-pressed="false"><span class="quick-setting-icon" data-quick-icon="fullscreen" aria-hidden="true"></span><strong>자동 전체 화면</strong></button>
+        </div>
+        <div class="quick-settings-slider-grid">
+            <label class="quick-setting-slider"><span class="quick-slider-caption"><span data-quick-icon="star" aria-hidden="true"></span><strong>천구 회전</strong><output id="quick-rotation-value">10%</output></span><input id="quick-rotation" type="range" min="0" max="300" step="10" value="10" aria-label="천구 회전 속도" data-quick-range="weather-rotation-speed"></label>
+            <button id="quick-theme-cycle" type="button" class="quick-setting-tile quick-setting-side" data-theme="weather" aria-label="테마: 날씨"><span data-quick-icon="sun" aria-hidden="true"></span><strong>테마</strong><small id="quick-theme-name">날씨</small></button>
+            <label class="quick-setting-slider"><span class="quick-slider-caption"><span data-quick-icon="volume" aria-hidden="true"></span><strong>알림 음량</strong><output id="quick-volume-value">100%</output></span><input id="quick-volume" type="range" min="0" max="100" step="1" value="100" aria-label="알림 음량" data-quick-range="broadcast-sound-volume"></label>
+            <button id="quick-design-cycle" type="button" class="quick-setting-tile quick-setting-side" data-design="simple" aria-label="화면 스타일: 심플"><span data-quick-icon="display" aria-hidden="true"></span><strong>화면 스타일</strong><small id="quick-design-name">심플</small></button>
+        </div>
+        <div class="quick-settings-shortcuts"><button type="button" data-quick-view="display"><span data-quick-icon="display" aria-hidden="true"></span>화면 영역</button><button type="button" data-quick-view="offline"><span data-quick-icon="offline" aria-hidden="true"></span>오프라인</button></div>
+        <p id="quick-settings-school" class="quick-settings-school"></p>
+    </section>
+
+<style id="oneui-quick-settings">
+/* One UI: grouped controls, rounded focus blocks, restrained motion and clear on/off states. */
+.settings-container{right:calc(var(--safe-right,0px) + 12px)!important;top:calc(var(--safe-top,0px) + 14px)!important;padding:0!important;gap:8px!important}
+#notification-badge,#notification-badge.has-notifications{display:none!important}
+#notification-toggle.has-notifications::before{background:#ff9e48!important;opacity:1!important}
+#quick-settings-control{position:fixed;top:var(--quick-handle-top,calc(var(--safe-top,0px) + 4px));left:var(--quick-handle-center,75%);transform:translateX(-50%);z-index:2147483647;opacity:0;pointer-events:auto;transition:top .25s cubic-bezier(.2,.75,.25,1),opacity .3s ease}
+#quick-settings-control.visible,#quick-settings-control:has(:focus-visible),#quick-settings-control:has(.is-dragging){opacity:1}
+#quick-settings-control:has(.is-dragging){transition:none}
+#quick-settings-toggle{position:relative;display:flex;align-items:center;justify-content:center;width:76px;height:20px;min-width:76px;min-height:20px;padding:0;border:0;border-radius:999px;background:var(--settings-card-2,#202c32);color:var(--settings-text,#f5f8f9);box-shadow:0 3px 12px #0003;touch-action:none;cursor:grab}
+#quick-settings-toggle::before{content:'';width:44px;height:5px;border-radius:999px;background:currentColor;opacity:.65;pointer-events:none}
+#quick-settings-toggle::after{content:'';position:absolute;inset:auto;left:var(--surface-hit-left,-38px);top:var(--surface-hit-top,-10px);width:var(--surface-hit-width,152px);height:var(--surface-hit-height,40px);pointer-events:auto}
+#notification-toggle[aria-expanded="false"]::after,#quick-settings-toggle[aria-expanded="false"]::after{left:var(--surface-hit-left,-102px);right:auto;top:var(--surface-hit-top,-12px);bottom:auto;width:var(--surface-hit-width,280px);height:var(--surface-hit-height,64px)}
+#quick-settings-toggle:hover::before,#quick-settings-toggle:focus-visible::before{opacity:1}
+#quick-settings-toggle.is-dragging{cursor:grabbing}
+#quick-settings-toggle:focus-visible{outline:2px solid var(--settings-accent,#70c4df);outline-offset:3px}
+#quick-settings-panel{--quick-text:var(--settings-text);--quick-muted:var(--settings-muted);--quick-tile:color-mix(in srgb,var(--settings-card-2) 70%,transparent);--quick-active:var(--settings-accent);--quick-active-text:var(--settings-bg);position:fixed;left:var(--quick-panel-center,75%);top:calc(var(--safe-top,0px) + 48px);z-index:2147483647;transform:translateX(-50%);box-sizing:border-box;width:min(440px,var(--quick-panel-width,calc(100vw - 32px)));max-height:calc(100dvh - var(--safe-top,0px) - var(--safe-bottom,0px) - 100px);overflow:auto;overscroll-behavior:contain;padding:24px;border:1px solid var(--settings-border);border-radius:36px;background:var(--oneui-screen-bg,var(--settings-bg));background:color-mix(in srgb,var(--oneui-screen-bg,var(--settings-bg)) 70%,transparent);color:var(--quick-text);box-shadow:0 20px 65px #0004;backdrop-filter:blur(12px) saturate(120%);-webkit-backdrop-filter:blur(12px) saturate(120%);scrollbar-width:thin;animation:quickSettingsReveal .8s cubic-bezier(.2,.75,.25,1) both;isolation:isolate}
+#quick-settings-panel[hidden]{display:none!important}
+#quick-settings-panel.is-closing{animation:quickSettingsDismiss .42s ease reverse both;pointer-events:none}
+#quick-settings-panel,#quick-settings-panel *{text-shadow:none!important;font-family:inherit;box-sizing:border-box}
+#quick-settings-panel button{color:var(--quick-text)!important;cursor:pointer;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+#quick-settings-panel button:focus-visible,#quick-settings-panel input:focus-visible{outline:2px solid #8dbdf7!important;outline-offset:3px}
+#quick-settings-panel svg{color:inherit!important;stroke:currentColor!important;display:block;width:22px;height:22px;flex-shrink:0}
+#quick-settings-panel .quick-settings-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+#quick-settings-panel #quick-settings-title{margin:4px 0 0;font-size:25px;line-height:1.25;font-weight:750;color:var(--quick-text)!important;letter-spacing:-.035em}
+#quick-settings-panel #quick-settings-date{margin:0;color:var(--quick-muted)!important;font-size:12px;font-weight:500}
+#quick-settings-panel #settings-btn{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;flex-basis:44px!important;border:0!important;padding:0!important;background:var(--quick-tile)!important;box-shadow:none!important;display:grid!important;place-items:center!important;border-radius:50%!important}
+#quick-settings-panel #settings-btn span{display:none!important}
+#quick-settings-panel .quick-settings-primary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+#quick-settings-panel .quick-setting-tile{border:0;padding:0;background:transparent;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:24px;min-width:0}
+#quick-settings-panel [data-quick-icon]{color:inherit!important}
+#quick-settings-panel .quick-setting-tile strong{font-size:12px;font-weight:650;line-height:1.4;color:inherit!important;white-space:normal;word-break:keep-all}
+#quick-settings-panel .quick-setting-large{justify-content:flex-start;min-height:76px;padding:15px 13px;gap:11px;background:var(--quick-tile);border-radius:28px;text-align:left}
+#quick-settings-panel .quick-setting-large>span:last-child{min-width:0;display:flex;flex-direction:column;gap:3px}
+#quick-settings-panel .quick-setting-large strong{font-size:14px}
+#quick-settings-panel .quick-setting-large small{font-size:11px;color:inherit!important;opacity:.65}
+#quick-settings-panel .quick-setting-large[aria-pressed="true"],#quick-settings-panel .quick-setting-side[aria-pressed="true"]{background:var(--quick-active);color:var(--quick-active-text)!important}
+#quick-settings-panel .quick-settings-toggle-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px 8px;padding:20px 10px;background:color-mix(in srgb,var(--settings-card) 70%,transparent);border-radius:30px;margin-bottom:14px}
+#quick-settings-panel .quick-settings-toggle-grid .quick-setting-tile{flex-direction:column;gap:8px}
+#quick-settings-panel .quick-settings-toggle-grid .quick-setting-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--quick-tile);color:var(--quick-text)!important}
+#quick-settings-panel .quick-settings-toggle-grid [aria-pressed="true"] .quick-setting-icon{background:var(--quick-active);color:var(--quick-active-text)!important}
+#quick-settings-panel .quick-settings-slider-grid{display:grid;grid-template-columns:minmax(0,1fr) 106px;gap:10px;margin-bottom:14px}
+#quick-settings-panel .quick-setting-slider{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:4px;min-height:72px;padding:12px 16px 8px;background:var(--quick-tile);border-radius:27px}
+#quick-settings-panel .quick-slider-caption{display:flex;align-items:center;gap:7px;min-width:0;color:var(--quick-text)!important}
+#quick-settings-panel .quick-slider-caption svg{width:17px;height:17px}
+#quick-settings-panel .quick-slider-caption strong{font-size:12px;font-weight:600;color:inherit!important}
+#quick-settings-panel output{margin-left:auto;color:var(--quick-muted)!important;font-size:11px;white-space:nowrap}
+#quick-settings-panel input[type="range"]{appearance:none;-webkit-appearance:none;width:100%;height:22px;padding:0;margin:0;border:0;border-radius:999px;background:transparent;cursor:pointer;touch-action:pan-y;accent-color:#d2e5fb}
+#quick-settings-panel input[type="range"]::-webkit-slider-runnable-track{height:8px;border-radius:999px;background:linear-gradient(to right,var(--settings-accent) var(--quick-range-fill,0%),var(--settings-track) var(--quick-range-fill,0%))}
+#quick-settings-panel input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;margin-top:-4px;border-radius:50%;background:var(--settings-accent);box-shadow:0 1px 5px #0003}
+#quick-settings-panel input[type="range"]::-moz-range-track{height:8px;background:var(--settings-track);border-radius:999px}
+#quick-settings-panel input[type="range"]::-moz-range-progress{height:8px;background:var(--settings-accent);border-radius:999px}
+#quick-settings-panel .quick-setting-side{flex-direction:column;gap:7px;padding:12px 6px;background:var(--quick-tile);border-radius:27px}
+#quick-settings-panel .quick-setting-side svg{width:21px;height:21px}
+#quick-settings-panel .quick-settings-shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#quick-settings-panel .quick-settings-shortcuts button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 12px;border:0;border-radius:24px;background:var(--quick-tile);font-size:12px;font-weight:600}
+#quick-settings-panel .quick-settings-shortcuts svg{width:18px;height:18px}
+#quick-settings-panel .quick-settings-school{margin:18px 0 0;color:var(--quick-muted)!important;font-size:11px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+:root[data-theme="light"] #quick-settings-panel{box-shadow:0 16px 54px #172d4e25}
+:root[data-theme="light"] #quick-settings-panel input[type="range"]::-webkit-slider-runnable-track{background:linear-gradient(to right,var(--settings-accent) var(--quick-range-fill,0%),var(--settings-track) var(--quick-range-fill,0%))}
+:root[data-theme="light"] #quick-settings-panel input[type="range"]::-webkit-slider-thumb{background:var(--settings-accent)}
+body.low-performance-mode #quick-settings-panel{background:color-mix(in srgb,var(--oneui-screen-bg,var(--settings-bg)) 70%,transparent);backdrop-filter:none;-webkit-backdrop-filter:none;animation:none;box-shadow:none}
+:root[data-theme="light"] body.low-performance-mode #quick-settings-panel{background:color-mix(in srgb,var(--oneui-screen-bg,var(--settings-bg)) 70%,transparent)}
+#quick-settings-panel .quick-setting-large[aria-pressed="true"] *,#quick-settings-panel .quick-setting-side[aria-pressed="true"] *,#quick-settings-panel .quick-settings-toggle-grid [aria-pressed="true"] .quick-setting-icon *{color:var(--quick-active-text)!important}
+#quick-settings-panel #quick-theme-cycle,#quick-settings-panel #quick-design-cycle{gap:3px;padding:8px 6px}
+#quick-settings-panel #quick-theme-cycle small,#quick-settings-panel #quick-design-cycle small{font-size:10px;color:var(--quick-muted)!important;line-height:1.2}
+#quick-settings-panel #quick-theme-cycle[data-theme="light"]{background:var(--quick-active);color:var(--quick-active-text)!important}
+#quick-settings-panel #quick-theme-cycle[data-theme="light"] *{color:var(--quick-active-text)!important}
+@media(max-width:600px){.settings-container{top:calc(var(--safe-top,0px) + 64px)!important}body:has(#quick-settings-panel:not([hidden])) .settings-container{opacity:0!important;pointer-events:none!important}}
+/* Match notificationDescendClear without overriding the panel's horizontal centering transform. */
+@keyframes quickSettingsReveal{0%{opacity:0;translate:0 -26px;filter:blur(14px)}55%{opacity:.68;filter:blur(5px)}100%{opacity:1;translate:0 0;filter:blur(0)}}
+@keyframes quickSettingsDismiss{0%{opacity:0;translate:0 -26px;filter:blur(14px)}55%{opacity:.68;filter:blur(5px)}100%{opacity:1;translate:0 0;filter:blur(0)}}
+@media(max-width:600px){#quick-settings-panel{padding:19px;border-radius:30px}.settings-container{right:calc(var(--safe-right,0px) + 10px)!important;gap:6px!important}#quick-settings-panel .quick-settings-header{margin-bottom:18px}#quick-settings-panel #quick-settings-title{font-size:23px}#quick-settings-panel .quick-setting-large{gap:8px;padding:13px 10px}#quick-settings-panel .quick-setting-large strong{font-size:12px}#quick-settings-panel .quick-settings-slider-grid{grid-template-columns:minmax(0,1fr) 94px}}
+@media(prefers-reduced-motion:reduce){#quick-settings-panel,#quick-settings-panel.is-closing{animation:none}#quick-settings-control{transition:none}}
+</style>
+<script id="quick-settings-runtime">
+    let quickSettingsOpen=false,quickSettingsDrag=null,quickSettingsSuppressClick=false,quickSettingsPositionFrame=0,quickSettingsCloseTimer=null;
+    let quickSettingsPointer={x:-1000,y:-1000},quickSettingsPreviousFocus=null,quickSettingsBindingCache=null;
+    const quickSettingsDateFormatter=new Intl.DateTimeFormat('ko-KR',{month:'long',day:'numeric',weekday:'long'});
+
+    function quickSettingsIsOpen(){return quickSettingsOpen;}
+
+    function nextQuickSettingsTheme(theme){return {light:'dark',dark:'weather',weather:'light'}[theme]||'light';}
+
+    function nextQuickSettingsDesign(design){return {simple:'modern',modern:'default',default:'simple'}[design]||'simple';}
+
+    function updateQuickSettingsVisibility(){
+        const control=document.getElementById('quick-settings-control'),handle=document.getElementById('quick-settings-toggle'),rect=handle.getBoundingClientRect();
+        const {x,y}=quickSettingsPointer,pad=quickSettingsOpen?40:102,near=x>=rect.left-pad&&x<=rect.right+pad&&y>=Math.max(0,rect.top-32)&&y<=rect.bottom+(quickSettingsOpen?48:32);
+        control.classList.toggle('visible',near||quickSettingsOpen||!!quickSettingsDrag||handle.matches(':focus-visible'));
+    }
+
+    function positionQuickSettings(){
+        const insets=displaySurfaceInsets(),inset=side=>insets[side];
+        const left=inset('left'),right=inset('right'),width=Math.max(0,innerWidth-left-right),margin=Math.min(16,width/4);
+        const panel=document.getElementById('quick-settings-panel'),control=document.getElementById('quick-settings-control'),handle=document.getElementById('quick-settings-toggle');
+        panel.style.setProperty('--quick-panel-width',Math.max(0,width-margin*2)+'px');
+        const half=(panel.hidden?Math.min(440,width-margin*2):panel.getBoundingClientRect().width)/2;
+        const panelCenter=Math.max(left+margin+half,Math.min(left+width*.75,innerWidth-right-margin-half));
+        panel.style.setProperty('--quick-panel-center',panelCenter+'px');
+        const handleHalf=38,center=Math.max(left+margin+handleHalf,Math.min(left+width*.75,innerWidth-right-margin-handleHalf));
+        control.style.setProperty('--quick-handle-center',center+'px');
+        const restingTop=inset('top')+4;
+        let top=restingTop;
+        if(quickSettingsOpen){
+            const end=Math.min(innerHeight-inset('bottom')-28,inset('top')+48+panel.offsetHeight+12);
+            top=quickSettingsDrag?Math.max(restingTop,Math.min(end,quickSettingsDrag.top+quickSettingsDrag.deltaY)):end;
+        }
+        control.style.setProperty('--quick-handle-top',top+'px');
+        positionSurfaceHandleHitArea(control,center,top,quickSettingsOpen,insets,'right');updateQuickSettingsVisibility();
+    }
+
+    function scheduleQuickSettingsPosition(){
+        if(quickSettingsPositionFrame)return;
+        quickSettingsPositionFrame=requestAnimationFrame(()=>{quickSettingsPositionFrame=0;positionQuickSettings();});
+    }
+
+    function syncQuickSettings(){
+        const panel=document.getElementById('quick-settings-panel');
+        if(!quickSettingsBindingCache)quickSettingsBindingCache={
+            toggles:[...panel.querySelectorAll('[data-quick-toggle]')].map(button=>({button,source:document.getElementById(button.dataset.quickToggle),state:button.querySelector('[data-quick-state]')})),
+            ranges:[...panel.querySelectorAll('[data-quick-range]')].map(range=>({range,source:document.getElementById(range.dataset.quickRange),output:document.getElementById(range.id+'-value')}))
+        };
+        for(const {button,source,state} of quickSettingsBindingCache.toggles){
+            const on=!!source?.checked,disabled=!source||source.disabled,pressed=String(on),label=on?'켜짐':'꺼짐';
+            if(button.disabled!==disabled)button.disabled=disabled;
+            if(button.getAttribute('aria-pressed')!==pressed)button.setAttribute('aria-pressed',pressed);
+            if(state&&state.textContent!==label)state.textContent=label;
+        }
+        for(const {range,source,output} of quickSettingsBindingCache.ranges){
+            if(!source)continue;
+            if(range.value!==source.value)range.value=source.value;
+            if(range.disabled!==source.disabled)range.disabled=source.disabled;
+            const min=Number(range.min)||0,max=Number(range.max)||100;
+            const fill=(Number(range.value)-min)/Math.max(1,max-min)*100+'%',label=range.value+'%';
+            if(range.style.getPropertyValue('--quick-range-fill')!==fill)range.style.setProperty('--quick-range-fill',fill);
+            if(output.textContent!==label)output.textContent=label;
+        }
+        const themeButton=document.getElementById('quick-theme-cycle'),theme=document.documentElement.dataset.theme||'weather',name={light:'라이트',dark:'다크',weather:'날씨'}[theme]||'날씨';
+        if(themeButton.dataset.theme!==theme){themeButton.dataset.theme=theme;themeButton.setAttribute('aria-label','테마: '+name);document.getElementById('quick-theme-name').textContent=name;}
+        const designButton=document.getElementById('quick-design-cycle'),design=document.documentElement.dataset.weatherDesign||'simple',designName={simple:'심플',modern:'모던',default:'기본'}[design]||'심플';
+        if(designButton.dataset.design!==design){designButton.dataset.design=design;designButton.setAttribute('aria-label','화면 스타일: '+designName);document.getElementById('quick-design-name').textContent=designName;}
+    }
+
+    function showQuickSettings(){
+        quickSettingsPreviousFocus=document.activeElement;
+        closeNotificationList(true);hideNotificationPill(true);
+        const panel=document.getElementById('quick-settings-panel'),control=document.getElementById('quick-settings-control');
+        window.clearTimeout(quickSettingsCloseTimer);quickSettingsCloseTimer=null;
+        quickSettingsOpen=true;panel.classList.remove('is-closing');panel.hidden=false;panel.inert=false;panel.setAttribute('aria-hidden','false');
+        document.getElementById('quick-settings-school').textContent=localStorage.getItem('dashboardSchoolName')||'대륜고등학교';
+        document.getElementById('quick-settings-date').textContent=quickSettingsDateFormatter.format(new Date());
+        const handle=document.getElementById('quick-settings-toggle');handle.setAttribute('aria-expanded','true');handle.setAttribute('aria-label','빠른 설정 닫기');
+        document.body.appendChild(panel);if(!quickSettingsDrag){document.body.appendChild(control);if(control.contains(quickSettingsPreviousFocus))quickSettingsPreviousFocus.focus({preventScroll:true});}
+        syncQuickSettings();positionQuickSettings();
+    }
+
+    function closeQuickSettings(restoreFocus=false,immediate=false){
+        if(quickSettingsPositionFrame){cancelAnimationFrame(quickSettingsPositionFrame);quickSettingsPositionFrame=0;}
+        const panel=document.getElementById('quick-settings-panel'),wasOpen=quickSettingsOpen;
+        quickSettingsOpen=false;panel.inert=true;panel.setAttribute('aria-hidden','true');
+        if(immediate||document.body.classList.contains('low-performance-mode')||matchMedia('(prefers-reduced-motion: reduce)').matches){
+            window.clearTimeout(quickSettingsCloseTimer);quickSettingsCloseTimer=null;panel.hidden=true;panel.classList.remove('is-closing');
+        }else if(wasOpen){
+            window.clearTimeout(quickSettingsCloseTimer);panel.classList.add('is-closing');
+            quickSettingsCloseTimer=window.setTimeout(()=>{
+                quickSettingsCloseTimer=null;if(quickSettingsOpen)return;panel.hidden=true;panel.classList.remove('is-closing');
+            },420);
+        }
+        const handle=document.getElementById('quick-settings-toggle');handle.setAttribute('aria-expanded','false');handle.setAttribute('aria-label','빠른 설정 열기');
+        positionQuickSettings();if(restoreFocus)handle.focus({preventScroll:true});
+    }
+
+    function toggleQuickSettings(){
+        if(quickSettingsSuppressClick){quickSettingsSuppressClick=false;return;}
+        if(quickSettingsOpen)closeQuickSettings();else showQuickSettings();
+    }
+
+    (()=>{
+        const panel=document.getElementById('quick-settings-panel'),handle=document.getElementById('quick-settings-toggle');
+        const icons={cloud:'<path d="M6 18a4 4 0 0 1-1-7.9A6 6 0 0 1 16.5 8 5 5 0 0 1 18 18Z"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',aurora:'<path d="M4 17c4-14 6 4 10-10s4 8 6 0M4 21l4-6 4 3 4-4 4 7"/>',calendar:'<rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4m8-4v4M4 11h16m-11 5h.01M14 16h.01"/>',leaf:'<path d="M20 4c0 11-3 16-9 16a7 7 0 0 1-7-7C4 7 9 4 20 4ZM4 21 15 10"/>',school:'<path d="m3 9 9-6 9 6v12H3Zm6 12v-7h6v7M7 10h.01M17 10h.01"/>',name:'<rect x="3" y="5" width="18" height="15" rx="3"/><circle cx="8" cy="11" r="2"/><path d="M5 17c0-4 6-4 6 0m3-7h4m-4 4h4"/>',fullscreen:'<path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/>',star:'<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2-5.5-3-5.5 3 1-6.2L3 9.6l6.2-.9Z"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>',volume:'<path d="M4 9h4l5-4v14l-5-4H4Zm12-1a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/>',display:'<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/>',offline:'<path d="M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5"/>'};
+        for(const node of panel.querySelectorAll('[data-quick-icon]'))node.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+icons[node.dataset.quickIcon]+'</svg>';
+        handle.addEventListener('click',toggleQuickSettings);
+        handle.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();quickSettingsSuppressClick=false;toggleQuickSettings();}});
+        handle.addEventListener('pointerdown',event=>{
+            if(event.button!==0||quickSettingsDrag)return;quickSettingsSuppressClick=false;
+            quickSettingsDrag={id:event.pointerId,x:event.clientX,y:event.clientY,top:handle.getBoundingClientRect().top,deltaY:0,wasOpen:quickSettingsOpen,opened:false};
+            handle.setPointerCapture(event.pointerId);handle.classList.add('is-dragging');updateQuickSettingsVisibility();
+        });
+        window.addEventListener('pointermove',event=>{
+            const drag=quickSettingsDrag;if(!drag||drag.id!==event.pointerId)return;
+            if(event.pointerType==='mouse'&&event.buttons===0){stop(event);return;}
+            drag.deltaY=event.clientY-drag.y;
+            if(!drag.wasOpen&&!drag.opened&&drag.deltaY>=16&&Math.abs(event.clientX-drag.x)<80){drag.opened=true;showQuickSettings();}
+            if(drag.opened||drag.wasOpen)scheduleQuickSettingsPosition();
+        });
+        const stop=event=>{
+            const drag=quickSettingsDrag;if(!drag||drag.id!==event.pointerId)return;
+            const up=drag.wasOpen&&drag.deltaY<=-16&&event.type==='pointerup';
+            quickSettingsSuppressClick=(drag.opened||up||(drag.wasOpen&&Math.abs(drag.deltaY)>=16))&&event.type==='pointerup';quickSettingsDrag=null;handle.classList.remove('is-dragging');
+            if(handle.hasPointerCapture(event.pointerId))handle.releasePointerCapture(event.pointerId);
+            if(up)closeQuickSettings();else{if(quickSettingsPositionFrame){cancelAnimationFrame(quickSettingsPositionFrame);quickSettingsPositionFrame=0;}positionQuickSettings();}
+            if(drag.opened||up){const focused=document.activeElement;document.body.appendChild(document.getElementById('quick-settings-control'));if(handle===focused)handle.focus({preventScroll:true});}
+            window.setTimeout(()=>{quickSettingsSuppressClick=false;},0);
+        };
+        for(const type of ['pointerup','pointercancel'])window.addEventListener(type,stop);
+        window.addEventListener('blur',()=>{if(quickSettingsDrag)stop({pointerId:quickSettingsDrag.id,type:'pointercancel'});});
+        document.addEventListener('mousemove',event=>{quickSettingsPointer={x:event.clientX,y:event.clientY};updateQuickSettingsVisibility();},{passive:true});
+        document.addEventListener('click',event=>{
+            if(quickSettingsSuppressClick){quickSettingsSuppressClick=false;return;}
+            if(quickSettingsOpen&&!panel.contains(event.target)&&!handle.contains(event.target))closeQuickSettings();
+        });
+        document.addEventListener('keydown',event=>{if(event.key==='Escape'&&quickSettingsOpen){event.preventDefault();event.stopImmediatePropagation();closeQuickSettings(true);}},true);
+        panel.addEventListener('click',event=>{
+            const button=event.target.closest('[data-quick-toggle],[data-quick-view],#quick-theme-cycle,#quick-design-cycle');if(!button)return;
+            if(button.dataset.quickToggle){const source=document.getElementById(button.dataset.quickToggle);if(source&&!source.disabled){source.checked=!source.checked;source.dispatchEvent(new Event('change',{bubbles:true}));}}
+            else if(button.dataset.quickView){closeQuickSettings();document.getElementById('settings-btn').click();switchSettingsView(button.dataset.quickView);}
+            else if(button.id==='quick-design-cycle'){applyWeatherDesign(nextQuickSettingsDesign(document.documentElement.dataset.weatherDesign),true);syncQuickSettings();}
+            else{applyStandbyTheme(nextQuickSettingsTheme(document.documentElement.dataset.theme));}
+        });
+        panel.addEventListener('input',event=>{const range=event.target.closest('[data-quick-range]');if(!range)return;const source=document.getElementById(range.dataset.quickRange);if(source&&!source.disabled){source.value=range.value;source.dispatchEvent(new Event('input',{bubbles:true}));}});
+        const sourceIds=new Set([...panel.querySelectorAll('[data-quick-toggle],[data-quick-range]')].map(node=>node.dataset.quickToggle||node.dataset.quickRange));
+        for(const type of ['input','change'])document.addEventListener(type,event=>{if(quickSettingsOpen&&sourceIds.has(event.target.id))syncQuickSettings();});
+        document.getElementById('settings-btn').addEventListener('click',()=>closeQuickSettings());
+        window.addEventListener('standby-theme-change',()=>{if(quickSettingsOpen)syncQuickSettings();});
+        window.addEventListener('standby-settings-visibility-change',event=>{if(event.detail?.open&&quickSettingsOpen)closeQuickSettings();});
+        window.addEventListener('resize',scheduleQuickSettingsPosition,{passive:true});
+        window.addEventListener('standby-safe-margins-change',scheduleQuickSettingsPosition);
+        window.addEventListener('load',()=>{syncQuickSettings();positionQuickSettings();},{once:true});
+    })();
+</script>
+<style id="notification-swipe-style">
+#custom-notification-pill,#custom-notification-container .notification-card[id^="card-"]{touch-action:pan-y}
+.notification-swiping{animation:none!important;transition:none!important;will-change:translate,opacity;user-select:none;-webkit-user-select:none}
+.notification-swipe-dismiss-left{animation:notificationSwipeOutLeft .26s ease-out both!important;pointer-events:none!important}
+.notification-swipe-dismiss-right{animation:notificationSwipeOutRight .26s ease-out both!important;pointer-events:none!important}
+@keyframes notificationSwipeOutLeft{to{opacity:0;translate:calc(-100% - 24px) 0}}
+@keyframes notificationSwipeOutRight{to{opacity:0;translate:calc(100% + 24px) 0}}
+@media(prefers-reduced-motion:reduce){.notification-swipe-dismiss-left,.notification-swipe-dismiss-right{animation-duration:.01ms!important}}
+</style>
+<script id="notification-swipe-runtime">
+    let notificationSwipeDrag=null,notificationSwipeClickUntil=0;
+
+    function cancelNotificationSwipe(){
+        const drag=notificationSwipeDrag;if(!drag)return;
+        if(drag.horizontal)notificationSwipeClickUntil=performance.now()+400;
+        notificationSwipeDrag=null;
+        drag.element.classList.remove('notification-swiping');
+        drag.element.style.removeProperty('translate');drag.element.style.removeProperty('opacity');
+        if(drag.element.hasPointerCapture?.(drag.id))drag.element.releasePointerCapture(drag.id);
+        const preview=document.getElementById('custom-notification-pill');
+        if(drag.element===preview&&!preview.hidden&&notificationPillId===drag.notificationId){window.clearTimeout(notificationPillTimer);notificationPillTimer=window.setTimeout(hideNotificationPill,3000);}
+        resetNotificationIdleTimer();
+    }
+
+    (()=>{
+        const preview=document.getElementById('custom-notification-pill');
+        document.addEventListener('pointerdown',event=>{
+            notificationSwipeClickUntil=0;
+            if(event.button!==0||notificationSwipeDrag||event.target.closest('.notification-close-button'))return;
+            const element=event.target.closest('#custom-notification-pill,.notification-card[id^="card-"]');
+            if(!element||element.dataset.dismissing==='true')return;
+            const notificationId=element===preview?notificationPillId:element.id.slice(5);
+            if(!notificationId||!appNotifications.some(item=>item.id===notificationId))return;
+            notificationSwipeDrag={element,notificationId,id:event.pointerId,x:event.clientX,y:event.clientY,dx:0,dy:0,width:element.getBoundingClientRect().width,horizontal:false};
+            window.clearTimeout(notificationIdleTimer);
+            if(element===preview)window.clearTimeout(notificationPillTimer);
+            element.setPointerCapture(event.pointerId);
+        });
+        window.addEventListener('pointermove',event=>{
+            const drag=notificationSwipeDrag;if(!drag||drag.id!==event.pointerId)return;
+            if(!drag.element.isConnected||(drag.element===preview&&(preview.hidden||notificationPillId!==drag.notificationId))){cancelNotificationSwipe();return;}
+            if(event.pointerType==='mouse'&&event.buttons===0){finish(event,false);return;}
+            drag.dx=event.clientX-drag.x;drag.dy=event.clientY-drag.y;
+            if(!drag.horizontal&&Math.abs(drag.dx)>=10&&Math.abs(drag.dx)>Math.abs(drag.dy)*1.2){
+                drag.horizontal=true;drag.element.classList.add('notification-swiping');
+                drag.element.__notificationShake?.cancel();drag.element.__notificationShake=null;
+            }
+            if(!drag.horizontal)return;
+            if(event.cancelable)event.preventDefault();
+            drag.element.style.translate=drag.dx+'px 0';
+            drag.element.style.opacity=String(Math.max(.35,1-Math.abs(drag.dx)/Math.max(180,drag.width)));
+        },{passive:false});
+        const finish=(event,canDismiss=true)=>{
+            const drag=notificationSwipeDrag;if(!drag||drag.id!==event.pointerId)return;
+            const moved=Math.abs(drag.dx)>=10||Math.abs(drag.dy)>=10;
+            const dismiss=canDismiss&&drag.horizontal&&Math.abs(drag.dx)>=Math.min(80,Math.max(44,drag.width*.22));
+            if(moved)notificationSwipeClickUntil=performance.now()+400;
+            notificationSwipeDrag=null;
+            if(drag.element.hasPointerCapture(event.pointerId))drag.element.releasePointerCapture(event.pointerId);
+            drag.element.classList.remove('notification-swiping');
+            if(dismiss)dismissNotification(drag.notificationId,drag.dx<0?-1:1);
+            else{
+                const opacity=Number(drag.element.style.opacity)||1;
+                drag.element.style.removeProperty('translate');drag.element.style.removeProperty('opacity');
+                if(drag.horizontal&&!matchMedia('(prefers-reduced-motion: reduce)').matches)drag.element.animate([{translate:drag.dx+'px 0',opacity},{translate:'0px 0',opacity:1}],{duration:160,easing:'ease-out'});
+                if(drag.element===preview&&!preview.hidden&&notificationPillId===drag.notificationId)notificationPillTimer=window.setTimeout(hideNotificationPill,3000);
+            }
+            resetNotificationIdleTimer();
+        };
+        window.addEventListener('pointerup',event=>finish(event));
+        window.addEventListener('pointercancel',event=>finish(event,false));
+        window.addEventListener('blur',cancelNotificationSwipe);
+        document.addEventListener('click',event=>{if(event.detail>0&&performance.now()<notificationSwipeClickUntil){event.preventDefault();event.stopImmediatePropagation();}},true);
+    })();
 </script>
 </body>
 </html>
