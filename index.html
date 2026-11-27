@@ -940,7 +940,11 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         :root[data-weather-design="simple"] #dynamic-bottom-bar { z-index:70!important;pointer-events:auto!important; }
         #school-view { min-width:0;max-width:100%; }
         #school-name-bottom { min-width:0;max-width:min(46vw,24rem);overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
-        #school-pill-broadcast-fallback:not(.hidden) { display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .65rem;border:1px solid rgba(255,255,255,.2);border-radius:999px;color:#fff;background:rgba(255,255,255,.08);font-weight:700; }
+        #school-pill-broadcast-fallback:not(.hidden) { display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:transparent;line-height:0; }
+        #school-pill-broadcast-fallback img { display:block;width:auto;height:40px;max-width:100%;object-fit:contain; }
+        #school-pill-broadcast-fallback .adk-logo-light { display:none; }
+        :root[data-theme="light"] #school-pill-broadcast-fallback .adk-logo-dark { display:none; }
+        :root[data-theme="light"] #school-pill-broadcast-fallback .adk-logo-light { display:block; }
         :root[data-theme="light"] #school-pill-broadcast-fallback { color:#202b3d!important; }
         :root:not([data-weather-design="modern"]):not([data-weather-design="simple"]) #dynamic-bottom-bar { position:fixed!important;top:auto!important;bottom:calc(var(--safe-bottom) + 1.25rem)!important;left:50%!important;right:auto!important;margin-left:0!important;margin-right:0!important;transform:translateX(-50%)!important;width:max-content;max-width:calc(100vw - var(--safe-left) - var(--safe-right) - 24px)!important;min-width:0!important;z-index:70!important;box-sizing:border-box; }
 
@@ -1292,7 +1296,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <!-- release-v2.8.0-start -->
                                 <div>
                                     <h5 class="font-bold text-blue-300 text-lg">v2.8.0</h5>
-                                    <p class="text-xs text-gray-400 mt-1">2026.11.27 · 빌드 Ko-Kr-Daeryun-hs-v.2.8.0-4</p>
+                                    <p class="text-xs text-gray-400 mt-1">2026.11.27 · 빌드 Ko-Kr-Daeryun-hs-v.2.8.0-5</p>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
                                         <li>One UI 공식 디자인 가이드와 One UI 9 공개 빠른 설정 이미지를 참고한 빠른 설정 패널 추가</li>
                                         <li>알림(¼)과 빠른 설정(¾) 손잡이의 동일한 280×64px 영역에서 클릭·내림 제스처로 열기, 빠른 설정 우측 상단 아이콘으로 전체 설정 이동</li>
@@ -1300,6 +1304,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                         <li>테마는 라이트·다크·날씨 순서, 화면 스타일은 심플·모던·기본 순서로 전환하고 재실행 후에도 선택 유지</li>
                                         <li>빠른 설정의 배경 농도를 70%로 낮추고 버튼·강조색·슬라이더를 기존 설정 테마와 통일, 알림과 같은 0.8초 열기·0.42초 닫기 애니메이션 적용, 열기 완료 후 닫기가 즉시 사라지던 재생 위치 재사용 오류 수정 및 재열기 안정화</li>
                                         <li>신규 알림 미리보기도 0.8초 등장·3초 후 0.42초 퇴장 적용, 퇴장 중 새 알림 교체와 좌우 밀기 삭제 안정화</li>
+                                        <li>어두운 배경에서 학교 로고 글자를 흰색 버전으로 자동 전환하고 사용자 배경은 작은 영역만 분석·캐시, 테마·배경 변경 시에만 재판단</li>
+                                        <li>학교 이름과 로고 표시를 모두 끄면 ADK 이미지를 표시하고 라이트 모드에서도 대비 유지</li>
+                                        <li>알림 카드 너비를 목록 내부에 맞추고 가로 스크롤을 차단하여 긴 알림·좌우 밀기 중 가로 스크롤바가 나타나는 문제 수정</li>
                                         <li>알림 확인 시 읽음 처리하여 손잡이를 기본색으로 복원하고 이후 미확인 알림이 생기면 강조색 표시</li>
                                         <li>화면 여백 비율을 알림·빠른 설정의 위치와 크기 및 손잡이 제스처 영역에 반영하고 설정 변경 즉시 재배치</li>
                                         <li>라이트 모드의 시계 편집 글꼴·레이아웃 미리보기를 검은색으로 표시</li>
@@ -1980,7 +1987,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <h5 class="software-info-title">소프트웨어 정보</h5>
                                 <div class="software-info-list">
                                     <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.8.0">2.8.0</p></div>
-                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.8.0-4">Ko-Kr-Daeryun-hs-v.2.8.0-4</p></div>
+                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.8.0-5">Ko-Kr-Daeryun-hs-v.2.8.0-5</p></div>
                                     <div class="software-info-row"><span>기반</span><span>HTML5</span></div>
                                     <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
                                     <div class="software-info-row"><span>실행 환경</span><span id="software-runtime-info">브라우저</span></div>
@@ -2186,7 +2193,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         <div id="school-view" class="flex items-center gap-4 transition-all duration-300">
             <img id="school-logo-img" src="./adk-assets/school-logo.png" alt="학교 로고" class="h-10 w-auto">
             <span id="school-name-bottom" class="text-white text-lg font-semibold">대륜고등학교</span>
-            <button id="school-pill-broadcast-fallback" class="hidden" type="button" aria-label="긴급 방송 메뉴 열기">📢 방송</button>
+            <button id="school-pill-broadcast-fallback" class="hidden" type="button" aria-label="ADK · 긴급 방송 메뉴 열기"><img class="adk-logo-dark" src="./adk-assets/adk-logo.png" alt="ADK" width="568" height="226"><img class="adk-logo-light" src="./adk-assets/adk-logo-light.svg" alt="ADK" width="568" height="226"></button>
         </div>
 
         <div id="broadcast-view" class="hidden items-center" hidden><div id="broadcast-text-viewport" class="font-family-notosanskr" role="status" aria-live="assertive" aria-atomic="true"><div id="broadcast-marquee-track"><span class="broadcast-copy"></span><span class="broadcast-copy" aria-hidden="true"></span></div></div></div>
@@ -3147,6 +3154,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         let slideTimeout = null;
         const TRANSITION_DURATION = 1000;
         const DEFAULT_LOGO_URL = './adk-assets/school-logo.png';
+        const SCHOOL_LOGO_WHITE_URL = './adk-assets/school-logo-white.svg';
+        let schoolLogoContrastFrame=0,schoolLogoContrastTimer=0,schoolLogoContrastGeneration=0,schoolLogoWhiteFailed=false,schoolLogoBackgroundCache=null,schoolLogoContrastSignature='',schoolLogoContrastImageURL='';
 
         const SCREENS = ['weather-screen', 'meal-screen', 'schedule-screen', 'custom-text-screen'];
         let currentScreenIndex = 0;
@@ -3856,6 +3865,67 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             setBroadcastFormMode();updateBroadcastPreview();scanBroadcastSchedules();window.setInterval(scanBroadcastSchedules,1000)
         }
 
+        function schoolLogoColor(value,fallback=[0,0,0,0]) {
+            const match=String(value).match(/^rgba?\(([^)]+)\)$/);if(!match)return fallback;
+            const parts=match[1].split(/[,\s/]+/).filter(Boolean).map(Number);
+            return parts.length>=3?[parts[0],parts[1],parts[2],parts[3]??1]:fallback;
+        }
+        function schoolLogoTextShouldBeWhite(pill,backdrop,previous='') {
+            const alpha=Math.max(0,Math.min(1,pill[3])),rgb=backdrop.map((value,i)=>pill[i]*alpha+value*(1-alpha));
+            const threshold=previous==='white'?.21:previous==='original'?.15:.179;
+            return luminanceFromRgb(...rgb)<threshold;
+        }
+        function scheduleSchoolLogoContrast(delay=0) {
+            schoolLogoContrastGeneration++;
+            window.clearTimeout(schoolLogoContrastTimer);schoolLogoContrastTimer=0;
+            const request=()=>{schoolLogoContrastTimer=0;if(!schoolLogoContrastFrame)schoolLogoContrastFrame=requestAnimationFrame(()=>{schoolLogoContrastFrame=0;refreshSchoolLogoContrast(schoolLogoContrastGeneration);});};
+            if(delay)schoolLogoContrastTimer=window.setTimeout(request,delay);else request();
+        }
+        async function schoolLogoBackdropSample(url,rect,base) {
+            if(!schoolLogoBackgroundCache||schoolLogoBackgroundCache.url!==url){
+                if(schoolLogoBackgroundCache?.image)schoolLogoBackgroundCache.image.src='';
+                const image=new Image();image.crossOrigin='anonymous';
+                const cache={url,image,sampleKey:'',sample:null,promise:null};schoolLogoBackgroundCache=cache;
+                cache.promise=new Promise((resolve,reject)=>{image.onload=()=>resolve(image);image.onerror=()=>reject(new Error('Background sample unavailable'));});image.src=url;
+            }
+            const cache=schoolLogoBackgroundCache,image=await cache.promise;
+            const key=[innerWidth,innerHeight,Math.round(rect.left),Math.round(rect.top),Math.round(rect.width),Math.round(rect.height)].join(':');
+            const composite=sample=>sample.slice(0,3).map((value,i)=>value+base[i]*(1-sample[3]));
+            if(cache.sampleKey===key&&cache.sample)return composite(cache.sample);
+            const scale=Math.max(innerWidth/image.naturalWidth,innerHeight/image.naturalHeight),x=(rect.left-(innerWidth-image.naturalWidth*scale)/2)/scale,y=(rect.top-(innerHeight-image.naturalHeight*scale)/2)/scale;
+            const canvas=document.createElement('canvas');canvas.width=16;canvas.height=8;
+            const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,x,y,rect.width/scale,rect.height/scale,0,0,16,8);
+            const data=ctx.getImageData(0,0,16,8).data,sum=[0,0,0,0];
+            for(let i=0;i<data.length;i+=4){const alpha=data[i+3]/255;sum[3]+=alpha;for(let c=0;c<3;c++)sum[c]+=data[i+c]*alpha;}
+            cache.sampleKey=key;cache.sample=sum.map(value=>value/128);return composite(cache.sample);
+        }
+        async function refreshSchoolLogoContrast(generation) {
+            const logo=document.getElementById('school-logo-img'),pill=document.getElementById('dynamic-bottom-bar');
+            if(!logo||!pill||logo.classList.contains('hidden')||!logo.getBoundingClientRect().width){
+                if(schoolLogoBackgroundCache){schoolLogoBackgroundCache.image.src='';schoolLogoBackgroundCache=null;}schoolLogoContrastSignature='';return;
+            }
+            const normalURL=new URL(DEFAULT_LOGO_URL,location.href).href,whiteURL=new URL(SCHOOL_LOGO_WHITE_URL,location.href).href;
+            if(logo.src!==normalURL&&logo.src!==whiteURL){
+                if(schoolLogoBackgroundCache){schoolLogoBackgroundCache.image.src='';schoolLogoBackgroundCache=null;}pill.dataset.schoolLogoVariant='custom';schoolLogoContrastSignature='';return;
+            }
+            const theme=document.documentElement.dataset.theme,pillColor=schoolLogoColor(getComputedStyle(pill).backgroundColor),bodyStyle=getComputedStyle(document.body),logoRect=logo.getBoundingClientRect();
+            const rect={left:logoRect.left+logoRect.width*57/170,top:logoRect.top,width:logoRect.width*113/170,height:logoRect.height};
+            let backdrop=theme==='weather'?[8,27,21]:schoolLogoColor(bodyStyle.backgroundColor,theme==='light'?[238,240,241,1]:[8,13,22,1]).slice(0,3);
+            const imageURL=theme==='weather'?'':bodyStyle.backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1]||'';
+            if(schoolLogoBackgroundCache&&schoolLogoBackgroundCache.url!==imageURL){schoolLogoBackgroundCache.image.src='';schoolLogoBackgroundCache=null;}
+            const geometry=imageURL?[innerWidth,innerHeight,Math.round(rect.left),Math.round(rect.top),Math.round(rect.width),Math.round(rect.height)].join(':'):'';
+            const signature=[theme,pillColor.join(','),backdrop.join(','),geometry,document.body.classList.contains('bg-darken'),schoolLogoWhiteFailed].join('|');
+            if(signature===schoolLogoContrastSignature&&imageURL===schoolLogoContrastImageURL)return;
+            // Opaque-enough surfaces have a determinate text color without sampling any image.
+            const darkest=schoolLogoTextShouldBeWhite(pillColor,[0,0,0]),lightest=schoolLogoTextShouldBeWhite(pillColor,[255,255,255]);
+            if(imageURL&&darkest!==lightest){try{backdrop=await schoolLogoBackdropSample(imageURL,rect,backdrop);}catch(error){/* Keep the theme estimate for unreadable external images. */}}
+            if(generation!==schoolLogoContrastGeneration)return;
+            if(document.body.classList.contains('bg-darken'))backdrop=backdrop.map(value=>value*.65);
+            const white=!schoolLogoWhiteFailed&&schoolLogoTextShouldBeWhite(pillColor,backdrop,pill.dataset.schoolLogoVariant);
+            const desired=white?SCHOOL_LOGO_WHITE_URL:DEFAULT_LOGO_URL;
+            schoolLogoContrastSignature=signature;schoolLogoContrastImageURL=imageURL;pill.dataset.schoolLogoVariant=white?'white':'original';
+            if(logo.getAttribute('src')!==desired)logo.src=desired;
+        }
         function applySchoolPillSettings() {
             const showLogo = localStorage.getItem('dashboardShowSchoolLogo') !== 'false';
             const showName = localStorage.getItem('dashboardShowSchoolName') === 'true';
@@ -3871,7 +3941,20 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             if (pill) pill.classList.remove('hidden');
             if (logoToggle) logoToggle.checked = showLogo;
             if (nameToggle) nameToggle.checked = showName;
+            scheduleSchoolLogoContrast();
         }
+        const schoolLogoContrastObserver=new MutationObserver(()=>scheduleSchoolLogoContrast());
+        schoolLogoContrastObserver.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','data-weather-design']});
+        schoolLogoContrastObserver.observe(document.body,{attributes:true,attributeFilter:['style','class']});
+        schoolLogoContrastObserver.observe(document.getElementById('dynamic-bottom-bar'),{attributes:true,attributeFilter:['style','class']});
+        schoolLogoContrastObserver.observe(schoolLogoImg,{attributes:true,attributeFilter:['src']});
+        schoolLogoImg.addEventListener('load',()=>scheduleSchoolLogoContrast());
+        document.body.addEventListener('transitionend',event=>{if(event.target===document.body&&event.propertyName.startsWith('background'))scheduleSchoolLogoContrast();});
+        document.getElementById('dynamic-bottom-bar').addEventListener('transitionend',event=>{if(event.target.id==='dynamic-bottom-bar'&&event.propertyName==='background-color')scheduleSchoolLogoContrast();});
+        window.addEventListener('standby-theme-change',()=>scheduleSchoolLogoContrast());
+        window.addEventListener('resize',()=>scheduleSchoolLogoContrast(120),{passive:true});
+        window.addEventListener('standby-safe-margins-change',()=>scheduleSchoolLogoContrast(120));
+        window.addEventListener('school-profile-updated',()=>scheduleSchoolLogoContrast(120));
         function updateMusicBarVisibility() {
             const schoolView = document.getElementById('school-view');
             const musicView = document.getElementById('music-view');
@@ -5421,7 +5504,10 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             
             const savedLogo = localStorage.getItem('dashboardLogo');
             schoolLogoImg.src = savedLogo || DEFAULT_LOGO_URL;
-            schoolLogoImg.onerror = () => { schoolLogoImg.src = DEFAULT_LOGO_URL; };
+            schoolLogoImg.onerror = () => {
+                if(schoolLogoImg.src===new URL(SCHOOL_LOGO_WHITE_URL,location.href).href)schoolLogoWhiteFailed=true;
+                if(schoolLogoImg.getAttribute('src')!==DEFAULT_LOGO_URL)schoolLogoImg.src=DEFAULT_LOGO_URL;
+            };
 
             const savedSchoolName = localStorage.getItem('dashboardSchoolName') || '대륜고등학교';
             updateWeatherLocationLabel(savedSchoolName);
@@ -9117,16 +9203,16 @@ body.bg-darken #settings-modal::before,body.bg-darken #settings-modal .glass-sec
 .notification-preview-icon{width:20px;height:20px;flex:0 0 20px}
 .notification-preview-title{flex:0 1 auto;max-width:35%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:750}
 .notification-preview-message{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
-#custom-notification-container.notification-list{top:calc(var(--safe-top,0px) + 48px)!important;left:var(--notification-center,25%)!important;z-index:2147483647!important;transform:translateX(-50%);width:max-content!important;max-width:var(--notification-max-width,calc(100vw - 32px))!important;max-height:calc(100dvh - var(--safe-top,0px) - var(--safe-bottom,0px) - 64px)!important;padding:4px!important;box-sizing:border-box;overflow:auto!important;overscroll-behavior:contain;align-items:center!important;scrollbar-width:thin!important;isolation:isolate;border-radius:24px}
+#custom-notification-container.notification-list{top:calc(var(--safe-top,0px) + 48px)!important;left:var(--notification-center,25%)!important;z-index:2147483647!important;transform:translateX(-50%);width:max-content!important;max-width:var(--notification-max-width,calc(100vw - 32px))!important;max-height:calc(100dvh - var(--safe-top,0px) - var(--safe-bottom,0px) - 64px)!important;padding:4px!important;box-sizing:border-box;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;align-items:center!important;scrollbar-width:thin!important;isolation:isolate;border-radius:24px}
 #custom-notification-container.notification-list.open::before{content:none!important}
-#custom-notification-container .notification-card{max-width:var(--notification-max-width,calc(100vw - 32px))!important;flex-shrink:0;box-sizing:border-box;cursor:pointer}
+#custom-notification-container .notification-card{min-width:0!important;max-width:100%!important;flex-shrink:0;box-sizing:border-box;cursor:pointer}
 #custom-notification-container .notification-card>p{min-width:0;max-width:none!important;white-space:normal;overflow-wrap:anywhere!important}
 #custom-notification-container .notification-card .notification-source-title{max-width:130px}
 #custom-notification-container .notification-card .notification-card-source{flex-shrink:1!important;min-width:0}
 #custom-notification-container .notification-card:focus-visible{outline:2px solid var(--settings-accent,#70c4df)!important;outline-offset:-3px}
 #custom-notification-container .notification-empty{cursor:default;font-size:14px;color:#fff!important;text-align:center}
 #custom-notification-container:has(.notification-pill-actions){min-width:min(400px,var(--notification-max-width))!important}
-#custom-notification-container .notification-pill-actions{position:sticky;bottom:0;z-index:2;display:flex;align-self:stretch!important;justify-content:flex-end;min-height:34px;padding-right:2px;padding-bottom:2px;flex-shrink:0;width:100%!important}
+#custom-notification-container .notification-pill-actions{box-sizing:border-box;min-width:0;position:sticky;bottom:0;z-index:2;display:flex;align-self:stretch!important;justify-content:flex-end;min-height:34px;padding-right:2px;padding-bottom:2px;flex-shrink:0;width:100%!important}
 #custom-notification-pill.notification-preview-entering{animation:notificationPreviewIn .8s cubic-bezier(.2,.75,.25,1) both}
 #custom-notification-pill.notification-preview-closing{animation:notificationPreviewOut .42s ease reverse both;pointer-events:none}
 @keyframes notificationPreviewIn{0%{opacity:0;translate:0 -26px;filter:blur(14px)}55%{opacity:.68;filter:blur(5px)}100%{opacity:1;translate:0 0;filter:blur(0)}}

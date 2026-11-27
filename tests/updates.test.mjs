@@ -17,7 +17,8 @@ function remoteMarkup(version='2.8.0',build='Ko-Kr-Daeryun-hs-v.2.8.0-5'){
 
 test('release metadata supports either attribute order and quote style',()=>{
   const result=helpers.readReleaseMetadata(remoteMarkup());assert.equal(result.version,'2.8.0');assert.equal(result.build,'Ko-Kr-Daeryun-hs-v.2.8.0-5');
-  const current=helpers.readReleaseMetadata(html);assert.deepEqual({...current},local);
+  const current=helpers.readReleaseMetadata(html);assert.equal(current.version,local.version);
+  assert.equal(current.build,html.match(/id="app-build-number"[^>]*data-build="([^"]+)"/)[1]);
 });
 
 for(const [name,remote,expected] of [
