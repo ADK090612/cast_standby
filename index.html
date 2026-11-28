@@ -1043,6 +1043,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         <div class="weather-diagnostics-heading"><strong>구름·강수 진단</strong><button type="button" id="weather-diagnostics-close" aria-label="구름 진단 닫기">×</button></div>
         <pre id="weather-render-diagnostics-output" class="weather-diagnostics-data"></pre>
     </aside>
+    <aside id="developer-performance-overlay" hidden aria-label="개발자 성능 표시"><div class="developer-performance-heading"><strong>실시간 성능</strong><button type="button" id="developer-performance-close" aria-label="성능 표시 닫기">×</button></div><pre id="developer-performance-output"></pre></aside>
     <!-- weather-diagnostics-overlay-end -->
 
     <div id="default-animated-bg">
@@ -1296,8 +1297,18 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <!-- release-v2.8.0-start -->
                                 <div>
                                     <h5 class="font-bold text-blue-300 text-lg">v2.8.0</h5>
-                                    <p class="text-xs text-gray-400 mt-1">2026.11.27 · 빌드 Ko-Kr-Daeryun-hs-v.2.8.0-5</p>
+                                    <p class="text-xs text-gray-400 mt-1">2026.11.28 · 빌드 Ko-Kr-Daeryun-hs-v.2.8.0-8</p>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>개발자 옵션에서 새 버전·새 빌드 비교와 강제 업데이트 카운트다운·건너뛰기·적용 준비를 실제 로직으로 시험하고 종료 시 기존 상태 복원</li>
+                                        <li>개발자 옵션을 켠 동안에만 진단 모듈을 불러오고 API 원본·실행 로그·FPS·성능 수집을 선택적으로 실행</li>
+                                        <li>API 원본 응답당 64KB·최근 20개 및 로그 최근 100개로 기록량을 제한하고 성능 표시를 초당 1회 갱신, 비활성·숨김 시 수집 및 측정 종료</li>
+                                        <li>라이트 모드의 오프라인 아이콘과 알림 배경·본문·버튼 색을 기존 UI 테마와 통일</li>
+                                        <li>브라우저 캐싱과 캐시 업데이트를 알림·설정 화면에서 일시 정지·재개·취소하고 취소 시 기존 캐시 유지</li>
+                                        <li>글자만 바뀔 때 CSS 유틸리티 전체 탐색을 생략하고 버전 감시 범위를 줄여 반복 연산 감소</li>
+                                        <li>마우스 근접 처리와 알림 드래그를 프레임 단위로 묶고 진행률 UI의 동일 값 쓰기 및 반복 DOM 탐색 감소</li>
+                                        <li>캐시 다운로드·ZIP 생성 진행률을 하나의 알림에서 갱신하고 완료·실패 상태 및 관련 설정 바로가기 제공</li>
+                                        <li>SVG 로고가 포함된 리소스 목록을 허용하여 캐시 목록 오류 수정, 일시적인 HTTP 503·연결 오류는 간격을 두고 최대 2회 재시도하며 실패 시 기존 캐시 유지</li>
+                                        <li>진행 알림의 내용만 갱신하여 반복 팝업·목록 재생성을 줄이고 시스템 초기화 및 데이터 백업 제목을 왼쪽 정렬</li>
                                         <li>One UI 공식 디자인 가이드와 One UI 9 공개 빠른 설정 이미지를 참고한 빠른 설정 패널 추가</li>
                                         <li>알림(¼)과 빠른 설정(¾) 손잡이의 동일한 280×64px 영역에서 클릭·내림 제스처로 열기, 빠른 설정 우측 상단 아이콘으로 전체 설정 이동</li>
                                         <li>날씨·시간대 반영, 오로라, 일정 알림, 저사양 모드, 학교 표시, 천구 회전, 알림 음량 등을 기존 설정과 양방향 연결</li>
@@ -1930,6 +1941,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <div class="offline-version-row"><span>최신 버전</span><span id="offline-cache-latest-version">—</span></div>
                                 <button id="offline-cache-check-update-btn" class="glass-button w-full" type="button">캐시 최신 버전 확인</button>
                                 <button id="offline-cache-apply-update-btn" class="glass-button w-full" type="button" disabled>캐시 업데이트</button>
+                                <div class="offline-cache-actions" data-offline-cache-controls hidden><button type="button" class="glass-button" data-offline-cache-action="pause">일시 정지</button><button type="button" class="glass-button" data-offline-cache-action="cancel">취소</button></div>
                                 <div class="operation-progress offline-progress" data-offline-progress hidden><div class="operation-progress-time"><span id="offline-cache-update-status" role="status" aria-live="polite"></span><span class="operation-progress-value" data-offline-progress-value></span></div><div class="operation-progress-track" data-offline-progress-track role="progressbar" aria-label="캐시 작업 진행률" aria-valuemin="0" aria-valuemax="100" hidden><span class="operation-progress-fill" data-offline-progress-fill></span></div></div>
                             </div>
                             </div>
@@ -1937,6 +1949,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <div class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">브라우저 / PWA 캐싱</h5>
                                 <button id="offline-cache-btn" class="glass-button w-full" type="button">브라우저에 캐싱</button>
+                                <div class="offline-cache-actions" data-offline-cache-controls hidden><button type="button" class="glass-button" data-offline-cache-action="pause">일시 정지</button><button type="button" class="glass-button" data-offline-cache-action="cancel">취소</button></div>
                                 <button id="offline-cache-clear-btn" class="glass-button w-full" type="button">브라우저 캐시 삭제</button>
                             </div>
                             <div class="glass-section p-4 space-y-3">
@@ -1987,7 +2000,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <h5 class="software-info-title">소프트웨어 정보</h5>
                                 <div class="software-info-list">
                                     <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.8.0">2.8.0</p></div>
-                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.8.0-5">Ko-Kr-Daeryun-hs-v.2.8.0-5</p></div>
+                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.8.0-8">Ko-Kr-Daeryun-hs-v.2.8.0-8</p></div>
                                     <div class="software-info-row"><span>기반</span><span>HTML5</span></div>
                                     <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
                                     <div class="software-info-row"><span>실행 환경</span><span id="software-runtime-info">브라우저</span></div>
@@ -2004,15 +2017,27 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             <!-- weather-diagnostics-card-start -->
                             <section class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">구름·강수 렌더링 진단</h5>
-                                <label class="flex items-center gap-2 text-sm"><input id="dev-weather-diagnostics-toggle" type="checkbox">구름·강수 진단 표시</label>
+                                <label class="glass-checkbox-label"><input id="dev-weather-diagnostics-toggle" type="checkbox" class="glass-checkbox-input"><span class="glass-checkbox-box"></span><span>구름·강수 진단 표시</span></label>
                                 <p class="text-xs text-white/60">구름 수·유입 위치, 강수 준비 시간, 색상 전환, 작업 스레드 상태와 프레임 처리 시간을 확인합니다. 설정을 닫으면 화면 왼쪽 아래에 표시됩니다. 끄면 데이터 수집도 중지됩니다.</p>
                                 <pre id="dev-weather-diagnostics-output" class="weather-diagnostics-data">진단 표시가 꺼져 있습니다.</pre>
                             </section>
                             <!-- weather-diagnostics-card-end -->
                             <section class="glass-section p-4 space-y-3">
-                                <h5 class="font-semibold">업데이트 알림</h5>
-                                <div class="flex flex-wrap items-end gap-2"><label class="text-sm space-y-1">가상 최신 버전<input id="dev-update-version" class="glass-input w-full" value="99.0.0"></label><button type="button" id="dev-show-update" class="glass-button">높은 버전 알림 표시</button><button type="button" id="dev-hide-update" class="glass-button">알림 닫기</button></div>
-                                <p id="dev-update-status" class="text-xs text-white/60" aria-live="polite">실제 업데이트 확인이나 자동 설치를 실행하지 않습니다.</p>
+                                <h5 class="font-semibold">업데이트·강제 적용 시뮬레이션</h5>
+                                <div class="flex flex-wrap gap-3"><label class="flex-1 text-sm space-y-1">가상 최신 버전<input id="dev-update-version" class="glass-input w-full" value="99.0.0"></label><label class="flex-1 text-sm space-y-1">가상 빌드 번호<input id="dev-update-build" class="glass-input w-full" placeholder="비우면 버전만 비교"></label><label class="text-sm space-y-1">강제 적용 대기<select id="dev-update-delay" class="glass-input w-full"><option value="10">10초</option><option value="60">1분</option><option value="3600">1시간</option></select></label></div>
+                                <div class="flex flex-wrap gap-2"><button type="button" id="dev-update-next-build" class="glass-button">현재 버전·다음 빌드 채우기</button><button type="button" id="dev-show-update" class="glass-button">업데이트 감지 시험</button><button type="button" id="dev-force-update" class="glass-button">강제 업데이트 시험</button><button type="button" id="dev-update-expire" class="glass-button" disabled>남은 시간 건너뛰기</button><button type="button" id="dev-hide-update" class="glass-button">시뮬레이션 종료</button></div>
+                                <p class="text-xs text-white/60">실제 버전·빌드 비교, 알림, 카운트다운과 적용 준비 흐름을 사용합니다. 시험 중에는 파일 설치·새로고침을 실행하지 않으며 저장된 업데이트 설정도 바꾸지 않습니다.</p>
+                                <p id="dev-update-status" class="text-xs text-white/60" aria-live="polite">시뮬레이션 대기 중입니다.</p>
+                                <p id="dev-update-countdown" class="developer-diagnostics-output" hidden></p>
+                            </section>
+                            <section class="glass-section p-4 space-y-3" id="dev-runtime-diagnostics">
+                                <h5 class="font-semibold">API 원본·실행 로그·성능</h5>
+                                <div class="flex flex-wrap gap-4 text-sm"><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-api-recording"><span class="glass-checkbox-box"></span><span>API 원본 기록</span></label><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-log-recording"><span class="glass-checkbox-box"></span><span>실행 로그 기록</span></label><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-performance-enabled"><span class="glass-checkbox-box"></span><span>FPS·성능 측정</span></label><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-performance-overlay"><span class="glass-checkbox-box"></span><span>화면에 성능 표시</span></label></div>
+                                <p class="text-xs text-white/60">기록을 켠 이후 요청부터 확인합니다. 원본은 응답당 최대 64KB·최근 20개, 로그는 최근 100개를 메모리에 보관합니다. 성능 표시는 초당 1회 갱신하며 숨긴 화면의 측정은 중지합니다.</p>
+                                <pre id="dev-runtime-metrics" class="developer-diagnostics-output">성능 측정이 꺼져 있습니다.</pre>
+                                <div class="flex flex-wrap gap-2"><label class="flex-1 text-sm">기록<select id="dev-diagnostics-kind" class="glass-input w-full" data-native-select><option value="api">API 원본 응답</option><option value="log">실행 로그</option></select></label><label class="flex-1 text-sm">항목<select id="dev-diagnostics-entry" class="glass-input w-full" data-native-select><option value="">기록 없음</option></select></label><button type="button" id="dev-diagnostics-clear" class="glass-button">기록 지우기</button></div>
+                                <pre id="dev-diagnostics-detail" class="developer-diagnostics-output">기록할 항목을 켜고 기존 API 조회 기능을 사용하세요.</pre>
+                                <p id="dev-diagnostics-status" class="text-xs text-white/60" aria-live="polite">개발자 옵션을 활성화한 동안만 사용할 수 있습니다.</p>
                             </section>
                             <section class="glass-section p-4 space-y-3">
                                 <h5 class="font-semibold">방송·교시·급식 알림 미리보기</h5>
@@ -2938,6 +2963,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         let autoUpdateCountdownId = null;
         let autoUpdateDueAt = 0;
         let scheduledUpdateVersion = '';
+        let autoUpdateDuration=AUTO_UPDATE_DELAY,autoUpdateSimulation=false,autoUpdateFinalizeId=null,autoUpdateGeneration=0,updateCheckGeneration=0;
 
         function readReleaseMetadata(markup) {
             const attribute=(id,name)=>{
@@ -2968,8 +2994,9 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const remainingText = document.getElementById('update-notification-remaining');
             progress?.classList.remove('hidden');
             updateNotification?.classList.add('has-countdown');
-            if (fill) fill.style.width = `${Math.min(100, Math.max(0, (1 - remaining / AUTO_UPDATE_DELAY) * 100))}%`;
+            if (fill) fill.style.width = `${Math.min(100, Math.max(0, (1 - remaining / autoUpdateDuration) * 100))}%`;
             if (remainingText) remainingText.textContent = `${String(Math.floor(remaining / 60000)).padStart(2, '0')}:${String(Math.floor((remaining % 60000) / 1000)).padStart(2, '0')}`;
+            if(autoUpdateSimulation&&developerOptionsEnabled){const output=document.getElementById('dev-update-countdown');if(output){output.hidden=false;output.textContent='강제 적용까지 '+remainingText.textContent+' · '+Math.round((1-remaining/autoUpdateDuration)*100)+'%';}}
             if (remaining <= 0 && autoUpdateCountdownId !== null) { clearInterval(autoUpdateCountdownId); autoUpdateCountdownId = null; }
         }
         function clearAutoUpdateCountdown() {
@@ -2982,46 +3009,67 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const remainingText = document.getElementById('update-notification-remaining');
             if (fill) fill.style.width = '0%';
             if (remainingText) remainingText.textContent = '60:00';
+            const simulated=document.getElementById('dev-update-countdown');if(simulated)simulated.hidden=true;
         }
         function cancelScheduledAutoUpdate() {
             if (autoUpdateReloadId !== null) clearTimeout(autoUpdateReloadId);
+            if(autoUpdateFinalizeId!==null)clearTimeout(autoUpdateFinalizeId);
+            autoUpdateFinalizeId=null;autoUpdateGeneration++;
             autoUpdateReloadId = null;
             clearAutoUpdateCountdown();
             scheduledUpdateVersion = '';
+            autoUpdateSimulation=false;autoUpdateDuration=AUTO_UPDATE_DELAY;
+            const skip=document.getElementById('dev-update-expire');if(skip)skip.disabled=true;
         }
-        function scheduleAutoUpdate(version,build='') {
+        function scheduleAutoUpdate(version,build='',options={}) {
             const identity=version+'|'+build,label=releaseLabel(version,build);
-            if (!isAutoUpdateEnabled() || !version || scheduledUpdateVersion === identity) return;
+            const simulation=options.simulation===true;
+            if ((!simulation&&!isAutoUpdateEnabled()) || !version || (scheduledUpdateVersion === identity&&autoUpdateSimulation===simulation)) return;
             cancelScheduledAutoUpdate();
+            autoUpdateSimulation=simulation;autoUpdateDuration=simulation?Math.max(1000,Math.min(AUTO_UPDATE_DELAY,Number(options.delayMs)||10000)):AUTO_UPDATE_DELAY;
             scheduledUpdateVersion = identity;
-            autoUpdateDueAt = Date.now() + AUTO_UPDATE_DELAY;
+            autoUpdateDueAt = options.dueAt??(Date.now() + autoUpdateDuration);
             updateAutoUpdateCountdown();
             autoUpdateCountdownId = setInterval(updateAutoUpdateCountdown, 1000);
-            autoUpdateReloadId = setTimeout(() => {
-                autoUpdateReloadId = null;
-                if (!isAutoUpdateEnabled()) return;
-                updateAutoUpdateCountdown();
-                const headerText = updateNotificationHeader?.querySelector('.font-semibold');
-                if (headerText) headerText.textContent = '업데이트 준비 중...';
-                updateNotification?.classList.remove('hidden');
-                updateNotification?.classList.add('flex');
-                const statusText = document.getElementById('update-status-text');
-                if (statusText) statusText.textContent = `${label} 업데이트를 적용하기 위해 새로고침합니다.`;
-                setTimeout(() => { if (isAutoUpdateEnabled()) window.location.reload(); }, 2500);
-            }, AUTO_UPDATE_DELAY);
+            const generation=autoUpdateGeneration;
+            autoUpdateReloadId = setTimeout(()=>beginScheduledUpdate(version,build,generation),Math.max(0,autoUpdateDueAt-Date.now()));
+            if(simulation){developerUpdatePhase='countdown';const skip=document.getElementById('dev-update-expire');if(skip)skip.disabled=false;}
+        }
+        function beginScheduledUpdate(version,build,generation) {
+            if(generation!==autoUpdateGeneration||(!autoUpdateSimulation&&!isAutoUpdateEnabled()))return;
+            if(autoUpdateReloadId!==null)clearTimeout(autoUpdateReloadId);autoUpdateReloadId=null;
+            autoUpdateDueAt=Date.now();updateAutoUpdateCountdown();
+            const simulation=autoUpdateSimulation,label=releaseLabel(version,build);
+            const header=updateNotificationHeader?.querySelector('.font-semibold');if(header)header.textContent='업데이트 준비 중...';
+            updateNotification?.classList.remove('hidden');updateNotification?.classList.add('flex');
+            const status=document.getElementById('update-status-text');if(status)status.textContent=simulation?`시험: ${label} 적용 준비 중입니다.`:`${label} 업데이트를 적용하기 위해 새로고침합니다.`;
+            if(simulation){developerUpdatePhase='preparing';document.getElementById('dev-update-expire').disabled=true;document.getElementById('dev-update-status').textContent='강제 적용 준비 중 · 2.5초 뒤 시험 완료';}
+            autoUpdateFinalizeId=setTimeout(()=>{
+                autoUpdateFinalizeId=null;if(generation!==autoUpdateGeneration)return;
+                if(simulation){
+                    if(!developerUpdateSimulationActive||!developerOptionsEnabled)return;
+                    developerUpdatePhase='complete';
+                    if(header)header.textContent='업데이트 시험 완료';
+                    if(status)status.textContent=`시험 완료: ${label} 강제 적용 흐름을 확인했습니다.`;
+                    document.getElementById('dev-update-status').textContent='강제 업데이트 시험 완료 · 실제 설치·새로고침 없음';
+                    window.ADKDiagnostics?.record('update','강제 업데이트 시뮬레이션 완료');
+                }else if(isAutoUpdateEnabled())window.location.reload();
+            },2500);
         }
         function configureAutoUpdate(enabled) {
             localStorage.setItem('dashboardAutoUpdateEnabled', String(enabled));
             if (autoUpdateIntervalId !== null) clearInterval(autoUpdateIntervalId);
             autoUpdateIntervalId = null;
-            if (!enabled) { cancelScheduledAutoUpdate(); return; }
+            if (!enabled) { if(!autoUpdateSimulation)cancelScheduledAutoUpdate(); return; }
             if (autoUpdateIntervalId === null) autoUpdateIntervalId = setInterval(() => checkForUpdates(), AUTO_UPDATE_INTERVAL);
         }
 
         let showPastSchedules = false; // 이전 일정 보기 상태 변수
 
-        async function checkForUpdates(manual = false) {
-            if (!manual) {
+        async function checkForUpdates(manual = false,simulation=null) {
+            if(developerUpdateSimulationActive&&!simulation)return;
+            const generation=updateCheckGeneration;
+            if (!manual&&!simulation) {
                 const snoozeUntil = parseInt(localStorage.getItem('dashboardUpdateSnooze') || '0', 10);
                 if (snoozeUntil === -1 || Date.now() < snoozeUntil) {
                     return; 
@@ -3029,12 +3077,16 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             }
 
             try {
-                const remoteRes = await fetch(UPDATE_URL + '?t=' + new Date().getTime());
-                if (!remoteRes.ok) throw new Error('Remote fetch failed');
-                const remoteHtml = await remoteRes.text();
+                let remote;
+                if(simulation)remote=simulation.remote;
+                else{
+                    const remoteRes = await fetch(UPDATE_URL + '?t=' + new Date().getTime());
+                    if (!remoteRes.ok) throw new Error('Remote fetch failed');
+                    remote=readReleaseMetadata(await remoteRes.text());
+                }
+                if(generation!==updateCheckGeneration)return;
 
                 const local={version:document.getElementById('app-version-text')?.getAttribute('data-version')||'0.0.0',build:document.getElementById('app-build-number')?.getAttribute('data-build')||''};
-                const remote=readReleaseMetadata(remoteHtml);
                 const remoteVersion=remote.version,remoteBuild=remote.build;
                 const localLabel=releaseLabel(local.version,local.build),remoteLabel=releaseLabel(remoteVersion,remoteBuild);
                 const isUpdateAvailable=releaseUpdateAvailable(local,remote);
@@ -3046,12 +3098,13 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                     const installBtn = document.getElementById('install-update-btn');
                     if(installBtn) installBtn.classList.remove('hidden');
 
-                    if (isAutoUpdateEnabled()) scheduleAutoUpdate(remoteVersion,remoteBuild);
+                    const automatic=simulation?simulation.force:isAutoUpdateEnabled();
+                    if (automatic){if(simulation)scheduleAutoUpdate(remoteVersion,remoteBuild,{simulation:true,delayMs:simulation.delayMs});else scheduleAutoUpdate(remoteVersion,remoteBuild);}
                     const headerText = updateNotificationHeader?.querySelector('.font-semibold');
                     if (headerText) headerText.textContent = '업데이트 준비 중...';
-                    if (updateNotificationHeader) updateNotificationHeader.title = isAutoUpdateEnabled() ? `${remoteLabel} 업데이트가 있습니다. 1시간 뒤 자동 새로고침됩니다.` : `${remoteLabel} 업데이트가 있습니다.`;
+                    if (updateNotificationHeader) updateNotificationHeader.title = simulation?`시험: ${remoteLabel}${automatic?' · 강제 적용 카운트다운':''}`:automatic ? `${remoteLabel} 업데이트가 있습니다. 1시간 뒤 자동 새로고침됩니다.` : `${remoteLabel} 업데이트가 있습니다.`;
                     const updateStatus = document.getElementById('update-status-text');
-                    if (updateStatus && isAutoUpdateEnabled()) updateStatus.textContent = `새로운 업데이트(${remoteLabel})가 있습니다. 설치하지 않으면 1시간 뒤 자동으로 새로고침됩니다.`;
+                    if (updateStatus && automatic) updateStatus.textContent = simulation?`시험: ${remoteLabel} · ${Math.round(simulation.delayMs/1000)}초 뒤 강제 적용 흐름을 실행합니다.`:`새로운 업데이트(${remoteLabel})가 있습니다. 설치하지 않으면 1시간 뒤 자동으로 새로고침됩니다.`;
                     if (!manual) {
                         updateNotification.classList.remove('hidden');
                         updateNotification.classList.add('flex');
@@ -3066,6 +3119,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                     if (manual) alert(`현재 최신 버전(${localLabel})을 사용 중입니다.`);
                 }
             } catch (error) {
+                if(generation!==updateCheckGeneration)return;
                 console.error("업데이트 확인 실패:", error);
                 const statusText = document.getElementById('update-status-text');
                 if(statusText) statusText.textContent = '서버에 연결할 수 없습니다.';
@@ -3119,7 +3173,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         autoUpdateToggle.addEventListener('change', event => configureAutoUpdate(event.target.checked));
 
         document.getElementById('install-update-btn').addEventListener('click', () => {
-            if (developerUpdateSimulationActive) { const statusText=document.getElementById('update-status-text'); if(statusText) statusText.textContent='테스트용 가상 업데이트입니다. 실제 설치는 진행하지 않았습니다.'; return; }
+            if (developerUpdateSimulationActive) { applyDeveloperUpdateNow();return; }
             cancelScheduledAutoUpdate();
             if (window.location.protocol === 'file:') {
                 alert("현재 내 컴퓨터(로컬 파일)에서 실행 중이므로 자동 덮어쓰기가 불가능합니다.\n오른쪽 상단 알림 메뉴에서 [새 HTML 다운로드] 또는 [GitHub로 이동]을 선택해주세요.");
@@ -3277,6 +3331,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         let developerClockOverride = null, developerTimeZone = 'Asia/Seoul';
         let developerWeatherOverride = null, developerMealOverride = null, developerScheduleOverride = null;
         let developerTapCount = 0, developerLastTapAt = 0, developerOptionsEnabled = false, developerBroadcastPreviewActive = false, developerUpdateSimulationActive = false, developerUpdateStatusBefore = null, developerUpdateNotificationWasVisible = null, developerUpdateTitleBefore = null, developerUpdateHeaderBefore = null, developerInstallButtonWasVisible = null, developerInstallButtonContent = null;
+        let developerUpdateScheduleBefore=null,developerUpdatePhase='',developerUpdateTarget=null,developerRuntimePromise=null;
+        window.__dashboardDeveloperOptionsEnabled=()=>developerOptionsEnabled;
         function getDeveloperNow() { return developerClockOverride ? new Date(developerClockOverride.timestamp + Date.now() - developerClockOverride.startedAt) : new Date(); }
         window.__dashboardDeveloperNow = getDeveloperNow;
         window.__dashboardDeveloperClockActive = () => developerClockOverride !== null;
@@ -4466,6 +4522,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         }
 
         const SETTINGS_ZONE_RATIO = 0.20;
+        let settingsProximityFrame=0,settingsProximityPointer=null;
+        function scheduleSettingsButtonProximity(event){
+            settingsProximityPointer={clientX:event.clientX,clientY:event.clientY};
+            if(settingsProximityFrame)return;
+            settingsProximityFrame=requestAnimationFrame(()=>{settingsProximityFrame=0;updateSettingsButtonProximity(settingsProximityPointer);});
+        }
         function updateSettingsButtonProximity(e) {
             const control=document.getElementById('notification-control'),handle=document.getElementById('notification-toggle');
             const area=document.querySelector('.screen')?.getBoundingClientRect();
@@ -4557,6 +4619,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
 
         function clearDeveloperUpdateSimulation() {
             if(!developerUpdateSimulationActive)return;
+            const prior=developerUpdateScheduleBefore;cancelScheduledAutoUpdate();updateCheckGeneration++;
             if(developerUpdateNotificationWasVisible===true) { updateNotification?.classList.remove('hidden'); updateNotification?.classList.add('flex'); }
             else { updateNotification?.classList.add('hidden'); updateNotification?.classList.remove('flex'); }
             if(updateNotificationHeader&&developerUpdateTitleBefore!==null) updateNotificationHeader.title=developerUpdateTitleBefore;
@@ -4570,23 +4633,64 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const updateStatus=document.getElementById('update-status-text');
             if(updateStatus&&developerUpdateStatusBefore!==null) updateStatus.innerHTML=developerUpdateStatusBefore;
             developerUpdateSimulationActive=false; developerUpdateStatusBefore=null; developerUpdateNotificationWasVisible=null; developerUpdateTitleBefore=null; developerUpdateHeaderBefore=null; developerInstallButtonWasVisible=null; developerInstallButtonContent=null;
+            developerUpdateScheduleBefore=null;developerUpdateTarget=null;developerUpdatePhase='';
+            if(prior&&isAutoUpdateEnabled())scheduleAutoUpdate(prior.version,prior.build,{dueAt:prior.dueAt});
+        }
+        async function startDeveloperUpdateSimulation(force=false) {
+            if(!developerOptionsEnabled)return;
+            const version=document.getElementById('dev-update-version').value.trim(),build=document.getElementById('dev-update-build').value.trim();
+            const output=document.getElementById('dev-update-status');
+            if(!/^\d+(?:\.\d+)*$/.test(version)){output.textContent='가상 버전을 숫자와 점으로 입력하세요.';return;}
+            clearDeveloperUpdateSimulation();
+            const parts=scheduledUpdateVersion.split('|');
+            developerUpdateScheduleBefore=scheduledUpdateVersion&&!autoUpdateSimulation?{version:parts.shift(),build:parts.join('|'),dueAt:autoUpdateDueAt}:null;
+            developerUpdateNotificationWasVisible=!updateNotification.classList.contains('hidden');developerUpdateTitleBefore=updateNotificationHeader.title;
+            developerUpdateHeaderBefore=updateNotificationHeader.querySelector('.font-semibold')?.textContent||'';
+            const install=document.getElementById('install-update-btn');developerInstallButtonWasVisible=!install.classList.contains('hidden');developerInstallButtonContent=install.innerHTML;
+            developerUpdateStatusBefore=document.getElementById('update-status-text').innerHTML;
+            cancelScheduledAutoUpdate();updateCheckGeneration++;developerUpdateSimulationActive=true;developerUpdateTarget={version,build};developerUpdatePhase='detected';
+            const generation=updateCheckGeneration,delayMs=Number(document.getElementById('dev-update-delay').value)*1000;
+            await checkForUpdates(false,{remote:developerUpdateTarget,force,delayMs});
+            if(!developerUpdateSimulationActive||generation!==updateCheckGeneration)return;
+            const local={version:document.getElementById('app-version-text').dataset.version,build:document.getElementById('app-build-number').dataset.build};
+            if(!releaseUpdateAvailable(local,developerUpdateTarget)){developerUpdatePhase='current';output.textContent='비교 결과: 새 버전·새 빌드가 없어 강제 업데이트를 예약하지 않았습니다.';return;}
+            install.textContent='시험: 지금 적용';
+            output.textContent=force?`${releaseLabel(version,build)} · ${delayMs/1000}초 강제 적용 카운트다운 시험 중`:`${releaseLabel(version,build)} 업데이트 감지 시험 중 · 설치 버튼으로 적용 흐름 확인`;
+            window.ADKDiagnostics?.record('update',output.textContent);
+        }
+        function applyDeveloperUpdateNow() {
+            if(!developerOptionsEnabled||!developerUpdateSimulationActive||!developerUpdateTarget||['current','preparing','complete'].includes(developerUpdatePhase))return;
+            autoUpdateSimulation=true;
+            beginScheduledUpdate(developerUpdateTarget.version,developerUpdateTarget.build,autoUpdateGeneration);
+        }
+        function enableDeveloperRuntime() {
+            if(!developerOptionsEnabled)return;
+            if(!developerRuntimePromise)developerRuntimePromise=new Promise((resolve,reject)=>{
+                const script=document.createElement('script');script.src='./adk-diagnostics.js';script.onload=()=>resolve();script.onerror=()=>{script.remove();developerRuntimePromise=null;reject(new Error('진단 모듈을 읽지 못했습니다.'));};document.head.append(script);
+            });
+            developerRuntimePromise.then(()=>{if(developerOptionsEnabled)window.ADKDiagnostics?.activate();}).catch(error=>{if(developerOptionsEnabled)document.getElementById('dev-diagnostics-status').textContent=error.message;});
         }
 
         function setDeveloperOptionsEnabled(enabled) {
+            if(!enabled&&developerOptionsEnabled)resetDeveloperSimulations();
             developerOptionsEnabled=enabled;
             const nav=document.getElementById('developer-options-nav');
             nav?.classList.toggle('hidden',!enabled);
             try { if(enabled) sessionStorage.setItem('dashboardDeveloperOptionsEnabled','true'); else sessionStorage.removeItem('dashboardDeveloperOptionsEnabled'); } catch {}
-            if(enabled) switchSettingsView('developer-options');
+            if(enabled){switchSettingsView('developer-options');populateDeveloperBroadcastPreviews();enableDeveloperRuntime();}
             else if(currentSettingsView==='developer-options') switchSettingsView('info');
+            if(!enabled)window.ADKDiagnostics?.deactivate();
+            window.dispatchEvent(new CustomEvent('standby-developer-options-change',{detail:{enabled}}));
         }
 
         function resetDeveloperSimulations() {
+            const restoreClock=!!developerClockOverride,restoreWeather=!!developerWeatherOverride,restoreMeal=!!developerMealOverride,restoreSchedules=!!developerScheduleOverride;
             if(developerBroadcastPreviewActive){developerBroadcastPreviewActive=false;finishBroadcast(false);const stop=document.getElementById('dev-stop-broadcast-preview');if(stop)stop.disabled=true;}
             developerClockOverride=null; developerTimeZone='Asia/Seoul';
             developerWeatherOverride=null; developerMealOverride=null; developerScheduleOverride=null;
             window.__dashboardDeveloperSceneOverride=null;
             clearDeveloperUpdateSimulation();
+            window.ADKDiagnostics?.reset();
             document.getElementById('dev-timezone').value='Asia/Seoul';
             document.getElementById('dev-update-status').textContent='테스트 알림을 초기화했습니다.';
             document.getElementById('dev-disaster-status').textContent='대구광역시 수성구 재난 문자를 5분마다 조회합니다.';
@@ -4595,11 +4699,12 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             document.getElementById('dev-meal-status').textContent='실제 급식 API 응답을 다시 사용합니다.';
             document.getElementById('dev-schedule-status').textContent='실제 학사 일정 API 응답을 다시 사용합니다.';
             document.getElementById('dev-scene-status').textContent='날씨 배경 시뮬레이션을 해제했습니다.';
-            updateTime();
-            fetchManchon3DongWeather(); fetchTodayMeal(); fetchApiSchedules();
+            if(restoreClock)updateTime();
+            if(restoreClock||restoreWeather)fetchManchon3DongWeather();if(restoreClock||restoreMeal)fetchTodayMeal();if(restoreClock||restoreSchedules)fetchApiSchedules();
         }
 
         function populateDeveloperBroadcastPreviews(){
+            if(!developerOptionsEnabled)return;
             const select=document.getElementById('dev-broadcast-select');if(!select)return;
             const previous=select.value,items=[];
             broadcastMessages.filter(m=>m&&String(m.text||'').trim()).forEach(m=>items.push({id:'message:'+m.id,label:(m.mode==='scheduled'?'예약 방송':'긴급 방송')+' · '+(m.title||m.category||'알림'),message:{...m}}));
@@ -4614,6 +4719,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             const nav=document.getElementById('developer-options-nav');
             try { developerOptionsEnabled=sessionStorage.getItem('dashboardDeveloperOptionsEnabled')==='true'; } catch { developerOptionsEnabled=false; }
             nav?.classList.toggle('hidden',!developerOptionsEnabled);
+            if(developerOptionsEnabled)enableDeveloperRuntime();
             const devBroadcastSelect=document.getElementById('dev-broadcast-select'),devBroadcastStatus=document.getElementById('dev-broadcast-status'),devBroadcastStop=document.getElementById('dev-stop-broadcast-preview');populateDeveloperBroadcastPreviews();devBroadcastSelect?.addEventListener('focus',populateDeveloperBroadcastPreviews);devBroadcastSelect?.addEventListener('pointerdown',populateDeveloperBroadcastPreviews);
             document.getElementById('dev-preview-broadcast')?.addEventListener('click',()=>{populateDeveloperBroadcastPreviews();const selected=devBroadcastSelect?.value,item=selected?.startsWith('message:')?broadcastMessages.find(m=>'message:'+m.id===selected):selected?.startsWith('bell:')?(()=>{const options=[];bellSchedule?.periods.forEach(p=>[['start','startEvent','시작'],['end','endEvent','종료']].forEach(([edge,key,label])=>{if('bell:period-'+p.number+'-'+edge===selected)options.push({...p[key],title:p.number+'교시 '+label,text:p[key]?.text})}));bellSchedule?.grades.forEach(g=>{if('bell:grade-'+g.grade===selected)options.push({...g.event,title:g.grade+'학년 급식 이동',text:g.event?.text})});return options[0]})():null;if(!item||!String(item.text||'').trim()){devBroadcastStatus.textContent='표시할 방송이나 알림을 선택하세요.';return}if(broadcastActiveMessage&&!developerBroadcastPreviewActive){devBroadcastStatus.textContent='현재 표시 중인 방송을 먼저 종료한 뒤 미리보기할 수 있습니다.';return}developerBroadcastPreviewActive=true;showBroadcastMessage({...item,id:'developer-preview-'+Date.now(),mode:'developer-preview',scheduledAt:0,displayMode:'next',soundType:'off'},'preview');if(devBroadcastStop)devBroadcastStop.disabled=false;devBroadcastStatus.textContent='선택한 알림을 소리 없이 하단 pill에 표시 중입니다.'});
             devBroadcastStop?.addEventListener('click',()=>{if(!developerBroadcastPreviewActive)return;finishBroadcast(false);devBroadcastStop.disabled=true;devBroadcastStatus.textContent='하단 pill 미리보기를 종료했습니다.'});
@@ -4621,28 +4727,16 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
             if(clockInput) clockInput.value=now.toISOString().slice(0,16);
 
-            document.getElementById('dev-show-update')?.addEventListener('click',()=>{
-                const version=document.getElementById('dev-update-version').value.trim()||'99.0.0';
-                const localVersion=document.getElementById('app-version-text')?.dataset.version||'0.0.0';
-                const current=localVersion.split('.').map(Number), candidate=version.split('.').map(Number);
-                const isHigher=version.split('.').every(part=>/^\d+$/.test(part))&&candidate.some((part,index)=>part>(current[index]||0)&&candidate.slice(0,index).every((value,prior)=>value===(current[prior]||0)));
-                if(!isHigher) { document.getElementById('dev-update-status').textContent=`v${version}은 현재 버전 ${localLabel}보다 높은 버전이 아닙니다.`; return; }
-                if(developerUpdateNotificationWasVisible===null) developerUpdateNotificationWasVisible=!updateNotification?.classList.contains('hidden');
-                if(developerUpdateTitleBefore===null) developerUpdateTitleBefore=updateNotificationHeader?.title||'';
-                const header=updateNotificationHeader?.querySelector('.font-semibold');
-                if(developerUpdateHeaderBefore===null) developerUpdateHeaderBefore=header?.textContent||'';
-                const installButton=document.getElementById('install-update-btn');
-                if(installButton&&developerInstallButtonWasVisible===null) { developerInstallButtonWasVisible=!installButton.classList.contains('hidden'); developerInstallButtonContent=installButton.innerHTML; }
-                developerUpdateSimulationActive=true;
-                if(header) header.textContent='업데이트 준비 중...';
-                if(updateNotificationHeader) updateNotificationHeader.title=`테스트용 가상 업데이트 v${version}`;
-                updateNotification?.classList.remove('hidden'); updateNotification?.classList.add('flex');
-                if(installButton) { installButton.classList.remove('hidden'); installButton.textContent='테스트: 설치 동작 확인'; }
-                const updateStatus=document.getElementById('update-status-text');
-                if(updateStatus) { if(developerUpdateStatusBefore===null) developerUpdateStatusBefore=updateStatus.innerHTML; updateStatus.textContent=`테스트: 더 높은 버전 v${version}이 있는 상황입니다.`; }
-                document.getElementById('dev-update-status').textContent=`테스트 알림 표시 중 · 가상 버전 v${version} (실제 업데이트 비교·설치는 하지 않음)`;
+            document.getElementById('dev-show-update')?.addEventListener('click',()=>startDeveloperUpdateSimulation(false));
+            document.getElementById('dev-force-update')?.addEventListener('click',()=>startDeveloperUpdateSimulation(true));
+            document.getElementById('dev-update-expire')?.addEventListener('click',()=>{if(developerUpdatePhase==='countdown')applyDeveloperUpdateNow();});
+            document.getElementById('dev-update-next-build')?.addEventListener('click',()=>{
+                if(!developerOptionsEnabled)return;
+                document.getElementById('dev-update-version').value=document.getElementById('app-version-text').dataset.version;
+                const build=document.getElementById('app-build-number').dataset.build;
+                document.getElementById('dev-update-build').value=/\d+$/.test(build)?build.replace(/\d+$/,n=>String(Number(n)+1)):build+'-1';
             });
-            document.getElementById('dev-hide-update')?.addEventListener('click',()=>{clearDeveloperUpdateSimulation();document.getElementById('dev-update-status').textContent='테스트 알림을 닫았습니다.';});
+            document.getElementById('dev-hide-update')?.addEventListener('click',()=>{clearDeveloperUpdateSimulation();document.getElementById('dev-update-status').textContent='시뮬레이션을 종료하고 기존 업데이트 상태로 복원했습니다.';});
 
             document.getElementById('dev-apply-clock')?.addEventListener('click',()=>{
                 const value=clockInput?.value, timestamp=value?new Date(value).getTime():NaN;
@@ -4733,7 +4827,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             });
             document.getElementById('dev-clear-scene')?.addEventListener('click',()=>{window.__dashboardDeveloperSceneOverride=null;document.getElementById('dev-scene-status').textContent='저장된 날씨 설정을 사용합니다.';});
             document.getElementById('dev-clear-all')?.addEventListener('click',resetDeveloperSimulations);
-            document.getElementById('dev-disable-options')?.addEventListener('click',()=>{resetDeveloperSimulations();setDeveloperOptionsEnabled(false);});
+            document.getElementById('dev-disable-options')?.addEventListener('click',()=>setDeveloperOptionsEnabled(false));
         }
 
         // --- 일정 및 UI 관련 유틸 함수 생략(기존 유지) ---
@@ -6102,7 +6196,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             });
             try { switchInfoTab('version'); } catch (e) {}
 
-            document.body.addEventListener('mousemove', updateSettingsButtonProximity);
+            document.body.addEventListener('mousemove', scheduleSettingsButtonProximity,{passive:true});
 
             document.querySelectorAll('.sidebar-item').forEach(item => {
                 item.addEventListener('click', () => {
@@ -6335,6 +6429,60 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         switchSettingsView(notificationSettingsTarget(notification));
     }
 
+    function renderNotificationMessage(element,notification) {
+        let text=element.querySelector('.notification-message-text');
+        if(!text){text=document.createElement('span');text.className='notification-message-text';element.replaceChildren(text);}
+        if(text.textContent!==notification.message)text.textContent=notification.message;
+        let track=element.querySelector('.notification-progress-track');
+        const progress=notification.offlineProgress;
+        if(!progress)track?.remove();
+        else{
+        if(!track){
+            track=document.createElement('span');track.className='notification-progress-track';
+            track.setAttribute('role','progressbar');track.setAttribute('aria-label','오프라인 작업 진행률');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax','100');
+            const fill=document.createElement('span');fill.className='notification-progress-fill';track.append(fill);element.append(track);
+        }
+        if(track.getAttribute('aria-valuenow')!==String(progress.percent))track.setAttribute('aria-valuenow',String(progress.percent));
+        if(track.firstElementChild.style.width!==progress.percent+'%')track.firstElementChild.style.width=progress.percent+'%';
+        }
+        let actions=element.querySelector('.notification-operation-actions');
+        const operation=notification.offlineOperation;
+        if(!operation){actions?.remove();return;}
+        if(!actions){
+            actions=document.createElement('span');actions.className='notification-operation-actions';
+            for(const action of ['pause','cancel']){
+                const button=document.createElement('button');button.type='button';button.dataset.cacheAction=action;
+                button.addEventListener('click',event=>{
+                    event.stopPropagation();
+                    const api=window.ADKOfflineCache;if(!api)return;
+                    if(action==='cancel')api.cancel();else if(api.state?.paused)api.resume();else api.pause();
+                    resetNotificationIdleTimer();
+                });actions.append(button);
+            }
+            element.append(actions);
+        }
+        const [pause,cancel]=actions.children;
+        const pauseLabel=operation.paused?'재개':'일시 정지';if(pause.textContent!==pauseLabel)pause.textContent=pauseLabel;
+        if(cancel.textContent!=='취소')cancel.textContent='취소';
+        const disabled=operation.cancelling||operation.committing;
+        if(pause.disabled!==disabled)pause.disabled=disabled;if(cancel.disabled!==disabled)cancel.disabled=disabled;
+    }
+
+    function updateNotificationContent(notification) {
+        // Progress is passive: retain preview expiry, idle timeout, focus, and swipe state.
+        const card=document.getElementById('card-'+notification.id);
+        if(notificationListIsOpen()&&card&&card.dataset.dismissing!=='true'){
+            renderNotificationMessage(card.querySelector('.notification-message'),notification);
+            card.setAttribute('aria-label',notification.title+' · '+notification.message+' · 관련 설정 열기');
+            scheduleNotificationSurfaces();
+        }
+        const pill=document.getElementById('custom-notification-pill');
+        if(notificationPillId===notification.id&&!pill.hidden&&pill.dataset.dismissing!=='true'){
+            pill.querySelector('.notification-preview-message').textContent=notification.message;
+            pill.setAttribute('aria-label',notification.title+' · '+notification.message+' · 전체 알림 열기');
+        }
+    }
+
     function renderNotificationList() {
         const container=document.getElementById('custom-notification-container');
         container.replaceChildren();
@@ -6359,7 +6507,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                 dismiss.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';
                 dismiss.addEventListener('click',event=>{event.stopPropagation();dismissNotification(notification.id);});
                 header.append(source,dismiss);
-                const message=document.createElement('p');message.textContent=notification.message;
+                const message=document.createElement('p');message.className='notification-message';renderNotificationMessage(message,notification);
                 card.append(header,message);
                 card.addEventListener('click',()=>openNotificationSettings(notification.id));
                 card.addEventListener('keydown',event=>{if(event.target===card&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openNotificationSettings(notification.id);}});
@@ -6416,7 +6564,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
             if(event.pointerType==='mouse'&&event.buttons===0){stop(event);return;}
             drag.deltaY=event.clientY-drag.y;
             if(!drag.wasOpen&&!drag.opened&&event.clientY-drag.y>=16&&Math.abs(event.clientX-drag.x)<80){drag.opened=true;showAllNotifications();}
-            if(drag.opened||drag.wasOpen){positionNotificationSurfaces();resetNotificationIdleTimer();}
+            if(drag.opened||drag.wasOpen){scheduleNotificationSurfaces();resetNotificationIdleTimer();}
         });
         const stop=event=>{
             const drag=notificationHandleDrag;if(!drag||drag.id!==event.pointerId)return;
@@ -7812,7 +7960,8 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     }
     cloudCtx.globalAlpha=1;
   }
-  let weatherDiagnosticsEnabled=false,weatherDiagnosticsLastAt=0,weatherDiagnosticsFrames=0;
+  let weatherDiagnosticsEnabled=false,weatherDiagnosticsLastAt=0,weatherDiagnosticsFrames=0,developerFrameSampler=null;
+  window.addEventListener('standby-diagnostics-performance-change',event=>{developerFrameSampler=typeof event.detail?.sample==='function'?event.detail.sample:null;});
   let weatherDiagnosticsCard=null,weatherDiagnosticsOverlay=null,weatherDiagnosticsFloating=null;
   function updateWeatherDiagnostics(now,force=false) {
     if(!weatherDiagnosticsEnabled)return;
@@ -7840,7 +7989,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     weatherDiagnosticsLastAt=now;weatherDiagnosticsFrames=0;
   }
   function setWeatherDiagnostics(enabled) {
-    weatherDiagnosticsEnabled=enabled===true;weatherDiagnosticsFrames=0;weatherDiagnosticsLastAt=performance.now();
+    weatherDiagnosticsEnabled=enabled===true&&window.__dashboardDeveloperOptionsEnabled?.()===true;weatherDiagnosticsFrames=0;weatherDiagnosticsLastAt=performance.now();
     const toggle=$('dev-weather-diagnostics-toggle');if(toggle)toggle.checked=weatherDiagnosticsEnabled;
     if(weatherDiagnosticsOverlay)weatherDiagnosticsOverlay.hidden=!weatherDiagnosticsEnabled;
     if(weatherDiagnosticsEnabled)updateWeatherDiagnostics(weatherDiagnosticsLastAt,true);
@@ -7853,6 +8002,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
     $('dev-clear-all')?.addEventListener('click',()=>setWeatherDiagnostics(false));
     $('dev-disable-options')?.addEventListener('click',()=>setWeatherDiagnostics(false));
     setWeatherDiagnostics(false);
+    window.addEventListener('standby-developer-options-change',event=>{if(!event.detail?.enabled)setWeatherDiagnostics(false);});
   }
   function normalizePrecipitationData(data) {
     if(!data||typeof data!=='object') return null;
@@ -8383,6 +8533,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
       weatherWorkScale=clamp(weatherWorkScale+clamp(target-weatherWorkScale,-.25,.08),.55,1);lastBudgetUpdate=now;
     }
     if(weatherDiagnosticsEnabled)updateWeatherDiagnostics(now);
+    if(developerFrameSampler)developerFrameSampler(now,previousFrameCost);
     // Keep one rAF pending, with bounded work on high-refresh and slower devices.
     nextFrameAt=now+1000/(lowPower||weatherWorkScale<.8?30:60);
     if(weatherFrameRunning && !document.hidden && document.documentElement.dataset.theme==='weather') scheduleWeatherFrame(generation);
@@ -8795,7 +8946,7 @@ input[type="checkbox"]:not(.glass-checkbox-input):focus-visible{outline:2px soli
 #settings-modal .settings-details>.glass-section:has(#show-school-logo),#settings-modal .settings-details>.glass-section:has(#show-school-name){display:flex;flex-direction:column;gap:10px}
 #settings-modal .settings-details>.glass-section:has(#show-school-logo) h5,#settings-modal .settings-details>.glass-section:has(#show-school-name) h5{margin-bottom:4px}
 </style><style id="settings-spacing-and-reset-polish">#settings-modal .glass-section:has(#fullscreen-on-start),#settings-modal .glass-section:has(#show-school-logo),#settings-modal .glass-section:has(#show-school-name){padding:10px 12px!important;margin:0 0 8px!important}#settings-modal .glass-section:has(#show-school-logo) .glass-checkbox-label,#settings-modal .glass-section:has(#show-school-name) .glass-checkbox-label{justify-content:flex-start!important;gap:10px!important;margin:0!important}#settings-modal .glass-section:has(#show-school-logo) .glass-checkbox-box,#settings-modal .glass-section:has(#show-school-name) .glass-checkbox-box{margin-left:0!important}#system-view #reset-schedule-btn,#system-view #reset-message-btn,#system-view #reset-all-btn{justify-content:center!important;text-align:center!important;padding:14px 18px!important}#system-view #reset-schedule-btn>span,#system-view #reset-message-btn>span,#system-view #reset-all-btn>span{width:100%;text-align:center!important}#settings-modal .settings-details>.glass-section:has(#fullscreen-on-start),#settings-modal .settings-details>.glass-section:has(#show-school-logo),#settings-modal .settings-details>.glass-section:has(#show-school-name){min-height:0!important;padding:10px 12px!important;margin:0 0 8px!important}#settings-modal .settings-details>.glass-section:has(#show-school-logo),#settings-modal .settings-details>.glass-section:has(#show-school-name){gap:4px!important}</style><script id="oneui-update-menu-and-version">
-(()=>{const root=document.documentElement;function setup(){const version=document.getElementById('app-version-text'),hero=document.getElementById('software-version-hero-value'),runtime=document.getElementById('software-runtime-info'),school=document.getElementById('software-school-name');if(school)school.textContent=localStorage.getItem('dashboardSchoolName')||'대륜고등학교';if(version&&hero)hero.textContent=version.dataset.version||version.textContent.trim();if(runtime)runtime.textContent=(navigator.userAgentData?.platform||navigator.platform||'브라우저 환경');const view=document.getElementById('update-view');if(!view||view.dataset.menuReady)return;view.dataset.menuReady='true';const title=view.querySelector(':scope > h4'),sections=[...view.querySelectorAll(':scope > .glass-section')];if(!title||!sections.length)return;const host=document.createElement('span');host.className='update-settings-menu';const trigger=document.createElement('button');trigger.type='button';trigger.className='update-settings-trigger';trigger.setAttribute('aria-label','업데이트 설정');trigger.setAttribute('aria-expanded','false');trigger.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>';const popup=document.createElement('div');popup.className='update-settings-popup';popup.hidden=true;host.append(trigger,popup);title.append(host);sections.forEach(section=>popup.append(section));trigger.addEventListener('click',()=>{popup.hidden=!popup.hidden;trigger.setAttribute('aria-expanded',String(!popup.hidden))});document.addEventListener('pointerdown',e=>{if(!host.contains(e.target)){popup.hidden=true;trigger.setAttribute('aria-expanded','false')}});document.addEventListener('keydown',e=>{if(e.key==='Escape'){popup.hidden=true;trigger.setAttribute('aria-expanded','false')}})}window.addEventListener('school-profile-updated',event=>{const school=document.getElementById('software-school-name');if(school)school.textContent=event.detail?.name||localStorage.getItem('dashboardSchoolName')||'대륜고등학교'});window.addEventListener('storage',event=>{if(event.key==='dashboardSchoolName'){const school=document.getElementById('software-school-name');if(school)school.textContent=event.newValue||'대륜고등학교'}});if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();new MutationObserver(()=>{const v=document.getElementById('app-version-text'),h=document.getElementById('software-version-hero-value');if(v&&h){const value=v.dataset.version||v.textContent.trim();if(h.textContent!==value)h.textContent=value}}).observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['data-version']});
+(()=>{const root=document.documentElement;function setup(){const version=document.getElementById('app-version-text'),hero=document.getElementById('software-version-hero-value'),runtime=document.getElementById('software-runtime-info'),school=document.getElementById('software-school-name');if(school)school.textContent=localStorage.getItem('dashboardSchoolName')||'대륜고등학교';if(version&&hero)hero.textContent=version.dataset.version||version.textContent.trim();if(runtime)runtime.textContent=(navigator.userAgentData?.platform||navigator.platform||'브라우저 환경');const view=document.getElementById('update-view');if(!view||view.dataset.menuReady)return;view.dataset.menuReady='true';const title=view.querySelector(':scope > h4'),sections=[...view.querySelectorAll(':scope > .glass-section')];if(!title||!sections.length)return;const host=document.createElement('span');host.className='update-settings-menu';const trigger=document.createElement('button');trigger.type='button';trigger.className='update-settings-trigger';trigger.setAttribute('aria-label','업데이트 설정');trigger.setAttribute('aria-expanded','false');trigger.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>';const popup=document.createElement('div');popup.className='update-settings-popup';popup.hidden=true;host.append(trigger,popup);title.append(host);sections.forEach(section=>popup.append(section));trigger.addEventListener('click',()=>{popup.hidden=!popup.hidden;trigger.setAttribute('aria-expanded',String(!popup.hidden))});document.addEventListener('pointerdown',e=>{if(!host.contains(e.target)){popup.hidden=true;trigger.setAttribute('aria-expanded','false')}});document.addEventListener('keydown',e=>{if(e.key==='Escape'){popup.hidden=true;trigger.setAttribute('aria-expanded','false')}})}window.addEventListener('school-profile-updated',event=>{const school=document.getElementById('software-school-name');if(school)school.textContent=event.detail?.name||localStorage.getItem('dashboardSchoolName')||'대륜고등학교'});window.addEventListener('storage',event=>{if(event.key==='dashboardSchoolName'){const school=document.getElementById('software-school-name');if(school)school.textContent=event.newValue||'대륜고등학교'}});if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();new MutationObserver(()=>{const v=document.getElementById('app-version-text'),h=document.getElementById('software-version-hero-value');if(v&&h){const value=v.dataset.version||v.textContent.trim();if(h.textContent!==value)h.textContent=value}}).observe(document.getElementById('app-version-text'),{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['data-version']});
 })();
 </script><script id="oneui-update-screen-menu-finish">
 (()=>{function setup(){const source=document.getElementById('app-version-text'),updateVersion=document.getElementById('update-version-hero-value');if(source&&updateVersion)updateVersion.textContent=source.dataset.version||source.textContent.trim();const view=document.getElementById('update-view'),menu=view?.querySelector('.update-settings-menu'),popup=menu?.querySelector('.update-settings-popup'),trigger=menu?.querySelector('.update-settings-trigger'),release=document.getElementById('view-release-notes-btn');if(trigger)trigger.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>';if(popup&&release&&!popup.contains(release)){const section=document.createElement('section');section.className='glass-section update-release-menu-item';section.append(release);popup.append(section)} }if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();const source=document.getElementById('app-version-text');if(source)new MutationObserver(()=>{const target=document.getElementById('update-version-hero-value');if(target)target.textContent=source.dataset.version||source.textContent.trim()}).observe(source,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['data-version']})})();
@@ -8913,7 +9064,7 @@ input[type="checkbox"]:not(.glass-checkbox-input):focus-visible{outline:2px soli
 #settings-modal :is(#pip-view,#release-notes-view,#display-view,#broadcasts-view,#play-view,#custom-text-view,#schedule-edit-view,#profile-view,#background-view,#info-view,#developer-options-view)>h4:first-child{display:none!important}
 #settings-modal #update-view>h4:first-child{font-size:0!important;line-height:0!important;border:0!important;padding:0!important;margin:0 0 4px!important}
 </style><style id="system-reset-section-spacing">
-#settings-modal #system-view>h4{width:100%;text-align:center!important;box-sizing:border-box}
+#settings-modal #system-view>h4{width:100%;text-align:left!important;box-sizing:border-box}
 #settings-modal #system-view>h4:first-of-type{margin:20px 0 20px!important;padding-bottom:12px!important}
 #settings-modal #system-view>h4:nth-of-type(2){margin:40px 0 20px!important;padding-bottom:12px!important}
 </style><style id="clock-editor-scrollbar-unification">
@@ -9207,6 +9358,15 @@ body.bg-darken #settings-modal::before,body.bg-darken #settings-modal .glass-sec
 #custom-notification-container.notification-list.open::before{content:none!important}
 #custom-notification-container .notification-card{min-width:0!important;max-width:100%!important;flex-shrink:0;box-sizing:border-box;cursor:pointer}
 #custom-notification-container .notification-card>p{min-width:0;max-width:none!important;white-space:normal;overflow-wrap:anywhere!important}
+#custom-notification-container .notification-progress-track{display:block;width:100%;height:4px;margin-top:8px;border-radius:999px;overflow:hidden;background:var(--settings-track,#ffffff26)}
+#custom-notification-container .notification-progress-fill{display:block;height:100%;border-radius:inherit;background:var(--settings-accent,#91c6df)}
+.offline-cache-actions,.notification-operation-actions{display:flex;flex-wrap:wrap;gap:8px}
+.offline-cache-actions[hidden]{display:none!important}
+.offline-cache-actions>button{flex:1;min-width:0}
+.notification-operation-actions{margin-top:10px}
+#custom-notification-container .notification-operation-actions>button{min-height:30px;padding:6px 12px;border:1px solid var(--settings-border);border-radius:999px;background:var(--settings-card-2);color:var(--settings-text);font-size:12px;line-height:1.3;cursor:pointer;white-space:nowrap;text-shadow:none}
+#custom-notification-container .notification-operation-actions>button:focus-visible{outline:2px solid var(--settings-accent);outline-offset:2px}
+#custom-notification-container .notification-operation-actions>button:disabled{opacity:.5;cursor:default}
 #custom-notification-container .notification-card .notification-source-title{max-width:130px}
 #custom-notification-container .notification-card .notification-card-source{flex-shrink:1!important;min-width:0}
 #custom-notification-container .notification-card:focus-visible{outline:2px solid var(--settings-accent,#70c4df)!important;outline-offset:-3px}
@@ -9220,6 +9380,22 @@ body.bg-darken #settings-modal::before,body.bg-darken #settings-modal .glass-sec
 body.low-performance-mode #custom-notification-pill{animation:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 @media(max-width:640px){#custom-notification-container .notification-card{gap:8px!important;padding:10px 13px!important}#custom-notification-container .notification-card .notification-source-title{max-width:85px}#custom-notification-container .notification-card p{font-size:13px!important}#custom-notification-container .notification-source-icon{width:26px!important;height:26px!important;min-width:26px!important;flex-basis:26px!important}}
 @media(prefers-reduced-motion:reduce){#custom-notification-pill{animation:none!important}#notification-control{transition:none}}
+</style>
+<style id="light-notification-colors">
+.developer-diagnostics-output{max-height:300px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.5 ui-monospace,Consolas,monospace;padding:12px;border-radius:12px;background:var(--settings-card-2);color:var(--settings-text);border:1px solid var(--settings-border)}
+#developer-performance-overlay[hidden]{display:none!important}
+#developer-performance-overlay{position:fixed;right:calc(var(--safe-right,0px) + 12px);top:calc(var(--safe-top,0px) + 70px);z-index:2147483646;width:min(330px,calc(100vw - var(--safe-left,0px) - var(--safe-right,0px) - 24px));max-height:65vh;overflow:auto;box-sizing:border-box;padding:12px;border:1px solid var(--settings-border);border-radius:16px;background:var(--settings-card);color:var(--settings-text);box-shadow:0 6px 24px #0003;contain:content}
+.developer-performance-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px}
+#developer-performance-close{width:28px;height:28px;padding:0;border:0;border-radius:50%;background:var(--settings-card-2);color:inherit;font:22px/1 system-ui;cursor:pointer}
+#developer-performance-output{margin:8px 0 0;font:11px/1.5 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+:root[data-theme="light"] #settings-modal [data-view="offline"] .settings-tab-icon{background:#3978e8!important}
+:root[data-theme="light"] #custom-notification-pill,:root[data-theme="light"] #custom-notification-container .notification-card{background:var(--settings-card)!important;color:var(--settings-text)!important;border-color:var(--settings-border)!important;box-shadow:0 6px 20px #00000012!important;text-shadow:none!important}
+:root[data-theme="light"] #custom-notification-pill :is(.notification-preview-title,.notification-preview-message,.notification-preview-icon),:root[data-theme="light"] #custom-notification-container :is(.notification-source-title,.notification-message,.notification-message-text,.notification-empty){color:var(--settings-text)!important;text-shadow:none!important}
+:root[data-theme="light"] #custom-notification-container .notification-source-icon{background:var(--settings-accent)!important;color:#fff!important}
+:root[data-theme="light"] #custom-notification-container .notification-source-icon svg{color:#fff!important;stroke:currentColor!important}
+:root[data-theme="light"] #custom-notification-container :is(.notification-clear-all,.notification-close-button){background:var(--settings-card-2)!important;color:var(--settings-text)!important;border-color:var(--settings-border)!important;text-shadow:none!important}
+:root[data-theme="light"] #custom-notification-container :is(.notification-clear-all,.notification-close-button):hover{background:var(--settings-border)!important}
+:root[data-theme="light"] #notification-toggle{color:var(--settings-text)!important}
 </style>
     <div id="quick-settings-control" class="quick-settings-control">
         <button id="quick-settings-toggle" class="drag-pill" type="button" aria-label="빠른 설정 열기" aria-expanded="false" aria-controls="quick-settings-panel" title="클릭하거나 아래로 당겨 빠른 설정 열기"></button>
@@ -9330,7 +9506,7 @@ body.low-performance-mode #quick-settings-panel{background:color-mix(in srgb,var
 </style>
 <script id="quick-settings-runtime">
     let quickSettingsOpen=false,quickSettingsDrag=null,quickSettingsSuppressClick=false,quickSettingsPositionFrame=0,quickSettingsCloseTimer=null;
-    let quickSettingsPointer={x:-1000,y:-1000},quickSettingsPreviousFocus=null,quickSettingsBindingCache=null;
+    let quickSettingsPointer={x:-1000,y:-1000},quickSettingsPreviousFocus=null,quickSettingsBindingCache=null,quickSettingsVisibilityFrame=0;
     const quickSettingsDateFormatter=new Intl.DateTimeFormat('ko-KR',{month:'long',day:'numeric',weekday:'long'});
 
     function quickSettingsIsOpen(){return quickSettingsOpen;}
@@ -9460,7 +9636,7 @@ body.low-performance-mode #quick-settings-panel{background:color-mix(in srgb,var
         };
         for(const type of ['pointerup','pointercancel'])window.addEventListener(type,stop);
         window.addEventListener('blur',()=>{if(quickSettingsDrag)stop({pointerId:quickSettingsDrag.id,type:'pointercancel'});});
-        document.addEventListener('mousemove',event=>{quickSettingsPointer={x:event.clientX,y:event.clientY};updateQuickSettingsVisibility();},{passive:true});
+        document.addEventListener('mousemove',event=>{quickSettingsPointer={x:event.clientX,y:event.clientY};if(!quickSettingsVisibilityFrame)quickSettingsVisibilityFrame=requestAnimationFrame(()=>{quickSettingsVisibilityFrame=0;updateQuickSettingsVisibility();});},{passive:true});
         document.addEventListener('click',event=>{
             if(quickSettingsSuppressClick){quickSettingsSuppressClick=false;return;}
             if(quickSettingsOpen&&!panel.contains(event.target)&&!handle.contains(event.target))closeQuickSettings();
@@ -9512,7 +9688,7 @@ body.low-performance-mode #quick-settings-panel{background:color-mix(in srgb,var
         const preview=document.getElementById('custom-notification-pill');
         document.addEventListener('pointerdown',event=>{
             notificationSwipeClickUntil=0;
-            if(event.button!==0||notificationSwipeDrag||event.target.closest('.notification-close-button'))return;
+            if(event.button!==0||notificationSwipeDrag||event.target.closest('.notification-close-button,.notification-operation-actions'))return;
             const element=event.target.closest('#custom-notification-pill,.notification-card[id^="card-"]');
             if(!element||element.dataset.dismissing==='true')return;
             const notificationId=element===preview?notificationPillId:element.id.slice(5);
