@@ -1043,7 +1043,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
         <div class="weather-diagnostics-heading"><strong>구름·강수 진단</strong><button type="button" id="weather-diagnostics-close" aria-label="구름 진단 닫기">×</button></div>
         <pre id="weather-render-diagnostics-output" class="weather-diagnostics-data"></pre>
     </aside>
-    <aside id="developer-performance-overlay" hidden aria-label="개발자 성능 표시"><div class="developer-performance-heading"><strong>실시간 성능</strong><button type="button" id="developer-performance-close" aria-label="성능 표시 닫기">×</button></div><pre id="developer-performance-output"></pre></aside>
+    <aside id="developer-performance-overlay" hidden popover="manual" aria-label="개발자 성능 표시"><div class="developer-performance-heading"><strong>실시간 성능</strong><button type="button" id="developer-performance-drag" class="drag-pill" aria-label="로깅 창 이동" title="드래그해 로깅 창 이동 · 방향키로 이동 · Home으로 기본 위치"></button><button type="button" id="developer-performance-close" aria-label="성능 표시 닫기">×</button></div><pre id="developer-performance-output"></pre></aside>
     <!-- weather-diagnostics-overlay-end -->
 
     <div id="default-animated-bg">
@@ -1297,8 +1297,14 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <!-- release-v2.8.0-start -->
                                 <div>
                                     <h5 class="font-bold text-blue-300 text-lg">v2.8.0</h5>
-                                    <p class="text-xs text-gray-400 mt-1">2026.11.28 · 빌드 Ko-Kr-Daeryun-hs-v.2.8.0-8</p>
+                                    <p class="text-xs text-gray-400 mt-1">2026.11.28 · 빌드 Ko-Kr-Daeryun-hs-v.2.8.0-10</p>
                                     <ul class="list-disc pl-5 text-sm text-gray-300 mt-2 space-y-1">
+                                        <li>실행 로그·API 원본·긴 작업을 항목 선택 없이 시간순 스크롤 목록으로 표시하고 새 기록 따라가기 및 읽던 위치 유지 지원</li>
+                                        <li>긴 작업·긴 프레임의 시작·종료 시각, 소요 시간, 당시 화면과 직전 입력 및 브라우저가 제공하는 스크립트·함수·문자 위치 기록</li>
+                                        <li>보관 중인 로그·API 원본·긴 작업·성능 표본 전체를 UTF-8 텍스트로 로컬 저장하고 수집 한도와 생략 내역 포함</li>
+                                        <li>진단 기록 크기·개수 제한, 변경된 행만 갱신, 숨김 시 화면 갱신 중단 및 잠금 시 수집·이벤트·임시 다운로드 해제</li>
+                                        <li>성능·로깅 표시 창의 기본 위치를 유지하고 pill 손잡이로 마우스·터치 이동, 방향키 이동 및 Home 기본 위치 복원 지원</li>
+                                        <li>표시 창 이동을 프레임 단위로 묶고 화면 여백·창 크기 변경 시 영역 안에 유지하며 숨김·개발자 잠금 시 드래그와 배치 작업 해제</li>
                                         <li>개발자 옵션에서 새 버전·새 빌드 비교와 강제 업데이트 카운트다운·건너뛰기·적용 준비를 실제 로직으로 시험하고 종료 시 기존 상태 복원</li>
                                         <li>개발자 옵션을 켠 동안에만 진단 모듈을 불러오고 API 원본·실행 로그·FPS·성능 수집을 선택적으로 실행</li>
                                         <li>API 원본 응답당 64KB·최근 20개 및 로그 최근 100개로 기록량을 제한하고 성능 표시를 초당 1회 갱신, 비활성·숨김 시 수집 및 측정 종료</li>
@@ -2000,7 +2006,7 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                                 <h5 class="software-info-title">소프트웨어 정보</h5>
                                 <div class="software-info-list">
                                     <div class="software-info-row"><span>ADK Dash 버전</span><p id="app-version-text" data-version="2.8.0">2.8.0</p></div>
-                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.8.0-8">Ko-Kr-Daeryun-hs-v.2.8.0-8</p></div>
+                                    <div class="software-info-row"><span>빌드 번호</span><p id="app-build-number" data-build="Ko-Kr-Daeryun-hs-v.2.8.0-10">Ko-Kr-Daeryun-hs-v.2.8.0-10</p></div>
                                     <div class="software-info-row"><span>기반</span><span>HTML5</span></div>
                                     <div class="software-info-row"><span>플랫폼</span><span>웹 애플리케이션</span></div>
                                     <div class="software-info-row"><span>실행 환경</span><span id="software-runtime-info">브라우저</span></div>
@@ -2032,11 +2038,15 @@ body.low-performance-mode #weather-scene canvas{display:none}body.low-performanc
                             </section>
                             <section class="glass-section p-4 space-y-3" id="dev-runtime-diagnostics">
                                 <h5 class="font-semibold">API 원본·실행 로그·성능</h5>
-                                <div class="flex flex-wrap gap-4 text-sm"><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-api-recording"><span class="glass-checkbox-box"></span><span>API 원본 기록</span></label><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-log-recording"><span class="glass-checkbox-box"></span><span>실행 로그 기록</span></label><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-performance-enabled"><span class="glass-checkbox-box"></span><span>FPS·성능 측정</span></label><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-performance-overlay"><span class="glass-checkbox-box"></span><span>화면에 성능 표시</span></label></div>
-                                <p class="text-xs text-white/60">기록을 켠 이후 요청부터 확인합니다. 원본은 응답당 최대 64KB·최근 20개, 로그는 최근 100개를 메모리에 보관합니다. 성능 표시는 초당 1회 갱신하며 숨긴 화면의 측정은 중지합니다.</p>
+                                <div class="developer-record-options text-sm"><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-api-recording"><span class="glass-checkbox-box"></span><span>API 원본 기록</span></label><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-log-recording"><span class="glass-checkbox-box"></span><span>실행 로그 기록</span></label><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-longtask-recording"><span class="glass-checkbox-box"></span><span>긴 작업 상세 기록</span></label><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-performance-enabled"><span class="glass-checkbox-box"></span><span>FPS·성능 측정</span></label><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-performance-overlay"><span class="glass-checkbox-box"></span><span>화면에 성능 표시</span></label></div>
+                                <p class="text-xs text-white/60">기록을 켠 이후 데이터부터 수집합니다. API는 응답당 최대 64KB·최근 20개, 로그는 항목당 최대 16,384자·최근 100개, 긴 작업·긴 프레임은 최근 200개, 성능 표본은 최근 120개를 보관합니다. 표시 갱신은 초당 1회이며 숨긴 화면은 다시 그리지 않습니다.</p>
                                 <pre id="dev-runtime-metrics" class="developer-diagnostics-output">성능 측정이 꺼져 있습니다.</pre>
-                                <div class="flex flex-wrap gap-2"><label class="flex-1 text-sm">기록<select id="dev-diagnostics-kind" class="glass-input w-full" data-native-select><option value="api">API 원본 응답</option><option value="log">실행 로그</option></select></label><label class="flex-1 text-sm">항목<select id="dev-diagnostics-entry" class="glass-input w-full" data-native-select><option value="">기록 없음</option></select></label><button type="button" id="dev-diagnostics-clear" class="glass-button">기록 지우기</button></div>
-                                <pre id="dev-diagnostics-detail" class="developer-diagnostics-output">기록할 항목을 켜고 기존 API 조회 기능을 사용하세요.</pre>
+                                <div class="developer-record-toolbar"><div role="tablist" aria-label="진단 기록 종류" class="developer-record-tabs"><button type="button" role="tab" id="dev-record-log" data-diagnostics-kind="log" aria-selected="true" aria-controls="dev-diagnostics-records" class="glass-button">실행 로그</button><button type="button" role="tab" id="dev-record-api" data-diagnostics-kind="api" aria-selected="false" aria-controls="dev-diagnostics-records" class="glass-button">API 원본</button><button type="button" role="tab" id="dev-record-task" data-diagnostics-kind="task" aria-selected="false" aria-controls="dev-diagnostics-records" class="glass-button">긴 작업</button></div><label class="glass-checkbox-label"><input type="checkbox" class="glass-checkbox-input" id="dev-diagnostics-follow" checked><span class="glass-checkbox-box"></span><span>새 기록 따라가기</span></label></div>
+                                <div id="dev-diagnostics-records" class="developer-record-list" role="tabpanel" tabindex="0" aria-labelledby="dev-record-log"><p class="diagnostics-empty">기록할 항목을 켜면 시간순으로 표시됩니다.</p></div>
+                                <p class="text-xs text-white/60">긴 작업은 50ms를 넘는 실행을 기록합니다. 브라우저가 제공한 프레임·스크립트 위치를 표시하며, 직전 입력과 화면 상태는 참고 정보입니다. 긴 작업과 같은 시점의 긴 프레임이 각각 기록될 수 있습니다.</p>
+                                <p id="dev-longtask-status" class="text-xs text-white/60"></p>
+                                <div class="flex flex-wrap gap-2"><button type="button" id="dev-diagnostics-export" class="glass-button">전체 기록 텍스트로 저장</button><button type="button" id="dev-diagnostics-clear" class="glass-button">기록 지우기</button></div>
+                                <p id="dev-diagnostics-export-status" class="text-xs text-white/60" role="status" aria-live="polite">현재 보관 중인 API 원본·로그·긴 작업·성능 표본 전체를 UTF-8 텍스트로 저장합니다. 한도로 생략된 데이터는 파일에 표시됩니다.</p>
                                 <p id="dev-diagnostics-status" class="text-xs text-white/60" aria-live="polite">개발자 옵션을 활성화한 동안만 사용할 수 있습니다.</p>
                             </section>
                             <section class="glass-section p-4 space-y-3">
@@ -9383,10 +9393,27 @@ body.low-performance-mode #custom-notification-pill{animation:none!important;bac
 </style>
 <style id="light-notification-colors">
 .developer-diagnostics-output{max-height:300px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.5 ui-monospace,Consolas,monospace;padding:12px;border-radius:12px;background:var(--settings-card-2);color:var(--settings-text);border:1px solid var(--settings-border)}
+.developer-record-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 16px}
+#settings-modal .developer-record-options>.glass-checkbox-label{width:auto!important;margin:0}
+.developer-record-toolbar,.developer-record-tabs{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.developer-record-toolbar{justify-content:space-between}
+#settings-modal .developer-record-toolbar>.glass-checkbox-label{width:auto!important;margin:0}
+#settings-modal .developer-record-tabs [aria-selected="true"]{background:var(--settings-accent)!important;color:var(--settings-bg)!important}
+.developer-record-list{height:420px;max-height:55vh;min-height:180px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;padding:10px;box-sizing:border-box;border:1px solid var(--settings-border);border-radius:14px;background:var(--settings-card-2);color:var(--settings-text)}
+.developer-record-list:focus-visible{outline:2px solid var(--settings-accent);outline-offset:2px}
+.developer-record-list .diagnostics-record{padding:10px 12px;margin-bottom:8px;border:1px solid var(--settings-border);border-radius:12px;background:var(--settings-card);content-visibility:auto;contain-intrinsic-size:auto 120px}
+.developer-record-list .diagnostics-record:last-child{margin-bottom:0;content-visibility:visible;contain-intrinsic-size:none}
+#settings-modal .diagnostics-record-heading{font:650 12px/1.45 ui-monospace,Consolas,monospace;overflow-wrap:anywhere;margin-bottom:7px}
+.developer-record-list .diagnostics-record-body{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.5 ui-monospace,Consolas,monospace}
 #developer-performance-overlay[hidden]{display:none!important}
-#developer-performance-overlay{position:fixed;right:calc(var(--safe-right,0px) + 12px);top:calc(var(--safe-top,0px) + 70px);z-index:2147483646;width:min(330px,calc(100vw - var(--safe-left,0px) - var(--safe-right,0px) - 24px));max-height:65vh;overflow:auto;box-sizing:border-box;padding:12px;border:1px solid var(--settings-border);border-radius:16px;background:var(--settings-card);color:var(--settings-text);box-shadow:0 6px 24px #0003;contain:content}
-.developer-performance-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px}
-#developer-performance-close{width:28px;height:28px;padding:0;border:0;border-radius:50%;background:var(--settings-card-2);color:inherit;font:22px/1 system-ui;cursor:pointer}
+#developer-performance-overlay{position:fixed;left:auto;bottom:auto;margin:0;right:calc(var(--safe-right,0px) + 12px);top:calc(var(--safe-top,0px) + 70px);z-index:2147483647;width:min(330px,calc(100vw - var(--safe-left,0px) - var(--safe-right,0px) - 24px));max-height:65vh;overflow:auto;box-sizing:border-box;padding:12px;border:1px solid var(--settings-border);border-radius:16px;background:var(--settings-card);color:var(--settings-text);box-shadow:0 6px 24px #0003;contain:content}
+.developer-performance-heading{display:grid;grid-template-columns:minmax(0,1fr) 76px minmax(0,1fr);align-items:center;gap:8px;font-size:13px}
+.developer-performance-heading>strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#developer-performance-drag{width:76px;height:24px;min-height:24px;touch-action:none}
+#developer-performance-drag::before{width:44px;height:6px}
+#developer-performance-drag.is-dragging{cursor:grabbing}
+#developer-performance-overlay.is-dragging{user-select:none;-webkit-user-select:none}
+#developer-performance-close{justify-self:end;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:var(--settings-card-2);color:inherit;font:22px/1 system-ui;cursor:pointer}
 #developer-performance-output{margin:8px 0 0;font:11px/1.5 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
 :root[data-theme="light"] #settings-modal [data-view="offline"] .settings-tab-icon{background:#3978e8!important}
 :root[data-theme="light"] #custom-notification-pill,:root[data-theme="light"] #custom-notification-container .notification-card{background:var(--settings-card)!important;color:var(--settings-text)!important;border-color:var(--settings-border)!important;box-shadow:0 6px 20px #00000012!important;text-shadow:none!important}
